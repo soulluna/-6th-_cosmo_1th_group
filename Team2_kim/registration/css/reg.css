@@ -23,39 +23,57 @@ body{
     box-shadow: 5px 5px 10px #444;
 }
 
-.reg-form h1{
-    text-align: center;
-    margin-bottom: 60px;
-}
 
 .secb{
     border-bottom: 2px solid #adadad;
     position: relative;
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 .secb .txtb{
+
     font-size: 15px;
     color:#333;
     border:none;
-    width:60%;
+    width:75%;
     outline: none;
     background: none;
     padding: 0 5px;
     height: 40px;
 }
 
-.secb .pwd_info {
-    display:block;
-    font-size:12px;
-    color:red;
+.secb .name::before{
+    content:attr(data-placeholder);
+    position: absolute;
+    top:50%;
+    left:5px;
+    color:#adadad;
+    transform:translateY(-50%);
+    z-index:-1;
+    transition: .5s;
 }
 
-.secb .pwd_c{
-    display:block;
-    font-size:12px;
-    color:red;
+/*테두리 그라디언트 후*/
+.secb .name::after{
+    content:'';
+    position: absolute;
+    left:0;
+    top:40px;
+    width:0%;
+    height: 2px; 
+    background: linear-gradient(120deg,#3498db,#8e44ad);
+    transition: .5s;
 }
+
+.focus + .name::before{
+    top:-5px;
+}
+.focus + .name::after{
+    width:100%;
+} 
+
+
+
 
 select{
     width:45%;
@@ -65,7 +83,8 @@ select{
 
 
 .secb .d_btn {
-    float:right;
+    
+    
     width:20%;
     height: 35px;
     border:none;
@@ -99,23 +118,3 @@ select.area2{
      
 }
 
-.secb .text::before{
-    content:'';
-    position: absolute;
-    top:50%;
-    left:5px;
-    color:#adadad;
-    transform:translateY(-50%);
-    z-index:-1;
-    transition: .5s;
-}
-
-
-.secb .text::after{
-    content:'';
-    position: absolute;
-    width:0%;
-    height: 2px; 
-    background: linear-gradient(120deg,#3498db,#8e44ad);
-    transition: .5s;
-}
