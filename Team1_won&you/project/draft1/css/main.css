@@ -1,0 +1,133 @@
+* {margin:0; padding:0}
+ol,ul{list-style: none;}
+a {outline:0; text-decoration-line: none;}
+img {border:0;}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:15px;
+    position:relative;
+    height:100%;
+}
+.content{
+    width:970px;
+    height:100%;
+    position: relative;
+    margin:0 auto;
+}
+.content .docName{
+    text-align: center;
+}
+
+/*docList.html*/
+/*문서 종류, 검색값, 검색 버튼*/
+.content .deptContent{
+    margin:15px 150px;
+}
+.deptContent select{
+    height:30px; outline: none;
+}
+.deptContent .searchInput{
+    width:200px; height:24px; padding-top:2px; margin:0 -4.5px;outline: none;
+}
+/*문서 리스트*/
+.deptContent .docListTable{
+    height:250px;
+    width: 700px;
+    table-layout: fixed;
+    text-align: center;
+    border: 2px inset #A4A4A4;
+    border-collapse: collapse; margin:10px 0
+}
+.deptContent .docListTable tr{
+    height:40px;
+}
+.deptContent .docListTable tr th{
+    background-color: #D8D8D8;
+}
+.deptContent .docListTable tr td{
+    overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+}
+/*문서 페이지, 작성 버튼*/
+.deptContent .pageButtonsCreatedoc{
+    text-align: center; position:relative; height:40px; line-height: 40px;
+}
+.deptContent .docCreate{
+    position:absolute; right:-10px; top:5px; padding:5px;
+}
+/*//docList.html*/
+
+
+/*vacation.html*/
+/*문서 선택*/
+.content .docSelecter{
+    position: absolute;
+    left:250px;
+    top:10px;
+    width:110px;height:30px;
+}
+/*결재 테이블*/
+.content .signtable{
+    overflow:hidden;
+    margin:0 60px 0 60px;
+}
+.content > .deptContent > .signtable >table{
+    border: 2px inset #A4A4A4;
+    border-collapse: collapse;
+}
+.content > .deptContent > .signtable >table th{
+    background-color: #D8D8D8;
+    padding: 5px 10px;
+    border-right: 1px solid #BDBDBD;
+    border-bottom: 1px solid #BDBDBD;
+}
+.content > .deptContent > .signtable >table td{
+    padding: 5px 10px;
+    border-right: 1px dashed #BDBDBD;
+    border-bottom: 1px dashed #BDBDBD;
+    text-align: center;
+}
+.content .signtable > .signtableleft{
+    float:left;
+}
+.content .signtable > .signtableright{
+    float:right;
+    text-align: center;
+}
+.content .signtable > .signtableright tr th{
+    width:80px;
+}
+
+.content .signtable > .signtableright tr td{
+    height:20px;
+}
+/*제목 및 등록 수정 버튼 등*/
+.inputarea{
+    margin:20px 0 0 25px;
+    position:relative;
+    height:100%;
+}
+.inputarea div{
+    position:relative;
+    height:40px; line-height: 40px;
+}
+.inputarea div{
+    position:absolute; right:20px; padding:5px;
+}
+.inputarea div button{
+padding:5px;
+margin:0 3px;
+}
+
+/*달력*/
+.wrap { width: 500px; margin: 0 auto; }
+.btn-holder { text-align: center; margin: 10px 0 10px 0; }
+#calendar table { border-collapse: collapse; text-align: center; }
+#calendar table thead td { height: 30px; font-weight: bold; }
+#calendar table td { border: solid 1px #000; }
+#calendar table td.date-cell { height: 50px; }
+#calendar table td.sun { color: red; }
+#calendar table td.sat { color: blue; }
+#calendar table td.not-this-month { background: #ddd; color: #999; }

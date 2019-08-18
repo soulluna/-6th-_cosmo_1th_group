@@ -1,0 +1,64 @@
+*{margin: 0; }
+ol,ul,li{list-style: none;}
+a{outline: 0; text-decoration: none; color:#555;}
+img{border: 0;}
+p:link    { text-decoration:underline; color:#8600E4 }
+p:visited { text-decoration:underline; color:#800080 }
+p:hover   { text-decoration:underline; color:#FF0000 }
+p:active  { text-decoration:underline; color:#FF0000 }
+p.no-uline:link    { text-decoration:none }
+p.no-uline:visited { text-decoration:none }
+p.no-uline:hover   { text-decoration:underline }
+p.no-uline:active  { text-decoration:none }
+
+.co1{width: 100px; text-align: center; padding: 5px 0;}
+.co2{width: 100px; text-align: center}
+.co3{width: 400px;}
+.co3>a>p{  overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    width: 350px; 
+  }
+.co4{width: 100px;text-align: center}
+.co5{width: 100px;text-align: center}
+.co6{width: 100px;text-align: center}
+
+
+
+
+body{ width:970px; margin: 50px auto 0; padding: 0; display: block; list-style: none;}
+h1{text-align: center;}
+
+
+.name{background-color: gray; border: 1px solid black;}
+
+.side{margin-top: 100px;float: left; padding-right: 40px;}
+.side>div{padding: 10px; width: 50px; height: 50px; border:1px solid black;}
+
+
+.line{border-collapse: collapse;}
+
+
+.page>li:first-of-type{margin-left: 40px; border-radius: 20px 0 0 20px;}
+.page>li:last-of-type{border-radius: 0 20px 20px 0;}
+.page> li{padding: 10px 20px; border: 1px solid black; float: left; margin: 0 auto 0;}
+
+
+.dlehd{padding: 20px 0; position: relative; padding-left: 100px}
+
+.wkrtjd{float: right;}
+.wkrtjd > a{border-radius: 10px; background: skyblue; border: 1px solid black; padding: 10px 20px;  
+        position: relative; top:10px;}
+
+
+
+
+.rjator{height: 40px; width: 400px; border: 1px solid #1b5ac2; background: #ffffff; text-align: left; float: left; margin: 20px 0 0 300px; padding-left: 30px;}
+
+input{font-size: 16px; width: 380px; padding: 10px; border: 0px; outline: none; float: left;}
+
+button{ width: 60px; height: 42px; border: 0px; background: #1b5ac2; outline: none; float: left; margin-left: 400px; margin-top: -39px;}
+
+button>a{color: white;}
+
+.tpqn{height: 42px; width: 100px; margin-top: 43px; position: absolute; margin-left: -613px; border: 1px solid blue;outline: none;}
