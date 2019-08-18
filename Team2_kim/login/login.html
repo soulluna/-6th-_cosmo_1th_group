@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>::Login Page::</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<form action="../main/index.html" class="login-form">
+    <div><img src="./img/logo3.gif"></div>
+
+    <div class ="txtb">
+        <input type="text">
+        <span data-placeholder="사원번호"></span>
+    </div>
+
+    <div class ="txtb">
+        <input type="password">
+        <span data-placeholder="비밀번호"></span>
+    </div>
+
+    <input type="submit" class="lgnbtn" value="Login">
+
+     <div class="bottom-text">
+         아이디가 없을 경우 <a href="../registration/reg1.html">회원가입</a>을 해주세요.
+    </div>
+
+</form>
+
+<script type="text/javascript">
+$(".txtb input").on("focus",function(){
+    $(this).addClass("focus");
+});
+
+$(".txtb input").on("blur",function(){
+    if($(this).val()=="")
+    $(this).removeClass("focus");
+});
+</script>
+
+</body>
+</html>
