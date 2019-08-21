@@ -1,0 +1,39 @@
+*{margin: 0; }
+ol,ul,li{list-style: none;}
+a{outline: 0; text-decoration: none; color:#555;}
+img{border: 0;}
+
+body{ width:970px; margin: 100px auto 0; padding: 0; display: block; list-style: none;}
+
+.rptlvks{padding: 50px 0 0; float: left;width: 450px;}
+.rptlvks > div{float: left; padding: 0 20px 0 0;}
+.tpqn1{height: 35px; width: 100px; position: absolute; border: 1px solid blue;outline: none; padding: 0 10px;}
+
+.wpahr{padding: 10px 10px; float: left;width: 520px;}
+.wpahr > div{float: left; }        
+.wpahrdlqfur > input{font-size: 16px; width: 400px; padding: 5px; border: 1px solid blue;outline: none; margin-left: 25px;}
+
+.cjaqnvkdlf{ float: left;width: 450px;}
+.cjaqnvkdlf > div{float: left; padding: 0 20px 0 0;}   
+button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left;}
+
+.rksrur{width: 130px; float: left;}
+button:last-of-type{float: right;}
+button>a{color: white;}
+
+img{width: 135px; height: auto;}
+textarea{margin-top: -25px;}
+
+.noresize {position: relative; top: 20px; width: 700px;
+        height: 300px;
+        resize: none; /* 사용자 임의 변경 불가 */
+        /* resize: both; /* 사용자 변경이 모두 가능 */
+        /*resize: horizontal; /* 좌우만 가능 */
+        /*resize: vertical; /* 상하만 가능 */ 
+         }
+.gkeks{padding-top: 40px;}
+.gkeks > div> button{width: 80px; height: 40px;}
+.rksrur_bottom_left{float: left}
+.rksrur_bottom_right{float: right; position: relative; right: 265px;}
+
+.rksrur_bottom_right>button:first-of-type{background-color: #555}
