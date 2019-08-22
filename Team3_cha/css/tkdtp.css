@@ -10,15 +10,20 @@ h2{padding-top: 50px;}
 .main_tkdtp>span{padding: 10px 5px; float:right;}
 
 .rmfdlehd>button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left;}
+
+.rmfdlehd>button:nth-child(3){float: right; width: 80px;}
 .rmfdlehd>button:last-of-type{float: right; width: 80px;}
+
 button>a{color: white;}
+
+.delete>button:first-of-type{float: left;width: 60px; height: 30px;color: white; background: black; outline: none;}
 .cncjsqjxms{width: 700px; position: relative; top: -5px;}
-.cncjsqjxms>button{width: 60px; height: 30px; background: aqua; outline: none; float: right;}
+.cncjsqjxms>button{width: 60px; height: 30px; background: aqua; outline: none; float: right; }
 
 .eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; outline: none; float: right;}
 
-.media{padding-top: 20px;}
-.media-body{border-bottom: 1px solid gray;}
+.media{padding-top: 30px;}
+.media-body{border-bottom: 1px solid gray;padding-top: 10px;}
 
 .cmt-good-btn{border: 1px solid black; width: 100px; float: right;}
 .cmt-good > p{float: left;}
