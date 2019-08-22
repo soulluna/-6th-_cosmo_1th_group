@@ -1,0 +1,39 @@
+*{margin: 0; }
+ol,ul,li{list-style: none;}
+a{outline: 0; text-decoration: none; color:#555;}
+img{border: 0;}
+body{width: 700px; margin: 0 auto 0;}
+
+h2{padding-top: 50px;}
+.main_tkdtp{width: 700px; height: 40px; background-color: #999;margin: 10px 0;}
+.main_tkdtp>p{float: left; padding: 10px 5px;}
+.main_tkdtp>span{padding: 10px 5px; float:right;}
+
+.rmfdlehd>button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left;}
+
+.rmfdlehd>button:nth-child(3){float: right; width: 80px;}
+.rmfdlehd>button:last-of-type{float: right; width: 80px;}
+
+button>a{color: white;}
+
+.delete>button:first-of-type{float: left;width: 60px; height: 30px;color: white; background: black; outline: none;}
+.cncjsqjxms{width: 700px; position: relative; top: -5px;}
+.cncjsqjxms>button{width: 60px; height: 30px; background: aqua; outline: none; float: right; }
+
+.eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; outline: none; float: right;}
+
+.media{padding-top: 30px;}
+.media-body{border-bottom: 1px solid gray;padding-top: 10px;}
+
+.cmt-good-btn{border: 1px solid black; width: 100px; float: right;}
+.cmt-good > p{float: left;}
+
+.text_sodyd {width: 700px; height: 300px;
+    resize: none; margin: 10px 0; /* 사용자 임의 변경 불가 */
+    /* resize: both; /* 사용자 변경이 모두 가능 */
+    /*resize: horizontal; /* 좌우만 가능 */
+    /*resize: vertical; /* 상하만 가능 */ 
+     }
+     .eotrmf{width: 700px; height: 100px;}
+     .eotrmfdlqfur{width: 700px; height: 100px;
+        resize: none; margin: 10px 0;}
