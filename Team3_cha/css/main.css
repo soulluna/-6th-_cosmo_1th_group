@@ -11,6 +11,86 @@ p.no-uline:visited { text-decoration:none }
 p.no-uline:hover   { text-decoration:underline }
 p.no-uline:active  { text-decoration:none }
 
+
+
+
+.fullWrap{
+    
+  width:970px;
+  background: #f1f1f1;
+  height: 108px;
+  border-radius: 10px 10px 0 0;
+  position: absolute;
+  left:50%;
+  top:100px;
+  transform : translate(-50%, -50%);
+  border-bottom: 5px solid black;
+  
+  text-decoration: none;
+  font-family:sans-serif;
+  list-style: none;
+  font-size:12px;
+}
+
+.logobar {
+  width:98%;
+  height: 63px;
+  /* background-image: linear-gradient(360deg,#f1f1f1 70%,#ccc); */
+}
+
+#mainLogo a img{
+  float:left;
+  width:100px;
+}
+
+
+.topBar {
+  
+  overflow: hidden;
+  width:100%;
+}
+
+#memberinfo{
+  display: block;
+  width:150px;
+  float:right;
+  padding-top:15px;
+}
+
+.topBar .t_menu{
+  float:left;
+  width:150px;
+  height:30px;
+  text-align: center;
+  line-height: 30px;
+  border:none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+  margin:15px 5px 0 5px;
+  font-weight: bold;
+  
+}
+.topBar .t_menu a {
+  color:#fff;
+}
+
+.topBar .t_menu a:visited {
+  color:#fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .co1{width: 100px; text-align: center; padding: 5px 0;}
 .co2{width: 100px; text-align: center}
 .co3{width: 400px;}
@@ -26,14 +106,14 @@ p.no-uline:active  { text-decoration:none }
 
 
 
-body{ width:970px; margin: 50px auto 0; padding: 0; display: block; list-style: none;}
-.logo{position: absolute;}
-.logo>a>img{width: 40%;}
+body{ width:970px; margin: 50px auto 0; padding: 0; display: block; list-style: none; background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:95vh}
+
+.wjdduf{padding-top: 130px; background: #f1f1f1;}
 h1{text-align: center;}
 
 .name{background-color: gray; border: 1px solid black;}
 
-.side{margin-top: 100px;float: left; padding-right: 40px;}
+.side{margin-top: 180px;float: left; padding-right: 40px;}
 .side>div{padding: 10px; width: 50px; height: 50px; border:1px solid black;}
 
 
@@ -66,3 +146,4 @@ button>a{color: white;}
 
 .tpqn{height: 42px; width: 100px;  position: absolute; margin-left: -500px; border: 1px solid blue;outline: none;}
 
+.gkeks{width: 970px; height: 50px; background-color: #f1f1f1;}

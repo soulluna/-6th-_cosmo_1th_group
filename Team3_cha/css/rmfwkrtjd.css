@@ -3,9 +3,85 @@ ol,ul,li{list-style: none;}
 a{outline: 0; text-decoration: none; color:#555;}
 img{border: 0;}
 
-body{ width:970px; margin: 100px auto 0; padding: 0; display: block; list-style: none;}
+body{ width:970px; margin: 100px auto 0; padding: 0; display: block; list-style: none;  background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:90vh;}
 
-.rptlvks{padding: 50px 0 0; float: left;width: 450px;}
+
+.fullWrap{
+        width:970px;
+        background: #f1f1f1;
+        height: 108px;
+        border-radius: 10px 10px 0 0;
+        position: absolute;
+        left:50%;
+        top:100px;
+        transform : translate(-50%, -50%);
+        border-bottom: 5px solid black;
+        
+        text-decoration: none;
+        font-family:sans-serif;
+        list-style: none;
+        font-size:12px;
+      }
+      
+      .logobar {
+        width:98%;
+        height: 63px;
+        /* background-image: linear-gradient(360deg,#f1f1f1 70%,#ccc); */
+      }
+      
+      #mainLogo a img{
+        float:left;
+        width:100px;
+      }
+      
+      
+      .topBar {
+        
+        overflow: hidden;
+        width:100%;
+      }
+      
+      #memberinfo{
+        display: block;
+        width:150px;
+        float:right;
+        padding-top:15px;
+      }
+      
+      .topBar .t_menu{
+        float:left;
+        width:150px;
+        height:30px;
+        text-align: center;
+        line-height: 30px;
+        border:none;
+        border-radius: 6px 6px 0 0;
+        cursor: pointer;
+        background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+        margin:15px 5px 0 5px;
+        font-weight: bold;
+      }
+      .topBar .t_menu a {
+        color:#fff;
+      }
+      
+      .topBar .t_menu a:visited {
+        color:#fff;
+      }
+      
+
+
+
+
+
+
+
+
+
+.wjdduf{width: 970px; background: #f1f1f1;}
+.wjddu{width: 700px; margin: 0 auto 0;}
+
+.rptlvks{padding: 100px 0 0; float: left;width: 450px;}
 .rptlvks > div{float: left; padding: 0 20px 0 0;}
 .tpqn1{height: 35px; width: 100px; position: absolute; border: 1px solid blue;outline: none; padding: 0 10px;}
 
@@ -21,8 +97,8 @@ button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: no
 button:last-of-type{float: right;}
 button>a{color: white;}
 
-img{width: 135px; height: auto;}
-textarea{margin-top: -25px;}
+.logo>a>img{width: 23%; position: absolute; margin: 70px 0 0 60px;}
+
 
 .noresize {position: relative; top: 20px; width: 700px;
         height: 300px;
@@ -31,9 +107,9 @@ textarea{margin-top: -25px;}
         /*resize: horizontal; /* 좌우만 가능 */
         /*resize: vertical; /* 상하만 가능 */ 
          }
-.gkeks{padding-top: 40px;}
+.gkeks{width: 700px; height: 50px; background-color: #f1f1f1; padding-top: 40px;}
 .gkeks > div> button{width: 80px; height: 40px;}
 .rksrur_bottom_left{float: left}
-.rksrur_bottom_right{float: right; position: relative; right: 265px;}
+.rksrur_bottom_right{float: right; position: relative;}
 
 .rksrur_bottom_right>button:first-of-type{background-color: #555}
