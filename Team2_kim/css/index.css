@@ -33,6 +33,12 @@ a:hover{
 .logobar {
     width:100%;
     height: 63px;
+
+}
+
+
+=======
+    /* background-image: linear-gradient(360deg,#f1f1f1 70%,#ccc); */
 }
 
 
@@ -49,6 +55,7 @@ a:hover{
 }
 
 #memberinfo{
+
     
     display: block;
     float:right;
@@ -96,6 +103,32 @@ a:hover{
     width:150px;
 }
 
+
+    display: block;
+    width:150px;
+    float:right;
+    padding-top:15px;
+}
+
+.topBar .t_menu{
+    float:left;
+    width:150px;
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    border:none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    margin:15px 5px 0 5px;
+    font-weight: bold;
+    
+}
+.topBar .t_menu a {
+    color:#fff;
+}
+
+
 .topBar .t_menu a:visited {
     color:#fff;
 }
@@ -104,7 +137,11 @@ a:hover{
     width:50%;
     height:505px;
     box-sizing: border-box;
+
     
+
+    border-right:1px solid #444;
+
     display: inline-block;
 }
 
@@ -116,11 +153,20 @@ a:hover{
     font-weight: bold;
     padding-left:5px;
     color:#fff;
+
 }
 
 .section_menu a {
     color:#fff;
 }
+
+
+}
+
+.section_menu a {
+    color:#fff;
+}
+
 
 .section_menu a:visited {
     color:#fff;
