@@ -14,8 +14,26 @@
 </head>
 
 <body>
-    <div class="logo">
-        <a herf="MainPage.html"><img src="./img/logo3.gif"></a>
+    <div class="fullWrap">
+
+        <ul class="logobar">
+            <li id="mainLogo"><a href="../Team2_kim/index.html"><img src="../Team2_kim/img/logo3.gif"></a></li>
+
+            <li id="memberinfo">
+                관리자 님 환영합니다.<br>
+                <a href="../Team2_kim/login/login.html">로그아웃</a>
+            </li>
+        </ul>
+
+        <!--nav bar-->
+        <ul class="topBar">
+            <li id="main" class="t_menu btn3"> <a href="../Team2_kim/index.html">메인</a></li>
+            <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a>
+            </li>
+            <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
+
+
+        </ul>
     </div>
     <div class="side">
         <div><a href="./noticeboardMain.html">전체</a></div>
@@ -237,16 +255,17 @@
         </div> -->
             <div class="wkrtjd"><a href="./write.html">글쓰기</a></div>
         </div>
-
-        <div class="rjator">
-            <input type="text" placeholder="검색어 입력">
-            <button><a href="#">검색</a></button>
+        <div class="gkeks">
+            <div class="rjator">
+                <input type="text" placeholder="검색어 입력">
+                <button><a href="#">검색</a></button>
+            </div>
+            <select class="tpqn">
+                <option value="제목">제목</option>
+                <option value="제목+내용">제목+내용</option>
+                <option value="작성자">작성자</option>
+            </select>
         </div>
-        <select class="tpqn">
-            <option value="제목">제목</option>
-            <option value="제목+내용">제목+내용</option>
-            <option value="작성자">작성자</option>
-        </select>
     </div>
     <script src="./js/rptlvks.js"></script>
 </body>
