@@ -34,60 +34,70 @@
             <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
         </ul>
     </div>
+    <!--li클릭시 페이지 이동-->
+    <script>
+        $(document).ready(function () {
+            $(".topBar").children("li").click(function () {
+                var new_page = $(this).children("a").attr("href");
+                location.href = new_page;
+            });
+        });
+    </script>
+    <!--//li클릭시 페이지 이동-->
     <div class="wjdduf">
         <div class="wjddu">
-        <div class="rptlvks">
-            <div>
-                <h2>게시판</h2>
+            <div class="rptlvks">
+                <div>
+                    <h2>게시판</h2>
+                </div>
+                <div>
+                    <select class="tpqn1">
+                        <option value="부서">부서</option>
+                        <option value="취미">취미</option>
+                        <option value="자유">자유</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <select class="tpqn1">
-                    <option value="부서">부서</option>
-                    <option value="취미">취미</option>
-                    <option value="자유">자유</option>
-                </select>
+            <div class="wpahr">
+                <div>
+                    <h2>제 목</h2>
+                </div>
+                <div class="wpahrdlqfur">
+                    <input type="text" placeholder="제목을 입력해주세요">
+                </div>
             </div>
-        </div>
-        <div class="wpahr">
-            <div>
-                <h2>제 목</h2>
-            </div>
-            <div class="wpahrdlqfur">
-                <input type="text" placeholder="제목을 입력해주세요">
-            </div>
-        </div>
 
-        <div class="cjaqnvkdlf">
-            <div>
-                <h2>첨부파일</h2>
+            <div class="cjaqnvkdlf">
+                <div>
+                    <h2>첨부파일</h2>
+                </div>
+                <div class="rksrur">
+                    <button><a href="#">사진</a></button>
+                    <button><a href="#">파일</a></button>
+                </div>
             </div>
-            <div class="rksrur">
-                <button><a href="#">사진</a></button>
-                <button><a href="#">파일</a></button>
+
+            <div class="logo">
+                <a herf="MainPage.html"><img src="../Team2_kim/img/logo3.gif"></a>
             </div>
-        </div>
 
-        <div class="logo">
-            <a herf="MainPage.html"><img src="../Team2_kim/img/logo3.gif"></a>
-        </div>
-
-        <div class="zmrl">
-            <textarea class="noresize" placeholder="내용을 입력해주세요."></textarea>
-        </div>
-        <div class="gkeks">
-            <div class="rksrur_bottom_left">
-                <button><a href="./noticeBoardMain.html">돌아가기</a></button>
-
+            <div class="zmrl">
+                <textarea class="noresize" placeholder="내용을 입력해주세요."></textarea>
             </div>
-            <div class="rksrur_bottom_right">
+            <div class="gkeks">
+                <div class="rksrur_bottom_left">
+                    <button><a href="./noticeBoardMain.html">돌아가기</a></button>
 
-                <button><a href="#">임시저장</a></button>
+                </div>
+                <div class="rksrur_bottom_right">
 
-                <button><a href="./noticeBoardMain.html">작성하기</a></button>
+                    <button><a href="#">임시저장</a></button>
+
+                    <button><a href="./noticeBoardMain.html">작성하기</a></button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <script src="./js/rmfwkrtjd.js"></script>
 </body>
 
