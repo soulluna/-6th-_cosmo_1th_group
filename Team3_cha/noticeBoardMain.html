@@ -33,6 +33,16 @@
             <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
             <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
         </ul>
+        <!--li클릭시 페이지 이동-->
+        <script>
+            $(document).ready(function () {
+                $(".topBar").children("li").click(function () {
+                    var new_page = $(this).children("a").attr("href");
+                    location.href = new_page;
+                });
+            });
+        </script>
+        <!--//li클릭시 페이지 이동-->
     </div>
 
     <div class="side">

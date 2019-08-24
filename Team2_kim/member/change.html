@@ -12,112 +12,114 @@
 
 <body>
     <form action="../index.html">
-    <div class="fullWrap">
-
-        <ul class="logobar">
+        <div class="fullWrap">
+            <ul class="logobar">
                 <li id="mainLogo"><a href="../index.html"><img src="./img/logo3.gif"></a></li>
 
                 <table id="memberinfo">
                     <tbody>
-                    <tr>
-                        <td id="profile_img" rowspan="2"><img src="http://placehold.it/50x50"></td>
-                        <td colspan="2">관리자 님 환영합니다.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="../login/login.html">로그아웃</a>
-                        <a href="./confirm.html">내정보수정</a></td>
-                    </tr>
+                        <tr>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/50x50"></td>
+                            <td colspan="2">관리자 님 환영합니다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="../login/login.html">로그아웃</a>
+                                <a href="./confirm.html">내정보수정</a></td>
+                        </tr>
                     </tbody>
                 </table>
-        </ul>
-    
-        <!--nav bar-->
-        <ul class="topBar">
-            
-            <li id="main" class="t_menu btn3"> <a href="../index.html
+            </ul>
+
+            <!--nav bar-->
+            <ul class="topBar">
+                <li id="main" class="t_menu btn3"> <a href="../index.html
                 ">메인</a></li>
-            <li id="system" class="t_menu btn1"> <a href="../../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a></li>
-            <li id="board" class="t_menu btn2"> <a href="../../Team3_cha/noticeBoardMain.html">게시판</a></li>
-            <li id="info_tab" class="t_menu btn4"> <a href="./confirm.html">내정보수정</a></li>            
-        </ul>
-        <!--//nav bar-->
+                <li id="system" class="t_menu btn1"> <a
+                        href="../../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a></li>
+                <li id="board" class="t_menu btn2"> <a href="../../Team3_cha/noticeBoardMain.html">게시판</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="./confirm.html">내정보수정</a></li>
+            </ul>
+            <!--//nav bar-->
+            <!--li클릭시 페이지 이동-->
+            <script>
+                $(document).ready(function () {
+                    $(".topBar").children("li").click(function () {
+                        var new_page = $(this).children("a").attr("href");
+                        location.href = new_page;
+                    });
+                });
+            </script>
+            <!--//li클릭시 페이지 이동-->
+            <!--top_side-->
+            <div id="top_section">
+                <div class="section_menu">사원정보</div>
+                <table id="info_table">
+                    <tbody class="filebox">
+                        <tr>
+                            <td rowspan="4" align="center"><img src="http://placehold.it/120x150"><br>
+                                <input type="file" id="img">
+                                <label for="img">첨부</label>
+                            </td>
+                            <td class="text_info">사번</td>
+                            <td><input type="text" readonly></td>
 
+                            <td class="text_info">부서</td>
 
-        <!--top_side-->
-        <div id="top_section">
-            <div class="section_menu">사원정보</div>
-
-
-            <table id="info_table">
-                <tbody class="filebox">
-                     
-                    <tr>
-                        <td rowspan="4" align="center"><img src="http://placehold.it/120x150"><br>
-                        
-                        <input type="file" id="img">
-                        <label for="img">첨부</label>
-                        </td>
-                        <td class="text_info">사번</td>
-                        <td><input type="text" readonly></td>
-
-                        <td class="text_info">부서</td>
-                        
-                        <td><select class="area">
-                            <option value="default">선택하세요</option>
-                            <option value="department">부서</option>
-                            <option value="sales">영업부</option>
-                            <option value="personal">인사부</option>
-                            <option value="tech">기술지원팀</option>
+                            <td><select class="area">
+                                    <option value="default">선택하세요</option>
+                                    <option value="department">부서</option>
+                                    <option value="sales">영업부</option>
+                                    <option value="personal">인사부</option>
+                                    <option value="tech">기술지원팀</option>
                                 </select>
-                        </td>
+                            </td>
 
-                        <td class="text_info">소속</td>
-                        <td>
-                            <select class="area">
-                            <option value="default">선택하세요</option>
-                            <option value="department">부서</option>
-                            <option value="sales">영업부</option>
-                            <option value="personal">인사부</option>
-                            <option value="tech">기술지원팀</option>
+                            <td class="text_info">소속</td>
+                            <td>
+                                <select class="area">
+                                    <option value="default">선택하세요</option>
+                                    <option value="department">부서</option>
+                                    <option value="sales">영업부</option>
+                                    <option value="personal">인사부</option>
+                                    <option value="tech">기술지원팀</option>
                                 </select>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text_info">입사일</td>
+                            <td><input type="date" readonly></td>
+                            <td class="text_info">직급</td>
+                            <td><input type="text"></td>
+                        </tr>
 
-                    <tr>
-                        <td class="text_info">입사일</td>
-                        <td><input type="date" readonly></td>
-                        <td class="text_info">직급</td>
-                        <td><input type="text"></td>
-                    </tr>
+                        <tr>
+                            <td class="text_info">이름</td>
+                            <td><input type="text"></td>
+                            <td class="text_info">영문성명</td>
+                            <td><input type="text"></td>
+                        </tr>
 
-                    <tr>             
-                        <td class="text_info">이름</td>
-                        <td><input type="text"></td>
-                        <td class="text_info">영문성명</td>
-                        <td><input type="text"></td>
-                    </tr>
-
-                    <tr>
+                        <tr>
                             <td class="text_info">연락처</td>
                             <td><input type="text"></td>
                             <td class="text_info">이메일</td>
                             <td><input type="text"></td>
                         </tr>
-
-                   
-                </tbody>
-            </table>
- </div>
-        <!--//top_side-->
-        
-        <div id="button_section">
-            <input type="submit" value="확인" class="e_btn">
-            <input type="button" value="취소" class="e_btn">
+                    </tbody>
+                </table>
+            </div>
+            <!--//top_side-->
+            <div id="button_section">
+                <input type="submit" value="확인" class="e_btn">
+                <input type="button" value="취소" class="e_btn" onclick=goto();>
+            </div>
+            <script>
+                function goto() {
+                    location.href = "../index.html";
+                }
+            </script>
         </div>
-
-        
-    </div>
-    <!--//fullwarp-->
+        <!--//fullwarp-->
     </form>
 
 </body>
