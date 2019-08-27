@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/gnb.css" />
     <link rel="stylesheet" href="./css/jqueryui.css" />
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
@@ -20,32 +21,36 @@
 
 <body>
     <div class="content">
-        <!-- 상단 나비 추가 -->
-        <ul class="logobar">
-            <li id="mainLogo"><a href="../../Team2_kim/index.html"><img src="../../Team2_kim/img/logo3.gif"></a></li>
-            <li id="memberinfo">
-                관리자 님 환영합니다.<br>
-                <a href="./login/login.html">로그아웃</a>
-            </li>
-        </ul>
-        <ul class="topBar">
-            <li id="main" class="t_menu btn3"> <a href="../../Team2_kim/index.html">메인</a></li>
-            <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a>
-            </li>
-            <li id="board" class="t_menu btn2"> <a href="../../Team3_cha/noticeBoardMain.html">게시판</a></li>
-            <li id="info_tab" class="t_menu btn4"> <a href="../../Team2_kim/member/confirm.html">내정보수정</a></li>
-        </ul>
-        <!--li클릭시 페이지 이동-->
-        <script>
-            $(document).ready(function () {
-                $(".topBar").children("li").click(function () {
-                    var new_page = $(this).children("a").attr("href");
-                    location.href = new_page;
-                });
-            });
-        </script>
-        <!--//li클릭시 페이지 이동-->
-        <!-- //상단 나비 추가 -->
+        <!--gnb-->
+        <div class="gnb">
+            <!--logoBar-->
+            <ul class="logobar">
+                <li id="mainLogo"><a href="./index.html"><img src="./img/logo3.gif"></a></li>
+                <table id="memberinfo">
+                    <tbody>
+                        <tr>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/50x50"></td>
+                            <td colspan="2">관리자 님 환영합니다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./login/login.html">로그아웃</a>
+                                <a href="./member/confirm.html">내정보수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ul>
+            <!--//logoBar-->
+            <!--nav bar-->
+            <ul class="topBar">
+                <li id="main" class="t_menu btn3"> <a href="./index.html">메인</a></li>
+                <li id="system" class="t_menu btn1"> <a
+                        href="../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a></li>
+                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
+            </ul>
+            <!--//navBar-->
+        </div>
+        <!--//gnb-->
         <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
             <option value="./draft.html" selected>기안서</option>
             <option value="./vacation.html">휴가신청서 </option>

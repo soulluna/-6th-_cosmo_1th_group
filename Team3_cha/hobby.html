@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>취미게시판</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/gnb.css" />
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
@@ -15,238 +16,239 @@
 
 <body>
     <div class="fullWrap">
-
-        <ul class="logobar">
-            <li id="mainLogo"><a href="../Team2_kim/index.html"><img src="../Team2_kim/img/logo3.gif"></a></li>
-
-            <li id="memberinfo">
-                관리자 님 환영합니다.<br>
-                <a href="../Team2_kim/login/login.html">로그아웃</a>
-            </li>
-        </ul>
-
-        <!--nav bar-->
-        <ul class="topBar">
-            <li id="main" class="t_menu btn3"> <a href="../Team2_kim/index.html">메인</a></li>
-            <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a>
-            </li>
-            <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-            <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-        </ul>
-        <!--li클릭시 페이지 이동-->
-        <script>
-            $(document).ready(function () {
-                $(".topBar").children("li").click(function () {
-                    var new_page = $(this).children("a").attr("href");
-                    location.href = new_page;
-                });
-            });
-        </script>
-        <!--//li클릭시 페이지 이동-->
-    </div>
-    <div class="side">
-        <div><a href="./noticeBoardMain.html">전체</a></div>
-        <div><a href="./department.html">부서</a></div>
-        <div><a href="./hobby.html">취미</a></div>
-        <div><a href="./free.html">자유</a></div>
-    </div>
-
-    <div class="wjdduf">
-        <h1>6기 1조 프로젝트 취미 게시판</h1>
-        <div class="akwcna">
-            <table border="1" class="line">
-                <thead>
-                    <tr class="name">
-                        <th class="co1">게시판</th>
-                        <th class="co2">번호</th>
-                        <th class="co3">제목</th>
-                        <th class="co4">작성자</th>
-                        <th class="co4">생성날자</th>
-                        <th class="co5">조회</th>
-                        <th class="co6">추천</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1234</td>
-                        <td class="co3"><a href="./details.html">
-                                <p>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</p>
-                            </a></td>
-                        <td class="co4">사원</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1233</td>
-                        <td class="co3"><a href="#">
-                                <p>놀러갈사람</p>
-                            </a></td>
-                        <td class="co4">사원</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1232</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1231</td>
-                        <td class="co3"><a href="#">
-                                <p>아아아아아</p>
-                            </a></td>
-                        <td class="co4">지나가는누군가</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1230</td>
-                        <td class="co3"><a href="#">
-                                <p>살려줘~~~~~~~~~~~~~~~</p>
-                            </a></td>
-                        <td class="co4">비전공자</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1229</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1228</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1227</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1226</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1225</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1224</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1223</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1222</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1221</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-                    <tr>
-                        <td class="co1">취미</td>
-                        <td class="co2">1220</td>
-                        <td class="co3"><a href="#">
-                                <p>포폴 만들기 귀차니즘 발동</p>
-                            </a></td>
-                        <td class="co4">누구게</td>
-                        <td class="co5">19.08.05</td>
-                        <td class="co5">123</td>
-                        <td class="co6">132</td>
-                    </tr>
-
-                </tbody>
-            </table>
+        <!--gnb-->
+        <div class="gnb">
+            <!--logoBar-->
+            <ul class="logobar">
+                <li id="mainLogo"><a href="./index.html"><img src="./img/logo3.gif"></a></li>
+                <table id="memberinfo">
+                    <tbody>
+                        <tr>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/50x50"></td>
+                            <td colspan="2">관리자 님 환영합니다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="./login/login.html">로그아웃</a>
+                                <a href="./member/confirm.html">내정보수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ul>
+            <!--//logoBar-->
+            <!--nav bar-->
+            <ul class="topBar">
+                <li id="main" class="t_menu btn3"> <a href="./index.html">메인</a></li>
+                <li id="system" class="t_menu btn1"> <a
+                        href="../Team1_won&you/electronicApproval/docList.html">전자결재시스템</a></li>
+                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
+            </ul>
+            <!--//navBar-->
         </div>
-        <div class="dlehd">
-            <div class="page">
-                <a href="#">이전</a>
-                <a href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">다음</a>
+        <!--//gnb-->
+        <div class="side">
+            <div><a href="./noticeBoardMain.html">전체</a></div>
+            <div><a href="./department.html">부서</a></div>
+            <div><a href="./hobby.html">취미</a></div>
+            <div><a href="./free.html">자유</a></div>
+        </div>
+
+        <div class="wjdduf">
+            <h1>6기 1조 프로젝트 취미 게시판</h1>
+            <div class="akwcna">
+                <table border="1" class="line">
+                    <thead>
+                        <tr class="name">
+                            <th class="co1">게시판</th>
+                            <th class="co2">번호</th>
+                            <th class="co3">제목</th>
+                            <th class="co4">작성자</th>
+                            <th class="co4">생성날자</th>
+                            <th class="co5">조회</th>
+                            <th class="co6">추천</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1234</td>
+                            <td class="co3"><a href="./details.html">
+                                    <p>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</p>
+                                </a></td>
+                            <td class="co4">사원</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1233</td>
+                            <td class="co3"><a href="#">
+                                    <p>놀러갈사람</p>
+                                </a></td>
+                            <td class="co4">사원</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1232</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1231</td>
+                            <td class="co3"><a href="#">
+                                    <p>아아아아아</p>
+                                </a></td>
+                            <td class="co4">지나가는누군가</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1230</td>
+                            <td class="co3"><a href="#">
+                                    <p>살려줘~~~~~~~~~~~~~~~</p>
+                                </a></td>
+                            <td class="co4">비전공자</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1229</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1228</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1227</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1226</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1225</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1224</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1223</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1222</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1221</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+                        <tr>
+                            <td class="co1">취미</td>
+                            <td class="co2">1220</td>
+                            <td class="co3"><a href="#">
+                                    <p>포폴 만들기 귀차니즘 발동</p>
+                                </a></td>
+                            <td class="co4">누구게</td>
+                            <td class="co5">19.08.05</td>
+                            <td class="co5">123</td>
+                            <td class="co6">132</td>
+                        </tr>
+
+                    </tbody>
+                </table>
             </div>
-            <!-- <div>
+            <div class="dlehd">
+                <div class="page">
+                    <a href="#">이전</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">다음</a>
+                </div>
+                <!-- <div>
             <ul class="page">
                 <li><a href="#">이전</a></li>
                 <li><a href="#">1</a></li>
@@ -262,21 +264,21 @@
                 <li><a href="#">다음</a></li>
             </ul>
         </div> -->
-            <div class="wkrtjd"><a href="./write.html">글쓰기</a></div>
-        </div>
-        <div class="gkeks">
-            <div class="rjator">
-                <input type="text" placeholder="검색어 입력">
-                <button><a href="#">검색</a></button>
+                <div class="wkrtjd"><a href="./write.html">글쓰기</a></div>
             </div>
-            <select class="tpqn">
-                <option value="제목">제목</option>
-                <option value="제목+내용">제목+내용</option>
-                <option value="작성자">작성자</option>
-            </select>
+            <div class="gkeks">
+                <div class="rjator">
+                    <input type="text" placeholder="검색어 입력">
+                    <button><a href="#">검색</a></button>
+                </div>
+                <select class="tpqn">
+                    <option value="제목">제목</option>
+                    <option value="제목+내용">제목+내용</option>
+                    <option value="작성자">작성자</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <script src="./js/rptlvks.js"></script>
+        <script src="./js/rptlvks.js"></script>
 </body>
 
 </html>

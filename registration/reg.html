@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>regist</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/reg.css"/>
+</head>
+<body>
+    <form class="reg-form" action="../login/login.html">
+        <div><img src="./img/logo3.gif"></div>
+        <div class="secb">
+            <input class="txtb" type="text">
+            <span class="name" data-placeholder="사원번호"></span>
+            <input class="d_btn"type="button" value="중복확인">
+        </div>
+        <div class="secb">
+            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <span class="name" data-placeholder="비밀번호"></span>
+        </div>
+
+        <div class="secb">
+            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <span class="name" data-placeholder="비밀번호 확인"></span>
+        </div>
+
+        <div class="a_section">
+        <select class="area">
+            <option value="default">선택하세요</option>
+            <option value="department">부서</option>
+            <option value="sales">영업부</option>
+            <option value="personal">인사부</option>
+            <option value="tech">기술지원팀</option>
+        </select>
+        <span class="block"> &nbsp;>&nbsp;</span>
+        <select class="area2">
+                <option value="default">선택하세요</option>
+                <option value="department">부서</option>
+                <option value="sales">영업부</option>
+                <option value="personal">인사부</option>
+                <option value="tech">기술지원팀</option>
+        </select>
+        </div>
+
+        <input class="reg_submit" type="submit" value="등록">
+    </form>
+
+    <script type="text/javascript">
+        $(".secb .txtb").on("focus",function(){
+            $(this).addClass("focus");
+        });
+        
+        $(".secb .txtb").on("blur",function(){
+            if($(this).val()=="")
+            $(this).removeClass("focus");
+        });
+        </script>
+  
+
+
+</body>
+</html>
