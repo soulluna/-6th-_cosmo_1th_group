@@ -79,6 +79,7 @@ body{
 }
 .deptContent .pageButtonsCreatedoc a{
     margin:0 5px;
+    font-size: 1.3em;
 }
 .deptContent .docCreate{
     /* position:absolute; right:-10px; top:5px; padding:5px; */
