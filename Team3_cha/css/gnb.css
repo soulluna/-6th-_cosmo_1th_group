@@ -1,4 +1,12 @@
 /*fullWrap*/
+*{
+    margin :0;
+    padding: 0;
+    text-decoration: none;
+    font-family:sans-serif;
+    list-style: none;
+}
+
 .fullWrap{
     width:970px;
     background: #f1f1f1;
@@ -14,6 +22,12 @@
 .gnb{
     width : 100%;
     height : 110px;
+    margin :0;
+    padding: 0;
+    text-decoration: none;
+    font-family:sans-serif;
+    list-style: none;
+    font-size:12px;
 }
 .logobar {
     width:100%;
