@@ -62,6 +62,15 @@ body{
     text-align: center;
     line-height: 150px; 
 }
+.scadule{
+    position : absolute;
+    top : 510px;
+    height : 100px;
+}
+.scadule span{
+    font-size : 20px;
+    display : block;
+}
 /*right_section*/
 #r_section{
     float : right;
