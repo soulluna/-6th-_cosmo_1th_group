@@ -1,26 +1,31 @@
+* {font-size:15px;}
 
 /*gnb*/
 .gnb{
     width : 100%;
-    height : 110px;
+    height : 160px;
+    overflow: hidden;
 }
 .logobar {
     width:100%;
-    height: 63px;
+    height: 80px;
 }
 #mainLogo a img{
     float:left;
-    width:100px;
-}
+    width:130px;
+}   
 .topBar {  
     overflow: hidden;
     width:100%;
+    position: relative;
+    bottom:-15px;
 }
 /*gnb_rightMenu*/
 #memberinfo{  
     display: block;
     float:right;
-    margin-right:10px;
+    margin-top:10px;
+    margin-right:20px;
 }
 #profile_img{
     width:60px;
@@ -44,15 +49,15 @@
 /*navigation_bar*/
 .topBar .t_menu{
     float:left;
-    width:150px;
-    height:30px;
+    width:170px;
+    height:40px;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
     border:none;
     border-radius: 6px 6px 0 0;
     cursor: pointer;
     background-image: linear-gradient(-220deg,#3498db,#8e44ad);
-    margin:15px 5px 0 5px;
+    margin:15px 10px 0 10px;
     font-weight: bold;
     
 }
