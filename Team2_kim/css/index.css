@@ -12,9 +12,9 @@ body{
 }
 /*fullWrap*/
 .fullWrap{
-    width:970px;
+    width:1200px;
     background: #f1f1f1;
-    height: 650px;
+    height: 960px;
     border-radius: 10px;
     position: absolute;
     left:50%;
@@ -27,9 +27,9 @@ body{
     width:50%;
     height:505px;
     box-sizing: border-box;
-    
     display: inline-block;
 }
+
 .section_menu{
     line-height: 25px;
     width:99%;
