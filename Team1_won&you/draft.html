@@ -60,10 +60,10 @@
         </span>
         <div class="deptContent">
             <div class="signtable">
-                <table class="signtableleft" style="height:100px;">
+                <table class="signtableleft">
                     <tr>
                         <th>이름</th>
-                        <td width="90px;">홍길동</td>
+                        <td>홍길동</td>
                     </tr>
                     <tr>
                         <th>직책</th>
@@ -81,7 +81,7 @@
                         <th>과장</th>
                         <th>부장</th>
                     </tr>
-                    <tr height="45px">
+                    <tr>
                         <td style="vertical-align:top">홍길동<br></td>
                         <td></td>
                         <td></td>
@@ -99,18 +99,15 @@
                     <tr>
                         <td>
                             제목<br>
-                            <input type="text" name="title" required style="width:600px;height:25px;"
-                                placeholder="제목을 입력해주세요.">
+                            <input class="inputTitle" type="text" name="title" required placeholder="제목을 입력해주세요.">
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <br>
                             내용<br>
                             <form>
-                                <textarea name="reason" style="resize: none; width:600px; height:200px"
-                                    placeholder="내용을 입력해주세요." required></textarea>
+                                <textarea class="inputContent" name="reason" placeholder="내용을 입력해주세요." required></textarea>
                             </form>
                         </td>
                     </tr>
