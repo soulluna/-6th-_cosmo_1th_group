@@ -10,54 +10,57 @@ p.no-uline:link    { text-decoration:none }
 p.no-uline:visited { text-decoration:none }
 p.no-uline:hover   { text-decoration:underline }
 p.no-uline:active  { text-decoration:none }
+a:link    { text-decoration:none; color:black; }
+a:visited { text-decoration:none; color:black; }
+a:hover   { text-decoration:none; color:cornflowerblue; }
+a:active  { text-decoration:none; color:cornflowerblue; }
 
-.co1{width: 60px; text-align: center; padding: 5px 0; font-size: 14px;}
-.co2{width: 80px; text-align: center; font-size: 14px; }
-.co3{width: 330px; font-size: 14px;}
-.co3>a>p{  overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    width: 300px;  font-size: 14px;
+.co1{width: 80px; text-align: center; padding: 8px 0; font-size: 15px;}
+.co2{width: 80px; text-align: center; font-size: 15px; }
+.co3{width: 450px; font-size: 15px; padding-left: 10px;}
+.co3>a>p{  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 400px;  font-size: 15px;
   }
-.co4{width: 100px;text-align: center; font-size: 14px;}
-.co5{width: 80px;text-align: center; font-size: 14px;}
-.co6{width: 80px;text-align: center; font-size: 14px;}
-.co7{width: 80px;text-align: center; font-size: 14px;}
+.co4{width: 110px;text-align: center; font-size: 15px;}
+.co5{width: 100px;text-align: center; font-size: 15px;}
+.co6{width: 100px;text-align: center; font-size: 15px;}
+.co7{width: 100px;text-align: center; font-size: 15px;}
 
 
 .akwcna > table > tbody > tr>td{border:1px solid #52a7e0; }
+.akwcna{width: 1200; margin: 0 auto}
 
-body{ width:970px; margin: 50px auto 0; padding: 0; display: block; list-style: none; background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:95vh}
+body{ width:1200px; margin: 50px auto 0; padding: 0; display: block; list-style: none; background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:94vh}
 
-.wjdduf{padding-top: 20px; background: #f1f1f1;}
-h1{text-align: center;}
+.wjdduf{width: 1200px; padding-top: 20px; margin: 0 auto; background: #f1f1f1;}
+h1{text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e); font-size: 18px; padding: 5px 0 ; color: white}
 
-.name{background-color: #52a7e0;; border: 1px solid #52a7e0;color: white;}
+.name{background-image: linear-gradient(180deg,#3498db,#2a709e); border: 1px solid #2a709e;color: white;}
 
-.side{margin-top: 100px;float: left; padding-right: 40px; font-size: 20px; position: relative; left: 10px;}
-.side>div{padding: 10px; width: 50px; height: 50px; border:1px solid #52a7e0;;}
+.side{margin-top: 100px; padding-left: 5px; float: left; position: absolute; font-size: 20px;}
+.side>div{padding: 11px; width: 50px; height: 50px; border:1px solid black;text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e); font-size: 18px;}
+.side > div > a{color: white;}
 
-
-.line{border-collapse: collapse;}
+.line{border-collapse: collapse; margin: 0 auto; background-color: white;}
 
 /*
 .page>li:first-of-type{margin-left: 40px; border-radius: 20px 0 0 20px;}
 .page>li:last-of-type{border-radius: 0 20px 20px 0;}
 .page> li{padding: 10px 20px; border: 1px solid black; float: left; margin: 0 auto 0;}
 */
-.page{text-align: center; position:relative; height:40px; line-height: 40px; padding: 10px 5px;} 
- 
+.page{text-align: center; position:relative; height:40px; line-height: 40px; padding: 20px 0;}
+.page > a{font-size: 19.5px; margin: 0 5px;} 
   
 
-.dlehd{ position: relative; width: 970px; padding: auto;}
+.dlehd{ position: relative; width: 1200px; padding: auto; font-size: 19.5; margin: 0 5px;}
 
-.wkrtjd{float: right; margin-right: 40px;}
-.wkrtjd > a{border-radius: 10px; color: white; background: black; border: 1px solid black; padding: 10px 20px; position: relative; top: -40px;}
-
-
+.wkrtjd{float: right; margin-right: 85px;}
+.wkrtjd > a{border-radius: 10px; color: white; background: black; border: 1px solid black; padding: 10px 20px; position: relative; top: -60px;}
 
 
-.rjator{height: 40px; width: 400px; border: 1px solid #1b5ac2; background: #ffffff; text-align: left; float: left; margin: 0 0 0 350px;}
+
+
+.rjator{height: 40px; width: 400px; border: 1px solid #1b5ac2; background: #ffffff; text-align: left; float: left; margin-left: 400px;}
+.rjator > button > a{color: white}
 
 input{font-size: 16px; width: 380px; border: 0px; outline: none; float: left; padding: 7px 10px;}
 
@@ -67,4 +70,4 @@ button>a{color: white;}
 
 .tpqn{height: 42px; width: 100px;  position: absolute; margin-left: -500px; border: 1px solid blue;outline: none;}
 
-.gkeks{width: 970px; height: 50px; background-color: #f1f1f1;}
+.gkeks{width: 1200px; height: 50px; background-color: #f1f1f1;}
