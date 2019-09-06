@@ -16,7 +16,7 @@
     <script>
 
     </script>
-    <title>기안서</title>
+    <title>휴가신청서</title>
 </head>
 
 <body>
@@ -51,12 +51,13 @@
         </div>
         <!--//gnb-->
         <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="./draft.html" selected>기안서</option>
-            <option value="./vacation.html">휴가신청서 </option>
+            <option value="./draft.html">기안서</option>
+            <option value="./vacation.html" selected>휴가신청서 </option>
+
         </select>
 
         <div class="docName">
-            <h1>기안서</h1>
+            <h1>휴가 신청서</h1>
         </div>
         <div class="deptContent">
             <div class="signtable">
@@ -82,13 +83,13 @@
                         <th>부장</th>
                     </tr>
                     <tr>
-                        <td style="vertical-align:top">홍길동<br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top">어피치<br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
+                            <td style="vertical-align:top">홍길동<br><span style="color:red;">[승인]</span></td>
+                            <td style="vertical-align:top">어피치<br><span style="color:red;"></span></td>
+                            <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
                     </tr>
                     <tr>
-                        <td>2019.06.15</td>
-                        <td>2019.06.27</td>
+                        <td>2019.07.19</td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </table>
@@ -100,22 +101,46 @@
                         <td>
                             제목<br>
                         </td>
-                    </tr>
+                        <td></td>
                     <tr>
                         <td class="inputTitle" style="background-color:white;">
-                            2019년 06월 업무 개선사항 홍길동 사원 기안서
+                            2019년 07월 22일 홍길동 사원 휴가신청서
                         </td>
                     </tr>
-
                     <tr>
                         <td>
                             <br>
-                            내용<br>
+                            1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+
+                            <input type="radio" name="leaveradio" value="1" checked="checked" disabled>연차
+                            <input type="radio" name="leaveradio" value="2" disabled>병가
+                            <input type="radio" name="leaveradio" value="3" disabled>휴가
+                            <input type="radio" name="leaveradio" value="4" disabled>기타
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            1-2. 요청한 휴가의 기간을 입력하세요.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="selectedDay">2019/07/25</span> ~ <span class="selectedDay">2019/07/26</span>(2
+                            일 간)</td>
+
+                    </tr>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            2. 1번 보기를 선택한 사유를 쓰세요.<br>
+
                         </td>
                     </tr>
                     <tr>
                         <td class="inputContent" style="background-color:white;vertical-align:top;">
-                            매주 월요일에 하는 주간 보고 시간을 오후로 옮겼으면 좋겠습니다.
+                            친척 결혼식 참석.
                         </td>
                     </tr>
                 </table>
@@ -123,8 +148,8 @@
                 <br>
                 <div>
                     <button type="button" class="register" disabled>등록</button>
-                    <button type="button" disabled>수정</button>
-                    <button type="button" disabled>삭제</button>
+                    <button type="button">수정</button>
+                    <button type="button">삭제</button>
                     <button type="button" onclick="location.href='./doclist.html';">취소</button>
                 </div>
             </div>
