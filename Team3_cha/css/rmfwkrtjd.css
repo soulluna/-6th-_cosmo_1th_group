@@ -5,18 +5,19 @@ img{border: 0;}
 
 body{ width:1200px; margin: 100px auto 0; padding: 0; display: block; list-style: none;  background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:89vh;}
 
+h1{text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e); font-size: 18px;  color: white; line-height: 35px;font-weight: bold;}
 
 .wjdduf{width: 1200px; background: #f1f1f1; margin-top: 40px;}
-.wjddu{width: 750px; margin: 0 auto 0;}
-.zmrl{width: 750px; margin: 0 auto;}
+.wjddu{width: 1000px; margin: 0 auto;}
+.zmrl{width: 1000px; margin: 0 auto;}
 
 .rptlvks{padding: 20px 0 0; float: left;width: 750px;}
 .rptlvks > div{float: left; padding: 0 20px 0 0;}
 .tpqn1{height: 35px; width: 100px; border: 1px solid blue;outline: none; padding: 0 10px;}
 
-.wpahr{padding: 10px 10px; float: left;width: 520px;}
+.wpahr{padding: 10px 10px; float: left;width: 620px;}
 .wpahr > div{float: left; }        
-.wpahrdlqfur > input{font-size: 16px; width: 400px; padding: 5px; border: 1px solid blue;outline: none; margin-left: 25px;}
+.wpahrdlqfur > input{font-size: 16px; width: 500px; padding: 5px; border: 1px solid blue;outline: none; margin-left: 25px;}
 
 .cjaqnvkdlf{ float: left;width: 750px;}
 .cjaqnvkdlf > div{float: left; padding: 0 20px 0 0;}   
@@ -26,17 +27,17 @@ button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: no
 button:last-of-type{float: right;}
 button>a{color: white;}
 
-.logo>a>img{width: 23%; position: absolute; right: 230px; top: 180px;}
+.logo>a>img{width: 25%; position: absolute; right: 50px; top: 190px;}
 
 
-.noresize {position: relative; top: 20px; width: 700px;
-        height: 300px;
+.noresize {position: relative; top: 20px; width: 1000px;
+        height: 480px;
         resize: none; /* 사용자 임의 변경 불가 */
         /* resize: both; /* 사용자 변경이 모두 가능 */
         /*resize: horizontal; /* 좌우만 가능 */
         /*resize: vertical; /* 상하만 가능 */ 
          }
-.gkeks{width: 700px; height: 50px; background-color: #f1f1f1; padding-top: 40px;}
+.gkeks{width: 1000px; height: 50px; background-color: #f1f1f1; padding-top: 40px;}
 .gkeks > div> button{width: 80px; height: 40px;}
 .rksrur_bottom_left{float: left}
 .rksrur_bottom_right{float: right; position: relative;}
