@@ -12,17 +12,24 @@
     <form class="reg-form" action="../login/login.html">
         <div><img src="./img/logo3.gif"></div>
         <div class="secb">
-            <input class="txtb" type="text">
+            <input class="txtb" type="text" id="userID">
             <span class="name" data-placeholder="사원번호"></span>
             <input class="d_btn"type="button" value="중복확인">
         </div>
+
         <div class="secb">
-            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <input class="txtb" type="text" id="userName">
+            <span class="name" data-placeholder="이름"></span>
+            
+        </div>
+
+        <div class="secb">
+            <input class="txtb" type="password" minlength="8" maxlength="15" id="pwd">
             <span class="name" data-placeholder="비밀번호"></span>
         </div>
 
         <div class="secb">
-            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <input class="txtb" type="password" minlength="8" maxlength="15" id="pwdconfirm">
             <span class="name" data-placeholder="비밀번호 확인"></span>
         </div>
 
@@ -56,6 +63,49 @@
             if($(this).val()=="")
             $(this).removeClass("focus");
         });
+
+        $(document).ready(function(){
+            $('.reg_submit:submit').click(function(){
+                invaildItem();
+            });
+
+            function invaildItem(){
+                if($('#userID:text').val()==""){
+                    alert("사원번호를 입력하세요.");
+                    $('#userID').focus();
+                    return;
+                }
+
+                
+                var userName = $('#userName:text').val();
+                if(userName==""){
+                    alert("이름을 입력하세요");
+                    $('#userName').focus();
+                    return;
+                }
+
+                if($('#pwd:password').val()==""||$('#pwdconfirm:password').val()==""){
+                    alert("암호를 입력하세요.");
+                    return;
+                }
+
+                if($('#pwd:password').val()!=$('#pwdconfirm:password').val()){
+                    alert("암호가 일치하지 않습니다.");
+                    return;
+                }
+
+                alert(userName+"님 회원가입을 축하합니다.")
+                clearInput();
+            }
+
+            function clearInput(){
+                $('#userID:text').val('');
+                $('#userName:text').val('');
+                $('#pwd:password').val('');
+                $('#pwdconfirm:password').val('');
+            }
+        });
+
         </script>
   
 
