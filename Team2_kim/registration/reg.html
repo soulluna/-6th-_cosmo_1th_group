@@ -58,16 +58,17 @@
 
     </form>
 
-    <script type="text/javascript">
-        $(".secb .txtb").on("focus", function () {
-            $(this).addClass("focus");
-        });
-
-        $(".secb .txtb").on("blur", function () {
-            if ($(this).val() == "")
-                $(this).removeClass("focus");
-        });
-    </script>
+    
 </body>
+<script type="text/javascript">
+    $(".secb .txtb").on("focus", function () {
+        $(this).addClass("focus");
+    });
+
+    $(".secb .txtb").on("blur", function () {
+        if ($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+</script>
 
 </html>
