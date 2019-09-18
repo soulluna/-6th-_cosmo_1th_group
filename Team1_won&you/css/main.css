@@ -126,10 +126,10 @@ body{
     border-collapse: collapse;
 }
 .content > .deptContent > .signtable >table th{
-    background-color: #52a7e0;
+    background-image: linear-gradient(180deg,#3498db,#2a709e);
     padding: 5px 10px;
     border: 1px inset #52a7e0;
-    
+    color:white;
 }
 .content > .deptContent > .signtable >table td{
     padding: 5px 10px;
