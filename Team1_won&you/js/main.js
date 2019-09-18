@@ -1,12 +1,19 @@
-$(document).ready(function () {
 
-  //문서 작성 버튼 클릭 시
-  $("button[name=docCreate").on("click", function () {
-    location.href = "./draft.html";
-  });
+  //문서 삭제
+  function docDelete() {
+    if (confirm("정말 삭제하시겠습니까??") == true) {
+      //document.removefrm.submit();
+    } else {
+      return false;
+    }
+  }
 
+  
   var draftInputValue = new Array();
   var vacationInputValue = new Array();
+  var draftModify = new Array();
+
+
 
   //draft.html 입력값 확인
   function draftCheck() {
@@ -23,8 +30,8 @@ $(document).ready(function () {
       }
     } // else
   } //function draftCheck()
-  $(".registerInput1").click(draftCheck);
 
+  
   //vacation.html 입력값 확인
   function vacationCheck() {
     vacationInputValue[0] = $("input[name=title]").val();
@@ -45,9 +52,18 @@ $(document).ready(function () {
       }
     } // else
   } // function vacationCheck()
-  $(".registerInput2").click(vacationCheck);
+  
 
 
+
+$(document).ready(function () {
+
+  //문서 작성 버튼 클릭 시
+  $("button[name=docCreate").on("click", function () {
+    location.href = "./draft.html";
+  });
+
+  
 
   // 문서목록 검색 타입 및 검색값 콘솔 확인
   $(".search").on("click", function () {
@@ -59,9 +75,7 @@ $(document).ready(function () {
   })
 
 
-
-
-
+  // 달력
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
     prevText: '이전 달',

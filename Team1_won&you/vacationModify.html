@@ -14,6 +14,38 @@
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
+        var vacationModify = new Array();
+        vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
+
+        // 날짜 차이 계산 함수
+        // date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
+        function getDateDiff(date1, date2) {
+            var arrDate1 = date1.split("-");
+            var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1])-1, parseInt(arrDate1[2]));
+            var arrDate2 = date2.split("-");
+            var getDate2 = new Date(parseInt(arrDate2[0]), parseInt(arrDate2[1])-1, parseInt(arrDate2[2]));
+            var getDiffTime = getDate1.getTime() - getDate2.getTime();
+            return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
+        }
+        var getDay = getDateDiff(vacationModify[3], vacationModify[2])+1;
+        $(function () {
+            $('.inputarea .inputTitle').val(vacationModify[0]);
+            if (vacationModify[1] == 1) {
+                $(".modifySelect1").attr("checked", "checked");
+            } else if (vacationModify[1] == 2) {
+                $(".modifySelect2").attr("checked", "checked");
+            } else if (vacationModify[1] == 3) {
+                $(".modifySelect3").attr("checked", "checked");
+            } else if (vacationModify[1] == 4) {
+                $(".modifySelect4").attr("checked", "checked");
+            }
+
+            $('.inputarea #datepicker1').val(vacationModify[2]);
+            $('.inputarea #datepicker2').val(vacationModify[3]);
+            $('.inputarea .inputContent').val(vacationModify[4]);
+            $(".dayCount").text(getDay);
+
+        })
 
     </script>
     <title>휴가신청서</title>
@@ -21,36 +53,36 @@
 
 <body>
     <div class="content">
-      <!--gnb-->
-      <div class="gnb">
-        <!--logoBar-->
-        <ul class="logobar">
-            <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
-            <table id="memberinfo">
-                <tbody>
-                    <tr>
-                        <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                        <td colspan="2">관리자 님 환영합니다.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="../index.html">로그아웃</a>
-                            <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </ul>
-        <!--//logoBar-->
-        <!--nav bar-->
-        <ul class="topBar">
-            <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-            <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
-            <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-            <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-        </ul>
-        <!--//navBar-->
-    </div>
-    <!--//gnb-->
-        <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
+        <!--gnb-->
+        <div class="gnb">
+            <!--logoBar-->
+            <ul class="logobar">
+                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
+                <table id="memberinfo">
+                    <tbody>
+                        <tr>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
+                            <td colspan="2">관리자 님 환영합니다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="../index.html">로그아웃</a>
+                                <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ul>
+            <!--//logoBar-->
+            <!--nav bar-->
+            <ul class="topBar">
+                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
+                <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
+                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
+            </ul>
+            <!--//navBar-->
+        </div>
+        <!--//gnb-->
+        <select class="docSelecter" onchange="if(this.value) location.href=(this.value)" style="display:none;">
             <option value="./draft.html">기안서</option>
             <option value="./vacation.html" selected>휴가신청서 </option>
 
@@ -107,12 +139,10 @@
                         <td>
                             <br>
                             1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
-
-                            <input type="radio" name="leaveradio" value="1" checked="checked" />연차
-                            <input type="radio" name="leaveradio" value="2">병가
-                            <input type="radio" name="leaveradio" value="3">휴가
-                            <input type="radio" name="leaveradio" value="4">기타
-
+                            <input type="radio" name="leaveradio" value="1" class="modifySelect1">연차
+                            <input type="radio" name="leaveradio" value="2" class="modifySelect2">병가
+                            <input type="radio" name="leaveradio" value="3" class="modifySelect3">휴가
+                            <input type="radio" name="leaveradio" value="4" class="modifySelect4">기타
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +151,7 @@
                             1-2. 요청한 휴가의 기간을 입력하세요.<br>
                             <input type="text" id="datepicker1" placeholder="년/월/일" readonly style="height:35px;"> ~
                             <input type="text" id="datepicker2" placeholder="년/월/일" readonly style="height:35px;">
-                            (일 간)
+                            (일<span class="dayCount"></span> 간)
                         </td>
 
                     </tr>
@@ -130,7 +160,8 @@
                             <br>
                             2. 1번 보기를 선택한 사유를 쓰세요.<br>
                             <form>
-                                <textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요." required></textarea>
+                                <textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요."
+                                    required></textarea>
                             </form>
                         </td>
                     </tr>
