@@ -70,6 +70,12 @@ function validate(){
     }
     alert("내 정보가 변경되었습니다.");
 }     
+
+function cancel(){
+    alert("취소시 수정사항은 반영되지 않습니다.");
+    location.href='./select.html'
+    return false;
+}
     
 function check(regexpId, what, message) {
 if(regexpId.test(what.value)) {
