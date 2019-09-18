@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,59 +10,65 @@
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="./css/reg.css"/>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/reg.css" />
 </head>
+
 <body>
-    <form class="reg-form" action="../login/login.html">
+    <form class="reg-form" name="join" onsubmit="return validate();" action="../../index.html">
         <div><img src="./img/logo3.gif"></div>
         <div class="secb">
-            <input class="txtb" type="text">
+            <input class="txtb" type="text" id="userID">
             <span class="name" data-placeholder="사원번호"></span>
-            <input class="d_btn"type="button" value="중복확인">
+            <input class="d_btn" type="button" value="중복확인">
         </div>
         <div class="secb">
-            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <input class="txtb" type="text" id="userName">
+            <span class="name" data-placeholder="이름"></span>
+
+        </div>
+        <div class="secb">
+            <input id="pwd" class="txtb" type="password" minlength="8" maxlength="15">
             <span class="name" data-placeholder="비밀번호"></span>
         </div>
 
         <div class="secb">
-            <input class="txtb" type="password" minlength="8" maxlength="15">
+            <input id="pwdconfirm" class="txtb" type="password" minlength="8" maxlength="15">
             <span class="name" data-placeholder="비밀번호 확인"></span>
         </div>
 
         <div class="a_section">
-        <select class="area">
-            <option value="default">선택하세요</option>
-            <option value="department">부서</option>
-            <option value="sales">영업부</option>
-            <option value="personal">인사부</option>
-            <option value="tech">기술지원팀</option>
-        </select>
-        <span class="block"> &nbsp;>&nbsp;</span>
-        <select class="area2">
-                <option value="default">선택하세요</option>
-                <option value="department">부서</option>
-                <option value="sales">영업부</option>
-                <option value="personal">인사부</option>
-                <option value="tech">기술지원팀</option>
-        </select>
+            <select class="area" id="dep1">
+                <option value="0">선택하세요</option>
+                <option value="1">영업부</option>
+                <option value="2">인사부</option>
+                <option value="3">기술지원팀</option>
+            </select>
+            <span class="block"> &nbsp;>&nbsp;</span>
+            <select class="area2" id="dep2">
+                <option value="0">선택하세요</option>
+                <option value="4">1팀</option>
+                <option value="5">2팀</option>
+                <option value="6">3팀</option>
+            </select>
         </div>
 
         <input class="reg_submit" type="submit" value="등록">
+        <input class="clear" type="reset" value="취소" onclick="location.href ='../../index.html';">
+
     </form>
 
-    <script type="text/javascript">
-        $(".secb .txtb").on("focus",function(){
-            $(this).addClass("focus");
-        });
-        
-        $(".secb .txtb").on("blur",function(){
-            if($(this).val()=="")
-            $(this).removeClass("focus");
-        });
-        </script>
-  
-
-
+    
 </body>
+<script type="text/javascript">
+    $(".secb .txtb").on("focus", function () {
+        $(this).addClass("focus");
+    });
+
+    $(".secb .txtb").on("blur", function () {
+        if ($(this).val() == "")
+            $(this).removeClass("focus");
+    });
+</script>
+
 </html>

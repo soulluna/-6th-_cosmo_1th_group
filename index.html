@@ -20,7 +20,7 @@
     </script>
 
 <body>
-    <form action="./Team2_kim/index.html" class="login-form">
+    <form class="login-form" onsubmit="return invaildItem();" action="Team2_kim/indexMain.html">
         <div><img src="./img/logo3.gif"></div>
 
         <div class="txtb">
@@ -36,7 +36,7 @@
         <input type="submit" class="lgnbtn" value="Login" id="login_submit">
 
         <div class="bottom-text">
-            아이디가 없을 경우 <a href="./registration/reg.html">회원가입</a>을 해주세요.
+            아이디가 없을 경우 <a href="./Team2_kim/registration/reg.html">회원가입</a>을 해주세요.
         </div>
 
     </form>
@@ -47,32 +47,29 @@
         });
 
         $(".txtb input").on("blur", function () {
-            if ($(this).val() == "")
+            if ($(this).val()=="")
                 $(this).removeClass("focus");
+            return false;
         });
-
-      return;
-        
         // 로그인
-        $(document).ready(function(){
-            $('#login_submit:submit').click(function(){
-                invaildItem();
-            });
-        });
-            
-            function invaildItem(){
-                if($('#userID:text').val()==""){
-                    alert("아이디를 입력하세요.");
-                    $('#userID').focus();
-                     return;
-                };
-                if($('#pwd:password').val()==""){
-                    alert("암호를 입력하세요.");
-                    return;
-
-            };
-            };
-            
+        // $(document).ready(function(){
+        //     $('#login_submit:submit').click(function(){
+        //         invaildItem();
+        //     });
+        // });
+        function invaildItem() {
+            if ($("#userID:text").val() == "") {
+                alert("사원번호를 입력하세요.");
+                $("#userID").focus();
+                return false;
+            }
+            if ($('#pwd:password').val() == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#pwd").focus();
+                return false;
+            }
+            return true;
+        }
     </script>
 
 </body>

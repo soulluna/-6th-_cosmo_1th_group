@@ -81,6 +81,7 @@
     
 }
 .topBar .t_menu a {
+    display:inline-block;
     color:#fff;
     width:150px;
 }
