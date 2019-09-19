@@ -49,11 +49,6 @@ function vacationCheck() {
   } // else
 } // function vacationCheck()
 
-
-// vacationModify.html
-var vacationModify = new Array();
-vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
-
 // 날짜 차이 계산 함수
 // date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
 function getDateDiff(date1, date2) {
@@ -64,8 +59,6 @@ function getDateDiff(date1, date2) {
   var getDiffTime = getDate1.getTime() - getDate2.getTime();
   return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
 } // function getDateDiff
-var getDay = getDateDiff(vacationModify[3], vacationModify[2]) + 1;
-
 
 $(document).ready(function () {
 
@@ -99,8 +92,7 @@ $(document).ready(function () {
   
   $('#datepicker1').datepicker({
     dateFormat: "yy-mm-dd",
-    // minDate: 0,
-     
+
 });
 $('#datepicker2').datepicker({
     dateFormat: "yy-mm-dd",
@@ -109,36 +101,7 @@ $('#datepicker2').datepicker({
     }                
 });
   
-  // vacationModify.html
-  $('.inputarea .inputTitle').val(vacationModify[0]);
-
-  if (vacationModify[1] == 1) {
-    $(".modifySelect1").attr("checked", "checked");
-  } else if (vacationModify[1] == 2) {
-    $(".modifySelect2").attr("checked", "checked");
-  } else if (vacationModify[1] == 3) {
-    $(".modifySelect3").attr("checked", "checked");
-  } else if (vacationModify[1] == 4) {
-    $(".modifySelect4").attr("checked", "checked");
-  }
-  $('.inputarea #datepicker1').val(vacationModify[2]);
-  $('.inputarea #datepicker2').val(vacationModify[3]);
-  $('.inputarea .inputContent').val(vacationModify[4]);
-  $(".dayCount").text(getDay);
   
-  var toDay;
-  var forDay;
-  $('#datepicker1').change(function () {
-    toDay = $('#datepicker1').val();
-    forDay = $('#datepicker2').val();
-    var c = getDateDiff(forDay, toDay) + 1;
-    $('.dayCount').text(c);
-  });
-
-  $('#datepicker2').change(function () {
-    toDay = $('#datepicker1').val();
-    forDay = $('#datepicker2').val();
-    var c = getDateDiff(forDay, toDay) + 1;
-    $('.dayCount').text(c);
-  });
+  
+  
 });

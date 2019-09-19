@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -7,13 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="./css/jqueryui.css" />
+    <link rel="stylesheet" href="./css/jquery-ui.css" />
+
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
+        // vacationModify.html
+        var vacationModify = new Array();
+
+        $(function () {
+            var toDay;
+            var forDay;
+            $('#datepicker1').change(function () {
+                toDay = $('#datepicker1').val();
+                forDay = $('#datepicker2').val();
+                var c = getDateDiff(forDay, toDay) + 1;
+                $('.dayCount').text(c);
+            });
+
+            $('#datepicker2').change(function () {
+                toDay = $('#datepicker1').val();
+                forDay = $('#datepicker2').val();
+                var c = getDateDiff(forDay, toDay) + 1;
+                $('.dayCount').text(c);
+                
+            });
+        });
 
     </script>
     <title>휴가신청서</title>
@@ -21,35 +43,35 @@
 
 <body>
     <div class="content">
-      <!--gnb-->
-      <div class="gnb">
-        <!--logoBar-->
-        <ul class="logobar">
-            <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
-            <table id="memberinfo">
-                <tbody>
-                    <tr>
-                        <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                        <td colspan="2">관리자 님 환영합니다.</td>
-                    </tr>
-                    <tr>
-                        <td><a href="../index.html">로그아웃</a>
-                            <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </ul>
-        <!--//logoBar-->
-        <!--nav bar-->
-        <ul class="topBar">
-            <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-            <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
-            <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-            <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-        </ul>
-        <!--//navBar-->
-    </div>
-    <!--//gnb-->
+        <!--gnb-->
+        <div class="gnb">
+            <!--logoBar-->
+            <ul class="logobar">
+                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
+                <table id="memberinfo">
+                    <tbody>
+                        <tr>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
+                            <td colspan="2">관리자 님 환영합니다.</td>
+                        </tr>
+                        <tr>
+                            <td><a href="../index.html">로그아웃</a>
+                                <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ul>
+            <!--//logoBar-->
+            <!--nav bar-->
+            <ul class="topBar">
+                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
+                <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
+                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
+            </ul>
+            <!--//navBar-->
+        </div>
+        <!--//gnb-->
         <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
             <option value="./draft.html">기안서</option>
             <option value="./vacation.html" selected>휴가신청서 </option>
@@ -107,12 +129,10 @@
                         <td>
                             <br>
                             1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
-
-                            <input type="radio" name="leaveradio" value="1" checked="checked" />연차
-                            <input type="radio" name="leaveradio" value="2">병가
-                            <input type="radio" name="leaveradio" value="3">휴가
-                            <input type="radio" name="leaveradio" value="4">기타
-
+                            <input type="radio" name="leaveradio" value="1" class="modifySelect1">연차
+                            <input type="radio" name="leaveradio" value="2" class="modifySelect2">병가
+                            <input type="radio" name="leaveradio" value="3" class="modifySelect3">휴가
+                            <input type="radio" name="leaveradio" value="4" class="modifySelect4">기타
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +141,7 @@
                             1-2. 요청한 휴가의 기간을 입력하세요.<br>
                             <input type="text" id="datepicker1" placeholder="년/월/일" readonly style="height:35px;"> ~
                             <input type="text" id="datepicker2" placeholder="년/월/일" readonly style="height:35px;">
-                            (일 간)
+                            (<span class="dayCount"></span>일 간)
                         </td>
 
                     </tr>
@@ -130,7 +150,8 @@
                             <br>
                             2. 1번 보기를 선택한 사유를 쓰세요.<br>
                             <form>
-                                <textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요." required></textarea>
+                                <textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요."
+                                    required></textarea>
                             </form>
                         </td>
                     </tr>

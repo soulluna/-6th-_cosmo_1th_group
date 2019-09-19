@@ -7,13 +7,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./css/jquery-ui.css" />
 
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
+
+    <script>
+        // vacationModify.html
+        var vacationModify = new Array();
+        vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
+
+        $(function () {
+
+            var getDay = getDateDiff(vacationModify[3], vacationModify[2]) + 1;
+
+            $('.inputarea .inputTitle').val(vacationModify[0]);
+
+            if (vacationModify[1] == 1) {
+                $(".modifySelect1").attr("checked", "checked");
+            } else if (vacationModify[1] == 2) {
+                $(".modifySelect2").attr("checked", "checked");
+            } else if (vacationModify[1] == 3) {
+                $(".modifySelect3").attr("checked", "checked");
+            } else if (vacationModify[1] == 4) {
+                $(".modifySelect4").attr("checked", "checked");
+            }
+            $('.inputarea #datepicker1').val(vacationModify[2]);
+            $('.inputarea #datepicker2').val(vacationModify[3]);
+            $('.inputarea .inputContent').val(vacationModify[4]);
+            $(".dayCount").text(getDay);
+        });
+
+    </script>
 
     <title>휴가신청서</title>
 </head>
