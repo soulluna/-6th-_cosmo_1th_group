@@ -11,7 +11,7 @@ function validate(){
    }
 
 
-    if(!check(regexpPwd,chg_pwd,"비밀번호는 8~15자리의 특수문자 포함 문자열입니다.")){
+    if(!check(regexpPwd,chg_pwd,"변경할 비밀번호는 8~15자리의 특수문자 포함 문자열입니다.")){
         chg_pwd.focus();
         return false;
     }
