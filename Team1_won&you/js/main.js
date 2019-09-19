@@ -27,6 +27,13 @@ function draftCheck() {
   } // else
 } //function draftCheck()
 
+//내 문서함 검색 alert()
+function docListSearchCheck(){
+  var value = $("input[name=searchKey]").val();
+  if(value==""){
+    alert("뭔가 입력해주세요.");
+  }
+}
 
 //vacation.html 입력값 확인
 function vacationCheck() {
