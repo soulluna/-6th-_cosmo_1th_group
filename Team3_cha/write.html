@@ -38,8 +38,7 @@
             <!--nav bar-->
             <ul class="topBar">
                 <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-                <li id="system" class="t_menu btn1"> <a
-                        href="../Team1_won&you/docList.html">전자결재시스템</a></li>
+                <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="./noticeBoardMain.html">게시판</a></li>
                 <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
             </ul>
@@ -54,14 +53,14 @@
                         <h2>게시판</h2>
                     </div>
                     <div>
-                        <select class="tpqn1">
+                        <select class="tpqn1" name="searchtype">
                             <option value="부서">부서</option>
                             <option value="취미">취미</option>
                             <option value="자유">자유</option>
                         </select>
                     </div>
                     <h3>
-                        <input type="checkbox" id="jb-input-checkbox">
+                        <input type="checkbox" id="jb-input-checkbox" name="empty">
                         <label for="jb-input-checkbox">공지로 지정</label>
                     </h3>
                 </div>
@@ -70,7 +69,7 @@
                         <h2>제 목</h2>
                     </div>
                     <div class="wpahrdlqfur">
-                        <input type="text" placeholder="제목을 입력해주세요">
+                        <input type="text" name="w_title" placeholder="제목을 입력해주세요">
                     </div>
                 </div>
 
@@ -79,8 +78,8 @@
                         <h2>첨부파일</h2>
                     </div>
                     <div class="rksrur">
-                            <input type="file" id="file" multiple>
-                            <label for="file">파일</label>
+                        <input type="file" id="file" multiple>
+                        <label for="file">파일</label>
                     </div>
                 </div>
 
@@ -89,7 +88,7 @@
                 </div>
 
                 <div class="zmrl">
-                    <textarea class="noresize" placeholder="내용을 입력해주세요."></textarea>
+                    <textarea class="noresize" name="contents" placeholder="내용을 입력해주세요."></textarea>
                 </div>
                 <div class="gkeks">
                     <div class="rksrur_bottom_left">
@@ -97,16 +96,14 @@
 
                     </div>
                     <div class="rksrur_bottom_right">
-
                         <button><a href="#">임시저장</a></button>
-
-                        <button><a href="./noticeBoardMain.html">작성하기</a></button>
+                        <button class="make"><a href="#">작성하기</a></button>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-        <script src="./js/tkdtp.js"></script>
+    </div>
+    <script src="./js/tkdtp.js"></script>
 </body>
 
 </html>
