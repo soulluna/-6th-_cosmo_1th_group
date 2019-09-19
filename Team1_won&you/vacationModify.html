@@ -2,21 +2,48 @@
 <html lang="en">
 
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="./css/main.css" />
-        <link rel="stylesheet" href="./css/gnb.css" />
-        <link rel="stylesheet" href="./css/jquery-ui.css" />
-        
-    
-        <script src="./js/jquery-2.1.1.min.js"></script>
-        <script src="./js/jquery-ui.min.js"></script>
-        <script src="./js/jquery.easing.1.3.js"></script>
-        <script src="./js/prefixfree.min.js"></script>
-        <script src="./js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/gnb.css" />
+    <link rel="stylesheet" href="./css/jquery-ui.css" />
 
-    <title>기안서</title>
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/prefixfree.min.js"></script>
+    <script src="./js/main.js"></script>
+
+    <script>
+        // vacationModify.html
+        var vacationModify = new Array();
+        vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
+
+        $(function () {
+
+            var getDay = getDateDiff(vacationModify[3], vacationModify[2]) + 1;
+
+            $('.inputarea .inputTitle').val(vacationModify[0]);
+
+            if (vacationModify[1] == 1) {
+                $(".modifySelect1").attr("checked", "checked");
+            } else if (vacationModify[1] == 2) {
+                $(".modifySelect2").attr("checked", "checked");
+            } else if (vacationModify[1] == 3) {
+                $(".modifySelect3").attr("checked", "checked");
+            } else if (vacationModify[1] == 4) {
+                $(".modifySelect4").attr("checked", "checked");
+            }
+            $('.inputarea #datepicker1').val(vacationModify[2]);
+            $('.inputarea #datepicker2').val(vacationModify[3]);
+            $('.inputarea .inputContent').val(vacationModify[4]);
+            $(".dayCount").text(getDay);
+        });
+
+    </script>
+
+    <title>휴가신청서</title>
 </head>
 
 <body>
@@ -50,13 +77,14 @@
             <!--//navBar-->
         </div>
         <!--//gnb-->
-        <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="./draft.html" selected>기안서</option>
-            <option value="./vacation.html">휴가신청서 </option>
+        <select class="docSelecter" onchange="if(this.value) location.href=(this.value)" style="display:none;">
+            <option value="./draft.html">기안서</option>
+            <option value="./vacation.html" selected>휴가신청서 </option>
+
         </select>
 
         <div class="docName">
-            <h1>기안서</h1>
+            <h1>휴가 신청서</h1>
         </div>
         <div class="deptContent">
             <div class="signtable">
@@ -105,9 +133,29 @@
                     <tr>
                         <td>
                             <br>
-                            내용<br>
+                            1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+                            <input type="radio" name="leaveradio" value="1" class="modifySelect1">연차
+                            <input type="radio" name="leaveradio" value="2" class="modifySelect2">병가
+                            <input type="radio" name="leaveradio" value="3" class="modifySelect3">휴가
+                            <input type="radio" name="leaveradio" value="4" class="modifySelect4">기타
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            1-2. 요청한 휴가의 기간을 입력하세요.<br>
+                            <input type="text" id="datepicker1" placeholder="년/월/일" readonly style="height:35px;"> ~
+                            <input type="text" id="datepicker2" placeholder="년/월/일" readonly style="height:35px;">
+                            (<span class="dayCount"></span>일 간)
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            2. 1번 보기를 선택한 사유를 쓰세요.<br>
                             <form>
-                                <textarea class="inputContent" name="reason" placeholder="내용을 입력해주세요."
+                                <textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요."
                                     required></textarea>
                             </form>
                         </td>
@@ -116,7 +164,7 @@
 
                 <br>
                 <div>
-                    <button type="button" onclick="draftCheck()">등록</button>
+                    <button type="button" onclick="vacationCheck()">등록</button>
                     <button type="button" disabled>수정</button>
                     <button type="button" onclick="docDelete()" disabled>삭제</button>
                     <button type="button" onclick="location.href='./doclist.html';">취소</button>
