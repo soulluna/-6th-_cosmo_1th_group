@@ -7,47 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="./css/jqueryui.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
-    <script>
-        var vacationModify = new Array();
-        vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
 
-        // 날짜 차이 계산 함수
-        // date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
-        function getDateDiff(date1, date2) {
-            var arrDate1 = date1.split("-");
-            var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1])-1, parseInt(arrDate1[2]));
-            var arrDate2 = date2.split("-");
-            var getDate2 = new Date(parseInt(arrDate2[0]), parseInt(arrDate2[1])-1, parseInt(arrDate2[2]));
-            var getDiffTime = getDate1.getTime() - getDate2.getTime();
-            return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
-        }
-        var getDay = getDateDiff(vacationModify[3], vacationModify[2])+1;
-        $(function () {
-            $('.inputarea .inputTitle').val(vacationModify[0]);
-            if (vacationModify[1] == 1) {
-                $(".modifySelect1").attr("checked", "checked");
-            } else if (vacationModify[1] == 2) {
-                $(".modifySelect2").attr("checked", "checked");
-            } else if (vacationModify[1] == 3) {
-                $(".modifySelect3").attr("checked", "checked");
-            } else if (vacationModify[1] == 4) {
-                $(".modifySelect4").attr("checked", "checked");
-            }
-
-            $('.inputarea #datepicker1').val(vacationModify[2]);
-            $('.inputarea #datepicker2').val(vacationModify[3]);
-            $('.inputarea .inputContent').val(vacationModify[4]);
-            $(".dayCount").text(getDay);
-
-        })
-
-    </script>
     <title>휴가신청서</title>
 </head>
 
@@ -151,7 +118,7 @@
                             1-2. 요청한 휴가의 기간을 입력하세요.<br>
                             <input type="text" id="datepicker1" placeholder="년/월/일" readonly style="height:35px;"> ~
                             <input type="text" id="datepicker2" placeholder="년/월/일" readonly style="height:35px;">
-                            (일<span class="dayCount"></span> 간)
+                            (<span class="dayCount"></span>일 간)
                         </td>
 
                     </tr>

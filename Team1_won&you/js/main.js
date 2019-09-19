@@ -1,59 +1,70 @@
-
-  //문서 삭제
-  function docDelete() {
-    if (confirm("정말 삭제하시겠습니까??") == true) {
-      //document.removefrm.submit();
-    } else {
-      return false;
-    }
+//문서 삭제
+function docDelete() {
+  if (confirm("정말 삭제하시겠습니까??") == true) {
+    //document.removefrm.submit();
+  } else {
+    return false;
   }
+}
 
-  
-  var draftInputValue = new Array();
-  var vacationInputValue = new Array();
-  var draftModify = new Array();
+var draftInputValue = new Array();
+var vacationInputValue = new Array();
+var draftModify = new Array();
+
+//draft.html 입력값 확인
+function draftCheck() {
+  draftInputValue[0] = $("input[name=title]").val();
+  draftInputValue[1] = $("textarea[name=reason]").val();
+
+  if (!draftInputValue[0]) {
+    alert("제목을 입력해주세요.");
+  } else if (!draftInputValue[1]) {
+    alert("내용을 입력해주세요.")
+  } else {
+    for (i = 0; i <= 1; i++) {
+      console.log(draftInputValue[i]);
+    }
+  } // else
+} //function draftCheck()
 
 
+//vacation.html 입력값 확인
+function vacationCheck() {
+  vacationInputValue[0] = $("input[name=title]").val();
+  vacationInputValue[1] = $(':radio[name="leaveradio"]:checked').val();
+  vacationInputValue[2] = $("#datepicker1").val();
+  vacationInputValue[3] = $("#datepicker2").val();
+  vacationInputValue[4] = $("textarea[name=reason]").val();
 
-  //draft.html 입력값 확인
-  function draftCheck() {
-    draftInputValue[0] = $("input[name=title]").val();
-    draftInputValue[1] = $("textarea[name=reason]").val();
+  if (!vacationInputValue[0]) {
+    alert("제목을 입력해주세요.");
+  } else if (!vacationInputValue[2] || !vacationInputValue[3]) {
+    alert("날짜를 입력해주세요.")
+  } else if (!vacationInputValue[4]) {
+    alert("사유를 입력해주세요.")
+  } else {
+    for (i = 0; i <= 4; i++) {
+      console.log(vacationInputValue[i]);
+    }
+  } // else
+} // function vacationCheck()
 
-    if (!draftInputValue[0]) {
-      alert("제목을 입력해주세요.");
-    } else if (!draftInputValue[1]) {
-      alert("내용을 입력해주세요.")
-    } else {
-      for (i = 0; i <= 1; i++) {
-        console.log(draftInputValue[i]);
-      }
-    } // else
-  } //function draftCheck()
 
-  
-  //vacation.html 입력값 확인
-  function vacationCheck() {
-    vacationInputValue[0] = $("input[name=title]").val();
-    vacationInputValue[1] = $(':radio[name="leaveradio"]:checked').val();
-    vacationInputValue[2] = $("#datepicker1").val();
-    vacationInputValue[3] = $("#datepicker2").val();
-    vacationInputValue[4] = $("textarea[name=reason]").val();
+// vacationModify.html
+var vacationModify = new Array();
+vacationModify = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
 
-    if (!vacationInputValue[0]) {
-      alert("제목을 입력해주세요.");
-    } else if (!vacationInputValue[2] || !vacationInputValue[3]) {
-      alert("날짜를 입력해주세요.")
-    } else if (!vacationInputValue[4]) {
-      alert("사유를 입력해주세요.")
-    } else {
-      for (i = 0; i <= 4; i++) {
-        console.log(vacationInputValue[i]);
-      }
-    } // else
-  } // function vacationCheck()
-  
-
+// 날짜 차이 계산 함수
+// date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
+function getDateDiff(date1, date2) {
+  var arrDate1 = date1.split("-");
+  var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1]) - 1, parseInt(arrDate1[2]));
+  var arrDate2 = date2.split("-");
+  var getDate2 = new Date(parseInt(arrDate2[0]), parseInt(arrDate2[1]) - 1, parseInt(arrDate2[2]));
+  var getDiffTime = getDate1.getTime() - getDate2.getTime();
+  return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
+} // function getDateDiff
+var getDay = getDateDiff(vacationModify[3], vacationModify[2]) + 1;
 
 
 $(document).ready(function () {
@@ -62,8 +73,6 @@ $(document).ready(function () {
   $("button[name=docCreate").on("click", function () {
     location.href = "./draft.html";
   });
-
-  
 
   // 문서목록 검색 타입 및 검색값 콘솔 확인
   $(".search").on("click", function () {
@@ -74,8 +83,7 @@ $(document).ready(function () {
     location.href = '#';
   })
 
-
-  // 달력
+  // 달력 한글화
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
     prevText: '이전 달',
@@ -88,9 +96,49 @@ $(document).ready(function () {
     showMonthAfterYear: true,
     yearSuffix: '년'
   });
+  
+  $('#datepicker1').datepicker({
+    dateFormat: "yy-mm-dd",
+    // minDate: 0,
+     
+});
+$('#datepicker2').datepicker({
+    dateFormat: "yy-mm-dd",
+    onClose: function( selectedDate ) {
+        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+    }                
+});
+  
+  // vacationModify.html
+  $('.inputarea .inputTitle').val(vacationModify[0]);
 
-  $(function () {
-    $("#datepicker1, #datepicker2").datepicker();
+  if (vacationModify[1] == 1) {
+    $(".modifySelect1").attr("checked", "checked");
+  } else if (vacationModify[1] == 2) {
+    $(".modifySelect2").attr("checked", "checked");
+  } else if (vacationModify[1] == 3) {
+    $(".modifySelect3").attr("checked", "checked");
+  } else if (vacationModify[1] == 4) {
+    $(".modifySelect4").attr("checked", "checked");
+  }
+  $('.inputarea #datepicker1').val(vacationModify[2]);
+  $('.inputarea #datepicker2').val(vacationModify[3]);
+  $('.inputarea .inputContent').val(vacationModify[4]);
+  $(".dayCount").text(getDay);
+  
+  var toDay;
+  var forDay;
+  $('#datepicker1').change(function () {
+    toDay = $('#datepicker1').val();
+    forDay = $('#datepicker2').val();
+    var c = getDateDiff(forDay, toDay) + 1;
+    $('.dayCount').text(c);
   });
 
+  $('#datepicker2').change(function () {
+    toDay = $('#datepicker1').val();
+    forDay = $('#datepicker2').val();
+    var c = getDateDiff(forDay, toDay) + 1;
+    $('.dayCount').text(c);
+  });
 });
