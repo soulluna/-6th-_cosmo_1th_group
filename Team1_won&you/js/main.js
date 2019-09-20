@@ -42,15 +42,18 @@ function vacationCheck() {
   vacationInputValue[2] = $("#datepicker1").val();
   vacationInputValue[3] = $("#datepicker2").val();
   vacationInputValue[4] = $("textarea[name=reason]").val();
+  vacationInputValue[5] = parseInt($(".dayCount").text());
 
   if (!vacationInputValue[0]) {
     alert("제목을 입력해주세요.");
   } else if (!vacationInputValue[2] || !vacationInputValue[3]) {
-    alert("날짜를 입력해주세요.")
+    alert("날짜를 입력해주세요.");
   } else if (!vacationInputValue[4]) {
-    alert("사유를 입력해주세요.")
-  } else {
-    for (i = 0; i <= 4; i++) {
+    alert("사유를 입력해주세요.");
+  } else if(vacationInputValue[5] < 1){
+    alert("날짜를 올바르게 선택하세요.");
+  }else {
+    for (i = 0; i <= 5; i++) {
       console.log(vacationInputValue[i]);
     }
   } // else
@@ -103,9 +106,9 @@ $(document).ready(function () {
 });
 $('#datepicker2').datepicker({
     dateFormat: "yy-mm-dd",
-    onClose: function( selectedDate ) {
-        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
-    }                
+    // onClose: function( selectedDate ) {
+    //     $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+    // }                
 });
   
   
