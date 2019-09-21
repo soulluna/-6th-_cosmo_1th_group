@@ -31,7 +31,7 @@ function draftCheck() {
 function docListSearchCheck(){
   var value = $("input[name=searchKey]").val();
   if(value==""){
-    alert("뭔가 입력해주세요.");
+    alert("검색어를 입력해주세요.");
   }
 }
 
