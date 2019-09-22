@@ -26,25 +26,32 @@ insert into EMPLOYEE values('1889934935', '신한솔', 'sinhansol', 'hansol258@n
 
 //전자결재페이지 table
 create table APPROVAL(
-ename varchar2(10),
-rank varchar2(8),
-dname varchar2(15),
-fboss varchar2(10),
-sboss varchar2(10),
-txtname varchar2(30) not null,
-txtcontext varchar2(1000) not null,
-txtnum number(3) not null constraint VAC_PK primary key,
-txtlist number(1) not null,
+dravac number(1) not null,
+rank varchar2(8) not null,
+ename varchar2(10) not null,
+entrydate date,
+bossfir varchar2(10),
+bosssec varchar2(10),
+txtname varchar2(100) not null unique,
+txtcont varchar2(1000) not null unique,
+txtnum number(3) constraint APP_PK primary key,
+vaclist number(1) not null,
 vacstart date,
 vacend date
 );
 
+
 //게시판 메인 table
 create table NOTICE(
-
+noticelist number(1) not null,
+ename varchar2(10) not null,
+entrydate date,
+txtname varchar2(100) not null unique,
+txtcont varchar2(1000) not null unique,
+txtnum number(3) constraint NOT_PK primary key,
+txtview number(4) default 0,
+txtlike number(4) default 0
 );
-
-
 
 
 
