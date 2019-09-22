@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="./css/main.css" />
-        <link rel="stylesheet" href="./css/gnb.css" />
-        <link rel="stylesheet" href="./css/jquery-ui.css" />
-        
-    
-        <script src="./js/jquery-2.1.1.min.js"></script>
-        <script src="./js/jquery-ui.min.js"></script>
-        <script src="./js/jquery.easing.1.3.js"></script>
-        <script src="./js/prefixfree.min.js"></script>
-        <script src="./js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/gnb.css" />
+    <link rel="stylesheet" href="./css/jquery-ui.css" />
 
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/prefixfree.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            for (i = 0; i <= 1; i++) {
+                console.log(draftInputValue[i]);
+            }
+        });
+
+    </script>
     <title>기안서</title>
 </head>
 
@@ -50,9 +56,9 @@
             <!--//navBar-->
         </div>
         <!--//gnb-->
-        <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="./draft.html" selected>기안서</option>
-            <option value="./vacation.html">휴가신청서 </option>
+        <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
+            <option value="./draft.html">기안서</option>
+            <option value="./vacation.html" selected>휴가신청서 </option>
         </select>
 
         <div class="docName">
@@ -82,12 +88,12 @@
                         <th>부장</th>
                     </tr>
                     <tr>
-                        <td style="vertical-align:top">홍길동<br></td>
-                        <td></td>
-                        <td></td>
+                        <td style="vertical-align:top">홍길동<br><span style="color:red;">[승인]</span></td>
+                        <td style="vertical-align:top">어피치<br><span style="color:red;"></span></td>
+                        <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td class=toDayInput></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -99,26 +105,33 @@
                     <tr>
                         <td>
                             제목<br>
-                            <input class="inputTitle" type="text" name="title" required placeholder="제목을 입력해주세요.">
+                        </td>
+                        <td></td>
+                    <tr>
+                        <td class="inputTitle" style="background-color:white;">
+                            draftInputValue배열의 첫 번째 값 입력
                         </td>
                     </tr>
+                    
+                    
+                    
                     <tr>
                         <td>
                             <br>
                             내용<br>
-                            <form>
-                                <textarea class="inputContent" name="reason" placeholder="내용을 입력해주세요."
-                                    required></textarea>
-                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="inputContent" style="background-color:white;vertical-align:top;">
+                            draftInputValue배열의 두 번째 값 입력
                         </td>
                     </tr>
                 </table>
-
                 <br>
                 <div>
-                    <button type="button" onclick="draftCheck()">등록</button>
-                    <button type="button" onclick="docModify()" disabled>수정</button>
-                    <button type="button" onclick="docDelete()" disabled>삭제</button>
+                    <button type="button" onclick="draftCheck()" disabled>등록</button>
+                    <button type="button" onclick="docModify()">수정</button>
+                    <button type="button" onclick="docDelete()">삭제</button>
                     <button type="button" onclick="docApprov()" disabled>승인</button>
                     <button type="button" onclick="docReturn()" disabled>반려</button>
                     <button type="button" onclick="docCancle()">취소</button>
