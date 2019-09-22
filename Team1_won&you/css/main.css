@@ -167,16 +167,20 @@ body{
 .inputarea{
     margin:0 100px;
     margin-top:20px;
-    position:relative;
+    position: relative;
 }
 
 .inputarea .selectedDay{
     background-color:white;
+    width:300px;
 }
+
 
 .inputarea .inputTitle{
     width:850px;
     height:35px;
+    vertical-align: middle;
+    display:table-cell
 }
 .inputarea .inputContent{
     resize: none;
@@ -184,22 +188,16 @@ body{
     height:250px;
 }
 
-.inputarea div{
-    position:relative;
-    height:40px; line-height: 40px;
-
-    float: right;
-    padding-bottom: 10px;
-    right: 25px;
-}
-/* .inputarea div{
-    position:absolute; right:20px; padding:5px;
-} */
 .inputarea tr:nth-child(2) span{
     margin: 0 10px;
 }
-
-.inputarea div button{
+.inputarea .bottomBt{
+    position: absolute;
+    height:40px; line-height: 40px;
+    padding-bottom: 10px;
+    right: 25px;
+}
+.inputarea div.bottomBt button{
 padding:5px;
 margin:0 3px;
 }

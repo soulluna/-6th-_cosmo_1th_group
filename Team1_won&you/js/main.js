@@ -15,10 +15,24 @@ function toDayInput() {
   return syear + "-" + smonth + "-" + sday;
 }
 
+//문서 이름 구하기
+function docName() {
+  return document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+
+}
+var thisfilefullname;
+
 //문서 수정
 function docModify() {
+  thisfilefullname = docName();
+  console.log(thisfilefullname);
   if (confirm("수정하시겠습니까?") == true) {
-    location.href = './vacationModify.html';
+    if (thisfilefullname == "createdDraftDoc.html") {
+      location.href = '#';
+    } else if (thisfilefullname == "draftWait.html") {
+      location.href = './vacationModify.html';
+    }
+
   } else {
     return false;
   }
@@ -76,7 +90,7 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      location.href = './createdDoc.html';
+      location.href = './createdDraftDoc.html';
     } else {
       return false;
     }
@@ -112,6 +126,19 @@ function vacationCheck() {
     for (i = 0; i <= 5; i++) {
       console.log(vacationInputValue[i]);
     }
+    thisfilefullname = docName();
+      console.log(thisfilefullname);
+      if (confirm("등록하시겠습니까?") == true) {
+        if (thisfilefullname == "vacationModify.html") {
+          location.href = './createdVacationModify.html';
+        }else if (thisfilefullname == "vacation.html") {
+          location.href = './createdVacationDoc.html';
+        }
+
+
+      } else {
+        return false;
+      }
   } // else
 } // function vacationCheck()
 
