@@ -39,9 +39,39 @@
             $('.inputarea #datepicker2').val(vacationModify[3]);
             $('.inputarea .inputContent').val(vacationModify[4]);
             $(".dayCount").text(getDay);
+        
+            var toDay;
+            var forDay;
+            $('#datepicker1').change(function () {
+                toDay = $('#datepicker1').val();
+                forDay = $('#datepicker2').val();
+                var c = getDateDiff(forDay, toDay) + 1;
+                if (c) {
+                    $('.dayCount').text(c);
+                }
+                if (c < 1) {
+                    $('.dayCountAlret').css({ 'display': 'inline' });
+                } else {
+                    $('.dayCountAlret').css({ 'display': 'none' });
+                }
+            }); //datepicker1 변동 시 날짜 변경
+            $('#datepicker2').change(function () {
+                toDay = $('#datepicker1').val();
+                forDay = $('#datepicker2').val();
+                var c = getDateDiff(forDay, toDay) + 1;
+                if (c) {
+                    $('.dayCount').text(c);
+                }
+                if (c < 1) {
+                    $('.dayCountAlret').css({ 'display': 'inline' });
+                } else {
+                    $('.dayCountAlret').css({ 'display': 'none' });
+                }
+            }); //datepicker2 변동 시 날짜 변경
         });
 
-    </script>
+
+</script>
 
     <title>휴가신청서</title>
 </head>
@@ -147,6 +177,7 @@
                             <input type="text" id="datepicker1" placeholder="년/월/일" readonly style="height:35px;"> ~
                             <input type="text" id="datepicker2" placeholder="년/월/일" readonly style="height:35px;">
                             (<span class="dayCount"></span>일 간)
+                            <span class="dayCountAlret" style="color:red; display: none;">날짜를 올바르게 선택하세요.</span>
                         </td>
 
                     </tr>

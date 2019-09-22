@@ -15,11 +15,8 @@
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
-        // vacationModify.html
-        var vacationModify = new Array();
 
         $(function () {
-
             var toDay;
             var forDay;
             $('#datepicker1').change(function () {
@@ -31,7 +28,7 @@
                 }
                 if (c < 1) {
                     $('.dayCountAlret').css({ 'display': 'inline' });
-                }else{
+                } else {
                     $('.dayCountAlret').css({ 'display': 'none' });
                 }
             }); //datepicker1 변동 시 날짜 변경
@@ -44,14 +41,11 @@
                 }
                 if (c < 1) {
                     $('.dayCountAlret').css({ 'display': 'inline' });
-                }else{
+                } else {
                     $('.dayCountAlret').css({ 'display': 'none' });
                 }
             }); //datepicker2 변동 시 날짜 변경
-
-
         });
-
     </script>
     <title>휴가신청서</title>
 </head>
