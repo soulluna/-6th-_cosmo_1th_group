@@ -36,7 +36,7 @@ button>a{color: white;}
 .media-body{border-bottom: 1px solid gray;padding-top: 10px;}
 
 .del{border: 1px solid red; float: right; width: 20px; height: 20px;}
-.cmt-good-btn{border: 1px solid black; width: 100px; float: right;}
+.cmt-good-btn{border: 1px solid black; width: 100px; float: right; cursor: pointer;}
 .cmt-good > p{float: left;}
 
 .text_sodyd {width: 1000px; height: 300px; margin: 10px auto 10px;
@@ -45,6 +45,8 @@ button>a{color: white;}
     /*resize: horizontal; /* 좌우만 가능 */
     /*resize: vertical; /* 상하만 가능 */ 
      }
-     .eotrmf{width: 1000px; height: 100px; margin: 0 auto 0;}
-     .eotrmfdlqfur{width: 1000px; height: 100px;
-        resize: none; margin: 10px 0;}
+.eotrmf{width: 1000px; height: 100px; margin: 0 auto 0;}
+.eotrmfdlqfur{width: 1000px; height: 100px;
+resize: none; margin: 10px 0;}
+
+.cmtBor {}
