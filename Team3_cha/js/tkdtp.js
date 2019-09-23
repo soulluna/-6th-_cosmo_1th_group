@@ -70,4 +70,18 @@ $(".search").on("click", function () {
     location.href = '#';
 });
 
+//상세페이지 댓글 추천수 변환
+var good=false;
+$(".cmt-good-btn").click(function(){
+    var span=$(this).children('a').children('span');
+    var g = parseInt(span.text());
+    if(good){
+        span.text(g-1);
+        good=false;
+    } else{
+        span.text(g+1);
+        good=true;
+    }
+});
+
 });
