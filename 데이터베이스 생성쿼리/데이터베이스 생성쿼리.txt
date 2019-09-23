@@ -1,6 +1,6 @@
 ﻿//부서 테이블
 create table EMPLOYEE(
-eno number(10) not null constraint employee_pk primary key, 
+eno number(10) not null, 
 ename varchar2(10) not null,
 eng_name varchar2(20) not null,
 email varchar2(20) unique,
@@ -9,7 +9,59 @@ dname varchar2(15) not null,
 dname_two varchar2(8) not null,
 hiredate date,
 rank varchar2(8) not null,
-isadmin varchar2(5) default 'false');
+isadmin varchar2(5) default 'false',
+constraint employee_pk primary key(eno, ename, rank));
+
+//글쓰기 기본사항 table
+create table MOD_WRITE(
+txtnum number(3),
+txtname varchar2(100) not null,
+txtcont varchar2(1000) not null,
+entrydate date,
+constraint MOD_PK PRIMARY KEY(txtnum, txtname, txtcont, entrydate);
+
+//전자결재페이지 table
+create table APPROVAL(
+txtnum number(3),
+txtname varchar2(100) not null,
+txtcont varchar2(1000) not null,
+entrydate date,
+eno number(10) not null, 
+ename varchar2(10) not null,
+rank varchar2(8) not null,
+applist number(1),
+midsugest varchar2(10),
+finsugest varchar2(10),
+vaclist number(1),
+vacstart date,
+vacend date,
+constraint APP_PK primary key(txtnum),
+constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
+constraint APP_FK2 foreign key(txtnum,txtname,txtcont,entrydate) REFERENCES MOD_WRITE(txtnum, txtname, txtcont, entrydate)
+);
+
+
+
+//게시판 메인 table
+create table NOTICE(
+txtnum number(3),
+txtname varchar2(100) not null,
+txtcont varchar2(1000) not null,
+entrydate date,
+eno number(10) not null, 
+ename varchar2(10) not null,
+rank varchar2(8) not null,
+noticelist number(1),
+likenum number(3),
+comtotal number(3),
+comcont varchar(500),
+comnum number(3),
+viewtotal number(4),
+constraint NOT_PK primary key(txtnum),
+constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
+constraint NOT_FK2 foreign key(txtnum,txtname,txtcont,entrydate) REFERENCES MOD_WRITE(txtnum, txtname, txtcont, entrydate)
+);
+
 
 insert into EMPLOYEE values('9052501152', '이진호', 'leejinho', 'ding263229@naver.com', '01063901047', '기술개발팀', '1팀', '2001/03/01', '이사', 'true');
 insert into EMPLOYEE values('6361307962', '김윤경', 'kimyunkyeung', 'dg22118@naver.com', '01092528218', '기술개발팀', '2팀', '2012/03/01', '부장', 'false');
@@ -19,39 +71,11 @@ insert into EMPLOYEE values('2273979279', '원치운', 'woonchiwoon', 'doing2238
 insert into EMPLOYEE values('1338176239', '유학선', 'youhakseon', 'doee2658@naver.com', '01074661788', '영업부', '1팀', '2009/03/01', '차장', 'false');
 insert into EMPLOYEE values('5374007484', '조현석', 'jyohyungseok', 'doefg2g58@naver.com', '01031105013', '기술지원팀', '3팀',  '2018/09/01', '부장', 'false');
 insert into EMPLOYEE values('2401310079', '함종우', 'hamjeongwoo', 'do2936h8@naver.com', '01074812659', '기술지원팀', '1팀',  '2019/01/01', '과장', 'false');
-insert into EMPLOYEE values('2776557628', '최영태', 'choiyoungtae', 'doing1928@naver.com', '01049345312', '기술지원팀', '2팀',  '2015/03/01', 'false');
 insert into EMPLOYEE values('2625239070', '안영우', 'anyeongwoo', 'powidn@naver.com', '01017196083', '기술지원팀', '1팀', '2019/03/01', '사원', 'false');
 insert into EMPLOYEE values('5356873369', '석인영', 'seokinyoung', 'seokin@naver.com', '01050814789', '인사부', '1팀', '2018/09/01', '사원', 'false');
 insert into EMPLOYEE values('1889934935', '신한솔', 'sinhansol', 'hansol258@naver.com', '01092123030', '인사부', '2팀', '2019/03/01', '사원', 'false');
-
-//전자결재페이지 table
-create table APPROVAL(
-dravac number(1) not null,
-rank varchar2(8) not null,
-ename varchar2(10) not null,
-entrydate date,
-bossfir varchar2(10),
-bosssec varchar2(10),
-txtname varchar2(100) not null unique,
-txtcont varchar2(1000) not null unique,
-txtnum number(3) constraint APP_PK primary key,
-vaclist number(1) not null,
-vacstart date,
-vacend date
-);
-
-
-//게시판 메인 table
-create table NOTICE(
-noticelist number(1) not null,
-ename varchar2(10) not null,
-entrydate date,
-txtname varchar2(100) not null unique,
-txtcont varchar2(1000) not null unique,
-txtnum number(3) constraint NOT_PK primary key,
-txtview number(4) default 0,
-txtlike number(4) default 0
-);
+insert into EMPLOYEE values('1889934937', '최영태', 'choiyongtae', 'dong1928@naver.com', '01049345312', '기술지원팀', '2팀',  '2015/03/01','사원',  'false');
+insert into EMPLOYEE values('1889254983', '최영태', 'choiyoungtae', 'ding11128@naver.com', '1049345393', '개발팀', '1팀',  '2011/03/01','대리',  'false');
 
 
 
