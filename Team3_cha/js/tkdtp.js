@@ -14,11 +14,44 @@ $(function () {
         if (confirm("정말 삭제 하겠습니까?")) {
             // 확인 버튼 클릭 시 동작
             alert("삭제 되었습니다.");
+            
+        //상세페이지 댓글 지우기
+         $(this).parents('.media-body').css({'display':'none'})
+        
+            
         } else {
             // 취소 버튼 클릭 시 동작
             alert("삭제를 취소했습니다.");
         }
     });
+    
+    //상세페이지 댓글 추천수 변환
+
+    $(".cmt-good-btn").click(function(){
+        var span=$(this).children('a').children('span');
+        var g = parseInt(span.text());
+        if(span.hasClass('cmtBor')){
+            span.text(g-1);
+            span.removeClass('cmtBor');
+            span.parents('.cmt-good-btn').css({'background':'none'})
+            span.parents('.cmt-good').css({'color':'#555'})
+        } else{
+            span.text(g+1);
+            span.addClass('cmtBor');
+            span.parents('.cmt-good-btn').css({'background':'cyan'})
+            span.parents('.cmt-good').css({'color':'yellow'})
+        }
+    });
+        
+    //상세페이지 댓글 출력
+    function comment() {
+        var comment =  $("textarea[name=comment]").val();
+        console.log(comment);
+    }
+    $(".c_write").click(comment);
+
+
+
     //글작성 페이지
     $(".back").click(function () {
         if (confirm("확인시 내용이 있을경우 사라집니다.")) {
@@ -28,7 +61,9 @@ $(function () {
             // 취소 버튼 클릭 시 동작
         }
     });
-      //글장석.html 입력값 확인
+      
+    
+    //글장석.html 입력값 확인
     var write = new Array();
     function check() {
         write[0] = $("select[name=searchtype] option:selected").val();
@@ -51,15 +86,6 @@ $(function () {
   
   $(".make").click(check);
   
-//상세페이지 댓글 출력
-function comment() {
-    var comment =  $("textarea[name=comment]").val();
-    console.log(comment);
-}
-    
-  $(".c_write").click(comment);
-
-
 
 // 메인게시판페이지 검색 타입 및 검색값 콘솔 확인
 $(".search").on("click", function () {
