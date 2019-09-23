@@ -16,8 +16,25 @@
     <script src="./js/main.js"></script>
     <script>
 
+        vacationInputValue = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
+        $(function () {
+            $(".inputTitle").text(vacationInputValue[0]);
+            if (vacationInputValue[1] == 1) {
+                $(".inputarea tr:nth-child(3) input[value=1]").attr("checked", "checked");
+            } else if (vacationInputValue[1] == 2) {
+                $(".inputarea tr:nth-child(3) input[value=2]").attr("checked", "checked");
+            } else if (vacationInputValue[1] == 3) {
+                $(".inputarea tr:nth-child(3) input[value=3]").attr("checked", "checked");
+            } else if (vacationInputValue[1] == 4) {
+                $(".inputarea tr:nth-child(3) input[value=4]").attr("checked", "checked");
+            }
+            $(".selectedDay:first").text(vacationInputValue[2]);
+            $(".selectedDay:last").text(vacationInputValue[3]);
+            $(".inputContent").text(vacationInputValue[4]);
+        });
+
     </script>
-    <title>기안서</title>
+    <title>휴가신청서</title>
 </head>
 
 <body>
@@ -52,12 +69,13 @@
         </div>
         <!--//gnb-->
         <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="./draft.html" selected>기안서</option>
-            <option value="./vacation.html">휴가신청서 </option>
+            <option value="./draft.html">기안서</option>
+            <option value="./vacation.html" selected>휴가신청서 </option>
+
         </select>
 
         <div class="docName">
-            <h1>기안서</h1>
+            <h1>휴가 신청서</h1>
         </div>
         <div class="deptContent">
             <div class="signtable">
@@ -84,12 +102,12 @@
                     </tr>
                     <tr>
                         <td style="vertical-align:top">홍길동<br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top">어피치<br><span style="color:red;">[승인]</span></td>
+                        <td style="vertical-align:top">어피치<br><span style="color:red;"></span></td>
                         <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
                     </tr>
                     <tr>
-                        <td>2019.06.15</td>
-                        <td>2019.06.27</td>
+                        <td>2019.07.19</td>
+                        <td></td>
                         <td></td>
                     </tr>
                 </table>
@@ -101,30 +119,63 @@
                         <td>
                             제목<br>
                             <div class="inputTitle" style="background-color:white;">
-                                2019년 06월 업무 개선사항 홍길동 사원 기안서
-                            </div>
+                                    draftInputValue배열의 첫 번째 값 입력
+                                </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <br>
-                            내용<br>
+                            1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+                            <span>
+                                <input type="radio" name="leaveradio" value="1" class="modifySelect1" id="kindsSelect1"
+                                    checked="checked" disabled>
+                                <label for="kindsSelect1">연차</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="leaveradio" value="2" class="modifySelect2" id="kindsSelect2"
+                                    disabled>
+                                <label for="kindsSelect2">병가</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="leaveradio" value="3" class="modifySelect3" id="kindsSelect3"
+                                    disabled>
+                                <label for="kindsSelect3">휴가</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="leaveradio" value="4" class="modifySelect4" id="kindsSelect4"
+                                    disabled>
+                                <label for="kindsSelect4">기타</label>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                            1-2. 요청한 휴가의 기간을 입력하세요.<br>
+                            <span class="selectedDay"></span> ~ <span class="selectedDay"></span>
+                            ( 일 간)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <br>
+                            2. 1번 보기를 선택한 사유를 쓰세요.<br>
                             <div class="inputContent" style="background-color:white;vertical-align:top;">
-                                    매주 월요일에 하는 주간 보고 시간을 오후로 옮겼으면 좋겠습니다.
                             </div>
                         </td>
                     </tr>
                 </table>
-
                 <br>
                 <div class="bottomBt">
-                        <button type="button" onclick="draftCheck()" disabled>등록</button>
-                        <button type="button" onclick="docModify()" disabled>수정</button>
-                        <button type="button" onclick="docDelete()" disabled>삭제</button>
-                        <button type="button" onclick="docApprov()" disabled>승인</button>
-                        <button type="button" onclick="docReturn()" disabled>반려</button>
-                        <button type="button" onclick="docCancle()">취소</button>
-                    </div>
+                    <button type="button" onclick="draftCheck()" disabled>등록</button>
+                    <button type="button" onclick="docModify()">수정</button>
+                    <button type="button" onclick="docDelete()">삭제</button>
+                    <button type="button" onclick="docApprov()" disabled>승인</button>
+                    <button type="button" onclick="docReturn()" disabled>반려</button>
+                    <button type="button" onclick="docCancle()">취소</button>
+                </div>
             </div>
         </div>
     </div>

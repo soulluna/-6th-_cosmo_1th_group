@@ -1,7 +1,72 @@
+//오늘 날짜(-)
+function toDayInput() {
+  var year = new Date();
+  var month = new Date();
+  var day = new Date();
+  var syear = String(year.getFullYear());
+  var smonth = String(month.getMonth() + 1);
+  var sday = String(day.getDate());
+  if (smonth < 10) {
+    smonth = "0" + smonth;
+  }
+  if (sday < 10) {
+    sday = "0" + sday;
+  }
+  return syear + "-" + smonth + "-" + sday;
+}
+
+//문서 이름 구하기
+function docName() {
+  return document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
+
+}
+var thisfilefullname;
+
+//문서 수정
+function docModify() {
+  thisfilefullname = docName();
+  console.log(thisfilefullname);
+  if (confirm("수정하시겠습니까?") == true) {
+    if (thisfilefullname == "createdDraftDoc.html") {
+      location.href = '#';
+    } else if (thisfilefullname == "draftWait.html") {
+      location.href = './vacationModify.html';
+    }
+
+  } else {
+    return false;
+  }
+}
+
 //문서 삭제
 function docDelete() {
-  if (confirm("정말 삭제하시겠습니까??") == true) {
+  if (confirm("정말 삭제하시겠습니까?") == true) {
     //document.removefrm.submit();
+    location.href = './doclist.html';
+  } else {
+    return false;
+  }
+}
+//문서 승인
+function docApprov() {
+  if (confirm("승인하시겠습니까?") == true) {
+    location.href = './doclist.html';
+  } else {
+    return false;
+  }
+}
+//문서 반려
+function docReturn() {
+  if (confirm("반려하시겠습니까?") == true) {
+    location.href = './doclist.html';
+  } else {
+    return false;
+  }
+}
+//문서 취소
+function docCancle() {
+  if (confirm("문서함으로 넘어가겠습니까?") == true) {
+    location.href = './doclist.html';
   } else {
     return false;
   }
@@ -11,7 +76,7 @@ var draftInputValue = new Array();
 var vacationInputValue = new Array();
 var draftModify = new Array();
 
-//draft.html 입력값 확인
+//draft.html 입력값 확인 및 문서 등록
 function draftCheck() {
   draftInputValue[0] = $("input[name=title]").val();
   draftInputValue[1] = $("textarea[name=reason]").val();
@@ -21,38 +86,59 @@ function draftCheck() {
   } else if (!draftInputValue[1]) {
     alert("내용을 입력해주세요.")
   } else {
-    for (i = 0; i <= 1; i++) {
-      console.log(draftInputValue[i]);
+    if (confirm("등록하시겠습니까?") == true) {
+      for (i = 0; i <= 1; i++) {
+        console.log(draftInputValue[i]);
+      }
+      location.href = './createdDraftDoc.html';
+    } else {
+      return false;
     }
   } // else
 } //function draftCheck()
 
 //내 문서함 검색 alert()
-function docListSearchCheck(){
+function docListSearchCheck() {
   var value = $("input[name=searchKey]").val();
-  if(value==""){
-    alert("뭔가 입력해주세요.");
+  if (value == "") {
+    alert("검색어를 입력해주세요.");
   }
 }
 
-//vacation.html 입력값 확인
+//vacation.html 입력값 확인 및 문서 등록
 function vacationCheck() {
   vacationInputValue[0] = $("input[name=title]").val();
   vacationInputValue[1] = $(':radio[name="leaveradio"]:checked').val();
   vacationInputValue[2] = $("#datepicker1").val();
   vacationInputValue[3] = $("#datepicker2").val();
   vacationInputValue[4] = $("textarea[name=reason]").val();
+  vacationInputValue[5] = parseInt($(".dayCount").text());
 
   if (!vacationInputValue[0]) {
     alert("제목을 입력해주세요.");
   } else if (!vacationInputValue[2] || !vacationInputValue[3]) {
-    alert("날짜를 입력해주세요.")
+    alert("날짜를 입력해주세요.");
   } else if (!vacationInputValue[4]) {
-    alert("사유를 입력해주세요.")
+    alert("사유를 입력해주세요.");
+  } else if (vacationInputValue[5] < 1) {
+    alert("날짜를 올바르게 선택하세요.");
   } else {
-    for (i = 0; i <= 4; i++) {
+    for (i = 0; i <= 5; i++) {
       console.log(vacationInputValue[i]);
     }
+    thisfilefullname = docName();
+      console.log(thisfilefullname);
+      if (confirm("등록하시겠습니까?") == true) {
+        if (thisfilefullname == "vacationModify.html") {
+          location.href = './createdVacationModify.html';
+        }else if (thisfilefullname == "vacation.html") {
+          location.href = './createdVacationDoc.html';
+        }
+
+
+      } else {
+        return false;
+      }
   } // else
 } // function vacationCheck()
 
@@ -83,6 +169,9 @@ $(document).ready(function () {
     location.href = '#';
   })
 
+  //결재&작성 시 오늘 날짜 입력
+  $(".toDayInput").text(toDayInput());
+
   // 달력 한글화
   $.datepicker.setDefaults({
     dateFormat: 'yy-mm-dd',
@@ -96,19 +185,19 @@ $(document).ready(function () {
     showMonthAfterYear: true,
     yearSuffix: '년'
   });
-  
+
   $('#datepicker1').datepicker({
     dateFormat: "yy-mm-dd",
 
-});
-$('#datepicker2').datepicker({
+  });
+  $('#datepicker2').datepicker({
     dateFormat: "yy-mm-dd",
-    onClose: function( selectedDate ) {
-        $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
-    }                
-});
-  
-  
-  
-  
+    // onClose: function( selectedDate ) {
+    //     $("#datepicker1").datepicker( "option", "maxDate", selectedDate );
+    // }                
+  });
+
+
+
+
 });
