@@ -92,19 +92,34 @@ body{
     height:800px;
     border-left:1px solid #444;
 }
-#board2{
+#board2,#board3{
     box-sizing: border-box;
-    margin:30px auto;
-    width:90%; height:300px;
-    border:1px solid #444;
+    margin-top:20px;
+    width:100%; height:320px;
+    ;
     text-align: center;
-    line-height: 200px;
 }
-#board3{
-    box-sizing: border-box;
-    margin:30px auto;
-    width:90%; height:300px;
-    border:1px solid #444;
+/* 게시판 */
+.ListTable{
+    width: 100%;
+    table-layout: fixed;
     text-align: center;
-    line-height: 150px;
+    border: 1px inset #52a7e0;
+    border-collapse: collapse;
 }
+
+.ListTable tr th{
+    background-image: linear-gradient(180deg,#3498db,#2a709e);
+    color:#fff;
+    height:30px;
+}
+.ListTable tr td{
+    overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  background-color:white;
+  height:25px;
+}
+
+
+

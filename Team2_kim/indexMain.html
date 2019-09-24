@@ -16,6 +16,7 @@
     <script src="./js/calander.js"></script>
 
 
+
 </head>
 
 <body>
@@ -92,8 +93,8 @@
                     setTableHTML += '<tr height="50">';
                     for (var j = 0; j < 7; j++) {
                         setTableHTML += '<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
-                        setTableHTML += '    <div class="cal-day"></div>';
-                        setTableHTML += '    <div class="cal-schedule"></div>';
+                        setTableHTML += '<div class="cal-day"></div>';
+                        setTableHTML += '<div class="cal-schedule"></div>';
                         setTableHTML += '</td>';
                     }
                     setTableHTML += '</tr>';
@@ -110,7 +111,7 @@
                 today = new Date();
                 year = today.getFullYear();
                 month = today.getMonth() + 1;
-                myDate=today.getDate();
+                myDate = today.getDate();
                 firstDay = new Date(year, month - 1, 1);
                 lastDay = new Date(year, month, 0);
                 console.log(myDate);
@@ -123,8 +124,8 @@
                 for (var i = firstDay.getDay(); i < firstDay.getDay() + lastDay.getDate(); i++) {
                     $tdDay.eq(i).text(++dayCount);
                     console.log(dayCount);
-                    if(myDate==dayCount){
-                        $tdDay.eq(i).parent().css("background-color","#FAF58C");
+                    if (myDate == dayCount) {
+                        $tdDay.eq(i).parent().css("background-color", "#FAF58C");
                     }
                 }
                 for (var i = 0; i < 42; i += 7) {
@@ -172,11 +173,11 @@
             }
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                var isLogin=true;
-                var scaduleArray=["주간회의 : 09:00 ~ 10:00"];
+            $(document).ready(function () {
+                var isLogin = true;
+                var scaduleArray = ["주간회의 : 09:00 ~ 10:00"];
                 //로그인 되어있는지 여부 체크
-                if(isLogin==true){
+                if (isLogin == true) {
                     $("span.login").text("로그인 되었습니다.");
                     $("span.scaduleList").text(scaduleArray);
                 }
@@ -186,9 +187,52 @@
         <!--right_side-->
         <div id="r_section">
             <div class="section_menu"><a href="../Team3_cha/noticeBoardMain.html">전체게시판 ></a> </div>
-            <div id="board2"> 게시판 </div>
-            <div class="section_menu"><a href="../Team1_won&you/docList.html">결재현황 ></a> </div>
-            <div id="board3"> 결재현황 </div>
+
+            <div id="board2">
+            </div>
+            <script>
+                $(document).ready(function(){
+                    makeBoard();
+                });
+                function makeBoard() {
+                    var setBoradHTML="";
+                    setBoradHTML+="<table class='ListTable' border='1'>";
+                            setBoradHTML+="<tr><th width='10%'>번호</th><th>문서제목</th><th width='10%'>작성자</th></tr>";
+                    for (var i = 0; i < 10; i++) {
+                        setBoradHTML+="<tr>";
+                        for (var j = 0; j < 3; j++) {
+                            setBoradHTML+="<td>" + "tests" + "</td>";
+                        }
+                        setBoradHTML+="</tr>";
+                        $("#board2").html(setBoradHTML);
+                    }
+                }s
+            </script>
+
+            <div class="section_menu"><a href="../Team1_won&you/docList.html">결재현황></a> </div>
+            <div id="board3">
+            
+            </div>
+            <script>
+                    $(document).ready(function(){
+                        makeApproval();
+                    });
+                    function makeApproval() {
+                        var setBoradHTML="";
+                        setBoradHTML+="<table class='ListTable' border='1'>";
+                        setBoradHTML+="<tr><th width='15%'>결재종류</th><th>문서제목</th><th width='15%'>결재상태</th></tr>";
+                        for (var i = 0; i < 10; i++) {
+                            setBoradHTML+="<tr>";
+                            for (var j = 0; j < 3; j++) {
+                                setBoradHTML+="<td>" + "tests" + "</td>";
+                            }
+                            setBoradHTML+="</tr>";
+                            $("#board3").html(setBoradHTML);
+                        }
+                    }
+                </script>
+
+
         </div>
         <!--//right_side-->
     </div>
