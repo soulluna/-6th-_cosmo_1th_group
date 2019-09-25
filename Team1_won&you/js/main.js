@@ -18,7 +18,6 @@ function toDayInput() {
 //문서 이름 구하기
 function docName() {
   return document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
-
 }
 var thisfilefullname;
 
@@ -32,7 +31,6 @@ function docModify() {
     } else if (thisfilefullname == "draftWait.html") {
       location.href = './vacationModify.html';
     }
-
   } else {
     return false;
   }
