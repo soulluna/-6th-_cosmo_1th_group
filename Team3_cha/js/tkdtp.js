@@ -1,3 +1,5 @@
+
+
 $(function () {
     //상세 게시판
     //게시판/ 댓글 지우기
@@ -25,7 +27,22 @@ $(function () {
             alert("삭제를 취소했습니다.");
         }
     });
-    
+    //상세페이지 게시글 추천 색상 변환 및 추천수 증가및 감소
+    $(".n_good").click(function(){
+        var co = parseInt($(".co7").text());        
+        if($(this).hasClass('bgColor')){
+            $(".co7").text(co-1);
+            $(this).removeClass('bgColor');
+            $(".n_good").text("추천").css({"color":"white"})
+        } else {
+            $(".co7").text(co+1);
+            $(this).addClass('bgColor');
+            $(".n_good").text("추천취소").css({"color":"white"})
+        }
+
+        
+        
+    })
     //상세페이지 댓글 추천수 변환
 
     $(".cmt-good-btn").click(function(){
@@ -40,7 +57,7 @@ $(function () {
             span.text(g+1);
             span.addClass('cmtBor');
             span.parents('.cmt-good-btn').css({'background':'cyan'})
-            span.parents('.cmt-good').css({'color':'yellow'})
+            span.parents('.cmt-good').css({'color':'white'})
         }
     });
         
