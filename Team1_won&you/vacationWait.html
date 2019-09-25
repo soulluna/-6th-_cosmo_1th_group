@@ -16,23 +16,6 @@
     <script src="./js/main.js"></script>
     <script>
 
-        vacationInputValue = ["2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."];
-        $(function () {
-            $(".inputTitle").text(vacationInputValue[0]);
-            if (vacationInputValue[1] == 1) {
-                $(".inputarea tr:nth-child(3) input[value=1]").attr("checked", "checked");
-            } else if (vacationInputValue[1] == 2) {
-                $(".inputarea tr:nth-child(3) input[value=2]").attr("checked", "checked");
-            } else if (vacationInputValue[1] == 3) {
-                $(".inputarea tr:nth-child(3) input[value=3]").attr("checked", "checked");
-            } else if (vacationInputValue[1] == 4) {
-                $(".inputarea tr:nth-child(3) input[value=4]").attr("checked", "checked");
-            }
-            $(".selectedDay:first").text(vacationInputValue[2]);
-            $(".selectedDay:last").text(vacationInputValue[3]);
-            $(".inputContent").text(vacationInputValue[4]);
-        });
-
     </script>
     <title>휴가신청서</title>
 </head>
@@ -106,9 +89,9 @@
                         <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
                     </tr>
                     <tr>
-                        <td>2019.07.19</td>
-                        <td></td>
-                        <td></td>
+                        <td class="createdDayInput1"></td>
+                        <td class="createdDayInput2"></td>
+                        <td class="createdDayInput3"></td>
                     </tr>
                 </table>
             </div>
@@ -119,7 +102,6 @@
                         <td>
                             제목<br>
                             <div class="inputTitle" style="background-color:white;">
-                                    draftInputValue배열의 첫 번째 값 입력
                                 </div>
                         </td>
                     </tr>
