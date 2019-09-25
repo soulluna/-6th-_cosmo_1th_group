@@ -1,5 +1,6 @@
 $(function () {
     //상세 게시판
+    //게시판/ 댓글 지우기
     $(".delete").click(function () {
         if (confirm("정말 삭제 하겠습니까?")) {
             // 확인 버튼 클릭 시 동작
@@ -47,10 +48,13 @@ $(function () {
     function comment() {
         var comment =  $("textarea[name=comment]").val();
         console.log(comment);
+         //댓글 내용없이 작성시 경고창
+         var sear = $(".eotrmfdlqfur").val();
+         if(sear=="")
+             alert("내용을 입력하십시오");
     }
     $(".c_write").click(comment);
-
-
+  
 
     //글작성 페이지
     $(".back").click(function () {
@@ -94,6 +98,11 @@ $(".search").on("click", function () {
     console.log(a);
     console.log(b);
     location.href = '#';
+    //메인게시판 검색어 없을때 경고창
 });
-
+$(".search").on("click",function(){
+    var search = $("input").val();
+    if(search=="")
+        alert("검색어를 입력하십시오");//검색어 입력않하면 경고창
+  });
 });
