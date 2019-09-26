@@ -1,5 +1,5 @@
 function validate(){
-    var regexpId = /^[0-9]{9,10}$/ //아이디 정규식
+    var regexpId = /^[0-9]{10}$/ //아이디 정규식
     var regexpPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/ //비밀번호 정규식
     var id = document.getElementById("userID");
     var pwd = document.getElementById("pwd");
@@ -7,13 +7,19 @@ function validate(){
     var dep2 = document.getElementById("dep2");
     //----------------------------------------------------
 
-    if(!check(regexpId,id,"사원번호는 9~10자리의 숫자만 입력해주세요.")){
+    if(!check(regexpId,id,"사원번호는 10자리의 숫자만 입력해주세요.")){
         return false;
     }
 
     if(join.userName.value=="") {
        alert("이름을 입력해 주세요");
        join.userName.focus();
+       return false;
+   }
+
+   if(join.pwd.value==""){
+       alert("비밀번호를 입력하세요");
+       join.pwd.focus();
        return false;
    }
 
