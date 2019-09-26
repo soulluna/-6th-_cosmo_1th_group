@@ -27,6 +27,12 @@ function validate(){
         return false;
     }
 
+    if(join.pwdconfirm.value==""){
+        alert("비밀번호확인을 입력하세요");
+        join.pwd.focus();
+        return false;
+    }
+
     if(join.pwd.value != join.pwdconfirm.value){
         alert("비밀번호가 다릅니다. 다시 확인해주세요.");
         join.pwdconfirm.value = "";
