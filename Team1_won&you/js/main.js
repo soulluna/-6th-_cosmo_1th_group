@@ -15,6 +15,49 @@ function toDayInput() {
   return syear + "-" + smonth + "-" + sday;
 }
 
+//수정 등록 값
+function inputValue(){
+  
+  console.log($(".inputTitle").val());
+  console.log($("input[name=leaveradio]:checked").val());
+  console.log($("#datepicker1").val());
+  console.log($("#datepicker2").val());
+  console.log($(".inputContent").val());
+}
+
+
+//날짜 선택 에러 표기
+function pickedDateEr() {
+  var toDay;
+  var forDay;
+  $('#datepicker1').change(function () {
+    toDay = $('#datepicker1').val();
+    forDay = $('#datepicker2').val();
+    var c = getDateDiff(forDay, toDay) + 1;
+    if (c) {
+      $('.dayCount').text(c);
+    }
+    if (c < 1) {
+      $('.dayCountAlret').css({ 'display': 'inline' });
+    } else {
+      $('.dayCountAlret').css({ 'display': 'none' });
+    }
+  }); //datepicker1 변동 시 날짜 변경
+  $('#datepicker2').change(function () {
+    toDay = $('#datepicker1').val();
+    forDay = $('#datepicker2').val();
+    var c = getDateDiff(forDay, toDay) + 1;
+    if (c) {
+      $('.dayCount').text(c);
+    }
+    if (c < 1) {
+      $('.dayCountAlret').css({ 'display': 'inline' });
+    } else {
+      $('.dayCountAlret').css({ 'display': 'none' });
+    }
+  }); //datepicker2 변동 시 날짜 변경
+}
+
 //문서 이름 구하기
 function docName() {
   return document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length);
@@ -123,18 +166,17 @@ function vacationCheck() {
   } else if (vacationInputValue[5] < 1) {
     alert("날짜를 올바르게 선택하세요.");
   } else {
-    for (i = 0; i <= 5; i++) {
-      console.log(vacationInputValue[i]);
-    }
     thisfilefullname = docName();
     console.log(thisfilefullname);
     if (confirm("등록하시겠습니까?") == true) {
       if (thisfilefullname == "vacationModify.html") {
+        for (i = 0; i <= 5; i++) {
+          console.log(vacationInputValue[i]);
+        }
         location.href = './createdVacationModify.html';
       } else if (thisfilefullname == "vacation.html") {
         location.href = './createdVacationDoc.html';
       }
-
 
     } else {
       return false;
@@ -172,43 +214,62 @@ var documentList =
     ["DR-0164", "작성자id", "중간id", "최종id", "2019-08-05", "", "", "1", "2019년 08월 홍길동 사원 기안서", "", "", "", "기반구조 관계도 기술서 데이터구성요소"],
     ["DR-0139", "작성자id", "중간id", "최종id", "2019-07-22", "2019-07-24", "", "2", "2019년 07월 사내문화 홍길동 사원 기안서", "", "", "", "저녁 시간은 가족과 보냅시다."],
     ["DR-0116", "작성자id", "중간id", "최종id", "2019-06-30", "2019-07-05", "2019-07-06", "3", "2019년 06월 업무 개선사항 홍길동 사원 기안서", "", "", "", "주간 보고 시간 변경 "],
-    ["VA-0030", "작성자id", "중간id", "최종id", "2019-07-22","", "", "1", "2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."]
+    ["VA-0030", "작성자id", "중간id", "최종id", "2019-07-22", "", "", "1", "2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."]
   ]
 
 
 //문서 시작
 $(document).ready(function () {
-  
+
   thisfilefullname = docName();
   console.log(thisfilefullname);
-  
+
   if (thisfilefullname == "vacationWait.html") {
-      $(".createdDayInput1").text(documentList[3][4]);
-      $(".createdDayInput2").text(documentList[3][5]);
-      $(".createdDayInput3").text(documentList[3][6]);
-      $(".inputTitle").text(documentList[3][8]);
+    $(".createdDayInput1").text(documentList[3][4]);
+    $(".createdDayInput2").text(documentList[3][5]);
+    $(".createdDayInput3").text(documentList[3][6]);
+    $(".inputTitle").text(documentList[3][8]);
 
-      if (documentList[3][9] == 1) {
-        $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
-      } else if (documentList[3][9] == 2) {
-        $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
-      } else if (documentList[3][9] == 3) {
-        $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
-      } else if (documentList[3][9] == 4) {
-        $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
-      }
+    if (documentList[3][9] == 1) {
+      $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
+    } else if (documentList[3][9] == 2) {
+      $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+    } else if (documentList[3][9] == 3) {
+      $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
+    } else if (documentList[3][9] == 4) {
+      $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
+    }
 
-      $(".selectedDay:first").text(documentList[3][10]);
-      $(".selectedDay:last").text(documentList[3][11]);
-      $(".inputContent").text(documentList[3][12]);
+    $(".selectedDay:first").text(documentList[3][10]);
+    $(".selectedDay:last").text(documentList[3][11]);
+    $(".inputContent").text(documentList[3][12]);
 
-  }else if (thisfilefullname == "draftProgress.html") {
+  } else if (thisfilefullname == "draftProgress.html") {
     $(".createdDayInput1").text(documentList[1][4]);
     $(".createdDayInput2").text(documentList[1][5]);
     $(".createdDayInput3").text(documentList[1][6]);
     $(".inputTitle").text(documentList[1][8]);
     $(".inputContent").text(documentList[1][12]);
+  } else if(thisfilefullname == "vacationModify.html"){
+    var getDay = getDateDiff(documentList[3][11], documentList[3][10]) + 1;
+    $('.inputarea .inputTitle').val(documentList[3][8]);
+
+    if (documentList[3][9] == 1) {
+        $(".modifySelect1").attr("checked", "checked");
+    } else if (documentList[3][9] == 2) {
+        $(".modifySelect2").attr("checked", "checked");
+    } else if (documentList[3][9] == 3) {
+        $(".modifySelect3").attr("checked", "checked");
+    } else if (documentList[3][9] == 4) {
+        $(".modifySelect4").attr("checked", "checked");
+    }
+    $('.inputarea #datepicker1').val(documentList[3][10]);
+    $('.inputarea #datepicker2').val(documentList[3][11]);
+    $('.inputarea .inputContent').val(documentList[3][12]);
+    $(".dayCount").text(getDay);
+    pickedDateEr();
   }
+
 
   //문서 작성 버튼 클릭 시
   $("button[name=docCreate").on("click", function () {
