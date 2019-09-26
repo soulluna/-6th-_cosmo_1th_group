@@ -28,7 +28,7 @@ function docModify() {
   if (confirm("수정하시겠습니까?") == true) {
     if (thisfilefullname == "createdDraftDoc.html") {
       location.href = '#';
-    } else if (thisfilefullname == "draftWait.html") {
+    } else if (thisfilefullname == "vacationWait.html") {
       location.href = './vacationModify.html';
     }
   } else {
@@ -103,6 +103,8 @@ function docListSearchCheck() {
   }
 }
 
+
+
 //vacation.html 입력값 확인 및 문서 등록
 function vacationCheck() {
   vacationInputValue[0] = $("input[name=title]").val();
@@ -125,18 +127,18 @@ function vacationCheck() {
       console.log(vacationInputValue[i]);
     }
     thisfilefullname = docName();
-      console.log(thisfilefullname);
-      if (confirm("등록하시겠습니까?") == true) {
-        if (thisfilefullname == "vacationModify.html") {
-          location.href = './createdVacationModify.html';
-        }else if (thisfilefullname == "vacation.html") {
-          location.href = './createdVacationDoc.html';
-        }
-
-
-      } else {
-        return false;
+    console.log(thisfilefullname);
+    if (confirm("등록하시겠습니까?") == true) {
+      if (thisfilefullname == "vacationModify.html") {
+        location.href = './createdVacationModify.html';
+      } else if (thisfilefullname == "vacation.html") {
+        location.href = './createdVacationDoc.html';
       }
+
+
+    } else {
+      return false;
+    }
   } // else
 } // function vacationCheck()
 
@@ -151,7 +153,62 @@ function getDateDiff(date1, date2) {
   return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
 } // function getDateDiff
 
+//DB에 저장될 자료 예시
+var documentList =
+  // 0:문서종류
+  // 1:작성자id
+  // 2:중간id
+  // 3:최종id
+  // 4:작성날짜
+  // 5:중간결재날짜
+  // 6:최종결재날짜
+  // 7:진행도(대기(1),진행(2),완료(3))
+  // 8:제목
+  // 9:휴가신청종류(연차(1),병가(2),휴가(3),기타(4))
+  // 10:휴가시작날짜
+  // 11:휴가끝날짜
+  // 12:내용
+  [
+    ["DR-0164", "작성자id", "중간id", "최종id", "2019-08-05", "", "", "1", "2019년 08월 홍길동 사원 기안서", "", "", "", "기반구조 관계도 기술서 데이터구성요소"],
+    ["DR-0139", "작성자id", "중간id", "최종id", "2019-07-22", "2019-07-24", "", "2", "2019년 07월 사내문화 홍길동 사원 기안서", "", "", "", "저녁 시간은 가족과 보냅시다."],
+    ["DR-0116", "작성자id", "중간id", "최종id", "2019-06-30", "2019-07-05", "2019-07-06", "3", "2019년 06월 업무 개선사항 홍길동 사원 기안서", "", "", "", "주간 보고 시간 변경 "],
+    ["VA-0030", "작성자id", "중간id", "최종id", "2019-07-22","", "", "1", "2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."]
+  ]
+
+
+//문서 시작
 $(document).ready(function () {
+  
+  thisfilefullname = docName();
+  console.log(thisfilefullname);
+  
+  if (thisfilefullname == "vacationWait.html") {
+      $(".createdDayInput1").text(documentList[3][4]);
+      $(".createdDayInput2").text(documentList[3][5]);
+      $(".createdDayInput3").text(documentList[3][6]);
+      $(".inputTitle").text(documentList[3][8]);
+
+      if (documentList[3][9] == 1) {
+        $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
+      } else if (documentList[3][9] == 2) {
+        $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+      } else if (documentList[3][9] == 3) {
+        $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
+      } else if (documentList[3][9] == 4) {
+        $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
+      }
+
+      $(".selectedDay:first").text(documentList[3][10]);
+      $(".selectedDay:last").text(documentList[3][11]);
+      $(".inputContent").text(documentList[3][12]);
+
+  }else if (thisfilefullname == "draftProgress.html") {
+    $(".createdDayInput1").text(documentList[1][4]);
+    $(".createdDayInput2").text(documentList[1][5]);
+    $(".createdDayInput3").text(documentList[1][6]);
+    $(".inputTitle").text(documentList[1][8]);
+    $(".inputContent").text(documentList[1][12]);
+  }
 
   //문서 작성 버튼 클릭 시
   $("button[name=docCreate").on("click", function () {
