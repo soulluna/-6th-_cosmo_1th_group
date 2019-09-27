@@ -1,5 +1,6 @@
 function validate(){
     var regexpPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/ //비밀번호 정규식
+    var pwd=document.getElementById("pwd");
     var chg_pwd = document.getElementById("chg_pwd");
 
     //----------------------------------------------------
