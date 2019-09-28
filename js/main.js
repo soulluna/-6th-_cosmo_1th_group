@@ -50,7 +50,7 @@ function validate() {
             }
             i++;
             if(i>=2) {
-                alert("아이디 혹은 비밀번호가 잘못되었습니다.");
+                alert("사원번호 혹은 비밀번호가 잘못되었습니다.");
                 break;
             }
         }
