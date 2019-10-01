@@ -217,6 +217,17 @@ var documentList =
     ["VA-0030", "작성자id", "중간id", "최종id", "2019-07-22", "", "", "1", "2019년 07월 22일 홍길동 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."]
   ]
 
+var employee=[
+  // 0:사번
+  // 1:이름
+  // 2:직책
+  // 3:소속
+
+  ["em-0001", "홍길동", "사원", "경영지원부"],
+  ["em-0001", "어피치", "과장", "경영지원부"],
+  ["em-0001", "라이언", "부장", "경영지원부"],
+]
+
 
 //문서 시작
 $(document).ready(function () {
@@ -225,9 +236,16 @@ $(document).ready(function () {
   console.log(thisfilefullname);
 
   if (thisfilefullname == "vacationWait.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    
     $(".createdDayInput1").text(documentList[3][4]);
     $(".createdDayInput2").text(documentList[3][5]);
     $(".createdDayInput3").text(documentList[3][6]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
     $(".inputTitle").text(documentList[3][8]);
 
     if (documentList[3][9] == 1) {
@@ -242,6 +260,7 @@ $(document).ready(function () {
 
     $(".selectedDay:first").text(documentList[3][10]);
     $(".selectedDay:last").text(documentList[3][11]);
+    $(".selectedDayCount").text(getDateDiff(documentList[3][11],documentList[3][10]));
     $(".inputContent").text(documentList[3][12]);
 
   } else if (thisfilefullname == "draftProgress.html") {
@@ -268,6 +287,27 @@ $(document).ready(function () {
     $('.inputarea .inputContent').val(documentList[3][12]);
     $(".dayCount").text(getDay);
     pickedDateEr();
+  } else if(thisfilefullname == "draftApproval.html"){
+    $(".createdDayInput1").text(documentList[2][4]);
+    $(".createdDayInput2").text(documentList[2][5]);
+    $(".createdDayInput3").text(documentList[2][6]);
+    $(".inputTitle").text(documentList[2][8]);
+    $(".inputContent").text(documentList[2][12]);
+  } else if(thisfilefullname == "draft.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+
+  }else if(thisfilefullname == "vacation.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
   }
 
 
