@@ -140,7 +140,7 @@ function draftCheck() {
 
 //내 문서함 검색 alert()
 function docListSearchCheck() {
-  var reg = /^기안$|^기안서$|^휴가$|^휴가\s?계획서$/;
+  var reg = /^기안$|^기안서$|^휴가$|^휴가\s?신청서$/;
   var searchType = $("select[name=searchType] option:selected").text();
   var inputValue = $("input[name=searchKey]").val();
 
