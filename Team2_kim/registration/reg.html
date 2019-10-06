@@ -71,8 +71,8 @@
 </script>
 <!-- 각각 로그인 폼에 대한 확인함수 -->  
 <script>
+    // 아이디
     $("#userID").focusout(function(){
-        // 아이디
         var id=$(this).val();
         var regexpId = /^[0-9]{10}$/ //아이디 정규식
         if(id==""){
@@ -85,12 +85,35 @@
             $(this).focusin();
         }
     });
+    // 아이디
+    // $("#userID").blur(function(){
+        
+    //     var id=$(this).val();
+    //     var regexpId = /^[0-9]{10}$/ //아이디 정규식
+    //     if(id==""){
+    //         alert("사원번호를 입력해주세요");
+    //         $(this).focus();
+    //     } 
+
+    //     if(!id.match(regexpId)){
+    //         alert("아이디는 10자리의 숫자로 입력해주세요");
+    //         $(this).focus();
+    //     }
+    // });
     // 이름
-    $("#userName").focusout(function(){
+    // $("#userName").focusout(function(){
+    //     var name=$(this).val();
+    //     if(name==""){
+    //         alert("이름을 입력해 주세요.");
+    //         $(this).focusin(); 
+    //     }
+    // });
+    // 이름
+    $("#userName").blur(function(){
         var name=$(this).val();
         if(name==""){
             alert("이름을 입력해 주세요.");
-            $(this).focusin();
+            $(this).focus();
         }
     });
     // 비밀번호
