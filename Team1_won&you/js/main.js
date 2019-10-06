@@ -125,7 +125,7 @@ function draftCheck() {
   if (!draftInputValue[0]) {
     alert("제목을 입력해주세요.");
   } else if (!draftInputValue[1]) {
-    alert("내용을 입력해주세요.")
+    alert("내용을 입력해주세요.");
   } else {
     if (confirm("등록하시겠습니까?") == true) {
       for (i = 0; i <= 1; i++) {
