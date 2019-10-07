@@ -1,0 +1,125 @@
+*{
+    margin :0;
+    padding: 0;
+    text-decoration: none;
+    font-family:sans-serif;
+    list-style: none;
+    font-size:12px;
+}
+body{
+    min-height:100vh;
+    background-image: linear-gradient(120deg,#3498db,#8e44ad);
+}
+/*fullWrap*/
+.fullWrap{
+    width:1200px;
+    background: #f1f1f1;
+    height: 960px;
+    border-radius: 10px;
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform : translate(-50%, -50%);
+    box-shadow: 5px 5px 10px #444;
+}
+/*left_section*/
+#l_section{
+    width:50%;
+    height:800px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.section_menu{
+    line-height: 25px;
+    width:99%;
+    height:30px;
+    line-height: 30px;
+    background-image: linear-gradient(180deg,#3498db,#2a709e);
+    font-weight: bold;
+    padding-left:5px;
+    color:#fff;
+}
+.section_menu a {
+    color:#fff;
+}
+.section_menu a:visited {
+    color:#fff;
+}
+#date{
+    margin:10px 0 0 25px;
+}
+#calendar {
+    margin:20px;
+    width:90%; height:200px;
+    border:1px solid #444;
+    text-align: center;
+    line-height: 200px;
+}
+
+
+.cal_top {
+    margin-top:30px;
+}
+
+
+.scadule {
+    position: relative;
+    top:410px;
+    margin:30px auto;
+    padding: 10px 0 0 10px;
+    width: 550px; height: 300px;
+    border:1px solid #444;
+    
+}
+
+.login {
+   
+
+}
+
+.scadule span{
+    font-size : 20px;
+    display : block;
+    width:300px;
+    
+}
+/*right_section*/
+#r_section{
+    box-sizing: border-box;
+    float : right;
+    width:50%;
+    height:800px;
+    border-left:1px solid #444;
+}
+#board2,#board3{
+    box-sizing: border-box;
+    margin-top:20px;
+    width:100%; height:320px;
+    ;
+    text-align: center;
+}
+/* 게시판 */
+.ListTable{
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+    border: 1px inset #52a7e0;
+    border-collapse: collapse;
+}
+
+.ListTable tr th{
+    background-image: linear-gradient(180deg,#3498db,#2a709e);
+    color:#fff;
+    height:30px;
+}
+.ListTable tr td{
+    overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  background-color:white;
+  height:25px;
+}
+
+
+
