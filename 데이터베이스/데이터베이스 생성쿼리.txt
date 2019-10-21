@@ -1,4 +1,21 @@
-﻿//부서 테이블
+﻿create user admin identified admin
+grant create session, create table, create view to admin;
+
+//회원가입
+create table res(
+eno number(10) not null,
+ename varchar2(10) not null,
+userpw varchar2(20) not null,
+userpwc varchar2(20) not null,
+dname1 varchar2(10) not null,
+dname2 varchar2(10) not null,
+primary key (eno)
+);
+
+
+
+
+//부서 테이블
 create table EMPLOYEE(
 eno number(10) not null, 
 ename varchar2(10) not null,
@@ -18,7 +35,7 @@ txtnum number(3),
 txtname varchar2(100) not null,
 txtcont varchar2(1000) not null,
 entrydate date,
-constraint MOD_PK PRIMARY KEY(txtnum, txtname, txtcont, entrydate);
+constraint MOD_PK PRIMARY KEY(txtnum, txtname, txtcont, entrydate));
 
 //전자결재페이지 table
 create table APPROVAL(
@@ -76,6 +93,5 @@ insert into EMPLOYEE values('5356873369', '석인영', 'seokinyoung', 'seokin@na
 insert into EMPLOYEE values('1889934935', '신한솔', 'sinhansol', 'hansol258@naver.com', '01092123030', '인사부', '2팀', '2019/03/01', '사원', 'false');
 insert into EMPLOYEE values('1889934937', '최영태', 'choiyongtae', 'dong1928@naver.com', '01049345312', '기술지원팀', '2팀',  '2015/03/01','사원',  'false');
 insert into EMPLOYEE values('1889254983', '최영태', 'choiyoungtae', 'ding11128@naver.com', '1049345393', '개발팀', '1팀',  '2011/03/01','대리',  'false');
-
 
 
