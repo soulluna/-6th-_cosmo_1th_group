@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
+   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html;utf-8");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,25 +22,18 @@
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
-    <script>
-        console.log(location.href, "\n");
-        console.log(location.hash, "\n");
-        console.log(location.hostname, "\n");
-        console.log(location.host, "\n");
-        console.log(location.protocol, "\n");
-    </script>
-
 <body>
-    <form class="login-form" onsubmit="return validate();" action="Team2_kim/indexMain.html" method="post">
+	<!-- action="Team2_kim/indexMain.html" -->
+    <form class="login-form" onsubmit="return validate();" action="${contextPath}/project/login.do" method="post">
         <div><img src="./img/logo3.gif"></div>
 
         <div class="txtb">
-            <input type="text" id="userID">
+            <input type="text" id="userID" name="eno">
             <span data-placeholder="사원번호"></span>
         </div>
 
         <div class="txtb">
-            <input type="password" id="pwd">
+            <input type="password" id="pwd" name="userpw">
             <span data-placeholder="비밀번호"></span>
         </div>
 

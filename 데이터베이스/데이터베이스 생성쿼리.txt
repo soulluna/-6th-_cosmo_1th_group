@@ -7,11 +7,12 @@ grant create session, create table, create view to admin;
 
 //부서 테이블
 create table EMPLOYEE(
-eno number(10) not null, 
+eno number(10) not null,
+pwd varchar2(20) not null,
 ename varchar2(10) not null,
 eng_name varchar2(20) not null,
 email varchar2(20) unique,
-tel number(11) not null unique,
+tel varchar2(11) not null unique,
 dname varchar2(15) not null,
 dname_two varchar2(8) not null,
 hiredate date,
@@ -70,18 +71,18 @@ constraint NOT_FK2 foreign key(txtnum,txtname,txtcont,entrydate) REFERENCES MOD_
 );
 
 
-insert into EMPLOYEE values('9052501152', '이진호', 'leejinho', 'ding263229@naver.com', '01063901047', '기술개발팀', '1팀', '2001/03/01', '이사', 'true');
-insert into EMPLOYEE values('6361307962', '김윤경', 'kimyunkyeung', 'dg22118@naver.com', '01092528218', '기술개발팀', '2팀', '2012/03/01', '부장', 'false');
-insert into EMPLOYEE values('3123879202', '이우인', 'ieeuin', 'se2658903@gmail.com', '01095800356', '인사부', '1팀', '2013/02/01', '부장', 'false');
-insert into EMPLOYEE values('2238284512', '차현진', 'chahyunjin', 'doing2658@naver.com', '01038277757', '인사부', '2팀', '2012/03/01', '팀장', 'false');
-insert into EMPLOYEE values('2273979279', '원치운', 'woonchiwoon', 'doing2238@naver.com', '01024764171', '영업부', '2팀', '2010/03/01', '부장', 'false');
-insert into EMPLOYEE values('1338176239', '유학선', 'youhakseon', 'doee2658@naver.com', '01074661788', '영업부', '1팀', '2009/03/01', '차장', 'false');
-insert into EMPLOYEE values('5374007484', '조현석', 'jyohyungseok', 'doefg2g58@naver.com', '01031105013', '기술지원팀', '3팀',  '2018/09/01', '부장', 'false');
-insert into EMPLOYEE values('2401310079', '함종우', 'hamjeongwoo', 'do2936h8@naver.com', '01074812659', '기술지원팀', '1팀',  '2019/01/01', '과장', 'false');
-insert into EMPLOYEE values('2625239070', '안영우', 'anyeongwoo', 'powidn@naver.com', '01017196083', '기술지원팀', '1팀', '2019/03/01', '사원', 'false');
-insert into EMPLOYEE values('5356873369', '석인영', 'seokinyoung', 'seokin@naver.com', '01050814789', '인사부', '1팀', '2018/09/01', '사원', 'false');
-insert into EMPLOYEE values('1889934935', '신한솔', 'sinhansol', 'hansol258@naver.com', '01092123030', '인사부', '2팀', '2019/03/01', '사원', 'false');
-insert into EMPLOYEE values('1889934937', '최영태', 'choiyongtae', 'dong1928@naver.com', '01049345312', '기술지원팀', '2팀',  '2015/03/01','사원',  'false');
-insert into EMPLOYEE values('1889254983', '최영태', 'choiyoungtae', 'ding11128@naver.com', '1049345393', '개발팀', '1팀',  '2011/03/01','대리',  'false');
+insert into EMPLOYEE values('9052501152', 'master@123!', '이진호', 'leejinho', 'ding263229@naver.com', '01063901047', '기술개발팀', '1팀', '2001/03/01', '이사', 'true');
+insert into EMPLOYEE values('6361307962', 'master@123!', '김윤경', 'kimyunkyeung', 'dg22118@naver.com', '01092528218', '기술개발팀', '2팀', '2012/03/01', '부장', 'false');
+insert into EMPLOYEE values('3123879202', 'master@123!', '이우인', 'ieeuin', 'se2658903@gmail.com', '01095800356', '인사부', '1팀', '2013/02/01', '부장', 'false');
+insert into EMPLOYEE values('2238284512', 'master@123!', '차현진', 'chahyunjin', 'doing2658@naver.com', '01038277757', '인사부', '2팀', '2012/03/01', '팀장', 'false');
+insert into EMPLOYEE values('2273979279', 'master@123!', '원치운', 'woonchiwoon', 'doing2238@naver.com', '01024764171', '영업부', '2팀', '2010/03/01', '부장', 'false');
+insert into EMPLOYEE values('1338176239', 'master@123!', '유학선', 'youhakseon', 'doee2658@naver.com', '01074661788', '영업부', '1팀', '2009/03/01', '차장', 'false');
+insert into EMPLOYEE values('5374007484', 'master@123!', '조현석', 'jyohyungseok', 'doefg2g58@naver.com', '01031105013', '기술지원팀', '3팀',  '2018/09/01', '부장', 'false');
+insert into EMPLOYEE values('2401310079', 'master@123!', '함종우', 'hamjeongwoo', 'do2936h8@naver.com', '01074812659', '기술지원팀', '1팀',  '2019/01/01', '과장', 'false');
+insert into EMPLOYEE values('2625239070', 'master@123!', '안영우', 'anyeongwoo', 'powidn@naver.com', '01017196083', '기술지원팀', '1팀', '2019/03/01', '사원', 'false');
+insert into EMPLOYEE values('5356873369', 'master@123!', '석인영', 'seokinyoung', 'seokin@naver.com', '01050814789', '인사부', '1팀', '2018/09/01', '사원', 'false');
+insert into EMPLOYEE values('1889934935', 'master@123!', '신한솔', 'sinhansol', 'hansol258@naver.com', '01092123030', '인사부', '2팀', '2019/03/01', '사원', 'false');
+insert into EMPLOYEE values('1889934937', 'master@123!', '최영태', 'choiyoungtae', 'dong1928@naver.com', '01049345312', '기술지원팀', '2팀',  '2015/03/01','사원', 'false');
+insert into EMPLOYEE values('1889254983', 'master@123!', '임소현', 'limsohyun', 'ding11128@naver.com', '01049345393', '개발팀', '1팀',  '2011/03/01','대리', 'false');
 
 
