@@ -1,16 +1,6 @@
 ﻿create user admin identified admin
 grant create session, create table, create view to admin;
 
-//회원가입
-create table res(
-eno number(10) not null,
-ename varchar2(10) not null,
-userpw varchar2(20) not null,
-userpwc varchar2(20) not null,
-dname1 varchar2(10) not null,
-dname2 varchar2(10) not null,
-primary key (eno)
-);
 
 
 
