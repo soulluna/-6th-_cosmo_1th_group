@@ -20,9 +20,20 @@ public class MemberJoinAction implements Action {
 		member.setTel(request.getParameter("tel"));
 		member.setDname(request.getParameter("dname"));
 		member.setDname_two(request.getParameter("dname_two"));
-		member.setHireDate(request.getParameter("hiredate"));
+//		member.setHireDate(request.getParameter("hiredate"));
+		member.setRank(request.getParameter("rank"));
+		member.setIsadmin(request.getParameter("isadmin"));
+		result = memberdao.joinMember(member); // dao에 joinmember 메소드를 실행해서 회원가입처리
 		
-		
+		//회원가입 실패시 null 반환
+		if(result==false) {
+			System.out.println("회원가입 실패");
+			return null;
+		}
+		//회원가입 성공
+		forward.setRedirect(true);
+		forward.setPath("./MemberLogin.do");
+		return forward;
 	}
 
 }

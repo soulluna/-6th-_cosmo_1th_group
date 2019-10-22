@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberController
  */
-//@WebServlet("/MemberController")
+@WebServlet("/")
 public class MemberController extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
@@ -23,7 +23,7 @@ public class MemberController extends HttpServlet implements Servlet {
 		ActionForward forward = null;
 		Action action = null;
 		
-		if(command.equals("/MemberLogin.do")) {
+		if(command.equals("/index.do")) {
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("./index.jsp");
@@ -34,13 +34,13 @@ public class MemberController extends HttpServlet implements Servlet {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}//경로 수정
-		}else if(command.equals("/MemberListAction.me")) {
-			action = new MemberListAction();
-			try {
-				forward = action.execute(request, response);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+//		}else if(command.equals("/MemberListAction.me")) {
+//			action = new MemberListAction();
+//			try {
+//				forward = action.execute(request, response);
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			}
 		}
 		if(forward!=null) {
 			if(forward.isRedirect()) {
@@ -51,6 +51,7 @@ public class MemberController extends HttpServlet implements Servlet {
 			}
 		}
 	}
+		
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);
