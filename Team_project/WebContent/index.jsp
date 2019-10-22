@@ -24,7 +24,7 @@
     <script src="./js/main.js"></script>
 <body>
 	<!-- action="Team2_kim/indexMain.html" -->
-    <form class="login-form" onsubmit="return validate();" action="${contextPath}/project/login.do" method="post">
+    <form class="login-form"  action="./MemberLogin" method="post" onsubmit="return validate();">
         <div><img src="./img/logo3.gif"></div>
 
         <div class="txtb">
@@ -37,7 +37,7 @@
             <span data-placeholder="비밀번호"></span>
         </div>
 
-        <input type="submit" class="lgnbtn" value="Login" id="login_submit">
+        <input type="submit" class="lgnbtn" value="Login" id="login_submit" >
 
         <div class="bottom-text">
             아이디가 없을 경우 <a href="./Main/registration/reg.jsp">회원가입</a>을 해주세요.
