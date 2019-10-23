@@ -33,58 +33,53 @@ public class MemberController extends HttpServlet implements Servlet {
 		response.setContentType("text/html;charset=UTF-8");
 		String action = request.getPathInfo(); // 내 Path 가져오기
 		System.out.println("action : " + action);
+		try {
+			if(action!=null&&action.equals("/MemberLogin.do")){
 
-		if(action.equals("/MemberLogin.do")){
 
-			nextPage="./index.jsp"; //처리 결과를 이동할 경로 지정
-		}else if(action.equals("/MemberLoginAction.do")){
+			}else if(action.equals("/MemberLoginAction.do")){
 
-			try {
 
-			} catch (Exception e) {
-				e.printStackTrace();
+			}else if(action.equals("/MemberJoin.do")){
+
+				nextPage="./member/joinForm.jsp";
+			}else if(action.equals("/MemberJoinAction.do")){
+
 			}
-		}else if(action.equals("/MemberJoin.do")){
-
-			nextPage="./member/joinForm.jsp";
-		}else if(action.equals("/MemberJoinAction.do")){
-
-			try {
-
-			} catch (Exception e) {
-				e.printStackTrace();
+			else {
+				nextPage="/index.jsp";//처리 결과를 이동할 경로 지정
 			}
-			//        }else if(command.equals("/MemberListAction.do")){
-			//            action=new MemberListAction();
-			//            try {
-			//                forward=action.execute(request, response);
-			//            } catch (Exception e) {
-			//                e.printStackTrace();
-			//            }
-			//        }else if(command.equals("/MemberViewAction.do")){
-			//            action=new MemberViewAction();
-			//            try {
-			//                forward=action.execute(request, response);
-			//            } catch (Exception e) {
-			//                e.printStackTrace();
-			//            }
-			//        }else if(command.equals("/MemberDeleteAction.do")){
-			//            action=new MemberDeleteAction();
-			//            try {
-			//                forward=action.execute(request, response);
-			//            } catch (Exception e) {
-			//                e.printStackTrace();
-			//            }
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
+
+
+		//        }else if(command.equals("/MemberListAction.do")){
+		//            action=new MemberListAction();
+		//            try {
+		//                forward=action.execute(request, response);
+		//            } catch (Exception e) {
+		//                e.printStackTrace();
+		//            }
+		//        }else if(command.equals("/MemberViewAction.do")){
+		//            action=new MemberViewAction();
+		//            try {
+		//                forward=action.execute(request, response);
+		//            } catch (Exception e) {
+		//                e.printStackTrace();
+		//            }
+		//        }else if(command.equals("/MemberDeleteAction.do")){
+		//            action=new MemberDeleteAction();
+		//            try {
+		//                forward=action.execute(request, response);
+		//            } catch (Exception e) {
+		//                e.printStackTrace();
+		//            }
+
 		//nextPage로 경로 지정한 부분을 실제로 넘겨주는 부분
 		RequestDispatcher dispatcher=request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
 	}        
-
-
-
-
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request,response);
 	}
