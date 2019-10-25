@@ -16,16 +16,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>::Login Page::</title>
-    <link rel="stylesheet" href="css/login.css">
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
-    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/login.css">
+    <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/js/prefixfree.min.js"></script>
+    <script src="${contextPath}/js/main.js"></script>
 <body>
 	<!-- action="Team2_kim/indexMain.html" -->
-    <form class="login-form" onsubmit="return validate();" action="${contextPath}/project/login.do" method="post">
-        <div><img src="./img/logo3.gif"></div>
+    <form class="login-form"  action="./MemberLogin.do" method="post" onsubmit="return validate();">
+        <div><img src="${contextPath}/img/logo3.gif"></div>
 
         <div class="txtb">
             <input type="text" id="userID" name="eno">
@@ -37,7 +37,7 @@
             <span data-placeholder="비밀번호"></span>
         </div>
 
-        <input type="submit" class="lgnbtn" value="Login" id="login_submit">
+        <input type="submit" class="lgnbtn" value="Login" id="login_submit" >
 
         <div class="bottom-text">
             아이디가 없을 경우 <a href="./Main/registration/reg.jsp">회원가입</a>을 해주세요.

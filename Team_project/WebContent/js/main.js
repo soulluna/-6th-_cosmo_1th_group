@@ -5,8 +5,7 @@ function validate() {
     var id = document.getElementById("userID");
     var pwd = document.getElementById("pwd");
 
-    var log_data = [[2012114562, "zerz2658!"], [2018113843, "godwjd34!@#"]];
-    // console.log(typeof(id.value));f
+
     //----------------------------------------------------
     if (id.value == "") {
         alert("사원번호를 확인하세요");
@@ -40,20 +39,5 @@ function validate() {
         what.focus();
         //return false;
     }
-
-    function dbCheck(id,pwd,log_data){
-        var i=0;
-        while(true){
-            if(id.value==log_data[i][0]&&pwd.value==log_data[i][1]){
-                return true;
-                break;
-            }
-            i++;
-            if(i>=2) {
-                alert("사원번호 혹은 비밀번호가 잘못되었습니다.");
-                break;
-            }
-        }
-        return false;
-    }
 }
+

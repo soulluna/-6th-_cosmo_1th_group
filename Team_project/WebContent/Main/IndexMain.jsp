@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="./css/calander.css">
-    <script src="./js/calander.js"></script>
+    <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/css/index.css" />
+    <link rel="stylesheet" href="${contextPath}/css/gnb.css" />
+    <link rel="stylesheet" href="${contextPath}/css/calander.css">
+    <script src="${contextPath}/js/calander.js"></script>
 
 
 
@@ -45,7 +45,7 @@
             <!--nav bar-->
             <ul class="topBar">
                 <li id="main" class="t_menu btn3"> <a href="./indexMain.html">메인</a></li>
-                <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
+                <li id="cal" class="t_menu btn5"> <a href="${contextPath}/Board/listBoard.do">일정표</a></li>
                 <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
 
