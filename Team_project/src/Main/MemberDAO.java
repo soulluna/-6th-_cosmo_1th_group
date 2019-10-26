@@ -54,4 +54,46 @@ public class MemberDAO {
 		}
 		return false;	
 	}
+	public void addMember(MemberVO member) {
+		// TODO Auto-generated method stub
+		try {
+			con = dataFactory.getConnection();//데이터베이스와 연결
+			String eno=member.getEno();
+			String ename=member.getEname();
+			String pwd=member.getPwd();
+			String dname=member.getDname();
+			String dname_two=member.getDname_two();
+			String rank=member.getRank();
+			//숫자로 들어오는 옵션 값에 맞추어서 값 튜닝
+			switch(dname) {
+				case "1":
+					dname="영업부";
+				case "2":
+					dname="인사부";
+				case "3":
+					dname="기술지원팀";
+			}
+			switch(dname_two) {
+			case "4":
+				dname_two="1팀";
+			case "5":
+				dname_two="2팀";
+			case "6":
+				dname_two="3팀";	
+			}
+			String query="insert into employee(eno, ename, pwd, dname, dname_two, rank) values(?, ?, ?, ?, ?, ?)";
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, eno);
+			pstmt.setString(2, ename);
+			pstmt.setString(3, pwd);
+			pstmt.setString(4, dname);
+			pstmt.setString(5, dname_two);
+			pstmt.setString(6, rank);
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

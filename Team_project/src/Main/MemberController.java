@@ -61,7 +61,15 @@ public class MemberController extends HttpServlet implements Servlet {
 				String pwd=request.getParameter("userpw");
 				String dname1=request.getParameter("dname1");
 				String dname2=request.getParameter("dname2");
+				String rank="사원";
 				System.out.println(eno+"   "+ename+"   "+pwd+"   "+dname1+"   "+dname2);
+				memberVO.setEno(eno);
+				memberVO.setEname(ename);
+				memberVO.setPwd(pwd);
+				memberVO.setDname(dname1);
+				memberVO.setDname_two(dname2);
+				memberVO.setRank(rank);
+				memberDAO.addMember(memberVO);
 				nextPage="/index.jsp";
 			}
 			else if(action.equals("/MemberLoginAction.do")){
