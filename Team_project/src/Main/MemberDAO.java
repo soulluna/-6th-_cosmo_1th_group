@@ -1,10 +1,8 @@
 package Main;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
@@ -13,88 +11,89 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class MemberDAO {
-	Connection con; // DB와 연결하기 위한 객체
-	PreparedStatement pstmt; // //쿼리를 담을 객체
-	ResultSet rs; // 쿼리를 반환하는 객체
-	
+	private Connection con;//데이터베이스와의 연결을 위한 커넥션객체
+	private PreparedStatement pstmt;//데이터베이스에 쿼리문을 전송해는 전송객체
+	private DataSource dataFactory;//data소스를 저장하는 JNDI
 	//생성자에서 DB 연결
 	public MemberDAO() {
-		super();
 		try {
-			//오라클 DB와 연결
-			Context init = new InitialContext();
-				//Datasource 객체로 커넥션 풀을 사용할 수 있음
-				DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/OracleDB");
-				con = ds.getConnection();
-		}catch(Exception e) {
+			Context ctx = new InitialContext();
+			Context envContext = (Context)ctx.lookup("java:/comp/env");
+			dataFactory = (DataSource)envContext.lookup("jdbc/oracle");
+		}catch(Exception e){
 			e.printStackTrace();
-			return;
 		}
 	}
-	
 	//회원 인증(id와 pw확인)
-	public int isMember(MemberVO member) {
-		String sql = "select pwd from employee where eno=?";
-		int result=-1;
-		
+	public boolean isMember(MemberVO member) {
 		try {
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, member.getEno());
-			rs=pstmt.executeQuery();
-			
-			if(rs.next()) {
-				if(rs.getString("pwd").equals(member.getPwd())) {
-					result=1; //일치
-				}else {
-					result=0; //불일치
-				}
-				}else {
-					result=-1; //아이디 존재하지 않음.
-				}
+			con = dataFactory.getConnection();//데이터베이스와 연결
+			String eno=member.getEno();
+			String pwd=member.getPwd();
+			String query = "select pwd from employee where eno=?";
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, eno);
+			ResultSet rs=pstmt.executeQuery();
+			rs.next();
+			String checkPwd=rs.getString("pwd");
+			System.out.println(checkPwd);
+			if(pwd.equals(checkPwd)) {
+				rs.close();
+				pstmt.close();
+				con.close();
+				return true;
+			}
+			else {
+				rs.close();
+				pstmt.close();
+				con.close();
+				return false;
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
-		}finally {
-			if(rs!=null)try {rs.close();}catch(SQLException e) {}
-			if(pstmt!=null)try {pstmt.close();}catch(SQLException e) {}
 		}
-		return result;
+		return false;	
 	}
-	
-	//회원가입
-	
-	public boolean joinMember(MemberVO member) {
-		String sql = "insert into employee values(?,?,?,?,?,?,?,?,?,?,?)";
-		int result=0;
+	public void addMember(MemberVO member) {
+		// TODO Auto-generated method stub
 		try {
-		pstmt = con.prepareStatement(sql);
-		pstmt.setString(1, member.getEno());
-		pstmt.setString(2, member.getPwd());
-		pstmt.setString(3, member.getEname());
-		pstmt.setString(4, member.getEng_name());
-		pstmt.setString(5, member.getEmail());
-		pstmt.setString(6, member.getTel());
-		pstmt.setString(7, member.getDname());
-		pstmt.setString(8, member.getDname_two());
-		pstmt.setDate(9, member.getHireDate());
-		pstmt.setString(10, member.getRank());
-		pstmt.setString(11, member.getIsadmin());
-		result=pstmt.executeUpdate();
-		
-		if(result!=0) {
-			return true;
-		}
+			con = dataFactory.getConnection();//데이터베이스와 연결
+			String eno=member.getEno();
+			String ename=member.getEname();
+			String pwd=member.getPwd();
+			String dname=member.getDname();
+			String dname_two=member.getDname_two();
+			String rank=member.getRank();
+			//숫자로 들어오는 옵션 값에 맞추어서 값 튜닝
+			switch(dname) {
+				case "1":
+					dname="영업부";
+				case "2":
+					dname="인사부";
+				case "3":
+					dname="기술지원팀";
+			}
+			switch(dname_two) {
+			case "4":
+				dname_two="1팀";
+			case "5":
+				dname_two="2팀";
+			case "6":
+				dname_two="3팀";	
+			}
+			String query="insert into employee(eno, ename, pwd, dname, dname_two, rank) values(?, ?, ?, ?, ?, ?)";
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, eno);
+			pstmt.setString(2, ename);
+			pstmt.setString(3, pwd);
+			pstmt.setString(4, dname);
+			pstmt.setString(5, dname_two);
+			pstmt.setString(6, rank);
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
 		}catch(Exception e) {
 			e.printStackTrace();
-		}finally {
-			if(rs!=null) try {rs.close();}catch(SQLException e) {}
-			if(pstmt!=null) try {pstmt.close();}catch(SQLException e) {}
 		}
-		return false;
 	}
-	
-	
-		
-	
-	
-
 }
