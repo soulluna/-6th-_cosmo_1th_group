@@ -1,24 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html;utf-8");
+%>
+<!-- contextPath = /Team_project -->
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="./css/calander.css">
-    <script src="./js/calander.js"></script>
-
-
-
+    <script src="${contextPath}/Main/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/Main/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/Main/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/Main/js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/Main/css/index.css" />
+    <link rel="stylesheet" href="${contextPath}/Main/css/gnb.css" />
+    <link rel="stylesheet" href="${contextPath}/Main/css/calander.css">
+    <script src="${contextPath}/Main/js/calander.js"></script>
 </head>
-
 <body>
     <div class="fullWrap">
         <!--gnb-->
@@ -46,7 +51,6 @@
                 <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
                 <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-
                 <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
             </ul>
             <!--//navBar-->
@@ -69,7 +73,6 @@
             </div>
         </div>
         <script type="text/javascript">
-
             var today = new Date();
             var year = null;
             var month = null;
@@ -85,7 +88,6 @@
                 $("#movePrevMonth").on("click", function () { movePrevMonth(); });
                 $("#moveNextMonth").on("click", function () { moveNextMonth(); });
             });
-
             //calendar 그리기
             function drawCalendar() {
                 var setTableHTML = "";
@@ -104,7 +106,6 @@
                 setTableHTML += '</table>';
                 $("#cal_tab").html(setTableHTML);
             }
-
             //날짜 초기화
             function initDate() {
                 $tdDay = $("td div.cal-day");
@@ -140,7 +141,6 @@
                     $tdDay.eq(i).css("color", "blue");
                 }
             }
-
             //calendar 월 이동
             function movePrevMonth() {
                 month--;
@@ -153,7 +153,6 @@
                 }
                 getNewInfo();
             }
-
             function moveNextMonth() {
                 month++;
                 if (month > 12) {
@@ -165,8 +164,6 @@
                 }
                 getNewInfo();
             }
-
-
             function getNewInfo() {
                 for (var i = 0; i < 42; i++) {
                     $tdDay.eq(i).text("");
@@ -192,7 +189,6 @@
         <!--right_side-->
         <div id="r_section">
             <div class="section_menu"><a href="../Team3_cha/noticeBoardMain.html">전체게시판 ></a> </div>
-
             <div id="board2">
             </div>
             <script>
@@ -213,10 +209,8 @@
                     }
                 }
             </script>
-
             <div class="section_menu"><a href="../Team1_won&you/docList.html">결재현황></a> </div>
-            <div id="board3">
-            
+            <div id="board3">        
             </div>
             <script>
                     $(document).ready(function(){
@@ -239,7 +233,5 @@
         </div>
         <!--//right_side-->
     </div>
-
 </body>
-
 </html>

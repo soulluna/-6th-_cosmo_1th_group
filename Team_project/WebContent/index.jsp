@@ -24,22 +24,21 @@
 <script src="${contextPath}/js/main.js"></script>
 <body>
 	<!-- action="Team2_kim/indexMain.html" -->
-	<form class="login-form" action="./MemberLogin.do" method="post"
-		onsubmit="return validate();">
+	<form class="login-form" action="${contextPath}/main/memberLogin.do" method="post" onsubmit="return validate();">
 		<div>
 			<img src="${contextPath}/img/logo3.gif">
 		</div>
 		<div class="txtb">
-			<input type="text" id="userID" name="eno" value="${employee.eno}"><span
-				data-placeholder="사원번호"></span>
+			<input type="text" id="userID" name="eno" value="${employee.eno}">
+			<span data-placeholder="사원번호"></span>
 		</div>
 		<div class="txtb">
-			<input type="password" id="pwd" name="userpw" value="${employee.userpw}"> <span
-				data-placeholder="비밀번호"></span>
+			<input type="password" id="pwd" name="userpw" value="${employee.userpw}"> 
+			<span data-placeholder="비밀번호"></span>
 		</div>
 		<input type="submit" class="lgnbtn" value="Login" id="login_submit">
 		<div class="bottom-text">
-			아이디가 없을 경우 <a href="${contextPath}/Main/registration/reg.jsp">회원가입</a>을 해주세요.
+			아이디가 없을 경우 <a href="${contextPath}/Main01/registration/reg.jsp">회원가입</a>을 해주세요.
 		</div>
 	</form>
 	<script type="text/javascript">
