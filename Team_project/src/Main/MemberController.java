@@ -62,6 +62,7 @@ public class MemberController extends HttpServlet implements Servlet {
 				String dname1=request.getParameter("dname1");
 				String dname2=request.getParameter("dname2");
 				System.out.println(eno+"   "+ename+"   "+pwd+"   "+dname1+"   "+dname2);
+				nextPage="/index.jsp";
 			}
 			else if(action.equals("/MemberLoginAction.do")){
 

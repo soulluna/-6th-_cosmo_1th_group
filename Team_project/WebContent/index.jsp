@@ -22,6 +22,7 @@
 <script src="${contextPath}/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/js/prefixfree.min.js"></script>
 <script src="${contextPath}/js/main.js"></script>
+</head>
 <body>
 	<!-- action="Team2_kim/indexMain.html" -->
 	<form class="login-form" action="${contextPath}/main/memberLogin.do" method="post" onsubmit="return validate();">
