@@ -4,8 +4,6 @@ function validate() {
     var regexpPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/ //비밀번호 정규식
     var id = document.getElementById("userID");
     var pwd = document.getElementById("pwd");
-
-
     //----------------------------------------------------
     if (id.value == "") {
         alert("사원번호를 확인하세요");

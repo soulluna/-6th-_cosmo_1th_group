@@ -1,26 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html;utf-8");
+%>
+<!-- contextPath = ./Team_project -->
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    <script src="${contextPath}/js/jquery-2.1.1.min.js"></script>
-    <script src="${contextPath}/js/jquery-ui.min.js"></script>
-    <script src="${contextPath}/js/jquery.easing.1.3.js"></script>
-    <script src="${contextPath}/js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="${contextPath}/css/index.css" />
-    <link rel="stylesheet" href="${contextPath}/css/gnb.css" />
-    <link rel="stylesheet" href="${contextPath}/css/calander.css">
-    <script src="${contextPath}/js/calander.js"></script>
-
-
-
+    <script src="${contextPath}/Main/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/Main/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/Main/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/Main/js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/Main/css/index.css" />
+    <link rel="stylesheet" href="${contextPath}/Main/css/gnb.css" />
+    <link rel="stylesheet" href="${contextPath}/Main/css/calander.css">
+    <script src="${contextPath}/Main/js/calander.js"></script>
 </head>
-
 <body>
     <div class="fullWrap">
         <!--gnb-->
@@ -42,7 +45,7 @@
                 </table>
             </ul>
             <!--//logoBar-->
-            <!--nav bar-->
+            <!--topBar-->
             <ul class="topBar">
                 <li id="main" class="t_menu btn3"> <a href="./indexMain.html">메인</a></li>
                 <li id="cal" class="t_menu btn5"> <a href="${contextPath}/Board/listBoard.do">일정표</a></li>
@@ -51,9 +54,8 @@
 
                 <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
             </ul>
-            <!--//navBar-->
         </div>
-        <!--//gnb-->
+        <!--//topBar-->
         <!--left_side-->
         <div id="l_section">
             <div class="section_menu">달력
