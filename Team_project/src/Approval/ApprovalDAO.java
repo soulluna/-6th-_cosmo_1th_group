@@ -31,21 +31,16 @@ public class ApprovalDAO {
 		}
 
 	}
-
+	
+	// 전체 글 목록
 	public List<ApprovalVO> selectAllApproval() {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
 			con = dataFactory.getConnection();
 
-			/*
-			 * String query =
-			 * "select '수신' as call, (case when APPLIST=1 then '휴가신청서' when APPLIST=2 then '기안서' end) as APPLIST, "
-			 * ; query +=
-			 * "(case when progress=1 then '대기' when progress=2 then '진행' when progress=3 then '완료' end) as progress, "
-			 * ; query += "TXTNAME, ENTRYDATE from approval where ename='안영우'";
-			 */
-
-			String query = "select * from approval";
+			String query =
+					"select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우'";
+			
 			System.out.println(query);
 
 			pstmt = con.prepareStatement(query);
@@ -53,33 +48,38 @@ public class ApprovalDAO {
 
 			ResultSet rs = pstmt.executeQuery(query);
 			System.out.println("rs : " + rs);
-
+			
+			//첫 번째 목록부터
 			while (rs.next()) {
+				System.out.println();
 				System.out.println("while진입");
-
-				String txtname = rs.getString("txtname");
-				System.out.println(txtname);
 				
+				//값을 가져옴
+				int txtnum = rs.getInt("txtnum");
+				String txtcall = rs.getString("txtcall");
+				String applist = rs.getString("applist");
+				String progress = rs.getString("progress");
+				String txtname = rs.getString("txtname");
 				Date entrydate = rs.getDate("entrydate");
+				
+				//디버깅 출력
+				System.out.println(txtnum);
+				System.out.println(txtcall);
+				System.out.println(applist);
+				System.out.println(progress);
+				System.out.println(txtname);
 				System.out.println(entrydate);
 				
-
-				String applist = rs.getString("applist");
-				System.out.println(applist);
+				//값을 넣어 객체 생성
+				ApprovalVO approvalVO = new ApprovalVO(txtnum, txtcall, applist, progress, txtname, entrydate);
+				System.out.println(approvalVO);
 				
-				String progress = rs.getString("progress");
-				System.out.println(progress);
-				
-				String call = rs.getString("call");
-				System.out.println(call);
-				
-				
-				
-
-				ApprovalVO approvalVO = new ApprovalVO(call, applist, progress, txtname, entrydate);
+				//생성한 객체를 하나씩 추가
 				approvalList.add(approvalVO);
+				
 			}
 
+			//메모리 누수 방지 위해서
 			rs.close();
 			pstmt.close();
 			con.close();
@@ -88,7 +88,121 @@ public class ApprovalDAO {
 			e.printStackTrace();
 		}
 		return approvalList;
-
 	}
 
+	// 기안서 상세 보기
+	public ApprovalVO selectDraft(int txtnum) {
+		ApprovalVO approval = new ApprovalVO();  
+		System.out.println("selectApproval");
+		try {
+			con = dataFactory.getConnection();
+			String query = "select entrydate, middate, findate, ename, ";
+					query += "midsugest, finsugest, txtname, txtcont from approval where txtnum=?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, txtnum);
+			System.out.println(txtnum);
+			System.out.println(query);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			Date entrydate = rs.getDate("entrydate");		
+			Date middate = rs.getDate("middate");
+			Date findate = rs.getDate("findate");
+			String ename = rs.getString("ename");
+			String midsugest = rs.getString("midsugest");
+			String finsugest = rs.getString("finsugest");
+			String txtname = rs.getString("txtname");
+			String txtcont = rs.getString("txtcont");
+			
+			System.out.println(entrydate);
+			System.out.println(middate);
+			System.out.println(findate);
+			System.out.println(ename);
+			System.out.println(midsugest);
+			System.out.println(finsugest);
+			System.out.println(txtname);
+			System.out.println(txtcont);
+			
+			approval.setEntrydate(entrydate);
+			approval.setMiddate(middate);
+			approval.setFindate(findate);
+			approval.setEname(ename);
+			approval.setMidsugest(midsugest);
+			approval.setFinsugest(finsugest);
+			approval.setTxtname(txtname);
+			approval.setTxtcont(txtcont);
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return approval;
+	}
+	
+	public ApprovalVO selectVacation(int txtnum) {
+		ApprovalVO approval = new ApprovalVO(); 
+		System.out.println("selectVacation");
+		try {
+			con = dataFactory.getConnection();
+			String query = "select entrydate, middate, findate, ename, ";
+					query += "midsugest, finsugest, txtname, txtcont, vaclist, vacstart, vacend ";
+					query += "from approval where txtnum=?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, txtnum);
+			System.out.println(txtnum);
+			System.out.println(query);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			Date entrydate = rs.getDate("entrydate");		
+			Date middate = rs.getDate("middate");
+			Date findate = rs.getDate("findate");
+			String ename = rs.getString("ename");
+			String midsugest = rs.getString("midsugest");
+			String finsugest = rs.getString("finsugest");
+			String txtname = rs.getString("txtname");
+			String txtcont = rs.getString("txtcont");
+			String vaclist = rs.getString("vaclist");
+			Date vacstart = rs.getDate("vacstart");
+			Date vacend = rs.getDate("vacend");
+			
+			System.out.println(entrydate);
+			System.out.println(middate);
+			System.out.println(findate);
+			System.out.println(ename);
+			System.out.println(midsugest);
+			System.out.println(finsugest);
+			System.out.println(txtname);
+			System.out.println(txtcont);
+			System.out.println(vaclist);
+			System.out.println(vacstart);
+			System.out.println(vacend);
+			
+			approval.setEntrydate(entrydate);
+			approval.setMiddate(middate);
+			approval.setFindate(findate);
+			approval.setEname(ename);
+			approval.setMidsugest(midsugest);
+			approval.setFinsugest(finsugest);
+			approval.setTxtname(txtname);
+			approval.setTxtcont(txtcont);
+			approval.setVaclist(vaclist);
+			approval.setVacstart(vacstart);
+			approval.setVacend(vacend);
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return approval;
+	}
+	
+	
 }

@@ -4,37 +4,51 @@ import java.sql.Date;
 
 public class ApprovalVO {
 
-	private int txtnum; //글번호
-	private String txtname; //글제목
-	private String txtcont; //글내용
-	private Date entrydate; //등록일
-	private int eno; //사원번호
-	private String ename; //사원명
-	private String rank; //직급
-	private int applist; //전자결재종류
-	private String midsugest; //중간결재자
-	private String finsugest; //최종결재자
-	private int vaclist; //휴가종류
-	private Date vacstart; //휴가시작일
-	private Date vacend; //휴가종료일
-	
-	
-	private String applist2;
-	private String call;
+	private String txtcall;
+	private String applist;
+	private int txtnum;
+	private String txtname;
+	private String txtcont;
 	private String progress;
-		
+	private Date entrydate;
+	private Date middate;
+	private Date findate;
+	private int eno;
+	private String ename;
+	private String rank;
+	private String midsugest;
+	private String finsugest;
+	private String vaclist;
+	private Date vacstart;
+	private Date vacend;
+	
 	public ApprovalVO() {
 		super();
+
 	}
 	
-	public ApprovalVO(String call, String applist2, String progress, String txtname, Date entrydate) {
-		this.call = call;
-		this.applist2 = applist2;
+	public ApprovalVO(int txtnum, String txtcall, String applist, String progress, String txtname, Date entrydate) {
+		
+		this.txtnum = txtnum;
+		this.txtcall = txtcall;
+		this.applist = applist;
 		this.progress = progress;
 		this.txtname = txtname;
 		this.entrydate = entrydate;
 	}
 	
+	public String getTxtcall() {
+		return txtcall;
+	}
+	public void setTxtcall(String txtcall) {
+		this.txtcall = txtcall;
+	}
+	public String getApplist() {
+		return applist;
+	}
+	public void setApplist(String applist) {
+		this.applist = applist;
+	}
 	public int getTxtnum() {
 		return txtnum;
 	}
@@ -52,6 +66,12 @@ public class ApprovalVO {
 	}
 	public void setTxtcont(String txtcont) {
 		this.txtcont = txtcont;
+	}
+	public String getProgress() {
+		return progress;
+	}
+	public void setProgress(String progress) {
+		this.progress = progress;
 	}
 	public Date getEntrydate() {
 		return entrydate;
@@ -77,12 +97,6 @@ public class ApprovalVO {
 	public void setRank(String rank) {
 		this.rank = rank;
 	}
-	public int getApplist() {
-		return applist;
-	}
-	public void setApplist(int applist) {
-		this.applist = applist;
-	}
 	public String getMidsugest() {
 		return midsugest;
 	}
@@ -95,10 +109,10 @@ public class ApprovalVO {
 	public void setFinsugest(String finsugest) {
 		this.finsugest = finsugest;
 	}
-	public int getVaclist() {
+	public String getVaclist() {
 		return vaclist;
 	}
-	public void setVaclist(int vaclist) {
+	public void setVaclist(String vaclist) {
 		this.vaclist = vaclist;
 	}
 	public Date getVacstart() {
@@ -114,30 +128,21 @@ public class ApprovalVO {
 		this.vacend = vacend;
 	}
 
-	public String getApplist2() {
-		return applist2;
+	public Date getMiddate() {
+		return middate;
 	}
 
-	public void setApplist2(String applist2) {
-		this.applist2 = applist2;
+	public void setMiddate(Date middate) {
+		this.middate = middate;
 	}
 
-	public String getCall() {
-		return call;
+	public Date getFindate() {
+		return findate;
 	}
 
-	public void setCall(String call) {
-		this.call = call;
+	public void setFindate(Date findate) {
+		this.findate = findate;
 	}
-
-	public String getProgress() {
-		return progress;
-	}
-
-	public void setProgress(String progress) {
-		this.progress = progress;
-	}
-	
 	
 	
 }

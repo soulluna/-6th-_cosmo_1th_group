@@ -41,15 +41,42 @@ public class ApprovalController extends HttpServlet {
 		try {
 			List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 			
-			if (false) {
+			if (action != null && action.equals("/docList.do")) {
+				System.out.println();
+				System.out.println("/docList.do");
+				System.out.println("action : " + action);
+				approvalList = approvalService.listApproval();
+				request.setAttribute("approvalList", approvalList);
+				nextPage = "/Approval01/docList.jsp";
+				
+			}else if(action.equals("/vacationWait.do")){
+				System.out.println();
+				System.out.println("vacationWait.do");
+				System.out.println("action : " + action);
+				String txtnum = request.getParameter("txtnum");
+				System.out.println(txtnum);
+				approvalVO = approvalService.viewvacation(Integer.parseInt(txtnum));
+				request.setAttribute("approval", approvalVO);
+				nextPage = "/Approval01/vacationWait.jsp";
+				
+				
+				
+			}else if(action.equals("/draftWait.do")){
+				System.out.println();
+				System.out.println("draftWait.do");
+				System.out.println("action : " + action);
+				String txtnum = request.getParameter("txtnum");
+				System.out.println(txtnum);
+				approvalVO = approvalService.viewdraft(Integer.parseInt(txtnum));
+				request.setAttribute("approval", approvalVO);
+				nextPage = "/Approval01/draftWait.jsp";
+				
 				
 			}else {
 				System.out.println();
 				System.out.println("else");
 				System.out.println("action : " + action);
 				approvalList = approvalService.listApproval();
-				System.out.println(approvalList);
-				
 				request.setAttribute("approvalList", approvalList);
 				
 				nextPage = "/Approval01/docList.jsp";

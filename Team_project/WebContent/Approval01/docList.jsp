@@ -6,7 +6,6 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
-
 %>
 
 <!DOCTYPE html>
@@ -96,15 +95,25 @@
 					<th width="700px">문서제목</th>
 					<th width="100px">등록일자</th>
 				</tr>
+				<c:forEach items="${approvalList}" var="approval" varStatus="15">
 				<tr>
-					<th>
-						<%
-						System.out.print(request.getAttribute("approvalList"));
-						
-						%>
-					</th>
+					<td>${approval.txtcall}</td>
+					<td>${approval.applist}</td>
+					<td>${approval.progress}</td>
+
+					<c:choose>
+						<c:when test="${approval.applist == '기안서'}">
+							<td><a href = "${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+						</c:when>
+						<c:when test="${approval.applist == '휴가신청서'}">
+							<td><a href = "${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+						</c:when>
+					</c:choose>	
+
+					<td>${approval.entrydate}</td>
 				</tr>
-				
+				</c:forEach>
+			</table>
 
 </body>
 </html>
