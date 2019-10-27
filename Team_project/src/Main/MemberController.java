@@ -72,8 +72,11 @@ public class MemberController extends HttpServlet implements Servlet {
 				memberDAO.addMember(memberVO);
 				nextPage="/index.jsp";
 			}
-			else if(action.equals("/MemberLoginAction.do")){
-
+			else if(action.equals("/pwdConfirm.do")){
+				String pwd=request.getParameter("pwd");
+				System.out.println(pwd);
+				memberVO.setPwd(pwd);
+				
 			}
 			else if(action.equals("/MemberJoin.do")){
 

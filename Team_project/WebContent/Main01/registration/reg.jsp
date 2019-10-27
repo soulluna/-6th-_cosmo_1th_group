@@ -20,12 +20,9 @@
 <script src="${contextPath}/Main01/registration/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Main01/registration/js/main.js"></script>
 <link rel="stylesheet" href="${contextPath}/Main01/registration/css/reg.css" />
-<script>
-	console.log('${contextPath}/Main01/registration/js/main.js');
-</script>
 </head>
 <body>
-	<form class="reg-form" name="join" onsubmit="return validate();" action="${contextPath}/main/addMember.do" method="post">
+	<form class="reg_form" name="join" onsubmit="return validate();" action="${contextPath}/main/addMember.do" method="post">
 		<div>
 			<img src="${contextPath}/Main01/registration/img/logo3.gif">
 		</div>
