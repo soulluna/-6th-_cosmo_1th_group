@@ -15,14 +15,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    <script src="${contextPath}/Main/js/jquery-2.1.1.min.js"></script>
-    <script src="${contextPath}/Main/js/jquery-ui.min.js"></script>
-    <script src="${contextPath}/Main/js/jquery.easing.1.3.js"></script>
-    <script src="${contextPath}/Main/js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="${contextPath}/Main/css/index.css" />
-    <link rel="stylesheet" href="${contextPath}/Main/css/gnb.css" />
-    <link rel="stylesheet" href="${contextPath}/Main/css/calander.css">
-    <script src="${contextPath}/Main/js/calander.js"></script>
+    <script src="${contextPath}/Main01/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/Main01/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/Main01/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/Main01/js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/Main01/css/index.css" />
+    <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
+    <link rel="stylesheet" href="${contextPath}/Main01/css/calander.css">
+    <script src="${contextPath}/Main01/js/calander.js"></script>
 </head>
 <body>
     <div class="fullWrap">
@@ -38,8 +38,8 @@
                             <td colspan="2">관리자 님 환영합니다.</td>
                         </tr>
                         <tr>
-                            <td><a href="../index.html">로그아웃</a>
-                                <a href="./member/confirm.html">내정보수정</a></td>
+                            <td><a href="${contextPath}/index.html">로그아웃</a>
+                                <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,11 +47,11 @@
             <!--//logoBar-->
             <!--nav bar-->
             <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="./indexMain.html">메인</a></li>
+                <li id="main" class="t_menu btn3"> <a href="${contextPath}/Main01/indexMain.jsp">메인</a></li>
                 <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
                 <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-                <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></li>
             </ul>
             <!--//navBar-->
         </div>
