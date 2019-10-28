@@ -7,6 +7,8 @@
 <%
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
+   
+   
 %>
 
 <!DOCTYPE html>
