@@ -39,10 +39,10 @@ public class MemberController extends HttpServlet implements Servlet {
 			if(action!=null&&action.equals("/memberLogin.do")){
 				System.out.println("memberLogin.do");
 				String eno=request.getParameter("eno");
-				String userpw=request.getParameter("userpw");
-				System.out.println(eno+"   "+userpw);
+				String pwd=request.getParameter("pwd");
+				System.out.println(eno+"   "+pwd);
 				memberVO.setEno(eno);
-				memberVO.setPwd(userpw);
+				memberVO.setPwd(pwd);
 				boolean isloginDB=memberDAO.isMember(memberVO);
 				System.out.println(isloginDB);
 				if(isloginDB) {
