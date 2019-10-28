@@ -34,7 +34,7 @@
 			<span data-placeholder="사원번호"></span>
 		</div>
 		<div class="txtb">
-			<input type="password" id="pwd" name="userpw" value="${employee.userpw}"> 
+			<input type="password" id="pwd" name="pwd" value="${employee.userpw}"> 
 			<span data-placeholder="비밀번호"></span>
 		</div>
 		<input type="submit" class="lgnbtn" value="Login" id="login_submit">

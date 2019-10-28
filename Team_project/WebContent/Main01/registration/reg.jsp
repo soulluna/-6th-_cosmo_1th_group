@@ -35,12 +35,12 @@
 				<span class="name" data-placeholder="이름"></span>
 		</div>
 		<div class="secb">
-			<input id="pwd" class="txtb" type="password" name="userpw" value="${employee.pwd}"> 
+			<input id="pwd" class="txtb" type="password" name="pwd" value="${employee.pwd}"> 
 			<span class="name"data-placeholder="비밀번호"></span>
 		</div>
 
 		<div class="secb">
-			<input id="pwdconfirm" class="txtb" type="password" name="userpwc">
+			<input id="pwdconfirm" class="txtb" type="password" name="pwc">
 			<span class="name" data-placeholder="비밀번호 확인"></span>
 		</div>
 		<div class="a_section">
