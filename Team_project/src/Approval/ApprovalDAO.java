@@ -19,6 +19,7 @@ public class ApprovalDAO {
 	public ApprovalDAO() {
 		try {
 			// 커넥션풀 사용
+			
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
 			// DNDI에 접근하기 위한 기본 경로 "java:/comp/env" 지정

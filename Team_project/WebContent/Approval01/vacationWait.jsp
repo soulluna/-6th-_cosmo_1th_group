@@ -14,15 +14,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="./css/main.css" />
-<link rel="stylesheet" href="./css/gnb.css" />
-<link rel="stylesheet" href="./css/jquery-ui.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
-<script src="./js/jquery-2.1.1.min.js"></script>
-<script src="./js/jquery-ui.min.js"></script>
-<script src="./js/jquery.easing.1.3.js"></script>
-<script src="./js/prefixfree.min.js"></script>
-<script src="./js/main.js"></script>
+<script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
+<script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
+<script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
+<script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
+<script src="${contextPath}/Approval01/js/main.js"></script>
 <title>휴가신청서</title>
 </head>
 

@@ -59,8 +59,6 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approval", approvalVO);
 				nextPage = "/Approval01/vacationWait.jsp";
 				
-				
-				
 			}else if(action.equals("/draftWait.do")){
 				System.out.println();
 				System.out.println("draftWait.do");
