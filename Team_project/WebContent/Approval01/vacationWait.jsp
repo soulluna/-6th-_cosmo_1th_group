@@ -177,6 +177,7 @@
 	} else if (vaclist == "병가") {
 		$(".modifySelect2").attr("checked", "checked");
 	} else if (vaclist == "휴가") {
+		$(".modifySelect3").attr("checked", "checked");
 	} else if (vaclist == "기타") {
 		$(".modifySelect4").attr("checked", "checked");
 	}
