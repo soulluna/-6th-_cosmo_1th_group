@@ -44,13 +44,13 @@
 			<span class="name" data-placeholder="비밀번호 확인"></span>
 		</div>
 		<div class="a_section">
-			<select class="area" id="dep1" name="dname1">
+			<select class="area" id="dep1" name="dname">
 				<option value="0">선택하세요</option>
 				<option value="1">영업부</option>
 				<option value="2">인사부</option>
 				<option value="3">기술지원팀</option>
 			</select> <span class="block"> &nbsp;>&nbsp;</span> <select class="area2"
-				id="dep2" name="dname2">
+				id="dep2" name="dname_two">
 				<option value="0">선택하세요</option>
 				<option value="4">1팀</option>
 				<option value="5">2팀</option>
