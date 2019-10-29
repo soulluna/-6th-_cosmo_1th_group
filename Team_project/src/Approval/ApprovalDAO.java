@@ -14,12 +14,12 @@ import javax.sql.DataSource;
 public class ApprovalDAO {
 	private Connection con;
 	private PreparedStatement pstmt;
+
 	private DataSource dataFactory;
 
 	public ApprovalDAO() {
 		try {
 			// 커넥션풀 사용
-			
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
 			// DNDI에 접근하기 위한 기본 경로 "java:/comp/env" 지정
@@ -33,7 +33,7 @@ public class ApprovalDAO {
 
 	}
 	
-	// 전체 글 목록
+	// 전체 글 목록 조회
 	public List<ApprovalVO> selectAllApproval() {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
@@ -52,9 +52,6 @@ public class ApprovalDAO {
 			
 			//첫 번째 목록부터
 			while (rs.next()) {
-				System.out.println();
-				System.out.println("while진입");
-				
 				//값을 가져옴
 				int txtnum = rs.getInt("txtnum");
 				String txtcall = rs.getString("txtcall");
@@ -63,17 +60,8 @@ public class ApprovalDAO {
 				String txtname = rs.getString("txtname");
 				Date entrydate = rs.getDate("entrydate");
 				
-				//디버깅 출력
-				System.out.println(txtnum);
-				System.out.println(txtcall);
-				System.out.println(applist);
-				System.out.println(progress);
-				System.out.println(txtname);
-				System.out.println(entrydate);
-				
 				//값을 넣어 객체 생성
 				ApprovalVO approvalVO = new ApprovalVO(txtnum, txtcall, applist, progress, txtname, entrydate);
-				System.out.println(approvalVO);
 				
 				//생성한 객체를 하나씩 추가
 				approvalList.add(approvalVO);
@@ -94,11 +82,11 @@ public class ApprovalDAO {
 	// 기안서 상세 보기
 	public ApprovalVO selectDraft(int txtnum) {
 		ApprovalVO approval = new ApprovalVO();  
-		System.out.println("selectApproval");
+		System.out.println("selectDraft");
 		try {
 			con = dataFactory.getConnection();
-			String query = "select entrydate, middate, findate, ename, ";
-					query += "midsugest, finsugest, txtname, txtcont from approval where txtnum=?";
+			String query = "select entrydate, middate, findate, eno, ";
+					query += "mideno, fineno, txtname, txtcont from approval where txtnum=?";
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, txtnum);
@@ -109,27 +97,27 @@ public class ApprovalDAO {
 			Date entrydate = rs.getDate("entrydate");		
 			Date middate = rs.getDate("middate");
 			Date findate = rs.getDate("findate");
-			String ename = rs.getString("ename");
-			String midsugest = rs.getString("midsugest");
-			String finsugest = rs.getString("finsugest");
+			long eno = rs.getLong("eno");
+			long mideno = rs.getLong("mideno");
+			long fineno = rs.getLong("fineno");
 			String txtname = rs.getString("txtname");
 			String txtcont = rs.getString("txtcont");
 			
 			System.out.println(entrydate);
 			System.out.println(middate);
 			System.out.println(findate);
-			System.out.println(ename);
-			System.out.println(midsugest);
-			System.out.println(finsugest);
+			System.out.println(eno);
+			System.out.println(mideno);
+			System.out.println(fineno);
 			System.out.println(txtname);
 			System.out.println(txtcont);
 			
 			approval.setEntrydate(entrydate);
 			approval.setMiddate(middate);
 			approval.setFindate(findate);
-			approval.setEname(ename);
-			approval.setMidsugest(midsugest);
-			approval.setFinsugest(finsugest);
+			approval.setEno(eno);
+			approval.setMideno(mideno);
+			approval.setFineno(fineno);
 			approval.setTxtname(txtname);
 			approval.setTxtcont(txtcont);
 			
@@ -143,40 +131,66 @@ public class ApprovalDAO {
 		
 		return approval;
 	}
+
+	/*
+	 * //작성자 정보 public ApprovalVO writerInfomation(int txtnum, long eno) {
+	 * System.out.println("writerInfomation"); ApprovalVO approval = new
+	 * ApprovalVO(); try { con = dataFactory.getConnection(); String query =
+	 * "select e.rank, e.ename, e.dname from employee e, approval a where a.txtnum=? and e.eno=?"
+	 * ; pstmt = con.prepareStatement(query); pstmt.setInt(1, txtnum);
+	 * pstmt.setLong(2, eno); ResultSet rs = pstmt.executeQuery(); rs.next(); String
+	 * ename = rs.getString("e.rank"); String rank = rs.getString("e.ename"); String
+	 * dname = rs.getString("e.dname");
+	 * 
+	 * System.out.println(ename); System.out.println(rank);
+	 * System.out.println(dname);
+	 * 
+	 * approval.setEname(ename); approval.setRank(rank); approval.setDname(dname);
+	 * 
+	 * }catch (Exception e) { e.printStackTrace(); } return approval; }
+	 */
 	
+	// 휴가신청서 상세 보기
 	public ApprovalVO selectVacation(int txtnum) {
 		ApprovalVO approval = new ApprovalVO(); 
 		System.out.println("selectVacation");
 		try {
 			con = dataFactory.getConnection();
-			String query = "select entrydate, middate, findate, ename, ";
-					query += "midsugest, finsugest, txtname, txtcont, vaclist, vacstart, vacend ";
+			String query = "select entrydate, middate, findate, eno, ";
+					query += "mideno, fineno, txtname, txtcont, vaclist, vacstart, vacend ";
 					query += "from approval where txtnum=?";
 			
+//			String query2 = "select ename, rank, dname from employee where eno=?";
+					
 			pstmt = con.prepareStatement(query);
+
 			pstmt.setInt(1, txtnum);
+
 			System.out.println(txtnum);
 			System.out.println(query);
 			ResultSet rs = pstmt.executeQuery();
+
+
 			rs.next();
 			Date entrydate = rs.getDate("entrydate");		
 			Date middate = rs.getDate("middate");
 			Date findate = rs.getDate("findate");
-			String ename = rs.getString("ename");
-			String midsugest = rs.getString("midsugest");
-			String finsugest = rs.getString("finsugest");
+			Long eno = rs.getLong("eno");
+			Long mideno = rs.getLong("mideno");
+			Long fineno = rs.getLong("fineno");
 			String txtname = rs.getString("txtname");
 			String txtcont = rs.getString("txtcont");
 			String vaclist = rs.getString("vaclist");
 			Date vacstart = rs.getDate("vacstart");
 			Date vacend = rs.getDate("vacend");
 			
+			
 			System.out.println(entrydate);
 			System.out.println(middate);
 			System.out.println(findate);
-			System.out.println(ename);
-			System.out.println(midsugest);
-			System.out.println(finsugest);
+			System.out.println(eno);
+			System.out.println(mideno);
+			System.out.println(fineno);
 			System.out.println(txtname);
 			System.out.println(txtcont);
 			System.out.println(vaclist);
@@ -186,9 +200,9 @@ public class ApprovalDAO {
 			approval.setEntrydate(entrydate);
 			approval.setMiddate(middate);
 			approval.setFindate(findate);
-			approval.setEname(ename);
-			approval.setMidsugest(midsugest);
-			approval.setFinsugest(finsugest);
+			approval.setEno(eno);
+			approval.setMideno(mideno);
+			approval.setFineno(fineno);
 			approval.setTxtname(txtname);
 			approval.setTxtcont(txtcont);
 			approval.setVaclist(vaclist);

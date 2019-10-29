@@ -49,7 +49,7 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
 				
-			}else if(action.equals("/vacationWait.do")){
+			}else if(action.equals("/vacationWait.do")){ //휴가신청서 상세보기
 				System.out.println();
 				System.out.println("vacationWait.do");
 				System.out.println("action : " + action);
@@ -59,16 +59,16 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approval", approvalVO);
 				nextPage = "/Approval01/vacationWait.jsp";
 				
-			}else if(action.equals("/draftWait.do")){
+			}else if(action.equals("/draftWait.do")){ //기안서 상세보기
 				System.out.println();
 				System.out.println("draftWait.do");
 				System.out.println("action : " + action);
 				String txtnum = request.getParameter("txtnum");
 				System.out.println(txtnum);
+				
 				approvalVO = approvalService.viewdraft(Integer.parseInt(txtnum));
 				request.setAttribute("approval", approvalVO);
 				nextPage = "/Approval01/draftWait.jsp";
-				
 				
 			}else {
 				System.out.println();
