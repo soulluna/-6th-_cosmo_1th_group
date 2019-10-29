@@ -253,15 +253,7 @@ $(document).ready(function () {
     $(".approval3").text(employee[2][1]);
     $(".inputTitle").text(documentList[3][8]);
 
-    if (documentList[3][9] == 1) {
-      $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
-    } else if (documentList[3][9] == 2) {
-      $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
-    } else if (documentList[3][9] == 3) {
-      $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
-    } else if (documentList[3][9] == 4) {
-      $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
-    }
+    
 
     $(".selectedDay:first").text(documentList[3][10]);
     $(".selectedDay:last").text(documentList[3][11]);
@@ -287,6 +279,7 @@ $(document).ready(function () {
     } else if (documentList[3][9] == 4) {
         $(".modifySelect4").attr("checked", "checked");
     }
+    
     $('.inputarea #datepicker1').val(documentList[3][10]);
     $('.inputarea #datepicker2').val(documentList[3][11]);
     $('.inputarea .inputContent').val(documentList[3][12]);

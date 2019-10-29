@@ -18,11 +18,7 @@
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
-<script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
-<script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
-<script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
-<script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
-<script src="${contextPath}/Approval01/js/main.js"></script>
+
 <title>휴가신청서</title>
 </head>
 
@@ -114,10 +110,11 @@
                     <tr>
                         <td>
                             <br>
+                            
                             1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
                             <span>
                                 <input type="radio" name="leaveradio" value="1" class="modifySelect1" id="kindsSelect1"
-                                    checked="checked" disabled>
+                                	disabled>
                                 <label for="kindsSelect1">연차</label>
                             </span>
                             <span>
@@ -169,4 +166,33 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
+<script>
+	var vaclist = "${approval.vaclist}";
+	if (vaclist == "연차") {
+		$(".modifySelect1").attr("checked", "checked");
+	} else if (vaclist == "병가") {
+		$(".modifySelect2").attr("checked", "checked");
+	} else if (vaclist == "휴가") {
+		$(".modifySelect3").attr("checked", "checked");
+	} else if (vaclist == "기타") {
+		$(".modifySelect4").attr("checked", "checked");
+	}
+	
+	function getDateDiff(date1, date2) {
+		var arrDate1 = date1.split("-");
+		var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1]) - 1,
+				parseInt(arrDate1[2]));
+		var arrDate2 = date2.split("-");
+		var getDate2 = new Date(parseInt(arrDate2[0]), parseInt(arrDate2[1]) - 1,
+				parseInt(arrDate2[2]));
+		var getDiffTime = getDate1.getTime() - getDate2.getTime();
+		return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
+	}
+	$('.selectedDayCount').text(getDateDiff("${approval.vacend}","${approval.vacstart}") +1);
+</script>
+<script type="text/javascript" src="${contextPath}/Approval01/js/ex_main.js"></script>
 </html>
