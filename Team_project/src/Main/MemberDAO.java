@@ -66,12 +66,12 @@ public class MemberDAO {
 			String rank=member.getRank();
 			//숫자로 들어오는 옵션 값에 맞추어서 값 튜닝
 			switch(dname) {
-				case "1":
-					dname="영업부";
-				case "2":
-					dname="인사부";
-				case "3":
-					dname="기술지원팀";
+			case "1":
+				dname="영업부";
+			case "2":
+				dname="인사부";
+			case "3":
+				dname="기술지원팀";
 			}
 			switch(dname_two) {
 			case "4":
@@ -95,5 +95,23 @@ public class MemberDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public boolean confirmMember(String eno) { //중복확인
+		boolean result = false;
+		try {
+			String query = "select eno from employee where eno=?";
+			pstmt = con.prepareStatement(query); 
+			pstmt.setString(1, eno);
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=true;
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

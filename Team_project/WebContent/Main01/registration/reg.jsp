@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.ArrayList"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
    request.setCharacterEncoding("UTF-8");
@@ -20,6 +21,11 @@
 <script src="${contextPath}/Main01/registration/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Main01/registration/js/main.js"></script>
 <link rel="stylesheet" href="${contextPath}/Main01/registration/css/reg.css" />
+
+<script type ="text/javascript">
+
+</script>
+
 </head>
 <body>
 	<form class="reg_form" name="join" onsubmit="return validate();" action="${contextPath}/main/addMember.do" method="post">
@@ -29,6 +35,7 @@
 		<div class="secb">
 			<input class="txtb" type="text" id="userID" name="eno" value="${employee.eno}"> 
 			<span class="name" data-placeholder="사원번호"></span> 
+			<input class="d_btn" type="button" value="중복확인" onclick="return confirmMember();">
 		</div>
 		<div class="secb">
 			<input class="txtb" type="text" id="userName" name="ename" value="${employee.ename}"> 
@@ -61,6 +68,8 @@
 		<input class="clear" type="reset" value="취소" onclick="location.href ='${contextPath}/index.jsp';">
 	</form>
 </body>
+
+	<!-- 화면요소 jquery -->
 	<script type="text/javascript">
     	$(".secb .txtb").on("focus", function () {
         	$(this).addClass("focus");
