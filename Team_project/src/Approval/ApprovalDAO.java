@@ -79,6 +79,52 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
+	//검색 후 목록 가져오기
+	public List<ApprovalVO> selectAllApproval(String a) {
+		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
+		try {
+			con = dataFactory.getConnection();
+
+			String query =
+					"select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우'";
+			
+			System.out.println(query);
+
+			pstmt = con.prepareStatement(query);
+			System.out.println("pstmt : " + pstmt);
+
+			ResultSet rs = pstmt.executeQuery(query);
+			System.out.println("rs : " + rs);
+			
+			//첫 번째 목록부터
+			while (rs.next()) {
+				//값을 가져옴
+				int txtnum = rs.getInt("txtnum");
+				String txtcall = rs.getString("txtcall");
+				String applist = rs.getString("applist");
+				String progress = rs.getString("progress");
+				String txtname = rs.getString("txtname");
+				Date entrydate = rs.getDate("entrydate");
+				
+				//값을 넣어 객체 생성
+				ApprovalVO approvalVO = new ApprovalVO(txtnum, txtcall, applist, progress, txtname, entrydate);
+				
+				//생성한 객체를 하나씩 추가
+				approvalList.add(approvalVO);
+				
+			}
+
+			//메모리 누수 방지 위해서
+			rs.close();
+			pstmt.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return approvalList;
+	}
+	
 	// 기안서 상세 보기
 	public ApprovalVO selectDraft(int txtnum) {
 		ApprovalVO approval = new ApprovalVO();  

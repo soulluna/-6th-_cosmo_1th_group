@@ -45,6 +45,10 @@ public class ApprovalController extends HttpServlet {
 				System.out.println();
 				System.out.println("/docList.do");
 				System.out.println("action : " + action);
+				String searchType = request.getParameter("searchType");
+				System.out.println("searchType : " + searchType);
+				String searchKey = request.getParameter("searchKey");
+				System.out.println("searchKey : " + searchKey);
 				approvalList = approvalService.listApproval();
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
@@ -74,6 +78,10 @@ public class ApprovalController extends HttpServlet {
 				System.out.println();
 				System.out.println("else");
 				System.out.println("action : " + action);
+				String searchType = request.getParameter("searchType");
+				System.out.println("searchType : " + searchType);
+				String searchKey = request.getParameter("searchKey");
+				System.out.println("searchKey : " + searchKey);
 				approvalList = approvalService.listApproval();
 				request.setAttribute("approvalList", approvalList);
 				

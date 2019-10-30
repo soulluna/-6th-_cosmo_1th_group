@@ -76,13 +76,15 @@
 		<div class="deptContent" style="margin: 10px;">
 			<!--문서종류, 검색값, 검색버튼-->
 			<div>
-				<select name="searchType">
-					<option value="1" selected="">결재종류</option>
-					<option value="2">문서제목</option>
-				</select> <input type="text" class="searchInput" name="searchKey"> <input
-					type="submit" class="search" value="검색" style="height: 30px;"
-					onclick="docListSearchCheck()">
-				</td>
+				<form>
+					<select name="searchType">
+						<option value="1" selected="">결재종류</option>
+						<option value="2">문서제목</option>
+					</select>
+					<input type="text" class="searchInput" name="searchKey">
+					<input type="submit" class="search" value="검색"
+					style="height: 30px;" onclick="docListSearchCheck()">
+				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
 
