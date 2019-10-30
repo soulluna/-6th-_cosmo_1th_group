@@ -49,12 +49,7 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("searchType : " + searchType);
 				String searchKey = request.getParameter("searchKey");
 				System.out.println("searchKey : " + searchKey);
-				if (searchKey == null || searchKey.equals("")) {
-					System.out.println("searchKey가 null인 if문");
-					approvalList = approvalService.listApproval();
-				} else {
-					approvalList = approvalService.listApproval(searchType, searchKey);
-				}
+				approvalList = approvalService.listApproval();
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
 				
@@ -87,12 +82,7 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("searchType : " + searchType);
 				String searchKey = request.getParameter("searchKey");
 				System.out.println("searchKey : " + searchKey);
-				if (searchKey == null || searchKey.equals("")) {
-					System.out.println("searchKey가 null인 if문");
-					approvalList = approvalService.listApproval();
-				} else {
-					approvalList = approvalService.listApproval(searchType, searchKey);
-				}
+				approvalList = approvalService.listApproval();
 				request.setAttribute("approvalList", approvalList);
 				
 				nextPage = "/Approval01/docList.jsp";
