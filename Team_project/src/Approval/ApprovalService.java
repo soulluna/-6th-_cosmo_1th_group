@@ -10,9 +10,16 @@ public class ApprovalService {
 		approvalDAO = new ApprovalDAO();
 	}
 	
-	
+	//그냥 문서 출력
 	public List<ApprovalVO> listApproval() {
 		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval();	
+		return approvallist;
+	}
+	
+	//검색어 있을 때 문서 출력
+	public List<ApprovalVO> listApproval(String searchType, String searchKey){
+		System.out.println("listApproval(매개변수) : " + searchType + ", " + searchKey);
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(searchType, searchKey);	
 		return approvallist;
 	}
 	
@@ -33,7 +40,6 @@ public class ApprovalService {
 		ApprovalVO approval = approvalDAO.selectVacation(txtnum);
 		return approval;
 	}
-	
 	
 	
 }
