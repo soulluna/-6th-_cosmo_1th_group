@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
+
 public class ApprovalDAO {
 	private Connection con;
 	private PreparedStatement pstmt;
@@ -23,7 +25,6 @@ public class ApprovalDAO {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
 			// DNDI에 접근하기 위한 기본 경로 "java:/comp/env" 지정
-
 			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
 			// 톰캣 context.xml에 설정한 name 값인 jdbc/oracle을 이용해 톰캣이 미리 연결한 DataSource 받아옴.
 
@@ -79,21 +80,26 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
-	//검색 후 목록 가져오기
-	public List<ApprovalVO> selectAllApproval(String a) {
+	//검색 목록 가져오기
+	public List<ApprovalVO> selectAllApproval(String searchType, String searchKey) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
+		String query = null;
 		try {
 			con = dataFactory.getConnection();
-
-			String query =
-					"select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우'";
-			
+			System.out.println(searchType);
+			System.out.println(searchKey);
+			if(searchType.equals("1")) {
+				query = "select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우' and applist like ?";
+			}else if(searchType.equals("2")) {
+				query = "select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우' and txtname like ?";
+			}
 			System.out.println(query);
 
 			pstmt = con.prepareStatement(query);
 			System.out.println("pstmt : " + pstmt);
-
-			ResultSet rs = pstmt.executeQuery(query);
+			
+			pstmt.setString(1, "%"+searchKey+"%");
+			ResultSet rs = pstmt.executeQuery();
 			System.out.println("rs : " + rs);
 			
 			//첫 번째 목록부터
