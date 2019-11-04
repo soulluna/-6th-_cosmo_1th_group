@@ -7,6 +7,9 @@
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
 %>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+	</c:if>
 <!-- contextPath = /Team_project -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -25,7 +28,7 @@
     <script src="${contextPath}/Main01/js/calander.js"></script>
 </head>
 <body>
-    <div class="fullWrap">
+    <form class="fullWrap" action="logout.do">
         <!--gnb-->
         <div class="gnb">
             <!--logoBar-->
@@ -35,11 +38,12 @@
                     <tbody>
                         <tr>
                             <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                            <td colspan="2">관리자 님 환영합니다.</td>
+                            <td colspan="2">${loginUser.ename} 님 환영합니다.</td>
                         </tr>
                         <tr>
-                            <td><a href="${contextPath}/index.html">로그아웃</a>
-                                <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></td>
+                            <td><input type="submit" value="로그아웃">
+                            	<input type="button" value="내정보수정" onclick="location.href='confirmMember.do?eno=${login.ename}'">
+                                <!-- <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a> --></td>
                         </tr>
                     </tbody>
                 </table>
@@ -232,6 +236,6 @@
                 </script>
         </div>
         <!--//right_side-->
-    </div>
+    </form>
 </body>
 </html>
