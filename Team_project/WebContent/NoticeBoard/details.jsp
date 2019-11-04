@@ -1,6 +1,14 @@
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+%>
 
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +28,7 @@
         <div class="gnb">
             <!--logoBar-->
             <ul class="logobar">
-                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
+                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="./img/logo3.gif"></a></li>
                 <table id="memberinfo">
                     <tbody>
                         <tr>
@@ -92,7 +100,7 @@
                                 <i class="fa fa-clock-o"></i>
                                 <span class="orangered">08/29 20:14</span> </span>
                                 <button class="del">X</button>
-                                <p class="ud">수정하기</p>
+                                 <p class="ud">수정하기</p>
                         </span>
                         <div class="print-hide pull-right font-11 ">
                             <a href="#" return false;>
@@ -121,7 +129,7 @@
                                 <i class="fa fa-clock-o"></i>
                                 <span class="orangered">08/29 22:14</span> </span>
                                 <button class="del">X</button>
-                                <p class="ud">수정하기</p>
+                                 <p class="ud">수정하기</p>
                         </span>
                         <div class="print-hide pull-right font-11 ">
                             <a href="#" return false;>
