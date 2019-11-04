@@ -33,6 +33,7 @@ public class LogoutServlet extends HttpServlet {
 		String url = "/index.jsp";
 		HttpSession session = request.getSession();
 		session.invalidate(); // 세션종료
+		System.out.println("다음 페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}

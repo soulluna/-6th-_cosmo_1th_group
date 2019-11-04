@@ -6,16 +6,6 @@
 <%
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
-   String eno = request.getParameter("eno");
-   String dname = request.getParameter("dname");
-   String dname_two = request.getParameter("dname_two");
-   String hireDate = request.getParameter("hireDate");
-   String rank = request.getParameter("rank");
-   String ename = request.getParameter("ename");
-   String eng_name = request.getParameter("eng_name");
-   String tel = request.getParameter("tel");
-   String email = request.getParameter("email");
-    
 %>
 <!DOCTYPE html>
 <html>
@@ -24,68 +14,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>정보수정</title>
-<script src="./js/jquery-2.1.1.min.js"></script>
-<script src="./js/jquery-ui.min.js"></script>
-<script src="./js/jquery.easing.1.3.js"></script>
-<script src="./js/prefixfree.min.js"></script>
-<script src="js/change.js"></script>
-<link rel="stylesheet" href="./css/change.css" />
-<link rel="stylesheet" href="../css/gnb.css" />
+<script src="${contextPath}/Main01/member/js/jquery-2.1.1.min.js"></script>
+<script src="${contextPath}/Main01/member/js/jquery-ui.min.js"></script>
+<script src="${contextPath}/Main01/member/js/jquery.easing.1.3.js"></script>
+<script src="${contextPath}/Main01/member/js/prefixfree.min.js"></script>
+<script src="${contextPath}/Main01/member/js/change.js"></script>
+<link rel="stylesheet" href="${contextPath}/Main01/member/css/change.css" />
+<link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
 </head>
 
 <body>
-	<form onsubmit="return validate();" action="./select.html">
+	<form onsubmit="return validate();" action="userInfoChange.do" method="post">
 		<div class="fullWrap">
-			<!--gnb-->
-			<div class="gnb">
-				<!--logoBar-->
-				<ul class="logobar">
-					<li id="mainLogo"><a href="../indexMain.html"><img
-							src="./img/logo3.gif"></a></li>
-					<table id="memberinfo">
-						<tbody>
-							<tr>
-								<td id="profile_img" rowspan="2"><img
-									src="http://placehold.it/70x70"></td>
-								<td colspan="2">관리자 님 환영합니다.</td>
-							</tr>
-							<tr>
-								<td><a href="../../index.html">로그아웃</a> <a
-									href="./confirm.html">내정보수정</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</ul>
-				<!--//logoBar-->
-				<!--nav bar-->
-				<ul class="topBar">
-					<li id="main" class="t_menu btn3"><a href="../indexMain.html">메인</a></li>
-					<li id="system" class="t_menu btn1"><a
-						href="../Team1_won&you/docList.html">전자결재시스템</a></li>
-					<li id="board" class="t_menu btn2"><a
-						href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-					<li id="info_tab" class="t_menu btn4"><a href="./confirm.html">내정보수정</a></li>
-				</ul>
-				<!--//navBar-->
-			</div>
-			<!--//gnb-->
+			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
 			<!--top_side-->
 			<div id="top_section">
 				<div class="section_menu">사원정보</div>
-				
 				<table id="info_table">
 					<tbody class="filebox">
 						<tr>
-							<td rowspan="4" align="center"><img
-								src="http://placehold.it/120x150" id="imgPreview" width="120"
-								height="150"><br> <input type="file" id="img"
-								onchange="showImagePreview(this);"> <label for="img">첨부</label>
+							<td rowspan="4" align="center">
+								<img src="http://placehold.it/120x150" id="imgPreview" width="120"height="150"><br> 
+								<input type="file" id="img" onchange="showImagePreview(this);"> <label for="img">첨부</label>
 							</td>
 							<td class="text_info">사번</td>
-							<td><input type="text" readonly><%=eno %></td>
+							<td><input type="text" readonly value="${memberVO.eno}"></td>
 							<td class="text_info">부서</td>
 							<td>
-								<select class="area" id="dep1"><%=dname %>
+								<select class="area" id="dep1">
 									<option value="0">선택하세요</option>
 									<option value="1">영업부</option>
 									<option value="2">인사부</option>
@@ -93,7 +49,7 @@
 								</select></td>
 							<td class="text_info">소속</td>
 							<td>
-								<select class="area" id="dep2"><%=dname_two %>
+								<select class="area" id="dep2">
 									<option value="0">선택하세요</option>
 									<option value="4">1팀</option>
 									<option value="5">2팀</option>
@@ -102,30 +58,29 @@
 						</tr>
 						<tr>
 							<td class="text_info">입사일</td>
-							<td><input type="date" readonly><%=hireDate %></td>
+							<td><input type="date" readonly value="${memberVO.hireDate}"></td>
 							<td class="text_info">직급</td>
-							<td><input type="text" readonly="readonly"><%=rank %></td>
+							<td><input type="text" readonly value="${memberVO.rank}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">이름</td>
-							<td><input type="text" id="userName"
-								placeholder="한글만 입력해주세요"><%=ename %></td>
+							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${memberVO.ename}"></td>
 							<td class="text_info">영문이름</td>
-							<td><input type="text" id="engName" placeholder="영문만 입력해주세요"><%=eng_name %></td>
+							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${memberVO.eng_name}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">연락처</td>
-							<td><input type="phone" id="phone" placeholder="-을 빼고 입력하세요."><%=tel %></td>
+							<td><input type="phone" id="phone" name="tel" placeholder="-을 빼고 입력하세요." value="${memberVO.tel}"></td>
 							<td class="text_info">이메일</td>
-							<td><input type="text" id="email"><%=email %></td>
+							<td><input type="text" id="email" name="email" value="${memberVO.email}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<!--//top_side-->
 			<div id="button_section">
-				<input type="submit" value="확인" class="e_btn"> <input
-					type="button" value="취소" class="e_btn" onclick="cancel();">
+				<input type="submit" value="확인" class="e_btn"> 
+				<input type="button" value="취소" class="e_btn" onclick="cancel();">
 			</div>
 		</div>
 		<!--//fullwarp-->

@@ -27,13 +27,17 @@ public class EnoCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("중복체크 버튼 클릭");
 		String eno = request.getParameter("eno");
-		String pwd = request.getParameter("pwd");
+		System.out.println(eno);
 		MemberDAO dao = MemberDAO.getInstance();
 		int result = dao.checkUser(eno);
 		request.setAttribute("eno", eno);
 		request.setAttribute("result", result);
-		RequestDispatcher rd = request.getRequestDispatcher("/Main01/registration/enoCheck.jsp");
+		String url="/Main01/registration/enoCheck.jsp";
+		System.out.println("결과 : "+result);
+		System.out.println("다음페이지 : "+url);
+		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
 

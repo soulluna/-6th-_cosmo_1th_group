@@ -33,17 +33,17 @@
 			<img src="${contextPath}/Main01/registration/img/logo3.gif">
 		</div>
 		<div class="secb">
-			<input class="txtb" type="text" id="userID" name="eno" value="${employee.eno}">
+			<input class="txtb" type="text" id="userID" name="eno" value="${eno}">
 			<input type="hidden" name="reid" size="20"> 
 			<span class="name" data-placeholder="사원번호"></span> 
-			<input class="d_btn" type="button" value="중복확인" onclick="enoCheck()">
+			<input class="d_btn" type="button" value="중복확인" onclick="enoCheck();">
 		</div>
 		<div class="secb">
-			<input class="txtb" type="text" id="userName" name="ename" value="${employee.ename}"> 
+			<input class="txtb" type="text" id="userName" name="ename" value="${ename}"> 
 				<span class="name" data-placeholder="이름"></span>
 		</div>
 		<div class="secb">
-			<input id="pwd" class="txtb" type="password" name="pwd" value="${employee.pwd}"> 
+			<input id="pwd" class="txtb" type="password" name="pwd" value="${pwd}"> 
 			<span class="name"data-placeholder="비밀번호"></span>
 		</div>
 

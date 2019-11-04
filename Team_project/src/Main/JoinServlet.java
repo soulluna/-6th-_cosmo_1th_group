@@ -39,33 +39,31 @@ public class JoinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8"); //요청객체 utf-8로 지정
 		response.setContentType("text/html;charset=utf-8"); //응답타입 utf-8로 지정
+		System.out.println("회원가입버튼 클릭");
 		String eno = request.getParameter("eno");
 		String ename = request.getParameter("ename");
 		String pwd = request.getParameter("pwd");
 		String dname = request.getParameter("dname");
 		String dname_two = request.getParameter("dname_two");
 		String rank="사원";
-		
 		MemberVO vo = new MemberVO();
-		
+		String url="/Main01/registration/reg.jsp";
 		vo.setEno(eno);
 		vo.setEname(ename);
 		vo.setPwd(pwd);
 		vo.setDname(dname);
 		vo.setDname_two(dname_two);
 		vo.setRank(rank);
-		
 		MemberDAO dao = MemberDAO.getInstance();
 		int result = dao.insertMember(vo); // insertMember함수는 vo를 참조한다.
-		
+		System.out.println("결과 : "+result);
 		HttpSession session = request.getSession();
 		if(result==1) {
 			session.setAttribute(eno, vo.getEno());
-//			request.setAttribute("message", "회원가입을 성공했습니다.");
-		}else {
-//			request.setAttribute("message", "회원가입을 실패했습니다.");
+			url="/index.jsp";
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); // 경로지정
+		System.out.println("다음페이지 : "+url);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(url); // 경로지정
 		dispatcher.forward(request, response); // 다음페이지로 이동
 	}
 	

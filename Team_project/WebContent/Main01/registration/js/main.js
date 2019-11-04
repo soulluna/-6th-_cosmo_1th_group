@@ -12,12 +12,10 @@ function enoCheck(){
 			document.join.eno.focus();
 			return;
 		}
-
 	if(!check(regexpId,userID,"사원번호는 10자리의 숫자만 입력해주세요")){
 		return false;
 	}
-
-	var url = "enoCheck.do?eno=" + document.join.eno.value;
+	var url = "enoCheck.do?eno="+document.join.eno.value;
 	window.open(url, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=450, height=200");
 
 	function check(regexpId, what, message) {
@@ -30,9 +28,6 @@ function enoCheck(){
 		//return false;
 	}	
 }
-
-
-
 
 
 function validate(){
