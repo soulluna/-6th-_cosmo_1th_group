@@ -20,7 +20,7 @@ email varchar2(20) unique,
 tel varchar2(11) unique,
 dname varchar2(15) not null,
 dname_two varchar2(8) not null,
-hiredate date,
+hiredate date default sysdate,
 rank varchar2(8),
 isadmin varchar2(5) default 'false',
 constraint employee_pk primary key(eno, ename, rank));

@@ -1,26 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8" import="java.util.*" isELIgnored="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+   response.setContentType("text/html;utf-8");
+%>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+	</c:if>
+<!-- contextPath = /Team_project -->
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css" />
-    <link rel="stylesheet" href="./css/gnb.css" />
-    <link rel="stylesheet" href="./css/calander.css">
-    <script src="./js/calander.js"></script>
-
-
-
+    <script src="${contextPath}/Main01/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/Main01/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/Main01/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/Main01/js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/Main01/css/index.css" />
+    <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
+    <link rel="stylesheet" href="${contextPath}/Main01/css/calander.css">
+    <script src="${contextPath}/Main01/js/calander.js"></script>
 </head>
-
 <body>
-    <div class="fullWrap">
+    <form class="fullWrap" action="logout.do">
         <!--gnb-->
         <div class="gnb">
             <!--logoBar-->
@@ -29,12 +37,13 @@
                 <table id="memberinfo">
                     <tbody>
                         <tr>
-                            <td id="profile_img" rowspan="2"><img src="./img/ryan.jpg" width="70" height="70"></td>
-                            <td colspan="2">관리자 님 환영합니다.</td>
+                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
+                            <td colspan="2">${loginUser.ename} 님 환영합니다.</td>
                         </tr>
                         <tr>
-                            <td><td><input type="submit" value="로그아웃">
+                            <td><input type="submit" value="로그아웃">
                             	<input type="button" value="내정보수정" onclick="location.href='confirmMember.do?eno=${login.ename}'">
+                                <!-- <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a> --></td>
                         </tr>
                     </tbody>
                 </table>
@@ -42,12 +51,11 @@
             <!--//logoBar-->
             <!--nav bar-->
             <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="./indexMain.html">메인</a></li>
-                <!-- <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li> -->
+                <li id="main" class="t_menu btn3"> <a href="${contextPath}/Main01/indexMain.jsp">메인</a></li>
+                <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
                 <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-
-                <li id="info_tab" class="t_menu btn4"> <a href="./member/confirm.html">내정보수정</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></li>
             </ul>
             <!--//navBar-->
         </div>
@@ -69,7 +77,6 @@
             </div>
         </div>
         <script type="text/javascript">
-
             var today = new Date();
             var year = null;
             var month = null;
@@ -85,7 +92,6 @@
                 $("#movePrevMonth").on("click", function () { movePrevMonth(); });
                 $("#moveNextMonth").on("click", function () { moveNextMonth(); });
             });
-
             //calendar 그리기
             function drawCalendar() {
                 var setTableHTML = "";
@@ -104,7 +110,6 @@
                 setTableHTML += '</table>';
                 $("#cal_tab").html(setTableHTML);
             }
-
             //날짜 초기화
             function initDate() {
                 $tdDay = $("td div.cal-day");
@@ -140,7 +145,6 @@
                     $tdDay.eq(i).css("color", "blue");
                 }
             }
-
             //calendar 월 이동
             function movePrevMonth() {
                 month--;
@@ -153,7 +157,6 @@
                 }
                 getNewInfo();
             }
-
             function moveNextMonth() {
                 month++;
                 if (month > 12) {
@@ -165,8 +168,6 @@
                 }
                 getNewInfo();
             }
-
-
             function getNewInfo() {
                 for (var i = 0; i < 42; i++) {
                     $tdDay.eq(i).text("");
@@ -192,29 +193,9 @@
         <!--right_side-->
         <div id="r_section">
             <div class="section_menu"><a href="../Team3_cha/noticeBoardMain.html">전체게시판 ></a> </div>
-
             <div id="board2">
-                    <table class='ListTable' border='1'>
-                        <tr><th width='10%'>번호</th><th>문서제목</th><th width='10%'>작성자</th></tr>
-                        <tr><td>공지</td><td>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxy</td><td>팀장</td></tr>
-                        <tr><td>공지</td><td>	
-                                프로젝트 진행상황 각 팀장은 댓글로 달아주세요</td><td>사장</td></tr>
-                        <tr><td>1232</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1231</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1230</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1229</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1228</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1227</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1226</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1225</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                        <tr><td>1224</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
-                    </table>
-
             </div>
-            <!-- <script>
-
-                
-
+            <script>
                 $(document).ready(function(){
                     makeBoard();
                 });
@@ -231,28 +212,11 @@
                         $("#board2").html(setBoradHTML);
                     }
                 }
-            </script> -->
-
+            </script>
             <div class="section_menu"><a href="../Team1_won&you/docList.html">결재현황></a> </div>
-            <div id="board3">
-                <table class='ListTable' border='1'>
-                    <tr><th width='15%'>결재종류</th><th>문서제목</th><th width='15%'>결재상태</th></tr>
-                    <tr><td>휴가신청서</td><td>2019년 07월 22일 홍길동 사원 휴가신청서</td><td>대기</td></tr>
-                    <tr><td>기안서</td><td>2019년 06월 업무 개선사항 홍길동 사원 기안서</td><td>진행</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 사내문화 홍길동 사원 기안서 가나다라마바사</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
-                </table>
+            <div id="board3">        
             </div>
-            <!-- <script>
+            <script>
                     $(document).ready(function(){
                         makeApproval();
                     });
@@ -269,11 +233,9 @@
                             $("#board3").html(setBoradHTML);
                         }
                     }
-                </script> -->
+                </script>
         </div>
         <!--//right_side-->
-    </div>
-
+    </form>
 </body>
-
 </html>

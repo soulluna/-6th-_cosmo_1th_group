@@ -74,7 +74,7 @@ function validate() {
 }
 
 function cancel() {
-    var check=confirm("취소시 수정사항은 반영되지 않습니다. 정말 취소하시겠습니까?");
+    var check=confirm("취소시 수정사항은 반영되지 않습니다 정말 취소하시겠습니까?");
     if(check){
         location.href = './select.html'
         return false;
