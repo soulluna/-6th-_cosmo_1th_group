@@ -11,6 +11,9 @@
 		}
 	</script>
 </c:if>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+</c:if>
 <html>
 <head>
 <meta charset="EUC-KR">

@@ -64,7 +64,6 @@ public class MemberDAO {
 			pstmt.setString(4, dname);
 			pstmt.setString(5, dname_two);
 			pstmt.setString(6, rank);
-
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -216,8 +215,9 @@ public class MemberDAO {
 		int result=-1; //기본값
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql="insert into employee set ename=?, eng_name=?, tel=?, email=? where eno=?";
+		String sql="update employee set ename=?, eng_name=?, tel=?, email=? where eno=?";
 		try {
+			System.out.println(sql);
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql); 
 			pstmt.setString(1, memberVO.getEname());

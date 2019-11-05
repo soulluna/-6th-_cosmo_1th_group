@@ -7,6 +7,15 @@
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
 %>
+<c:if test="${loginUser!=null}">
+<script>
+	console.log('${loginUser.dname}');
+	console.log('${loginUser.dname_two}');
+</script>
+</c:if>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +28,9 @@
 <script src="${contextPath}/Main01/member/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Main01/member/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Main01/member/js/change.js"></script>
-<link rel="stylesheet" href="${contextPath}/Main01/member/css/change.css" />
 <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
+<link rel="stylesheet" href="${contextPath}/Main01/member/css/change.css" />
 </head>
-
 <body>
 	<form onsubmit="return validate();" action="userInfoChange.do" method="post">
 		<div class="fullWrap">
@@ -38,41 +46,83 @@
 								<input type="file" id="img" onchange="showImagePreview(this);"> <label for="img">첨부</label>
 							</td>
 							<td class="text_info">사번</td>
-							<td><input type="text" readonly value="${memberVO.eno}"></td>
+							<td><input type="text" name="eno" readonly value="${loginUser.eno}"></td>
 							<td class="text_info">부서</td>
 							<td>
-								<select class="area" id="dep1">
-									<option value="0">선택하세요</option>
-									<option value="1">영업부</option>
-									<option value="2">인사부</option>
-									<option value="3">기술지원팀</option>
-								</select></td>
+							<c:choose>
+								<c:when test="${loginUser.dname=='영업부'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" selected>영업부</option>
+										<option value="2">인사부</option>
+										<option value="3">기술지원팀</option>
+									</select>
+								</c:when>
+								<c:when test="${loginUser.dname=='인사부'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" >영업부</option>
+										<option value="2" selected>인사부</option>
+										<option value="3">기술지원팀</option>
+									</select>
+								</c:when>
+								<c:when test="${loginUser.dname=='기술지원팀'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" >영업부</option>
+										<option value="2">인사부</option>
+										<option value="3" selected>기술지원팀</option>
+									</select>
+								</c:when>
+							</c:choose>
+							</td>
 							<td class="text_info">소속</td>
 							<td>
+							<c:choose>
+								<c:when test="${loginUser.dname_two=='1팀'}">
 								<select class="area" id="dep2">
 									<option value="0">선택하세요</option>
-									<option value="4">1팀</option>
+									<option value="4" selected>1팀</option>
 									<option value="5">2팀</option>
 									<option value="6">3팀</option>
-							</select></td>
+								</select>
+								</c:when>
+								<c:when test="${loginUser.dname_two=='2팀'}">
+								<select class="area" id="dep2">
+									<option value="0">선택하세요</option>
+									<option value="4" >1팀</option>
+									<option value="5" selected>2팀</option>
+									<option value="6">3팀</option>
+								</select>
+								</c:when>
+								<c:when test="${loginUser.dname_two=='3팀'}">
+								<select class="area" id="dep2">
+									<option value="0">선택하세요</option>
+									<option value="4" >1팀</option>
+									<option value="5">2팀</option>
+									<option value="6" selected>3팀</option>
+								</select>
+								</c:when>
+							</c:choose>
+							</td>
 						</tr>
 						<tr>
 							<td class="text_info">입사일</td>
-							<td><input type="date" readonly value="${memberVO.hireDate}"></td>
+							<td><input type="date" readonly value="${loginUser.hireDate}"></td>
 							<td class="text_info">직급</td>
-							<td><input type="text" readonly value="${memberVO.rank}"></td>
+							<td><input type="text" readonly value="${loginUser.rank}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">이름</td>
-							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${memberVO.ename}"></td>
+							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${loginUser.ename}"></td>
 							<td class="text_info">영문이름</td>
-							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${memberVO.eng_name}"></td>
+							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${loginUser.eng_name}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">연락처</td>
-							<td><input type="phone" id="phone" name="tel" placeholder="-을 빼고 입력하세요." value="${memberVO.tel}"></td>
+							<td><input type="phone" id="phone" name="tel" placeholder="-을 빼고 입력하세요." value="${loginUser.tel}"></td>
 							<td class="text_info">이메일</td>
-							<td><input type="text" id="email" name="email" value="${memberVO.email}"></td>
+							<td><input type="text" id="email" name="email" value="${loginUser.email}"></td>
 						</tr>
 					</tbody>
 				</table>

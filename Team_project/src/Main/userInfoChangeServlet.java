@@ -38,11 +38,6 @@ public class userInfoChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("내정보수정 버튼 클릭");
-		String eno=request.getParameter("eno");
-		MemberDAO memberDAO = MemberDAO.getInstance();
-		MemberVO memberVO = new MemberVO();
-		memberVO = memberDAO.getMember(eno);
-		request.setAttribute("memberVO", memberVO);
 		String url="Main01/member/change.jsp";
 		System.out.println("다음페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
@@ -65,6 +60,7 @@ public class userInfoChangeServlet extends HttpServlet {
 		String eng_name=request.getParameter("eng_name");
 		String tel=request.getParameter("tel");
 		String email=request.getParameter("email");
+		System.out.println(eno+"   "+ename+"   "+eng_name+"   "+tel+"   "+email);
 		memberVO.setEno(eno);
 		memberVO.setEname(ename);
 		memberVO.setEng_name(eng_name);
