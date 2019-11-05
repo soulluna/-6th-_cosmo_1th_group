@@ -42,7 +42,7 @@
 			<input class="txtb" type="password" id="pwd" name="pwd" value="${pwd}"> 
 				<span class="name" data-placeholder="비밀번호 확인"></span>
 		</div>
-		<input type="hidden" id="eno" name="eno" value="${eno}">
+		<input type="hidden" id="eno" name="eno" value="${loginUser.eno}">
 		<input class="reg_submit" type="submit" value="확인">
 		<input class="cancel" type="button" value="취소" onclick="location.href='login.do'">
 	</form>

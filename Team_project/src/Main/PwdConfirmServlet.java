@@ -40,9 +40,12 @@ public class PwdConfirmServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String url="/Main01/member/confirm.jsp";
 		System.out.println("개인정보 수정 탭 누름");
-		String eno = request.getParameter("eno");
+		String checked=null;
+		checked=request.getParameter("checked");
+		if(checked!=null&&checked.equals("checked")) {
+			url = "/Main01/member/select.jsp";
+		}
 		//System.out.println(eno);
-		request.setAttribute("eno",eno);
 		System.out.println("다음 페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
@@ -64,7 +67,6 @@ public class PwdConfirmServlet extends HttpServlet {
 		//System.out.println(eno);
 		int result = memberDAO.ConfirmID(eno, pwd);
 		if(result==1) {
-			request.setAttribute("eno", eno);
 			url = "/Main01/member/select.jsp";
 		}
 		else {

@@ -161,11 +161,16 @@ public class MemberDAO {
 			if(rs.next()) {//사원번호를 포함한 사원정보를 가져옴
 				memberVO = new MemberVO();
 				memberVO.setEno(rs.getString("eno")); //rs.getString은 문자열을 뽑아낸다.
-				memberVO.setEname(rs.getString("ename"));
 				memberVO.setPwd(rs.getString("pwd"));
+				memberVO.setEname(rs.getString("ename"));
+				memberVO.setEng_name(rs.getString("eng_name"));
+				memberVO.setEmail(rs.getString("Email"));
+				memberVO.setTel(rs.getString("tel"));
 				memberVO.setDname(rs.getString("dname"));
 				memberVO.setDname_two(rs.getString("dname_two"));
+				memberVO.setHireDate(rs.getDate("hireDate"));
 				memberVO.setRank(rs.getString("rank"));
+				memberVO.setIsadmin(rs.getString("isadmin"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

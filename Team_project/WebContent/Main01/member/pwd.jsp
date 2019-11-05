@@ -44,10 +44,10 @@
                     </table>
                 </div>
                 <!--//top_side--> 
-                <input type="hidden" name="eno" value="${eno}">
+                <input type="hidden" name="eno" value="${loginUser.eno}">
                 <div id="button_section">
                     <input type="submit" value="확인" class="e_btn">
-                    <input type="button" value="취소" class="e_btn" onclick="cancel();">
+                    <input type="button" value="취소" class="e_btn" onclick="cancel('${contextPath}');">
                 </div>
             </div>
             <!--//fullwarp-->

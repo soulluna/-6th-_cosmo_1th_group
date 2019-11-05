@@ -22,8 +22,8 @@
 <script src="${contextPath}/Main01/member/js/jquery-ui.min.js"></script>
 <script src="${contextPath}/Main01/member/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Main01/member/js/prefixfree.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/Main01/member/css/select.css" />
 <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
+<link rel="stylesheet" href="${contextPath}/Main01/member/css/select.css" />
 </head>
 <body>
 	<form>
@@ -35,11 +35,11 @@
 			<div id="section_wrap">
 				<div id="section_block1" class="block">
 					<img src="${contextPath}/Main01/member/img/pwd.png" width="150" height="150"> 
-						<input type="button" value="비밀번호 수정" onclick="location.href='pwdChange.do?eno=${eno}'">
+						<input type="button" value="비밀번호 수정" onclick="location.href='pwdChange.do?eno=${loginUser.eno}'">
 				</div>
 				<div id="section_block2" class="block">
 					<img src="${contextPath}/Main01/member/img/user.png" width="150" height="100"> 
-					<input type="button" value="내정보 수정" onclick="location.href='userInfoChange.do?eno=${eno}'">
+					<input type="button" value="내정보 수정" onclick="location.href='userInfoChange.do?eno=${loginUser.eno}'">
 				</div>
 			</div>
 			<!-- section_wrap -->

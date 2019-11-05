@@ -24,7 +24,7 @@
 					<tr>
 						<td>
 							<input type="button" value="로그아웃" onclick="location.href='logout.do'"> 
-							<input type="button" value="내정보수정" onclick="location.href='pwdConfirm.do?eno=${loginUser.eno}'">
+							<input type="button" value="내정보수정" onclick="location.href='pwdConfirm.do'">
 							<!-- <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a> -->
 						</td>
 					</tr>
