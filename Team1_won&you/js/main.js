@@ -73,6 +73,8 @@ function docModify() {
       location.href = '#';
     } else if (thisfilefullname == "vacationWait.html") {
       location.href = './vacationModify.html';
+    } else if (thisfilefullname == "draftWait.html") {
+      location.href = './draftModify.html';
     }
   } else {
     return false;
@@ -216,10 +218,10 @@ var documentList =
   // 11:휴가끝날짜
   // 12:내용
   [
-    ["DR-0164", "작성자id", "중간id", "최종id", "2019-08-05", "", "", "1", "2019년 08월 안영우 사원 기안서", "", "", "", "기반구조 관계도 기술서 데이터구성요소"],
+    ["DR-0164", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "안영우 사원 기안서", "", "", "", "기반구조 관계도 기술서 데이터구성요소"],
     ["DR-0139", "작성자id", "중간id", "최종id", "2019-07-22", "2019-07-24", "", "2", "2019년 07월 사내문화 안영우 사원 기안서", "", "", "", "저녁 시간은 가족과 보냅시다."],
     ["DR-0116", "작성자id", "중간id", "최종id", "2019-06-30", "2019-07-05", "2019-07-06", "3", "2019년 06월 업무 개선사항 안영우 사원 기안서", "", "", "", "주간 보고 시간 변경 "],
-    ["VA-0030", "작성자id", "중간id", "최종id", "2019-07-22", "", "", "1", "2019년 07월 22일 안영우 사원 휴가신청서", "1", "2019-07-25", "2019-07-26", "친척 결혼식 참석."]
+    ["VA-0030", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "안영우 사원 휴가신청서", "1", "2019-11-04", "2019-11-05", "친척 결혼식 참석."]
   ]
 
 var employee = [
@@ -265,7 +267,7 @@ $(document).ready(function () {
 
     $(".selectedDay:first").text(documentList[3][10]);
     $(".selectedDay:last").text(documentList[3][11]);
-    $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10]));
+    $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10])+1);
     $(".inputContent").text(documentList[3][12]);
 
   } else if (thisfilefullname == "draftProgress.html") {
@@ -276,6 +278,13 @@ $(document).ready(function () {
     $(".inputContent").text(documentList[1][12]);
   } else if (thisfilefullname == "vacationModify.html") {
     var getDay = getDateDiff(documentList[3][11], documentList[3][10]) + 1;
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+
     $('.inputarea .inputTitle').val(documentList[3][8]);
 
     if (documentList[3][9] == 1) {
@@ -313,7 +322,29 @@ $(document).ready(function () {
     $(".approval1").text(employee[0][1]);
     $(".approval2").text(employee[1][1]);
     $(".approval3").text(employee[2][1]);
+  }else if (thisfilefullname == "draftWait.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".createdDayInput1").text(documentList[0][4]);
+    $(".createdDayInput2").text(documentList[0][5]);
+    $(".createdDayInput3").text(documentList[0][6]);
+    $(".inputTitle").text(documentList[0][8]);
+    $(".inputContent").text(documentList[0][12]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+  }else if (thisfilefullname == "draftModify.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $('.inputarea .inputTitle').val(documentList[0][8]);
+    $('.inputarea .inputContent').val(documentList[0][12]);
   }
+  
 
 
   //문서 작성 버튼 클릭 시
