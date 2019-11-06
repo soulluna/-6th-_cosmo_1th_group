@@ -6,17 +6,16 @@
 <%
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
-   String eno = request.getParameter("eno");
-   String dname = request.getParameter("dname");
-   String dname_two = request.getParameter("dname_two");
-   String hireDate = request.getParameter("hireDate");
-   String rank = request.getParameter("rank");
-   String ename = request.getParameter("ename");
-   String eng_name = request.getParameter("eng_name");
-   String tel = request.getParameter("tel");
-   String email = request.getParameter("email");
-    
 %>
+<c:if test="${loginUser!=null}">
+<script>
+	console.log('${loginUser.dname}');
+	console.log('${loginUser.dname_two}');
+</script>
+</c:if>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,108 +23,114 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>정보수정</title>
-<script src="./js/jquery-2.1.1.min.js"></script>
-<script src="./js/jquery-ui.min.js"></script>
-<script src="./js/jquery.easing.1.3.js"></script>
-<script src="./js/prefixfree.min.js"></script>
-<script src="js/change.js"></script>
-<link rel="stylesheet" href="./css/change.css" />
-<link rel="stylesheet" href="../css/gnb.css" />
+<script src="${contextPath}/Main01/member/js/jquery-2.1.1.min.js"></script>
+<script src="${contextPath}/Main01/member/js/jquery-ui.min.js"></script>
+<script src="${contextPath}/Main01/member/js/jquery.easing.1.3.js"></script>
+<script src="${contextPath}/Main01/member/js/prefixfree.min.js"></script>
+<script src="${contextPath}/Main01/member/js/change.js"></script>
+<link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
+<link rel="stylesheet" href="${contextPath}/Main01/member/css/change.css" />
 </head>
-
 <body>
-	<form onsubmit="return validate();" action="./select.html">
+	<form onsubmit="return validate();" action="userInfoChange.do" method="post">
 		<div class="fullWrap">
-			<!--gnb-->
-			<div class="gnb">
-				<!--logoBar-->
-				<ul class="logobar">
-					<li id="mainLogo"><a href="../indexMain.html"><img
-							src="./img/logo3.gif"></a></li>
-					<table id="memberinfo">
-						<tbody>
-							<tr>
-								<td id="profile_img" rowspan="2"><img
-									src="http://placehold.it/70x70"></td>
-								<td colspan="2">관리자 님 환영합니다.</td>
-							</tr>
-							<tr>
-								<td><a href="../../index.html">로그아웃</a> <a
-									href="./confirm.html">내정보수정</a></td>
-							</tr>
-						</tbody>
-					</table>
-				</ul>
-				<!--//logoBar-->
-				<!--nav bar-->
-				<ul class="topBar">
-					<li id="main" class="t_menu btn3"><a href="../indexMain.html">메인</a></li>
-					<li id="system" class="t_menu btn1"><a
-						href="../Team1_won&you/docList.html">전자결재시스템</a></li>
-					<li id="board" class="t_menu btn2"><a
-						href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-					<li id="info_tab" class="t_menu btn4"><a href="./confirm.html">내정보수정</a></li>
-				</ul>
-				<!--//navBar-->
-			</div>
-			<!--//gnb-->
+			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
 			<!--top_side-->
 			<div id="top_section">
 				<div class="section_menu">사원정보</div>
-				
 				<table id="info_table">
 					<tbody class="filebox">
 						<tr>
-							<td rowspan="4" align="center"><img
-								src="http://placehold.it/120x150" id="imgPreview" width="120"
-								height="150"><br> <input type="file" id="img"
-								onchange="showImagePreview(this);"> <label for="img">첨부</label>
+							<td rowspan="4" align="center">
+								<img src="http://placehold.it/120x150" id="imgPreview" width="120"height="150"><br> 
+								<input type="file" id="img" onchange="showImagePreview(this);"> <label for="img">첨부</label>
 							</td>
 							<td class="text_info">사번</td>
-							<td><input type="text" readonly><%=eno %></td>
+							<td><input type="text" name="eno" readonly value="${loginUser.eno}"></td>
 							<td class="text_info">부서</td>
 							<td>
-								<select class="area" id="dep1"><%=dname %>
-									<option value="0">선택하세요</option>
-									<option value="1">영업부</option>
-									<option value="2">인사부</option>
-									<option value="3">기술지원팀</option>
-								</select></td>
+							<c:choose>
+								<c:when test="${loginUser.dname=='영업부'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" selected>영업부</option>
+										<option value="2">인사부</option>
+										<option value="3">기술지원팀</option>
+									</select>
+								</c:when>
+								<c:when test="${loginUser.dname=='인사부'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" >영업부</option>
+										<option value="2" selected>인사부</option>
+										<option value="3">기술지원팀</option>
+									</select>
+								</c:when>
+								<c:when test="${loginUser.dname=='기술지원팀'}">
+									<select class="area" id="dep1">
+										<option value="0">선택하세요</option>
+										<option value="1" >영업부</option>
+										<option value="2">인사부</option>
+										<option value="3" selected>기술지원팀</option>
+									</select>
+								</c:when>
+							</c:choose>
+							</td>
 							<td class="text_info">소속</td>
 							<td>
-								<select class="area" id="dep2"><%=dname_two %>
+							<c:choose>
+								<c:when test="${loginUser.dname_two=='1팀'}">
+								<select class="area" id="dep2">
 									<option value="0">선택하세요</option>
-									<option value="4">1팀</option>
+									<option value="4" selected>1팀</option>
 									<option value="5">2팀</option>
 									<option value="6">3팀</option>
-							</select></td>
+								</select>
+								</c:when>
+								<c:when test="${loginUser.dname_two=='2팀'}">
+								<select class="area" id="dep2">
+									<option value="0">선택하세요</option>
+									<option value="4" >1팀</option>
+									<option value="5" selected>2팀</option>
+									<option value="6">3팀</option>
+								</select>
+								</c:when>
+								<c:when test="${loginUser.dname_two=='3팀'}">
+								<select class="area" id="dep2">
+									<option value="0">선택하세요</option>
+									<option value="4" >1팀</option>
+									<option value="5">2팀</option>
+									<option value="6" selected>3팀</option>
+								</select>
+								</c:when>
+							</c:choose>
+							</td>
 						</tr>
 						<tr>
 							<td class="text_info">입사일</td>
-							<td><input type="date" readonly><%=hireDate %></td>
+							<td><input type="date" readonly value="${loginUser.hireDate}"></td>
 							<td class="text_info">직급</td>
-							<td><input type="text" readonly="readonly"><%=rank %></td>
+							<td><input type="text" readonly value="${loginUser.rank}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">이름</td>
-							<td><input type="text" id="userName"
-								placeholder="한글만 입력해주세요"><%=ename %></td>
+							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${loginUser.ename}"></td>
 							<td class="text_info">영문이름</td>
-							<td><input type="text" id="engName" placeholder="영문만 입력해주세요"><%=eng_name %></td>
+							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${loginUser.eng_name}"></td>
 						</tr>
 						<tr>
 							<td class="text_info">연락처</td>
-							<td><input type="phone" id="phone" placeholder="-을 빼고 입력하세요."><%=tel %></td>
+							<td><input type="phone" id="phone" name="tel" placeholder="-을 빼고 입력하세요." value="${loginUser.tel}"></td>
 							<td class="text_info">이메일</td>
-							<td><input type="text" id="email"><%=email %></td>
+							<td><input type="text" id="email" name="email" value="${loginUser.email}"></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<!--//top_side-->
 			<div id="button_section">
-				<input type="submit" value="확인" class="e_btn"> <input
-					type="button" value="취소" class="e_btn" onclick="cancel();">
+				<input type="submit" value="확인" class="e_btn"> 
+				<input type="button" value="취소" class="e_btn" onclick="cancel();">
 			</div>
 		</div>
 		<!--//fullwarp-->

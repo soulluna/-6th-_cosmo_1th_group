@@ -9,7 +9,7 @@ function validate() {
 		id.focus();
 		return false;
 	}
-	if (!check(regexpId, id, "사원번호는 10자리의 숫자만 입력해주세요.")) {
+	if (!check(regexpId, id, "사원번호는 10자리의 숫자만 입력해주세요")) {
 		return false;
 	}
 	if (pwd.value=="") {
@@ -17,7 +17,7 @@ function validate() {
 		pwd.focus();
 		return false;
 	}
-	if (!check(regexpPwd, pwd, "비밀번호는 8~15자리의 특수문자 포함 문자열입니다.")){
+	if (!check(regexpPwd, pwd, "비밀번호는 8~15자리의 특수문자 포함 문자열입니다")){
 		return false;
 	}
 	function check(regexpId, what, message){

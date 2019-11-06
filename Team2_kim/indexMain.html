@@ -29,12 +29,12 @@
                 <table id="memberinfo">
                     <tbody>
                         <tr>
-                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
+                            <td id="profile_img" rowspan="2"><img src="./img/ryan.jpg" width="70" height="70"></td>
                             <td colspan="2">관리자 님 환영합니다.</td>
                         </tr>
                         <tr>
-                            <td><a href="../index.html">로그아웃</a>
-                                <a href="./member/confirm.html">내정보수정</a></td>
+                            <td><td><input type="submit" value="로그아웃">
+                            	<input type="button" value="내정보수정" onclick="location.href='confirmMember.do?eno=${login.ename}'">
                         </tr>
                     </tbody>
                 </table>
@@ -43,7 +43,7 @@
             <!--nav bar-->
             <ul class="topBar">
                 <li id="main" class="t_menu btn3"> <a href="./indexMain.html">메인</a></li>
-                <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
+                <!-- <li id="cal" class="t_menu btn5"> <a href="../Team3_cha/noticeBoardMain.html">일정표</a></li> -->
                 <li id="system" class="t_menu btn1"> <a href="../Team1_won&you/docList.html">전자결재시스템</a></li>
                 <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
 
@@ -194,8 +194,27 @@
             <div class="section_menu"><a href="../Team3_cha/noticeBoardMain.html">전체게시판 ></a> </div>
 
             <div id="board2">
+                    <table class='ListTable' border='1'>
+                        <tr><th width='10%'>번호</th><th>문서제목</th><th width='10%'>작성자</th></tr>
+                        <tr><td>공지</td><td>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxy</td><td>팀장</td></tr>
+                        <tr><td>공지</td><td>	
+                                프로젝트 진행상황 각 팀장은 댓글로 달아주세요</td><td>사장</td></tr>
+                        <tr><td>1232</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1231</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1230</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1229</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1228</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1227</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1226</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1225</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                        <tr><td>1224</td><td>포폴 만들기 귀차니즘 발동</td><td>누구게</td></tr>
+                    </table>
+
             </div>
-            <script>
+            <!-- <script>
+
+                
+
                 $(document).ready(function(){
                     makeBoard();
                 });
@@ -212,13 +231,28 @@
                         $("#board2").html(setBoradHTML);
                     }
                 }
-            </script>
+            </script> -->
 
             <div class="section_menu"><a href="../Team1_won&you/docList.html">결재현황></a> </div>
             <div id="board3">
-            
+                <table class='ListTable' border='1'>
+                    <tr><th width='15%'>결재종류</th><th>문서제목</th><th width='15%'>결재상태</th></tr>
+                    <tr><td>휴가신청서</td><td>2019년 07월 22일 홍길동 사원 휴가신청서</td><td>대기</td></tr>
+                    <tr><td>기안서</td><td>2019년 06월 업무 개선사항 홍길동 사원 기안서</td><td>진행</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 사내문화 홍길동 사원 기안서 가나다라마바사</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                    <tr><td>기안서</td><td>2019년 07월 홍길동 사원 기안서 가나다라마바사아자차카타파하</td><td>완료</td></tr>
+                </table>
             </div>
-            <script>
+            <!-- <script>
                     $(document).ready(function(){
                         makeApproval();
                     });
@@ -235,7 +269,7 @@
                             $("#board3").html(setBoradHTML);
                         }
                     }
-                </script>
+                </script> -->
         </div>
         <!--//right_side-->
     </div>

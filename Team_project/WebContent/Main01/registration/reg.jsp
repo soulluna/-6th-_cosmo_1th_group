@@ -28,21 +28,22 @@
 
 </head>
 <body>
-	<form class="reg_form" name="join" onsubmit="return validate();" action="${contextPath}/main/addMember.do" method="post">
+	<form class="reg_form" name="join" action="join.do" method="post">
 		<div>
 			<img src="${contextPath}/Main01/registration/img/logo3.gif">
 		</div>
 		<div class="secb">
-			<input class="txtb" type="text" id="userID" name="eno" value="${employee.eno}"> 
+			<input class="txtb" type="text" id="userID" name="eno" value="${eno}">
+			<input type="hidden" name="reid" size="20"> 
 			<span class="name" data-placeholder="사원번호"></span> 
-			<input class="d_btn" type="button" value="중복확인" onclick="return confirmMember();">
+			<input class="d_btn" type="button" value="중복확인" onclick="enoCheck();">
 		</div>
 		<div class="secb">
-			<input class="txtb" type="text" id="userName" name="ename" value="${employee.ename}"> 
+			<input class="txtb" type="text" id="userName" name="ename" value="${ename}"> 
 				<span class="name" data-placeholder="이름"></span>
 		</div>
 		<div class="secb">
-			<input id="pwd" class="txtb" type="password" name="pwd" value="${employee.pwd}"> 
+			<input id="pwd" class="txtb" type="password" name="pwd" value="${pwd}"> 
 			<span class="name"data-placeholder="비밀번호"></span>
 		</div>
 
@@ -64,8 +65,8 @@
 				<option value="6">3팀</option>
 			</select>
 		</div>
-		<input class="reg_submit" type="submit" value="등록"> 
-		<input class="clear" type="reset" value="취소" onclick="location.href ='${contextPath}/index.jsp';">
+		<input class="reg_submit" type="submit" value="등록" onclick="return validate()"> 
+		<input class="cancel" type="button" value="취소" onclick="return backPage()">
 	</form>
 </body>
 
