@@ -73,12 +73,12 @@ function validate() {
     alert("내 정보가 변경되었습니다.");
 }
 
-function cancel() {
-    var check=confirm("취소시 수정사항은 반영되지 않습니다. 정말 취소하시겠습니까?");
+
+function cancel(){
+    var check=confirm("취소시 수정사항은 반영되지 않습니다.");
     if(check){
-        location.href = './select.html'
-        return false;
-    }    
+    	location.href = "pwdConfirm.do?checked=checked";
+    }
 }
 
 function check(regexpId, what, message) {

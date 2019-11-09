@@ -40,9 +40,12 @@ public class PwdConfirmServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String url="/Main01/member/confirm.jsp";
 		System.out.println("개인정보 수정 탭 누름");
-		String eno = request.getParameter("eno");
+		String checked=null;
+		checked=request.getParameter("checked");
+		if(checked!=null&&checked.equals("checked")) {
+			url = "/Main01/member/select.jsp";
+		}
 		//System.out.println(eno);
-		request.setAttribute("eno",eno);
 		System.out.println("다음 페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
@@ -59,18 +62,21 @@ public class PwdConfirmServlet extends HttpServlet {
 		String url = "/Main01/member/confirm.jsp";
 		String pwd = request.getParameter("pwd");
 		String eno = request.getParameter("eno");
+		String checked=null;
 		System.out.println(eno+"   "+pwd);
 		MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
 		//System.out.println(eno);
 		int result = memberDAO.ConfirmID(eno, pwd);
 		if(result==1) {
-			request.setAttribute("eno", eno);
+			checked="checked";
 			url = "/Main01/member/select.jsp";
+			request.setAttribute("checked",checked);
 		}
 		else {
-			request.setAttribute("result", result);
 			url = "/Main01/member/confirm.jsp";
+			request.setAttribute("result",result);
 		}
+		System.out.println("확인 페이지 체크여부 : "+checked);
 		System.out.println("결과 : "+result);
 		System.out.println("다음페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);

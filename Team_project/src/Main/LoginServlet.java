@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "/index.jsp";
+		System.out.println("세션 유지");
 		HttpSession session = request.getSession(); // 세션객체 생성
 		if(session.getAttribute("loginUser")!=null) //중복로그인을 방지한다.
 			url = "Main01/indexMain.jsp";
@@ -65,7 +66,6 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("다음페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
-		
 	}
 
 }

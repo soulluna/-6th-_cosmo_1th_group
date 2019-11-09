@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  * Servlet implementation class userInfoChangeServlet
@@ -38,12 +40,12 @@ public class userInfoChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("내정보수정 버튼 클릭");
+		String url="Main01/member/change.jsp";
+		HttpSession session = request.getSession();
 		String eno=request.getParameter("eno");
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		MemberVO memberVO = new MemberVO();
 		memberVO = memberDAO.getMember(eno);
-		request.setAttribute("memberVO", memberVO);
-		String url="Main01/member/change.jsp";
 		System.out.println("다음페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
@@ -65,6 +67,7 @@ public class userInfoChangeServlet extends HttpServlet {
 		String eng_name=request.getParameter("eng_name");
 		String tel=request.getParameter("tel");
 		String email=request.getParameter("email");
+		System.out.println(eno+"   "+ename+"   "+eng_name+"   "+tel+"   "+email);
 		memberVO.setEno(eno);
 		memberVO.setEname(ename);
 		memberVO.setEng_name(eng_name);

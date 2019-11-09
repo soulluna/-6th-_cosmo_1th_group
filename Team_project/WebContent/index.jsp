@@ -15,7 +15,6 @@
 		}
 	</script>
 </c:if>
-
 <!DOCTYPE html>
 <html>
 <head>

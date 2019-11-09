@@ -11,6 +11,9 @@
 		}
 	</script>
 </c:if>
+<c:if test="${empty loginUser}">
+	<jsp:forward page="login.do"/>
+</c:if>
 <html>
 <head>
 <meta charset="EUC-KR">
@@ -35,16 +38,17 @@
                 <div id="top_section">
                     <div class="section_menu">비밀번호 변경</div>
                     <table id="info_table">
-						<tr><td align="right">현재 비밀번호 : </td><td><input type="password" id="pwd"></td></tr>
+						<tr><td align="right">현재 비밀번호 : </td><td><input type="password" id="pwd" name="pwd"></td></tr>
                         <tr><td align="right">변경할 비밀번호 : </td><td><input type="password" id="chg_pwd" name="changePwd" value="${changePwd}"></td></tr>
                         <tr><td align="right">비밀번호 확인 : </td><td><input type="password" id="chg_pwd_con"></td></tr>
                     </table>
                 </div>
                 <!--//top_side--> 
-                <input type="hidden" name="eno" value="${eno}">
+                <input type="hidden" name="eno" value="${loginUser.eno}">
+                <input type="hidden" id = "loginedPwd" name="loginedPwd" value="${loginUser.pwd}">
                 <div id="button_section">
                     <input type="submit" value="확인" class="e_btn">
-                    <input type="button" value="취소" class="e_btn" onclick="cancel();">
+                    <input type="button" value="취소" class="e_btn" onclick="cancel('${contextPath}');">
                 </div>
             </div>
             <!--//fullwarp-->

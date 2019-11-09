@@ -38,9 +38,7 @@ public class pwdChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("비밀번호 수정 버튼 클릭");
-		String eno=request.getParameter("eno");
 		String url = "/Main01/member/pwd.jsp";
-		request.setAttribute("eno", eno);
 		System.out.println("다음 페이지 : "+url);
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

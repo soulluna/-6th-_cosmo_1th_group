@@ -64,7 +64,6 @@ public class MemberDAO {
 			pstmt.setString(4, dname);
 			pstmt.setString(5, dname_two);
 			pstmt.setString(6, rank);
-
 			result = pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -162,11 +161,16 @@ public class MemberDAO {
 			if(rs.next()) {//사원번호를 포함한 사원정보를 가져옴
 				memberVO = new MemberVO();
 				memberVO.setEno(rs.getString("eno")); //rs.getString은 문자열을 뽑아낸다.
-				memberVO.setEname(rs.getString("ename"));
 				memberVO.setPwd(rs.getString("pwd"));
+				memberVO.setEname(rs.getString("ename"));
+				memberVO.setEng_name(rs.getString("eng_name"));
+				memberVO.setEmail(rs.getString("Email"));
+				memberVO.setTel(rs.getString("tel"));
 				memberVO.setDname(rs.getString("dname"));
 				memberVO.setDname_two(rs.getString("dname_two"));
+				memberVO.setHireDate(rs.getDate("hireDate"));
 				memberVO.setRank(rs.getString("rank"));
+				memberVO.setIsadmin(rs.getString("isadmin"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -216,8 +220,9 @@ public class MemberDAO {
 		int result=-1; //기본값
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql="insert into employee set ename=?, eng_name=?, tel=?, email=? where eno=?";
+		String sql="update employee set ename=?, eng_name=?, tel=?, email=? where eno=?";
 		try {
+			System.out.println(sql);
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql); 
 			pstmt.setString(1, memberVO.getEname());
