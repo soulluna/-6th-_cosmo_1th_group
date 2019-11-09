@@ -54,7 +54,18 @@
             <a href="./hobby.html"><div>취미</div></a>
             <a href="./free.html"><div>자유</div></a>
         </div>
-
+	<c:choose>
+			<c:when test="${articlesList==null}">
+				<tr>
+					<td colspan="4">
+						<p align="center">
+							<b> <span>게시글이 존재하지 않습니다.</span>
+							</b>
+						</p>
+					</td>
+				</tr>
+			</c:when>			
+	</c:choose>
         <div class="wjdduf">
           
             <div class="akwcna">
@@ -71,17 +82,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="co1">취미</td>
-                            <td class="co2">1</td>
-                            <td class="co3"><a href="./details.html">
-                                    <p>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</p>
-                                </a></td>
-                            <td class="co4">사원</td>
-                            <td class="co5">19.08.05</td>
-                            <td class="co6">123</td>
-                            <td class="co7">132</td>
-                        </tr>
+                       <c:forEach var="board" items="${boardList}">
+							<tr class="record">
+								<td>${board.num}</td>
+								<td>${board.title}</td>
+								<td>${board.name}</td>
+								<td>${board.writedate}</td>
+								<td>${board.readcount}</td>
+							</tr>
+						</c:forEach>
      
                     </tbody>
                 </table>

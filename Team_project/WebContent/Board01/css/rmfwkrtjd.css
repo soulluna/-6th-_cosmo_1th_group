@@ -25,11 +25,11 @@ button{cursor: pointer;}
 
 button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left;}
 
-.rksrur{width: 130px; float: left;}
+/*.rksrur{width: 130px; float: left;}*/
 
-.rksrur > input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
+/*.rksrur > input[type="file"] {position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }*/
     
-.rksrur > label { display: inline-block; padding: 5px 10px;; color: #fff; font-weight: bold; background-image: linear-gradient(-220deg,#3498db,#8e44ad); border-radius: 6px; cursor: pointer; width:30%; margin-bottom:3px; text-align: center;}
+/*.rksrur > label { display: inline-block; padding: 5px 10px;; color: #fff; font-weight: bold; background-image: linear-gradient(-220deg,#3498db,#8e44ad); border-radius: 6px; cursor: pointer; width:30%; margin-bottom:3px; text-align: center;} */
 
 button:last-of-type{float: right;}
 button>a{color: white;}
@@ -37,13 +37,12 @@ button>a{color: white;}
 
 .logo>a>img{width: 25%; position: absolute; right: 50px; top: 190px;}
 
-
 .noresize {position: relative; top: 20px; width: 1000px;
         height: 480px;
-         resize: none; /*사용자 임의 변경 불가 */
-        /* resize: both; /* 사용자 변경이 모두 가능 */
-        /*resize: horizontal; /* 좌우만 가능 */
-        /*resize: vertical; /* 상하만 가능 */ 
+         resize: none; /*�궗�슜�옄 �엫�쓽 蹂�寃� 遺덇� */
+        /* resize: both; /* �궗�슜�옄 蹂�寃쎌씠 紐⑤몢 媛��뒫 */
+        /*resize: horizontal; /* 醫뚯슦留� 媛��뒫 */
+        /*resize: vertical; /* �긽�븯留� 媛��뒫 */ 
          }
 .gkeks{width: 1000px; height: 50px; background-color: #f1f1f1; padding-top: 40px;}
 .gkeks > div> button{width: 80px; height: 40px;}
@@ -51,3 +50,5 @@ button>a{color: white;}
 .rksrur_bottom_right{float: right; position: relative;}
 
 .rksrur_bottom_right>button:first-of-type{background-color: #555}
+
+.make{color-color: white;}

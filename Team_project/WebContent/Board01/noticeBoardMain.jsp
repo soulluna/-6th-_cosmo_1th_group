@@ -69,7 +69,18 @@
                 <div>자유</div>
             </a>
         </div>
-
+	<c:choose>
+			<c:when test="${articlesList==null}">
+				<tr>
+					<td colspan="4">
+						<p align="center">
+							<b> <span>게시글이 존재하지 않습니다.</span>
+							</b>
+						</p>
+					</td>
+				</tr>
+			</c:when>			
+	</c:choose>
         <div class="wjdduf">
 
             <div class="akwcna">
@@ -86,7 +97,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                     <tr>
                             <td class="co1">부서</td>
                             <td class="co2">공지</td>
                             <td class="co3"><a href="./details.html">
@@ -96,8 +107,19 @@
                             <td class="co5">19.08.05</td>
                             <td class="co6">123</td>
                             <td class="co7">132</td>
-                        </tr>
-
+                        </tr> 
+						<c:forEach var="board" items="${boardList}">
+							<tr class="record">
+								<td>${board.detailName}</td>
+								<td>${board.num}</td>
+								<td>${board.title}</td>
+								<td>${board.id}</td>
+								<td>${board.writeDate}</td>
+								<td>${board.count}</td>
+								<td>${board.goods}</td>
+								
+							</tr>
+						</c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -114,7 +136,7 @@
                
                
                
-                <div class="wkrtjd"><a href="./write.html">글쓰기</a></div>
+                <div class="wkrtjd"><a onclick="location.href='${contextPath}/Board01/write.jsp'">글쓰기</a></div>
             </div>
 
             <div class="gkeks">

@@ -4,77 +4,86 @@ import java.sql.Date;
 
 public class BoardVO {
 
-	   private String detailName;
-	   private int num;	   
-	   private String title;
-	   private String content;	   
-	   private String id;
-	   private Date writeDate;
-	   private int count;
-	   private int goods;
-	   
-public BoardVO(String detailName, int num, String title, String content, String id, Date writeDate, int count,
-			int goods) {
+//	   private String detailName;
+//	   private int num;	   
+//	   private String title;
+//	   private String content;	   
+//	   private String id;
+//	   private Date writeDate;
+//	   private int count;
+//	   private int goods;
+	   //eno 사번 , rank 직책  comnum comtotal comcont; 
+	  
+	   private String noticelist;	//부서지정
+	   private int txtnum;	//	글번호
+	   private String txtname;	//글제목
+	   private String txtcont;	//글내용
+	   private String ename;	//사원이름
+	   private Date entrydate;	//입력일
+	   private int viewtotal;	//조회수
+	   private int likenum;		//추천수
+	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, Date entrydate,
+			int viewtotal, int likenum) {
 		super();
-		this.detailName = detailName;
-		this.num = num;
-		this.title = title;
-		this.content = content;
-		this.id = id;
-		this.writeDate = writeDate;
-		this.count = count;
-		this.goods = goods;
+		this.noticelist = noticelist;
+		this.txtnum = txtnum;
+		this.txtname = txtname;
+		this.txtcont = txtcont;
+		this.ename = ename;
+		this.entrydate = entrydate;
+		this.viewtotal = viewtotal;
+		this.likenum = likenum;
 	}
 	public BoardVO() {
-	// TODO Auto-generated constructor stub
-}
-	public String getDetailName() {
-		return detailName;
+		// TODO Auto-generated constructor stub
 	}
-	public void setDetailName(String detailName) {
-		this.detailName = detailName;
+	public String getNoticelist() {
+		return noticelist;
 	}
-	public int getNum() {
-		return num;
+	public void setNoticelist(String noticelist) {
+		this.noticelist = noticelist;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public int getTxtnum() {
+		return txtnum;
 	}
-	public String getTitle() {
-		return title;
+	public void setTxtnum(int txtnum) {
+		this.txtnum = txtnum;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public String getTxtname() {
+		return txtname;
 	}
-	public String getContent() {
-		return content;
+	public void setTxtname(String txtname) {
+		this.txtname = txtname;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public String getTxtcont() {
+		return txtcont;
 	}
-	public String getId() {
-		return id;
+	public void setTxtcont(String txtcont) {
+		this.txtcont = txtcont;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public String getEname() {
+		return ename;
 	}
-	public Date getWriteDate() {
-		return writeDate;
+	public void setEname(String ename) {
+		this.ename = ename;
 	}
-	public void setWriteDate(Date writeDate) {
-		this.writeDate = writeDate;
+	public Date getEntrydate() {
+		return entrydate;
 	}
-	public int getCount() {
-		return count;
+	public void setEntrydate(Date entrydate) {
+		this.entrydate = entrydate;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public int getViewtotal() {
+		return viewtotal;
 	}
-	public int getGoods() {
-		return goods;
+	public void setViewtotal(int viewtotal) {
+		this.viewtotal = viewtotal;
 	}
-	public void setGoods(int goods) {
-		this.goods = goods;
+	public int getLikenum() {
+		return likenum;
+	}
+	public void setLikenum(int likenum) {
+		this.likenum = likenum;
 	}
 	   
 }
