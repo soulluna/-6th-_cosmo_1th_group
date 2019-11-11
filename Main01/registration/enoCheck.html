@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/jquery-2.1.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/jquery.easing.1.3.js"></script>
+    <script src="./js/prefixfree.min.js"></script>
+    <script src="./js/main.js"></script>
+    <link rel="stylesheet" href="./css/enoCheck.css" />
+	<title>중복확인</title>
+	<script>
+			var checkeno=opener.document.getElementById("userID").value;
+			console.log(checkeno);
+			function getEno(){
+				document.frm.userid.value=checkeno;
+			}
+			window.onload = function(){
+				getEno();
+				dbCheck();
+			}
+	</script>
+</head>
+<body>
+	<form method="get" name="frm" class="frm" id="frm">
+		사원번호 <input type="text" name="userid" id="userid">
+			<input class="chkId" type="submit" value="중복확인" onclick="return dbCheck();"><br>
+	    <div id="okText"></div>
+		<input type="button" value="사용" onclick="idok();" class="chkId" name="okButton" id="okButton">
+	</form>
+</body>
+</html>

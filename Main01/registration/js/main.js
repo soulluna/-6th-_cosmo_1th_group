@@ -75,7 +75,7 @@ function idCheck(){
     function check(regexpId, what, message) {
         if(regexpId.test(what.value)) {
             return true;
-    }
+        }
         alert(message);
         what.value = "";
         what.focus();
@@ -85,16 +85,44 @@ function idCheck(){
 		document.join.userID.focus();
 		return;
     }
-
     // var url = "idCheck.do?userid=" + document.join.userID.value;
     // 	window.open(url, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=300, height=100");
-    
-    var url = "idCheck.html?userid=" + document.join.userID.value;
+    var url = "./enoCheck.html";
 		window.open(url, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=400, height=300");
 }
 
-function idok(userid){
+function idok(){
 	opener.frm.userid.value = document.frm.userid.value;
-	opener.frm.reid.value = document.frm.userid.value;
 	self.close();
+}
+
+function dbCheck(){
+    $("#okButton").hide();
+    var regexpId = /^[0-9]{10}$/ //아이디 정규식
+    var enoList = ['2012114562','2018113843'];
+    var checkId = document.getElementById("userid");
+    if(!check(regexpId,checkId,"사원번호는 10자리의 숫자만 입력해주세요.")){
+        frm.userid.focus();
+        return false;
+    }
+    for(var i=0;i<enoList.length;i++){
+        if(checkId==enoList[i]){
+            $("#okText").text("이미 사용중인 사원번호입니다.");
+            $("#okButton").hide();
+            document.getElementById("useiid").value=checkId;
+            return false;
+        }
+    }
+    $("#okText").text("사용 가능한 사원번호입니다.");
+    $("#okButton").show();
+
+    function check(regexpId, what, message) {
+        if(regexpId.test(what.value)) {
+            return true;
+        }
+        alert(message);
+        what.value = "";
+        what.focus();
+   //return false;
+    }
 }
