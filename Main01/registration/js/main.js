@@ -92,29 +92,31 @@ function idCheck(){
 }
 
 function idok(){
-	opener.frm.userid.value = document.frm.userid.value;
-	self.close();
+	opener.join.userID.value = document.frm.userid.value;
+	window.close();
 }
 
 function dbCheck(){
     $("#okButton").hide();
-    var regexpId = /^[0-9]{10}$/ //아이디 정규식
-    var enoList = ['2012114562','2018113843'];
+    var regexpId = /^[0-9]{10}$/; //아이디 정규식
+    var enoList = [2012114562, 2018113843];
     var checkId = document.getElementById("userid");
+    console.log(checkId.value);
     if(!check(regexpId,checkId,"사원번호는 10자리의 숫자만 입력해주세요.")){
         frm.userid.focus();
         return false;
     }
     for(var i=0;i<enoList.length;i++){
-        if(checkId==enoList[i]){
+        if(checkId.value==enoList[i]){
             $("#okText").text("이미 사용중인 사원번호입니다.");
             $("#okButton").hide();
-            document.getElementById("useiid").value=checkId;
+            checkId.value=enoList[i];
             return false;
         }
     }
     $("#okText").text("사용 가능한 사원번호입니다.");
     $("#okButton").show();
+    return true;
 
     function check(regexpId, what, message) {
         if(regexpId.test(what.value)) {

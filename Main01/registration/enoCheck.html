@@ -16,17 +16,18 @@
 			console.log(checkeno);
 			function getEno(){
 				document.frm.userid.value=checkeno;
+				opener.document.getElementById("userID").value="";
 			}
 			window.onload = function(){
+				$("#okButton").hide();
 				getEno();
-				dbCheck();
 			}
 	</script>
 </head>
 <body>
 	<form method="get" name="frm" class="frm" id="frm">
 		사원번호 <input type="text" name="userid" id="userid">
-			<input class="chkId" type="submit" value="중복확인" onclick="return dbCheck();"><br>
+			<input class="chkId" type="button" value="중복확인" onclick="return dbCheck();"><br>
 	    <div id="okText"></div>
 		<input type="button" value="사용" onclick="idok();" class="chkId" name="okButton" id="okButton">
 	</form>
