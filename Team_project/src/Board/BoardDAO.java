@@ -27,13 +27,12 @@ public class BoardDAO {
 		}
 	}
 
-	public List selectAllArticles() {	//게시판 리스트 보여주기
-		List articlesList = new ArrayList();
+	public List selectAllBoards() {	//게시판 리스트 보여주기
+		List boardList = new ArrayList();
 		try {
 			con = dataFactory.getConnection();
-			String query = "select noticelist, txtnum, txtname, txtcont, ename, entrydate, viewtotal, likenum "
-					+ "title title, content, writeDate, id from NOTICE "
-					+ "start with num=0 ";
+			String query = "select noticelist, txtnum, txtname, txtcont, ename, entrydate, viewtotal, likenum"
+					+ " from NOTICE start with num=0 ";
 					
 
 			System.out.println(query);
@@ -53,7 +52,7 @@ public class BoardDAO {
 
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
 				BoardVO boardVO = new BoardVO(noticelist, txtnum, txtname, txtcont, ename, entrydate, viewtotal, likenum);
-				articlesList.add(boardVO);
+				boardList.add(boardVO);
 			}
 			rs.close();
 			pstmt.close();
@@ -61,14 +60,14 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return articlesList;
+		return boardList;
 	}
 
-	public BoardVO selectArticle(int num) {	//게시판 상세페이지 이동하기위한거
-		BoardVO article = new BoardVO();
+	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기위한거
+		BoardVO board = new BoardVO();
 		try {
 			con = dataFactory.getConnection();
-			String query = "\"select noticelist, txtnum, txtname, txtcont, ename, entrydate, viewtotal, likenum  from NOTICE where num=?";
+			String query = "select * from NOTICE where txtname=?";
 			pstmt = con.prepareStatement(query);// query를 con객체를 이용하여 db에 쿼리문을 보냄
 			pstmt.setInt(1, num);
 			System.out.println(query);
@@ -86,14 +85,14 @@ public class BoardDAO {
 			int viewtotal = rs.getInt("viewtotal");
 			int likenum = rs.getInt("likenum");
 			
-			article.setNoticelist(noticelist);
-			article.setTxtnum(txtnum);
-			article.setTxtname(txtname);
-			article.setTxtcont(txtcont);
-			article.setEname(ename);
-			article.setEntrydate(entrydate);
-			article.setViewtotal(viewtotal);
-			article.setLikenum(likenum);
+			board.setNoticelist(noticelist);
+			board.setTxtnum(txtnum);
+			board.setTxtname(txtname);
+			board.setTxtcont(txtcont);
+			board.setEname(ename);
+			board.setEntrydate(entrydate);
+			board.setViewtotal(viewtotal);
+			board.setLikenum(likenum);
 			
 			rs.close();
 			pstmt.close();
@@ -103,14 +102,13 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 
-		return article;
+		return board;
 	}
 
 	public int selecttxtnum() {
 		   
 	      int num = 0;
 	      try {
-	         
 	         con = dataFactory.getConnection();
 	         String query = "select max(txtnum)+1 as maxtxtnum from NOTICE";
 	         System.out.println(query);
@@ -133,24 +131,30 @@ public class BoardDAO {
 	
 	
 	
-	public void insertArticle(BoardVO article) {	//글쓰기
-		System.out.println("insertArticle");
-
+	public void insertBoard(BoardVO board) {	//글쓰기
+		System.out.println("insertBaord");
 		int txtnum = selecttxtnum();
 
 		try {
 			con = dataFactory.getConnection();
 			
-			 String txtname = article.getTxtname();
-		     String txtcont = article.getTxtcont();
-			String ename = "chahyinjin";
-			String query = "insert into NOTICE(txtnum, txtname, txtcont, ename) values(?,?,?,?)";
+			String txtname = board.getTxtname();
+			String ename = "차현진";
+			int viewtotal = board.getViewtotal();
+			Date entrydate = board.getEntrydate();
+			String txtcont = board.getTxtcont();
+			
+			String query = "insert into NOTICE(txtname, txtnum, ename, viewtotal, entrydate, txtcont) values(?,?,?,?,?,?)";
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
-		    pstmt.setInt(1, txtnum);
-			pstmt.setString(2, txtname);
-			pstmt.setString(3, txtcont);
-			pstmt.setString(4, ename);
+		    
+			pstmt.setString(1, txtname);
+			pstmt.setInt(2, txtnum);
+			pstmt.setString(3, ename);
+			pstmt.setInt(4, viewtotal);
+			pstmt.setDate(5, entrydate);
+			pstmt.setString(6, txtcont);
+			
 		     
 			
 			pstmt.executeUpdate();
@@ -160,5 +164,4 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-
 }

@@ -55,12 +55,17 @@
         </div>
         <!--//gnb-->
         <h1>6기 1조 프로젝트 부서 게시판</h1>
-        <div class="side">
-            <a href="./noticeBoardMain.html"><div>전체</div></a>
-            <a href="./department.html"><div>부서</div></a>
-            <a href="./hobby.html"><div>취미</div></a>
-            <a href="./free.html"><div>자유</div></a>
-        </div>
+  	<div class="side">
+			<a href="${contextPath}/Board01/noticeBoardMain.jsp">
+				<div>전체</div>
+			</a> <a href="${contextPath}/Board01/department.jsp">
+				<div>부서</div>
+			</a> <a href="${contextPath}/Board01/hobby.jsp">
+				<div>취미</div>
+			</a> <a href="${contextPath}/Board01/free.jsp">
+				<div>자유</div>
+			</a>
+		</div>
 
         <div class="wjdduf">
             

@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>상세</title>
+    <title>상세게시판</title>
     <link rel="stylesheet" href="./css/tkdtp.css">
     <link rel="stylesheet" href="./css/gnb.css" />
     <script src="./js/jquery-2.1.1.min.js"></script>
@@ -23,37 +23,42 @@
 </head>
 
 <body>
-    <div class="fullWrap">
-        <!--gnb-->
-        <div class="gnb">
-            <!--logoBar-->
-            <ul class="logobar">
-                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="./img/logo3.gif"></a></li>
-                <table id="memberinfo">
-                    <tbody>
-                        <tr>
-                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                            <td colspan="2">관리자 님 환영합니다.</td>
-                        </tr>
-                        <tr>
-                            <td><a href="../index.html">로그아웃</a>
-                                <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ul>
-            <!--//logoBar-->
-            <!--nav bar-->
-            <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-                <li id="system" class="t_menu btn1"> <a
-                        href="../Team1_won&you/docList.html">전자결재시스템</a></li>
-                <li id="board" class="t_menu btn2"> <a href="./noticeBoardMain.html">게시판</a></li>
-                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-            </ul>
-            <!--//navBar-->
-        </div>
-        <!--//gnb-->
+	<div class="fullWrap">
+		<!--gnb-->
+		<div class="gnb">
+			<!--logoBar-->
+			<ul class="logobar">
+				<li id="mainLogo"><a href="${contextPath}/Main01/indexMain.jsp"><img
+						src="${contextPath}/Main01/img/logo3.gif"></a></li>
+				<table id="memberinfo">
+					<tbody>
+						<tr>
+							<td id="profile_img" rowspan="2"><img
+								src="http://placehold.it/70x70"></td>
+							<td colspan="2">관리자 님 환영합니다.</td>
+						</tr>
+						<tr>
+							<td><a href="../index.html">로그아웃</a> <a
+								href="${contextPath}/Main01/member/confirm.html">내정보수정</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</ul>
+			<!--//logoBar-->
+			<!--nav bar-->
+			<ul class="topBar">
+				<li id="main" class="t_menu btn3"><a
+					href="${contextPath}/Main01/indexMain.jsp">메인</a></li>
+				<li id="system" class="t_menu btn1"><a
+					href="${contextPath}/Approval01/docList.jsp">전자결재시스템</a></li>
+				<li id="board" class="t_menu btn2"><a
+					href="${contextPath}/Board01/noticeBoardMain.jsp">게시판</a></li>
+				<li id="info_tab" class="t_menu btn4"><a
+					href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></li>
+			</ul>
+			<!--//navBar-->
+		</div>
+		<!--//gnb-->
         <h1>상세페이지</h1>
         <div class="wjdduf">
             <h2>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</h2>

@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>자유 게시판</title>
+    <title>자유게시판</title>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/gnb.css" />
     <script src="./js/jquery-2.1.1.min.js"></script>
@@ -54,12 +54,17 @@
         </div>
         <!--//gnb-->
         <h1>6기 1조 프로젝트 자유 게시판</h1>
-        <div class="side">
-            <a href="./noticeBoardMain.html"><div>전체</div></a>
-            <a href="./department.html"><div>부서</div></a>
-            <a href="./hobby.html"><div>취미</div></a>
-            <a href="./free.html"><div>자유</div></a>
-        </div>
+	<div class="side">
+			<a href="${contextPath}/Board01/noticeBoardMain.jsp">
+				<div>전체</div>
+			</a> <a href="${contextPath}/Board01/department.jsp">
+				<div>부서</div>
+			</a> <a href="${contextPath}/Board01/hobby.jsp">
+				<div>취미</div>
+			</a> <a href="${contextPath}/Board01/free.jsp">
+				<div>자유</div>
+			</a>
+		</div>
 
         <div class="wjdduf">
           

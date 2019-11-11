@@ -18,8 +18,8 @@ a:active  { text-decoration:none; color:cornflowerblue; }
 .co1{width: 80px; text-align: center; padding: 8px 0; font-size: 15px;}
 .co2{width: 80px; text-align: center; font-size: 15px; }
 .co3{width: 450px; font-size: 15px; padding-left: 10px;}
-.co3>a>p{  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 400px;  font-size: 15px;
-  }
+.co3>a>p{ display:inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 400px;  font-size: 15px;}
+.co3>span{font-size:17px;}
 .co4{width: 110px;text-align: center; font-size: 15px;}
 .co5{width: 100px;text-align: center; font-size: 15px;}
 .co6{width: 100px;text-align: center; font-size: 15px;}
@@ -48,14 +48,14 @@ h1{text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e)
 .page>li:last-of-type{border-radius: 0 20px 20px 0;}
 .page> li{padding: 10px 20px; border: 1px solid black; float: left; margin: 0 auto 0;}
 */
-.page{text-align: center; position:relative; height:40px; line-height: 40px; padding: 20px 0;}
+.page{text-align: center; position:relative; width:700px;  height:40px; line-height: 40px; padding: 20px 0;}
 .page > a{font-size: 19.5px; margin: 0 5px;} 
   
 
-.dlehd{ position: relative; width: 1200px; padding: auto; font-size: 19.5; margin: 0 5px;}
+.dlehd{ position: relative; width: 1000px; padding: auto; font-size: 19.5; margin: 0 250px;}
 
 .wkrtjd{float: right; margin-right: 85px; cursor: pointer;}
-.wkrtjd > a{border-radius: 10px; color: white; background: black; border: 1px solid black; padding: 10px 20px; position: relative; top: -60px;}
+.wkrtjd > a{border-radius: 10px; color: white; background: black; border: 1px solid black; padding: 10px 20px; position: relative; top: -60px; right: 44px;}
 
 
 
