@@ -1,18 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<%
+   request.setCharacterEncoding("UTF-8");
+%>
+
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ãë¹Ì°Ô½ÃÆÇ</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/gnb.css" />
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>ì·¨ë¯¸ê²Œì‹œíŒ</title>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/gnb.css" />
+<script src="./js/jquery-2.1.1.min.js"></script>
+<script src="./js/jquery.easing.1.3.js"></script>
+<script src="./js/jquery-ui.min.js"></script>
+<script src="./js/prefixfree.min.js"></script>
 </head>
 
 <body>
@@ -26,11 +34,11 @@
                     <tbody>
                         <tr>
                             <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                            <td colspan="2">°ü¸®ÀÚ ´Ô È¯¿µÇÕ´Ï´Ù.</td>
+                            <td colspan="2">ê´€ë¦¬ìž ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.</td>
                         </tr>
                         <tr>
-                            <td><a href="../index.html">·Î±×¾Æ¿ô</a>
-                                <a href="../Team2_kim/member/confirm.html">³»Á¤º¸¼öÁ¤</a></td>
+                            <td><a href="../index.html">ë¡œê·¸ì•„ì›ƒ</a>
+                                <a href="../Team2_kim/member/confirm.html">ë‚´ì •ë³´ìˆ˜ì •</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -38,28 +46,33 @@
             <!--//logoBar-->
             <!--nav bar-->
             <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">¸ÞÀÎ</a></li>
+                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">ë©”ì¸</a></li>
                 <li id="system" class="t_menu btn1"> <a
-                        href="../Team1_won&you/docList.html">ÀüÀÚ°áÀç½Ã½ºÅÛ</a></li>
-                <li id="board" class="t_menu btn2"> <a href="./noticeBoardMain.html">°Ô½ÃÆÇ</a></li>
-                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">³»Á¤º¸¼öÁ¤</a></li>
+                        href="../Team1_won&you/docList.html">ì „ìžê²°ìž¬ì‹œìŠ¤í…œ</a></li>
+                <li id="board" class="t_menu btn2"> <a href="./noticeBoardMain.html">ê²Œì‹œíŒ</a></li>
+                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">ë‚´ì •ë³´ìˆ˜ì •</a></li>
             </ul>
             <!--//navBar-->
         </div>
         <!--//gnb-->
-        <h1>6±â 1Á¶ ÇÁ·ÎÁ§Æ® Ãë¹Ì °Ô½ÃÆÇ</h1>
-        <div class="side">
-            <a href="./noticeBoardMain.html"><div>ÀüÃ¼</div></a>
-            <a href="./department.html"><div>ºÎ¼­</div></a>
-            <a href="./hobby.html"><div>Ãë¹Ì</div></a>
-            <a href="./free.html"><div>ÀÚÀ¯</div></a>
-        </div>
+        <h1>6ê¸° 1ì¡° í”„ë¡œì íŠ¸ ì·¨ë¯¸ ê²Œì‹œíŒ</h1>
+	<div class="side">
+			<a href="${contextPath}/Board01/noticeBoardMain.jsp">
+				<div>ì „ì²´</div>
+			</a> <a href="${contextPath}/Board01/department.jsp">
+				<div>ë¶€ì„œ</div>
+			</a> <a href="${contextPath}/Board01/hobby.jsp">
+				<div>ì·¨ë¯¸</div>
+			</a> <a href="${contextPath}/Board01/free.jsp">
+				<div>ìžìœ </div>
+			</a>
+		</div>
 	<c:choose>
 			<c:when test="${articlesList==null}">
 				<tr>
 					<td colspan="4">
 						<p align="center">
-							<b> <span>°Ô½Ã±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.</span>
+							<b> <span>ê²Œì‹œê¸€ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</span>
 							</b>
 						</p>
 					</td>
@@ -72,13 +85,13 @@
                 <table border="1" class="line">
                     <thead>
                         <tr class="name">
-                            <th class="co1">°Ô½ÃÆÇ</th>
-                            <th class="co2">¹øÈ£</th>
-                            <th class="co3">Á¦¸ñ</th>
-                            <th class="co4">ÀÛ¼ºÀÚ</th>
-                            <th class="co5">»ý¼º³¯ÀÚ</th>
-                            <th class="co6">Á¶È¸</th>
-                            <th class="co7">ÃßÃµ</th>
+                            <th class="co1">ê²Œì‹œíŒ</th>
+                            <th class="co2">ë²ˆí˜¸</th>
+                            <th class="co3">ì œëª©</th>
+                            <th class="co4">ìž‘ì„±ìž</th>
+                            <th class="co5">ìƒì„±ë‚ ìž</th>
+                            <th class="co6">ì¡°íšŒ</th>
+                            <th class="co7">ì¶”ì²œ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,27 +110,27 @@
             </div>
             <div class="dlehd">
                 <div class="page">
-                    <a href="#">ÀÌÀü</a>
+                    <a href="#">ì´ì „</a>
                     <a href="#">1</a>
                     <a href="#">2</a>
                     <a href="#">3</a>
                     <a href="#">4</a>
                     <a href="#">5</a>
-                    <a href="#">´ÙÀ½</a>
+                    <a href="#">ë‹¤ìŒ</a>
                 </div>
 
-        <div class="wkrtjd"><a href="./write.html">±Û¾²±â</a></div>
+        <div class="wkrtjd"><a href="./write.html">ê¸€ì“°ê¸°</a></div>
     </div>
 
     <div class="gkeks">
         <select class="tpqn" name="searchType">
-            <option value="Á¦¸ñ">Á¦¸ñ</option>
-            <option value="Á¦¸ñ+³»¿ë">Á¦¸ñ+³»¿ë</option>
-            <option value="ÀÛ¼ºÀÚ">ÀÛ¼ºÀÚ</option>
+            <option value="ì œëª©">ì œëª©</option>
+            <option value="ì œëª©+ë‚´ìš©">ì œëª©+ë‚´ìš©</option>
+            <option value="ìž‘ì„±ìž">ìž‘ì„±ìž</option>
         </select>
         <div class="rjator">
-            <input type="text" name="searchKey" placeholder="°Ë»ö¾î ÀÔ·Â">
-            <button class="search"><a href="#">°Ë»ö</button></a>
+            <input type="text" name="searchKey" placeholder="ê²€ìƒ‰ì–´ ìž…ë ¥">
+            <button class="search"><a href="#">ê²€ìƒ‰</button></a>
         </div>
     </div>
 </div>

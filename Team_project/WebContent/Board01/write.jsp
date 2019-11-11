@@ -23,6 +23,7 @@
 
 <script>
 	function fn_write() {
+		frmArticle.encoding = "application/x-www-form-urlencoded";
 		frmArticle.action = "${contextPath}/Board/write.do";
 		frmArticle.submit();
 	}
@@ -30,13 +31,14 @@
 </head>
 
 <body>
+<form name="frmArticle" method="post" enctype="multipart/form-data">
 	<div class="fullWrap">
 		<!--gnb-->
 		<div class="gnb">
 			<!--logoBar-->
 			<ul class="logobar">
-				<li id="mainLogo"><a href="${contextPath}/Main01/indexMain.html"><img
-						src="./img/logo3.gif"></a></li>
+				<li id="mainLogo"><a href="${contextPath}/Main01/indexMain.jsp"><img
+						src="${contextPath}/Main01/img/logo3.gif"></a></li>
 				<table id="memberinfo">
 					<tbody>
 						<tr>
@@ -90,7 +92,7 @@
 						<h2>제 목</h2>
 					</div>
 					<div class="wpahrdlqfur">
-						<input type="text" name="w_title" placeholder="제목을 입력해주세요">${article.txtname}
+						<input type="text" name="w_title" placeholder="제목을 입력해주세요">
 					</div>
 				</div>
 
@@ -105,12 +107,12 @@
 				</div>
 
 				<div class="logo">
-					<a herf="MainPage.html"><img src="${contextPath}/Board01/img/logo3.gif"></a>
+					<a herf="${contextPath}/Main01/indexMain.jsp"><img src="${contextPath}/Board01/img/logo3.gif"></a>
 				</div>
 
 				<div class="zmrl">
 					<textarea class="noresize" name="contents"
-						placeholder="내용을 입력해주세요.">${article.txtcont}</textarea>
+						placeholder="내용을 입력해주세요."></textarea>
 				</div>
 				<div class="gkeks">
 					<div class="rksrur_bottom_left">
@@ -121,14 +123,14 @@
 						<button>
 							<a href="#">임시저장</a>
 						</button>
-						<button class="make"
-							onclick="location.href='${contextPath}/Board01/free.jsp'">작성하기</button>
+						<button class="make" onclick="fn_write();"><p>작성하기</p></button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script src="./js/main.js"></script>
+	</form>
 </body>
 
 </html>
