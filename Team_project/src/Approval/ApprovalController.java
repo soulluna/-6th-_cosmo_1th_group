@@ -1,4 +1,4 @@
-﻿package Approval;
+package Approval;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +40,6 @@ public class ApprovalController extends HttpServlet {
 		
 		try {
 			List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-			
 			if (action != null && action.equals("/docList.do")) {
 				System.out.println();
 				System.out.println("/docList.do");
@@ -101,7 +100,7 @@ public class ApprovalController extends HttpServlet {
 			dispatch.forward(request, response);
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 
