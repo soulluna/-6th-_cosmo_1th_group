@@ -401,5 +401,73 @@ $(document).ready(function () {
 
 
 
+	//더미 데이터 관련
+  function showDocList(rowsize, page, endDoc){ //결재글 출력
+    for(var i=rowsize*(page-1); i<endDoc; i++){
+      $(".docListTable").append("<tr><td>"+articleArr[i][1]+"</td><td>"+articleArr[i][2]+"</td><td>"+articleArr[i][8]+"</td><td><a href='./vacationWait.html'>"+articleArr[i][21]+"</a></td><td>"+articleArr[i][15]+"</td></tr>");
+    }
+  }
+  function showPageNum(startPage, endPage){ //페이지 번호 출력
+    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>이전</a>");
+    for(var i=startPage; i<=endPage; i++){
+        $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>"+i+"</a>");
+    }
+    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>다음</a>");
+    $(".pageButtonsCreatedoc").append("<button class='docCreate' name='docCreate' type='button'>작성</button>");
+  }
 
+  articleArr.sort(function(a,b){ //수/발신 정렬
+    return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
+  });
+  articleArr.sort(function(a,b){ //결재상태 정렬
+    return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
+  });
+  articleArr.sort(function(a,b){ //작성일 정렬
+    return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
+  });
+
+  var $except = $(".docListTable tr").first(); //문서함 목록 컬럼명
+  var articleArrLength = articleArr.length; //결재글 전체 개수
+  var rowsize = 15; //한 페이지에 보이는 결재글 수
+  var block = 5; //페이지 번호 최대 개수
+  var page = 1; //기본 페이지 번호
+  var startDoc = (page*rowsize) - (rowsize-1); //결재글 시작번호
+  var endDoc = (page*rowsize); //결재글 끝번호
+  var allPage = 0; //전체 페이지 수
+  var startPage = ((page-1)/block*block)+1; //시작 페이지 번호
+  var endPage = ((page-1)/block*block)+block; //끝 페이지 번호
+
+  allPage = Math.ceil(articleArrLength/rowsize);
+  if(endPage > allPage){
+    endPage = allPage;
+  }
+
+  if(thisfilefullname=="docList.html"){
+    showDocList(rowsize, page, endDoc);
+    showPageNum(startPage, endPage);
+  }
+
+  $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
+    var tempPage = $(this).text(); //선택한 페이지 번호
+    if(tempPage=="이전"){
+        page = startPage-1;
+    }else if(tempPage=="다음"){
+        page = startPage+1;
+    }else{
+        page = tempPage;
+    }
+    startDoc = (page*rowsize) - (rowsize-1);
+    endDoc = (page*rowsize);
+    startPage = ((page-1)/block*block)+1;
+    endPage = ((page-1)/block*block)+block;
+    if(endPage > allPage){
+        endPage = allPage;
+    }
+
+    $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
+    showDocList(rowsize, page, endDoc);
+    // $(".pageButtonsCreatedoc *").remove();
+    // showPageNum(startPage, endPage);
+  });
+  //더미 데이터 관련end
 });
