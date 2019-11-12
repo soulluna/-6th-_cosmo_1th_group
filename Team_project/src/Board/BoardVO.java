@@ -22,21 +22,32 @@ public class BoardVO {
 	   private Date entrydate;	//입력일
 	   private int viewtotal;	//조회수
 	   private int likenum;		//추천수
-	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, Date entrydate,
-			int viewtotal, int likenum) {
+	   
+	   private String eno; 
+	   private String rank;
+	   private int comtotal;
+	   private String comcont;
+	   private int comnum;
+	   
+	public BoardVO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, int viewtotal, int likenum) {
 		super();
 		this.noticelist = noticelist;
 		this.txtnum = txtnum;
 		this.txtname = txtname;
 		this.txtcont = txtcont;
 		this.ename = ename;
-		this.entrydate = entrydate;
 		this.viewtotal = viewtotal;
 		this.likenum = likenum;
 	}
-	public BoardVO() {
-		// TODO Auto-generated constructor stub
-	}
+
+
+
 	public String getNoticelist() {
 		return noticelist;
 	}
@@ -85,5 +96,36 @@ public class BoardVO {
 	public void setLikenum(int likenum) {
 		this.likenum = likenum;
 	}
+	public String getEno() {
+		return eno;
+	}
+	public void setEno(String string) {
+		this.eno = string;
+	}
+	public String getRank() {
+		return rank;
+	}
+	public void setRank(String rank) {
+		this.rank = rank;
+	}
+	public int getComtotal() {
+		return comtotal;
+	}
+	public void setComtotal(int comtotal) {
+		this.comtotal = comtotal;
+	}
+	public String getComcont() {
+		return comcont;
+	}
+	public void setComcont(String comcont) {
+		this.comcont = comcont;
+	}
+	public int getComnum() {
+		return comnum;
+	}
+	public void setComnum(int comnum) {
+		this.comnum = comnum;
+	}
+	
 	   
 }

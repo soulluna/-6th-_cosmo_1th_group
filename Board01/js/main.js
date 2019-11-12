@@ -80,6 +80,16 @@ $(function () {
             // 취소 버튼 클릭 시 동작
         }
     });
+
+        //수정하기 페이지 돌아가기 버튼
+        $(".back_1").click(function () {
+            if (confirm("확인시 내용이 있을경우 사라집니다.")) {
+                // 확인 버튼 클릭 시 동작
+                location.replace('../noticeBoardMain.html');
+            } else {
+                // 취소 버튼 클릭 시 동작
+            }
+        });
       
     
     //글장석.html 입력값 확인

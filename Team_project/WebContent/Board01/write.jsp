@@ -32,6 +32,7 @@
 
 <body>
 <form name="frmArticle" method="post" enctype="multipart/form-data">
+	<input type="hidden" id = "eno" name="eno" value="${loginUser.eno}">
 	<div class="fullWrap">
 		<!--gnb-->
 		<div class="gnb">

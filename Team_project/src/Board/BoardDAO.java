@@ -51,7 +51,7 @@ public class BoardDAO {
 				
 
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
-				BoardVO boardVO = new BoardVO(noticelist, txtnum, txtname, txtcont, ename, entrydate, viewtotal, likenum);
+				BoardVO boardVO = new BoardVO(noticelist, txtnum, txtname, txtcont, ename, viewtotal, likenum);
 				boardList.add(boardVO);
 			}
 			rs.close();
@@ -141,10 +141,16 @@ public class BoardDAO {
 			String txtname = board.getTxtname();
 			String ename = "차현진";
 			int viewtotal = board.getViewtotal();
-			Date entrydate = board.getEntrydate();
 			String txtcont = board.getTxtcont();
 			
-			String query = "insert into NOTICE(txtname, txtnum, ename, viewtotal, entrydate, txtcont) values(?,?,?,?,?,?)";
+			String query = "insert into NOTICE(txtname, txtnum, ename, viewtotal, txtcont) values(?,?,?,?,?)"; //REFERENCES EMPLOYEE(eno,ename,rank) 이부분이 의심스러움
+				
+				System.out.println(txtname);
+				System.out.println(txtnum);
+				System.out.println(ename); 
+				System.out.println(viewtotal);
+				System.out.println(txtcont);
+				
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 		    
@@ -152,8 +158,7 @@ public class BoardDAO {
 			pstmt.setInt(2, txtnum);
 			pstmt.setString(3, ename);
 			pstmt.setInt(4, viewtotal);
-			pstmt.setDate(5, entrydate);
-			pstmt.setString(6, txtcont);
+			pstmt.setString(5, txtcont);
 			
 		     
 			

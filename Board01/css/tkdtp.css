@@ -26,9 +26,7 @@ button>a{color: white;}
 .cncjsqjxms>button:first-of-type{float: left;width: 60px; height: 30px;color: white; background: black; outline: none;}
 .cncjsqjxms{width: 1000px; position: relative; top: -5px; margin:0 auto 0;}
 .cncjsqjxms>button{width: 60px; height: 30px; background: #1b5ac2; outline: none; float: right; }
-.bgColor{
-    background: cyan !important; 
-}
+.bgColor{background: cyan !important;}
 
 .eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; outline: none; float: right;}
 
@@ -56,4 +54,4 @@ resize: none; margin: 10px 0;}
 
 .cmtBor {}
 
-p:hover   { text-decoration:none; color:cornflowerblue; }
+.ud:hover{ text-decoration:none; color:cornflowerblue; }

@@ -25,41 +25,7 @@
 
 <body>
 	<div class="fullWrap">
-		<!--gnb-->
-		<div class="gnb">
-			<!--logoBar-->
-			<ul class="logobar">
-				<li id="mainLogo"><a href="${contextPath}/Main01/indexMain.jsp"><img
-						src="${contextPath}/Main01/img/logo3.gif"></a></li>
-				<table id="memberinfo">
-					<tbody>
-						<tr>
-							<td id="profile_img" rowspan="2"><img
-								src="http://placehold.it/70x70"></td>
-							<td colspan="2">관리자 님 환영합니다.</td>
-						</tr>
-						<tr>
-							<td><a href="../index.html">로그아웃</a> <a
-								href="${contextPath}/Main01/member/confirm.html">내정보수정</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</ul>
-			<!--//logoBar-->
-			<!--nav bar-->
-			<ul class="topBar">
-				<li id="main" class="t_menu btn3"><a
-					href="${contextPath}/Main01/indexMain.jsp">메인</a></li>
-				<li id="system" class="t_menu btn1"><a
-					href="${contextPath}/Approval01/docList.jsp">전자결재시스템</a></li>
-				<li id="board" class="t_menu btn2"><a
-					href="${contextPath}/Board01/noticeBoardMain.jsp">게시판</a></li>
-				<li id="info_tab" class="t_menu btn4"><a
-					href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></li>
-			</ul>
-			<!--//navBar-->
-		</div>
-		<!--//gnb-->
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
 		<h1>6기 1조 프로젝트 전체 게시판</h1>
 		<div class="side">
 			<a href="${contextPath}/Board01/noticeBoardMain.jsp">

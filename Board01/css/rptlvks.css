@@ -14,11 +14,7 @@ p.no-uline:active  { text-decoration:none }
 .co1{width: 100px; text-align: center; padding: 5px 0;}
 .co2{width: 100px; text-align: center}
 .co3{width: 400px;}
-.co3>a>p{  overflow: hidden; 
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-    width: 350px; 
-  }
+.co3>a>p{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 350px;}
 .co4{width: 100px;text-align: center}
 .co5{width: 100px;text-align: center}
 .co6{width: 100px;text-align: center}

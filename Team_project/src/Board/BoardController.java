@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Main.MemberDAO;
+import Main.MemberVO;
+
 
 /**
  * Servlet implementation class BoardController
@@ -73,6 +76,15 @@ public class BoardController extends HttpServlet {
 				String txtcont = request.getParameter("contents");
 				String noticelist = request.getParameter("noticelist");
 				String ename = request.getParameter("ename");
+				String eno=request.getParameter("eno");
+				
+				MemberDAO memberDAO = new MemberDAO();
+				MemberVO memberVO = new MemberVO();
+				memberVO = memberDAO.getMember(eno);
+				boardVO.setRank(memberVO.getRank());
+				
+				boardVO.setEname(memberVO.getEname());
+				boardVO.setEno(memberVO.getEno());
 				System.out.println(txtname+"   "+txtcont);
 				boardVO.setTxtname(txtname);
 				boardVO.setTxtcont(txtcont);
