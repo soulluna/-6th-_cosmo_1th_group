@@ -7,12 +7,6 @@
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
 %>
-<c:if test="${loginUser!=null}">
-<script>
-	console.log('${loginUser.dname}');
-	console.log('${loginUser.dname_two}');
-</script>
-</c:if>
 <c:if test="${empty loginUser}">
 	<jsp:forward page="login.do"/>
 </c:if>
