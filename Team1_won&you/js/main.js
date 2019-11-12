@@ -26,7 +26,7 @@ function inputValue() {
 }
 
 
-//날짜 선택 에러 표기
+// 날짜 선택 에러 표기
 function pickedDateEr() {
   var toDay;
   var forDay;
@@ -36,12 +36,14 @@ function pickedDateEr() {
     var c = getDateDiff(forDay, toDay) + 1;
     if (c) {
       $('.dayCount').text(c);
-    }
-    if (c < 1) {
+  }else if(c==0){
+      $('.dayCount').text("0");
+  }
+  if (c < 1) {
       $('.dayCountAlret').css({ 'display': 'inline' });
-    } else {
+  } else {
       $('.dayCountAlret').css({ 'display': 'none' });
-    }
+  }
   }); //datepicker1 변동 시 날짜 변경
   $('#datepicker2').change(function () {
     toDay = $('#datepicker1').val();
@@ -49,12 +51,14 @@ function pickedDateEr() {
     var c = getDateDiff(forDay, toDay) + 1;
     if (c) {
       $('.dayCount').text(c);
-    }
-    if (c < 1) {
+  }else if(c==0){
+      $('.dayCount').text("0");
+  }
+  if (c < 1) {
       $('.dayCountAlret').css({ 'display': 'inline' });
-    } else {
+  } else {
       $('.dayCountAlret').css({ 'display': 'none' });
-    }
+  }
   }); //datepicker2 변동 시 날짜 변경
 }
 
@@ -195,10 +199,15 @@ function vacationCheck() {
 // date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
 function getDateDiff(date1, date2) {
   var arrDate1 = date1.split("-");
+  console.log("arrDate1 : " + arrDate1);
   var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1]) - 1, parseInt(arrDate1[2]));
+  console.log("getDate1 : " + getDate1);
   var arrDate2 = date2.split("-");
+  console.log("arrDate2 : " + arrDate2);
   var getDate2 = new Date(parseInt(arrDate2[0]), parseInt(arrDate2[1]) - 1, parseInt(arrDate2[2]));
+  console.log("getDate2 : " + getDate2);
   var getDiffTime = getDate1.getTime() - getDate2.getTime();
+  console.log("getDiffTime : " + getDiffTime);
   return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
 } // function getDateDiff
 
@@ -284,7 +293,7 @@ $(document).ready(function () {
     $(".approval1").text(employee[0][1]);
     $(".approval2").text(employee[1][1]);
     $(".approval3").text(employee[2][1]);
-
+    pickedDateEr();
     $('.inputarea .inputTitle').val(documentList[3][8]);
 
     if (documentList[3][9] == 1) {
@@ -300,7 +309,7 @@ $(document).ready(function () {
     $('.inputarea #datepicker2').val(documentList[3][11]);
     $('.inputarea .inputContent').val(documentList[3][12]);
     $(".dayCount").text(getDay);
-    pickedDateEr();
+    
   } else if (thisfilefullname == "draftApproval.html") {
     $(".createdDayInput1").text(documentList[2][4]);
     $(".createdDayInput2").text(documentList[2][5]);
@@ -322,6 +331,7 @@ $(document).ready(function () {
     $(".approval1").text(employee[0][1]);
     $(".approval2").text(employee[1][1]);
     $(".approval3").text(employee[2][1]);
+    pickedDateEr();
   }else if (thisfilefullname == "draftWait.html") {
     $(".signtableleft tr:first td").text(employee[0][1]);
     $(".signtableleft tr:first+tr td").text(employee[0][2]);
