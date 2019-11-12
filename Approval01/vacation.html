@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/gnb.css" />
     <link rel="stylesheet" href="./css/jquery-ui.css" />
-
     <script src="./js/jquery-2.1.1.min.js"></script>
     <script src="./js/jquery-ui.min.js"></script>
     <script src="./js/jquery.easing.1.3.js"></script>
     <script src="./js/prefixfree.min.js"></script>
     <script src="./js/main.js"></script>
     <script>
-
         $(function () {
             var toDay;
             var forDay;
@@ -23,8 +21,11 @@
                 toDay = $('#datepicker1').val();
                 forDay = $('#datepicker2').val();
                 var c = getDateDiff(forDay, toDay) + 1;
+                console.log(c);
                 if (c) {
                     $('.dayCount').text(c);
+                }else if(c==0){
+                    $('.dayCount').text("0");
                 }
                 if (c < 1) {
                     $('.dayCountAlret').css({ 'display': 'inline' });
@@ -36,8 +37,11 @@
                 toDay = $('#datepicker1').val();
                 forDay = $('#datepicker2').val();
                 var c = getDateDiff(forDay, toDay) + 1;
+                console.log(c);
                 if (c) {
                     $('.dayCount').text(c);
+                }else if(c==0){
+                    $('.dayCount').text("0");
                 }
                 if (c < 1) {
                     $('.dayCountAlret').css({ 'display': 'inline' });
@@ -84,7 +88,6 @@
         <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
             <option value="./draft.html">기안서</option>
             <option value="./vacation.html" selected>휴가신청서 </option>
-
         </select>
 
         <div class="docName">
