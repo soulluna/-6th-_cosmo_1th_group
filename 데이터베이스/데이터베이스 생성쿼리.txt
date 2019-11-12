@@ -7,9 +7,6 @@ conn admin/admin
 
 
 
-
-
-
 //부서 테이블
 create table EMPLOYEE(
 eno number(10) not null,
@@ -26,12 +23,7 @@ isadmin varchar2(5) default 'false',
 constraint employee_pk primary key(eno, ename, rank));
 
 //글쓰기 기본사항 table
-create table MOD_WRITE(
-txtnum number(3),
-txtname varchar2(100) not null,
-txtcont varchar2(1000) not null,
-entrydate date,
-constraint MOD_PK PRIMARY KEY(txtnum, txtname, txtcont, entrydate));
+
 
 //전자결재페이지 table
 create table APPROVAL(
@@ -49,8 +41,7 @@ vaclist number(1),
 vacstart date,
 vacend date,
 constraint APP_PK primary key(txtnum),
-constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
-constraint APP_FK2 foreign key(txtnum,txtname,txtcont,entrydate) REFERENCES MOD_WRITE(txtnum, txtname, txtcont, entrydate)
+constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank)
 );
 
 
@@ -71,8 +62,7 @@ comcont varchar(500),
 comnum number(3),
 viewtotal number(4),
 constraint NOT_PK primary key(txtnum),
-constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
-constraint NOT_FK2 foreign key(txtnum,txtname,txtcont,entrydate) REFERENCES MOD_WRITE(txtnum, txtname, txtcont, entrydate)
+constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename)
 );
 
 
