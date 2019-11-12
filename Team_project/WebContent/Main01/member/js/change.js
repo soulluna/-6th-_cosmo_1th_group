@@ -75,8 +75,10 @@ function validate() {
 
 
 function cancel(){
-    alert("취소시 수정사항은 반영되지 않습니다.");
-    location.href = "pwdConfirm.do?checked=checked";
+    var check=confirm("취소시 수정사항은 반영되지 않습니다.");
+    if(check){
+    	location.href = "pwdConfirm.do?checked=checked";
+    }
 }
 
 function check(regexpId, what, message) {

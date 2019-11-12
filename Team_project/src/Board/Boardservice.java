@@ -10,22 +10,22 @@ public class Boardservice {
       boardDAO = new BoardDAO();
    }
 //   
-//   public List<BoardVO> listArticles(){
-//      List<BoardVO> articlesList = boardDAO.selectAllArticles();
-//      return articlesList;
-//   }
-//   
-//   public BoardVO viewArticle(int articleNo) {
-//	   BoardVO article = boardDAO.selectArticle(articleNo);
-//      return article;
-//   }
+   public List<BoardVO> listBoards(){
+     List<BoardVO> noticeBoardsList = boardDAO.selectAllBoards();
+     return noticeBoardsList;
+  }
+   
+   public BoardVO viewBoard(int articleNo) {
+	   BoardVO article = boardDAO.selectBoard(articleNo);
+      return article;
+   }
 //   public void modArticle(BoardVO article) {
 //	   boardDAO.updateArticle(article);
 //   }
 //   
-//   public void addArticle(BoardVO article) {
-//	   boardDAO.insertArticle(article); 
-//   }
+   public void addBoard(BoardVO board) {
+	   boardDAO.insertBoard(board); 
+   }
 //   public void delArticle(BoardVO article) {
 //	   boardDAO.deleteArticle(article);
 //   }
