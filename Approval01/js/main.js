@@ -74,11 +74,13 @@ function docModify() {
   console.log(thisfilefullname);
   if (confirm("수정하시겠습니까?") == true) {
     if (thisfilefullname == "createdDraftDoc.html") {
-      location.href = '#';
+      location.href = './draftModify.html';
     } else if (thisfilefullname == "vacationWait.html") {
       location.href = './vacationModify.html';
     } else if (thisfilefullname == "draftWait.html") {
       location.href = './draftModify.html';
+    } else if(thisfilefullname == "createdVacationDoc.html"){
+      location.href = './vacationModify.html';
     }
   } else {
     return false;
@@ -89,7 +91,7 @@ function docModify() {
 function docDelete() {
   if (confirm("정말 삭제하시겠습니까?") == true) {
     //document.removefrm.submit();
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -97,7 +99,7 @@ function docDelete() {
 //문서 승인
 function docApprov() {
   if (confirm("승인하시겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -105,7 +107,7 @@ function docApprov() {
 //문서 반려
 function docReturn() {
   if (confirm("반려하시겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -113,7 +115,7 @@ function docReturn() {
 //문서 취소
 function docCancle() {
   if (confirm("문서함으로 넘어가겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -123,7 +125,7 @@ var draftInputValue = new Array();
 var vacationInputValue = new Array();
 var draftModify = new Array();
 
-//draft.html 입력값 확인 및 문서 등록
+//입력값 확인 및 문서 등록
 function draftCheck() {
   draftInputValue[0] = $("input[name=title]").val();
   draftInputValue[1] = $("textarea[name=reason]").val();
@@ -137,7 +139,11 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      location.href = './createdDraftDoc.html';
+      if(thisfilefullname == "draftModify.html"){
+        location.href = './createdDraftModify.html';
+      }else if(thisfilefullname =="draft.html"){
+        location.href = './createdDraftDoc.html';
+      }
     } else {
       return false;
     }
@@ -255,7 +261,6 @@ $(document).ready(function () {
     $(".signtableleft tr:first td").text(employee[0][1]);
     $(".signtableleft tr:first+tr td").text(employee[0][2]);
     $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
-
     $(".createdDayInput1").text(documentList[3][4]);
     $(".createdDayInput2").text(documentList[3][5]);
     $(".createdDayInput3").text(documentList[3][6]);
@@ -263,7 +268,6 @@ $(document).ready(function () {
     $(".approval2").text(employee[1][1]);
     $(".approval3").text(employee[2][1]);
     $(".inputTitle").text(documentList[3][8]);
-
     if (documentList[3][9] == 1) {
       $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
     } else if (documentList[3][9] == 2) {
@@ -273,18 +277,24 @@ $(document).ready(function () {
     } else if (documentList[3][9] == 4) {
       $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
     }
-
     $(".selectedDay:first").text(documentList[3][10]);
     $(".selectedDay:last").text(documentList[3][11]);
     $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10])+1);
     $(".inputContent").text(documentList[3][12]);
 
   } else if (thisfilefullname == "draftProgress.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
     $(".createdDayInput1").text(documentList[1][4]);
     $(".createdDayInput2").text(documentList[1][5]);
     $(".createdDayInput3").text(documentList[1][6]);
     $(".inputTitle").text(documentList[1][8]);
     $(".inputContent").text(documentList[1][12]);
+
   } else if (thisfilefullname == "vacationModify.html") {
     var getDay = getDateDiff(documentList[3][11], documentList[3][10]) + 1;
     $(".signtableleft tr:first td").text(employee[0][1]);
@@ -311,6 +321,12 @@ $(document).ready(function () {
     $(".dayCount").text(getDay);
     
   } else if (thisfilefullname == "draftApproval.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
     $(".createdDayInput1").text(documentList[2][4]);
     $(".createdDayInput2").text(documentList[2][5]);
     $(".createdDayInput3").text(documentList[2][6]);
@@ -353,9 +369,62 @@ $(document).ready(function () {
     $(".approval3").text(employee[2][1]);
     $('.inputarea .inputTitle').val(documentList[0][8]);
     $('.inputarea .inputContent').val(documentList[0][12]);
+  }else if(thisfilefullname == "createdVacationModify.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[3][8] + "222");
+   
+    $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+   
+    $(".selectedDay:first").text("2019-11-05");
+    $(".selectedDay:last").text("2019-11-07");
+    $(".selectedDayCount").text(getDateDiff("2019-11-07", "2019-11-05")+1);
+    $(".inputContent").text(documentList[3][12] + "222");
+  }else if(thisfilefullname == "createdDraftDoc.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[0][8]);
+    $(".inputContent").text(documentList[0][12]);
+  }else if(thisfilefullname == "createdVacationDoc.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[3][8]);
+    if (documentList[3][9] == 1) {
+      $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
+    } else if (documentList[3][9] == 2) {
+      $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+    } else if (documentList[3][9] == 3) {
+      $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
+    } else if (documentList[3][9] == 4) {
+      $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
+    }
+    $(".selectedDay:first").text(documentList[3][10]);
+    $(".selectedDay:last").text(documentList[3][11]);
+    $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10])+1);
+    $(".inputContent").text(documentList[3][12]);
+  }else if(thisfilefullname == "createdDraftModify.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[0][8]+"222");
+    $(".inputContent").text(documentList[0][12]+"222");
   }
   
-
 
   //문서 작성 버튼 클릭 시
   $("button[name=docCreate").on("click", function () {
@@ -401,5 +470,73 @@ $(document).ready(function () {
 
 
 
+	//더미 데이터 관련
+  function showDocList(rowsize, page, endDoc){ //결재글 출력
+    for(var i=rowsize*(page-1); i<endDoc; i++){
+      $(".docListTable").append("<tr><td>"+articleArr[i][1]+"</td><td>"+articleArr[i][2]+"</td><td>"+articleArr[i][8]+"</td><td><a href='./vacationWait.html'>"+articleArr[i][21]+"</a></td><td>"+articleArr[i][15]+"</td></tr>");
+    }
+  }
+  function showPageNum(startPage, endPage){ //페이지 번호 출력
+    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>이전</a>");
+    for(var i=startPage; i<=endPage; i++){
+        $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>"+i+"</a>");
+    }
+    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>다음</a>");
+    $(".pageButtonsCreatedoc").append("<button class='docCreate' name='docCreate' type='button'>작성</button>");
+  }
 
+  articleArr.sort(function(a,b){ //수/발신 정렬
+    return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
+  });
+  articleArr.sort(function(a,b){ //결재상태 정렬
+    return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
+  });
+  articleArr.sort(function(a,b){ //작성일 정렬
+    return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
+  });
+
+  var $except = $(".docListTable tr").first(); //문서함 목록 컬럼명
+  var articleArrLength = articleArr.length; //결재글 전체 개수
+  var rowsize = 15; //한 페이지에 보이는 결재글 수
+  var block = 5; //페이지 번호 최대 개수
+  var page = 1; //기본 페이지 번호
+  var startDoc = (page*rowsize) - (rowsize-1); //결재글 시작번호
+  var endDoc = (page*rowsize); //결재글 끝번호
+  var allPage = 0; //전체 페이지 수
+  var startPage = ((page-1)/block*block)+1; //시작 페이지 번호
+  var endPage = ((page-1)/block*block)+block; //끝 페이지 번호
+
+  allPage = Math.ceil(articleArrLength/rowsize);
+  if(endPage > allPage){
+    endPage = allPage;
+  }
+
+  if(thisfilefullname=="docList.html"){
+    showDocList(rowsize, page, endDoc);
+    showPageNum(startPage, endPage);
+  }
+
+  $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
+    var tempPage = $(this).text(); //선택한 페이지 번호
+    if(tempPage=="이전"){
+        page = startPage-1;
+    }else if(tempPage=="다음"){
+        page = startPage+1;
+    }else{
+        page = tempPage;
+    }
+    startDoc = (page*rowsize) - (rowsize-1);
+    endDoc = (page*rowsize);
+    startPage = ((page-1)/block*block)+1;
+    endPage = ((page-1)/block*block)+block;
+    if(endPage > allPage){
+        endPage = allPage;
+    }
+
+    $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
+    showDocList(rowsize, page, endDoc);
+    // $(".pageButtonsCreatedoc *").remove();
+    // showPageNum(startPage, endPage);
+  });
+  //더미 데이터 관련end
 });
