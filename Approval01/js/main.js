@@ -74,11 +74,13 @@ function docModify() {
   console.log(thisfilefullname);
   if (confirm("수정하시겠습니까?") == true) {
     if (thisfilefullname == "createdDraftDoc.html") {
-      location.href = '#';
+      location.href = './draftModify.html';
     } else if (thisfilefullname == "vacationWait.html") {
       location.href = './vacationModify.html';
     } else if (thisfilefullname == "draftWait.html") {
       location.href = './draftModify.html';
+    } else if(thisfilefullname == "createdVacationDoc.html"){
+      location.href = './vacationModify.html';
     }
   } else {
     return false;
@@ -123,7 +125,7 @@ var draftInputValue = new Array();
 var vacationInputValue = new Array();
 var draftModify = new Array();
 
-//draft.html 입력값 확인 및 문서 등록
+//입력값 확인 및 문서 등록
 function draftCheck() {
   draftInputValue[0] = $("input[name=title]").val();
   draftInputValue[1] = $("textarea[name=reason]").val();
@@ -137,7 +139,11 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      location.href = './createdDraftDoc.html';
+      if(thisfilefullname == "draftModify.html"){
+        location.href = './createdDraftModify.html';
+      }else if(thisfilefullname =="draft.html"){
+        location.href = './createdDraftDoc.html';
+      }
     } else {
       return false;
     }
@@ -255,7 +261,6 @@ $(document).ready(function () {
     $(".signtableleft tr:first td").text(employee[0][1]);
     $(".signtableleft tr:first+tr td").text(employee[0][2]);
     $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
-
     $(".createdDayInput1").text(documentList[3][4]);
     $(".createdDayInput2").text(documentList[3][5]);
     $(".createdDayInput3").text(documentList[3][6]);
@@ -263,7 +268,6 @@ $(document).ready(function () {
     $(".approval2").text(employee[1][1]);
     $(".approval3").text(employee[2][1]);
     $(".inputTitle").text(documentList[3][8]);
-
     if (documentList[3][9] == 1) {
       $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
     } else if (documentList[3][9] == 2) {
@@ -273,18 +277,24 @@ $(document).ready(function () {
     } else if (documentList[3][9] == 4) {
       $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
     }
-
     $(".selectedDay:first").text(documentList[3][10]);
     $(".selectedDay:last").text(documentList[3][11]);
     $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10])+1);
     $(".inputContent").text(documentList[3][12]);
 
   } else if (thisfilefullname == "draftProgress.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
     $(".createdDayInput1").text(documentList[1][4]);
     $(".createdDayInput2").text(documentList[1][5]);
     $(".createdDayInput3").text(documentList[1][6]);
     $(".inputTitle").text(documentList[1][8]);
     $(".inputContent").text(documentList[1][12]);
+
   } else if (thisfilefullname == "vacationModify.html") {
     var getDay = getDateDiff(documentList[3][11], documentList[3][10]) + 1;
     $(".signtableleft tr:first td").text(employee[0][1]);
@@ -311,6 +321,12 @@ $(document).ready(function () {
     $(".dayCount").text(getDay);
     
   } else if (thisfilefullname == "draftApproval.html") {
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
     $(".createdDayInput1").text(documentList[2][4]);
     $(".createdDayInput2").text(documentList[2][5]);
     $(".createdDayInput3").text(documentList[2][6]);
@@ -353,9 +369,62 @@ $(document).ready(function () {
     $(".approval3").text(employee[2][1]);
     $('.inputarea .inputTitle').val(documentList[0][8]);
     $('.inputarea .inputContent').val(documentList[0][12]);
+  }else if(thisfilefullname == "createdVacationModify.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[3][8] + "222");
+   
+    $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+   
+    $(".selectedDay:first").text("2019-11-05");
+    $(".selectedDay:last").text("2019-11-07");
+    $(".selectedDayCount").text(getDateDiff("2019-11-07", "2019-11-05")+1);
+    $(".inputContent").text(documentList[3][12] + "222");
+  }else if(thisfilefullname == "createdDraftDoc.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[0][8]);
+    $(".inputContent").text(documentList[0][12]);
+  }else if(thisfilefullname == "createdVacationDoc.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[3][8]);
+    if (documentList[3][9] == 1) {
+      $(".inputarea tr:nth-child(2) input[value=1]").attr("checked", "checked");
+    } else if (documentList[3][9] == 2) {
+      $(".inputarea tr:nth-child(2) input[value=2]").attr("checked", "checked");
+    } else if (documentList[3][9] == 3) {
+      $(".inputarea tr:nth-child(2) input[value=3]").attr("checked", "checked");
+    } else if (documentList[3][9] == 4) {
+      $(".inputarea tr:nth-child(2) input[value=4]").attr("checked", "checked");
+    }
+    $(".selectedDay:first").text(documentList[3][10]);
+    $(".selectedDay:last").text(documentList[3][11]);
+    $(".selectedDayCount").text(getDateDiff(documentList[3][11], documentList[3][10])+1);
+    $(".inputContent").text(documentList[3][12]);
+  }else if(thisfilefullname == "createdDraftModify.html"){
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
+    $(".inputTitle").text(documentList[0][8]+"222");
+    $(".inputContent").text(documentList[0][12]+"222");
   }
   
-
 
   //문서 작성 버튼 클릭 시
   $("button[name=docCreate").on("click", function () {
