@@ -91,7 +91,7 @@ function docModify() {
 function docDelete() {
   if (confirm("정말 삭제하시겠습니까?") == true) {
     //document.removefrm.submit();
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -99,7 +99,7 @@ function docDelete() {
 //문서 승인
 function docApprov() {
   if (confirm("승인하시겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -107,7 +107,7 @@ function docApprov() {
 //문서 반려
 function docReturn() {
   if (confirm("반려하시겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
@@ -115,7 +115,7 @@ function docReturn() {
 //문서 취소
 function docCancle() {
   if (confirm("문서함으로 넘어가겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = './docList.html';
   } else {
     return false;
   }
