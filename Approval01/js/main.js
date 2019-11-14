@@ -475,15 +475,15 @@ $(document).ready(function () {
 
 
 	//더미 데이터 관련
-  articleArr.sort(function(a,b){ //수/발신 정렬
-    return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
-  });
-  articleArr.sort(function(a,b){ //결재상태 정렬
-    return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
-  });
-  articleArr.sort(function(a,b){ //작성일 정렬
-    return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
-  });
+   articleArr.sort(function(a,b){ //수/발신 정렬
+     return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
+   });
+   articleArr.sort(function(a,b){ //결재상태 정렬
+     return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
+   });
+   articleArr.sort(function(a,b){ //작성일 정렬
+     return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
+   });
 
   var $except = $(".docListTable tr").first(); //문서함 목록 컬럼명
   var articleArrLength = articleArr.length; //결재글 전체 개수
@@ -565,7 +565,7 @@ $(document).ready(function () {
         endPage = allPage;
       }
       if(allPage==page){
-        endDoc = (articleArrLength % rowsize) + (rowsize*(page-1));
+        endDoc = (articleArrLength % rowsize) + (rowsize*page);
       }
   
       $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
