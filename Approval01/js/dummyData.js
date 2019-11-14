@@ -71,7 +71,7 @@ for(var i=0; i<employeesArr[0].length; i++){
 // }
 
 //---------------결재글 랜덤 생성 반복문-------------------
-for(var i=0; i<150; i++){
+for(var i=0; i<300; i++){
     employeesArrIndex = get_employeesArrIndex(); //랜덤으로 누군가 한명 작성자로 당첨(직급이 이사인 사람 제외)
 
     ename = employeesArr[0][employeesArrIndex]; //이름
