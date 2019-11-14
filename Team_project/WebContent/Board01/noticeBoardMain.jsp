@@ -26,6 +26,7 @@
 <body>
 	<div class="fullWrap">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
+		<%-- <%@include file="/WEB-INF/GNB/header.jsp" %>--%>
 		<h1>6기 1조 프로젝트 전체 게시판</h1>
 		<div class="side">
 			<a href="${contextPath}/Board01/noticeBoardMain.jsp">

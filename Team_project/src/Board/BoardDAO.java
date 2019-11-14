@@ -139,15 +139,17 @@ public class BoardDAO {
 			con = dataFactory.getConnection();
 			
 			String txtname = board.getTxtname();
-			String ename = "차현진";
+			String ename = board.getEname();
+			Date entrydate = board.getEntrydate();
 			int viewtotal = board.getViewtotal();
 			String txtcont = board.getTxtcont();
 			
-			String query = "insert into NOTICE(txtname, txtnum, ename, viewtotal, txtcont) values(?,?,?,?,?)"; //REFERENCES EMPLOYEE(eno,ename,rank) 이부분이 의심스러움
+			String query = "insert into NOTICE(txtname, txtnum, ename,entrydate, viewtotal, txtcont) values(?,?,?,?,?,?)"; //REFERENCES EMPLOYEE(eno,ename,rank) 이부분이 의심스러움
 				
 				System.out.println(txtname);
 				System.out.println(txtnum);
-				System.out.println(ename); 
+				System.out.println(ename);
+				System.out.println(entrydate);
 				System.out.println(viewtotal);
 				System.out.println(txtcont);
 				
