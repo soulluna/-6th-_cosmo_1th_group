@@ -349,17 +349,21 @@ $(document).ready(function () {
     $(".approval3").text(employee[2][1]);
     pickedDateEr();
   }else if (thisfilefullname == "draftWait.html") {
-    $(".signtableleft tr:first td").text(employee[0][1]);
-    $(".signtableleft tr:first+tr td").text(employee[0][2]);
-    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
-    $(".createdDayInput1").text(documentList[0][4]);
-    $(".createdDayInput2").text(documentList[0][5]);
-    $(".createdDayInput3").text(documentList[0][6]);
-    $(".inputTitle").text(documentList[0][8]);
-    $(".inputContent").text(documentList[0][12]);
-    $(".approval1").text(employee[0][1]);
-    $(".approval2").text(employee[1][1]);
-    $(".approval3").text(employee[2][1]);
+    // $(".signtableleft tr:first td").text(employee[0][1]);
+    // $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    // $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    // $(".createdDayInput1").text(documentList[0][4]);
+    // $(".createdDayInput2").text(documentList[0][5]);
+    // $(".createdDayInput3").text(documentList[0][6]);
+    // $(".inputTitle").text(documentList[0][8]);
+    // $(".inputContent").text(documentList[0][12]);
+    // $(".approval1").text(employee[0][1]);
+    // $(".approval2").text(employee[1][1]);
+    // $(".approval3").text(employee[2][1]);
+
+    //더미 데이터 관련
+    // $(".signtableleft tr:first td").text(articleArr[0][4]);
+    //더미 데이터 관련end
   }else if (thisfilefullname == "draftModify.html") {
     $(".signtableleft tr:first td").text(employee[0][1]);
     $(".signtableleft tr:first+tr td").text(employee[0][2]);
@@ -471,20 +475,6 @@ $(document).ready(function () {
 
 
 	//더미 데이터 관련
-  function showDocList(rowsize, page, endDoc){ //결재글 출력
-    for(var i=rowsize*(page-1); i<endDoc; i++){
-      $(".docListTable").append("<tr><td>"+articleArr[i][1]+"</td><td>"+articleArr[i][2]+"</td><td>"+articleArr[i][8]+"</td><td><a href='./vacationWait.html'>"+articleArr[i][21]+"</a></td><td>"+articleArr[i][15]+"</td></tr>");
-    }
-  }
-  function showPageNum(startPage, endPage){ //페이지 번호 출력
-    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>이전</a>");
-    for(var i=startPage; i<=endPage; i++){
-        $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>"+i+"</a>");
-    }
-    $(".pageButtonsCreatedoc").append("<a href='javascript:void(0)'>다음</a>");
-    $(".pageButtonsCreatedoc").append("<button class='docCreate' name='docCreate' type='button'>작성</button>");
-  }
-
   articleArr.sort(function(a,b){ //수/발신 정렬
     return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
   });
@@ -500,43 +490,135 @@ $(document).ready(function () {
   var rowsize = 15; //한 페이지에 보이는 결재글 수
   var block = 5; //페이지 번호 최대 개수
   var page = 1; //기본 페이지 번호
-  var startDoc = (page*rowsize) - (rowsize-1); //결재글 시작번호
+  // var startDoc = (page*rowsize) - (rowsize-1); //결재글 시작번호
   var endDoc = (page*rowsize); //결재글 끝번호
   var allPage = 0; //전체 페이지 수
-  var startPage = ((page-1)/block*block)+1; //시작 페이지 번호
-  var endPage = ((page-1)/block*block)+block; //끝 페이지 번호
-
-  allPage = Math.ceil(articleArrLength/rowsize);
+  var startPage = 1; //시작 페이지 번호
+  var endPage = startPage+block-1; //끝 페이지 번호
+  
+  allPage = Math.ceil(articleArrLength/rowsize); //전체 페이지 수
   if(endPage > allPage){
     endPage = allPage;
   }
-
+  if(articleArrLength < rowsize){
+    endDoc = articleArrLength;
+  }
+  
   if(thisfilefullname=="docList.html"){
     showDocList(rowsize, page, endDoc);
     showPageNum(startPage, endPage);
   }
 
-  $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
-    var tempPage = $(this).text(); //선택한 페이지 번호
-    if(tempPage=="이전"){
-        page = startPage-1;
-    }else if(tempPage=="다음"){
-        page = startPage+1;
-    }else{
-        page = tempPage;
+  function showDocList(rowsize, page, endDoc){ //결재글 출력
+    for(var i=rowsize*(page-1); i<endDoc; i++){
+      if(articleArr[i][2]==applistArr[0]){ //기안서의 경우
+        $(".docListTable").append("<tr class='docListRow'><td>"+articleArr[i][1]+"</td><td>"+articleArr[i][2]+"</td><td>"+articleArr[i][8]+"</td><td><a href='./draftWait.html'>"+articleArr[i][21]+"</a></td><td>"+articleArr[i][15]+"</td></tr>");
+      }else{ //휴가 신청서의 경우
+        $(".docListTable").append("<tr class='docListRow'><td>"+articleArr[i][1]+"</td><td>"+articleArr[i][2]+"</td><td>"+articleArr[i][8]+"</td><td><a href='./vacationWait.html'>"+articleArr[i][21]+"</a></td><td>"+articleArr[i][15]+"</td></tr>");
+      }
     }
-    startDoc = (page*rowsize) - (rowsize-1);
-    endDoc = (page*rowsize);
-    startPage = ((page-1)/block*block)+1;
-    endPage = ((page-1)/block*block)+block;
-    if(endPage > allPage){
-        endPage = allPage;
+    $(".docListRow").hover(function(){
+      $(this).css("font-weight", "bold");
+    },function(){
+      $(this).css("font-weight", "normal");
+    });
+  }
+  function showPageNum(startPage, endPage){ //페이지 번호 출력
+    for(var i=startPage; i<=endPage; i++){
+      if(i==page){
+        $(".pageButtonsCreatedoc a:last").before("<a href='javascript:void(0)' style='color:red; font-weight:bold;'>"+i+"</a>");
+      }else{
+        $(".pageButtonsCreatedoc a:last").before("<a href='javascript:void(0)'>"+i+"</a>");
+      }
     }
 
-    $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
-    showDocList(rowsize, page, endDoc);
-    // $(".pageButtonsCreatedoc *").remove();
-    // showPageNum(startPage, endPage);
+    if(startPage==1){ //이전 버튼 없앰
+      $(".pageButtonsCreatedoc a:first").text("");
+    }else{
+      $(".pageButtonsCreatedoc a:first").text("이전");
+    }
+
+    if(endPage==allPage){ //다음 버튼 없앰
+      $(".pageButtonsCreatedoc a:last").text("");
+    }else{
+      $(".pageButtonsCreatedoc a:last").text("다음");
+    }
+
+    $("div.pageButtonsCreatedoc > a").off("click"); //바인딩 해제
+    $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
+      var tempPage = $(this).text(); //선택한 페이지 번호
+      if(tempPage=="이전"){
+        startPage = startPage-block;
+        endPage = startPage+block-1;
+        page = startPage;
+      }else if(tempPage=="다음"){
+        startPage = startPage+block;
+        endPage = startPage+block-1;
+        page = startPage;
+      }else{
+          page = tempPage;
+      }
+      // startDoc = (page*rowsize) - (rowsize-1);
+      endDoc = (page*rowsize); //결재글 끝번호
+      allPage = Math.ceil(articleArrLength/rowsize); //전체 페이지 수
+      if(endPage > allPage){
+        endPage = allPage;
+      }
+      if(allPage==page){
+        endDoc = (articleArrLength % rowsize) + (rowsize*(page-1));
+      }
+  
+      $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
+      showDocList(rowsize, page, endDoc);
+      $(".pageButtonsCreatedoc a").not("a:first").not("a:last").remove(); //내 문서함의 페이지 번호 삭제
+      showPageNum(startPage, endPage);
+    });
+  }
+
+  var selectedTxtnum; //클릭한 글번호
+  var selectedDoc; //클릭한 글번호의 결재글 배열
+  $(".docListRow a").on("click",function(){
+    selectedTxtnum = $(this).text().substring($(this).text().indexOf("(")+1, $(this).text().lastIndexOf(")")); //글번호 추출
+
+    for(var i=0; i<articleArr.length; i++){
+      if(selectedTxtnum==articleArr[i][0]){
+        selectedDoc = articleArr[i];
+        break;
+      }
+    }
+
+    $(".signtableleft tr:first td").text(selectedDoc[4]);
+    $(".signtableleft tr:first+tr td").text(selectedDoc[5]);
+    $(".signtableleft tr:first+tr+tr td").text(selectedDoc[6]+" "+selectedDoc[7]);
+
+
   });
+
+
+  // $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
+  //   var tempPage = $(this).text(); //선택한 페이지 번호
+  //   if(tempPage=="이전"){
+  //     startPage = startPage-block;
+  //     endPage = startPage+block;
+  //     page = startPage;
+  //   }else if(tempPage=="다음"){
+  //     startPage = startPage+block;
+  //     endPage = startPage+block;
+  //     page = startPage;
+  //   }else{
+  //       page = tempPage;
+  //   }
+  //   startDoc = (page*rowsize) - (rowsize-1);
+  //   endDoc = (page*rowsize);
+  //   allPage = Math.ceil(articleArrLength/rowsize);
+  //   if(endPage > allPage){
+  //       endPage = allPage;
+  //   }
+
+  //   $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
+  //   showDocList(rowsize, page, endDoc);
+  //   $(".pageButtonsCreatedoc a").not("a:first").not("a:last").remove();
+  //   showPageNum(startPage, endPage);
+  // });
   //더미 데이터 관련end
 });
