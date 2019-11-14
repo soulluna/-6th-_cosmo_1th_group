@@ -233,10 +233,10 @@ var documentList =
   // 11:휴가끝날짜
   // 12:내용
   [
-    ["DR-0164", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "원하는 제목", "", "", "", "원하는 내용"],
+    ["DR-0164", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "기안서에 관한 문서입니다.", "", "", "", "이번주 이사님 생신입니다."],
     ["DR-0139", "작성자id", "중간id", "최종id", "2019-07-22", "2019-07-24", "", "2", "2019년 07월 사내문화 안영우 사원 기안서", "", "", "", "저녁 시간은 가족과 보냅시다."],
     ["DR-0116", "작성자id", "중간id", "최종id", "2019-06-30", "2019-07-05", "2019-07-06", "3", "2019년 06월 업무 개선사항 안영우 사원 기안서", "", "", "", "주간 보고 시간 변경 "],
-    ["VA-0030", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "원하는 제목", "1", "2019-11-04", "2019-11-05", "원하는 사유"]
+    ["VA-0030", "작성자id", "중간id", "최종id", "2019-11-01", "", "", "1", "휴가 신청서에 대한 문서입니다.", "1", "2019-11-04", "2019-11-05", "결혼식 참가해야 됩니다."]
   ]
 
 var employee = [
@@ -245,15 +245,13 @@ var employee = [
   // 2:직책
   // 3:소속
 
-  ["em-0001", "안영우", "사원", "기술지원팀"],
+  ["em-0001", "이진호", "사원", "기술지원팀"],
   ["em-0001", "함종우", "과장", "기술지원팀"],
   ["em-0001", "조현석", "부장", "기술지원팀"],
 ]
 
-
 //문서 시작
 $(document).ready(function () {
-
   thisfilefullname = docName();
   console.log(thisfilefullname);
 
@@ -349,21 +347,18 @@ $(document).ready(function () {
     $(".approval3").text(employee[2][1]);
     pickedDateEr();
   }else if (thisfilefullname == "draftWait.html") {
-    // $(".signtableleft tr:first td").text(employee[0][1]);
-    // $(".signtableleft tr:first+tr td").text(employee[0][2]);
-    // $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
-    // $(".createdDayInput1").text(documentList[0][4]);
-    // $(".createdDayInput2").text(documentList[0][5]);
-    // $(".createdDayInput3").text(documentList[0][6]);
-    // $(".inputTitle").text(documentList[0][8]);
-    // $(".inputContent").text(documentList[0][12]);
-    // $(".approval1").text(employee[0][1]);
-    // $(".approval2").text(employee[1][1]);
-    // $(".approval3").text(employee[2][1]);
+    $(".signtableleft tr:first td").text(employee[0][1]);
+    $(".signtableleft tr:first+tr td").text(employee[0][2]);
+    $(".signtableleft tr:first+tr+tr td").text(employee[0][3]);
+    $(".createdDayInput1").text(documentList[0][4]);
+    $(".createdDayInput2").text(documentList[0][5]);
+    $(".createdDayInput3").text(documentList[0][6]);
+    $(".inputTitle").text(documentList[0][8]);
+    $(".inputContent").text(documentList[0][12]);
+    $(".approval1").text(employee[0][1]);
+    $(".approval2").text(employee[1][1]);
+    $(".approval3").text(employee[2][1]);
 
-    //더미 데이터 관련
-    // $(".signtableleft tr:first td").text(articleArr[0][4]);
-    //더미 데이터 관련end
   }else if (thisfilefullname == "draftModify.html") {
     $(".signtableleft tr:first td").text(employee[0][1]);
     $(".signtableleft tr:first+tr td").text(employee[0][2]);
@@ -429,7 +424,6 @@ $(document).ready(function () {
     $(".inputContent").text(documentList[0][12]+"222");
   }
   
-
   //문서 작성 버튼 클릭 시
   $("button[name=docCreate").on("click", function () {
     location.href = "./draft.html";
@@ -475,15 +469,15 @@ $(document).ready(function () {
 
 
 	//더미 데이터 관련
-   articleArr.sort(function(a,b){ //수/발신 정렬
-     return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
-   });
-   articleArr.sort(function(a,b){ //결재상태 정렬
-     return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
-   });
-   articleArr.sort(function(a,b){ //작성일 정렬
-     return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
-   });
+  articleArr.sort(function(a,b){ //수/발신 정렬
+    return a[1]>b[1] ? -1 : a[1]<b[1] ? 1 : 0; //내림차순
+  });
+  articleArr.sort(function(a,b){ //결재상태 정렬
+    return a[9]<b[9] ? -1 : a[9]>b[9] ? 1 : 0; //오름차순
+  });
+  articleArr.sort(function(a,b){ //작성일 정렬
+    return a[15]>b[15] ? -1 : a[15]<b[15] ? 1 : 0; //내름차순
+  });
 
   var $except = $(".docListTable tr").first(); //문서함 목록 컬럼명
   var articleArrLength = articleArr.length; //결재글 전체 개수
@@ -522,6 +516,20 @@ $(document).ready(function () {
     },function(){
       $(this).css("font-weight", "normal");
     });
+
+    // var selectedTxtnum;
+    // var selectedDoc = []; //클릭한 글번호의 결재글 배열
+    // $(".docListRow a").on("click",function(){
+    //   selectedTxtnum = $(this).text().substring($(this).text().indexOf("(")+1, $(this).text().lastIndexOf(")")); //글번호 추출
+      
+    //   for(var i=0; i<articleArr.length; i++){
+    //     if(selectedTxtnum==articleArr[i][0]){
+    //       selectedDoc.push(articleArr[i][4]);
+    //       alert(selectedDoc[0]);
+    //       break;
+    //     }
+    //   }
+    // });
   }
   function showPageNum(startPage, endPage){ //페이지 번호 출력
     for(var i=startPage; i<=endPage; i++){
@@ -574,51 +582,7 @@ $(document).ready(function () {
       showPageNum(startPage, endPage);
     });
   }
-
-  var selectedTxtnum; //클릭한 글번호
-  var selectedDoc; //클릭한 글번호의 결재글 배열
-  $(".docListRow a").on("click",function(){
-    selectedTxtnum = $(this).text().substring($(this).text().indexOf("(")+1, $(this).text().lastIndexOf(")")); //글번호 추출
-
-    for(var i=0; i<articleArr.length; i++){
-      if(selectedTxtnum==articleArr[i][0]){
-        selectedDoc = articleArr[i];
-        break;
-      }
-    }
-
-    $(".signtableleft tr:first td").text(selectedDoc[4]);
-    $(".signtableleft tr:first+tr td").text(selectedDoc[5]);
-    $(".signtableleft tr:first+tr+tr td").text(selectedDoc[6]+" "+selectedDoc[7]);
-
-
-  });
-
-
-  // $("div.pageButtonsCreatedoc > a").on("click",function(){ //문서함 목록 페이지 이동
-  //   var tempPage = $(this).text(); //선택한 페이지 번호
-  //   if(tempPage=="이전"){
-  //     startPage = startPage-block;
-  //     endPage = startPage+block;
-  //     page = startPage;
-  //   }else if(tempPage=="다음"){
-  //     startPage = startPage+block;
-  //     endPage = startPage+block;
-  //     page = startPage;
-  //   }else{
-  //       page = tempPage;
-  //   }
-  //   startDoc = (page*rowsize) - (rowsize-1);
-  //   endDoc = (page*rowsize);
-  //   allPage = Math.ceil(articleArrLength/rowsize);
-  //   if(endPage > allPage){
-  //       endPage = allPage;
-  //   }
-
-  //   $(".docListTable tr").not($except).remove(); //테이블에서 문서함 목록 컬럼명 빼고 삭제
-  //   showDocList(rowsize, page, endDoc);
-  //   $(".pageButtonsCreatedoc a").not("a:first").not("a:last").remove();
-  //   showPageNum(startPage, endPage);
-  // });
   //더미 데이터 관련end
 });
+
+
