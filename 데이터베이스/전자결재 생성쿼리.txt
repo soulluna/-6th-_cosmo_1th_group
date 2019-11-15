@@ -17,7 +17,7 @@ vacstart 휴가 시작일
 vacend 휴가 종료일
 
 create table APPROVAL(
-txtcall varchar2(10) not null,
+//txtcall varchar2(10) not null,
 applist varchar(20),
 txtnum number(3) not null,
 txtname varchar2(100) not null,
@@ -27,8 +27,8 @@ entrydate date,
 middate date,
 findate date,
 eno number(10) not null, 
-ename varchar2(10) not null,
-rank varchar2(8) not null,
+//ename varchar2(10) not null,
+//rank varchar2(8) not null,
 midsugesteno varchar2(10),
 finsugesteno varchar2(10),
 vaclist varchar2(20),

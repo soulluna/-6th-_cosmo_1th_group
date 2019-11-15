@@ -27,6 +27,7 @@ constraint employee_pk primary key(eno, ename, rank));
 
 //전자결재페이지 table
 create table APPROVAL(
+applist varchar2(20),
 txtnum number(3),
 txtname varchar2(100) not null,
 txtcont varchar2(1000) not null,
