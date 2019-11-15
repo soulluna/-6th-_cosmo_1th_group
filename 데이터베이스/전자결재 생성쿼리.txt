@@ -1,4 +1,4 @@
-﻿txtcall 수신/발신
+﻿//txtcall 수신/발신
 applist 문서 종류
 txtnum 문서 번호
 txtname 문서 이름
@@ -8,8 +8,8 @@ entrydate 작성일
 middate 중간 결재일
 findate 최종 결재일
 eno 작성자 사원 번호
-ename 사원 이름
-rank 작성자 직급
+//ename 사원 이름
+//rank 작성자 직급
 midsugesteno 중간 결재자 사원 번호
 finsugesteno 최종 결재자 사원 번호
 vaclist 휴가 종류
