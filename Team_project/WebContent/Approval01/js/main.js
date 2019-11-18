@@ -309,10 +309,6 @@ $(document).ready(function () {
   }
 
 
-  //문서 작성 버튼 클릭 시
-  $("button[name=docCreate").on("click", function () {
-    location.href = "./draft.html";
-  });
 
   // 문서목록 검색 타입 및 검색값 콘솔 확인
   $(".search").on("click", function () {

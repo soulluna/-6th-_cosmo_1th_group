@@ -37,6 +37,15 @@ public class ApprovalVO {
 		this.txtname = txtname;
 		this.entrydate = entrydate;
 	}
+	
+public ApprovalVO(int txtnum, String applist, String progress, String txtname, Date entrydate) {
+		
+		this.txtnum = txtnum;
+		this.applist = applist;
+		this.progress = progress;
+		this.txtname = txtname;
+		this.entrydate = entrydate;
+	}
 
 	public String getTxtcall() {
 		return txtcall;

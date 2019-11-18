@@ -41,7 +41,7 @@ public class ApprovalDAO {
 			con = dataFactory.getConnection();
 
 			String query =
-					"select txtnum, txtcall, applist, progress, txtname, entrydate from approval where ename='안영우'";
+					"select txtnum, applist, progress, txtname, entrydate from approval where ename='안영우'";
 			
 			System.out.println(query);
 
@@ -55,14 +55,13 @@ public class ApprovalDAO {
 			while (rs.next()) {
 				//값을 가져옴
 				int txtnum = rs.getInt("txtnum");
-				String txtcall = rs.getString("txtcall");
 				String applist = rs.getString("applist");
 				String progress = rs.getString("progress");
 				String txtname = rs.getString("txtname");
 				Date entrydate = rs.getDate("entrydate");
 				
 				//값을 넣어 객체 생성
-				ApprovalVO approvalVO = new ApprovalVO(txtnum, txtcall, applist, progress, txtname, entrydate);
+				ApprovalVO approvalVO = new ApprovalVO(txtnum, applist, progress, txtname, entrydate);
 				
 				//생성한 객체를 하나씩 추가
 				approvalList.add(approvalVO);

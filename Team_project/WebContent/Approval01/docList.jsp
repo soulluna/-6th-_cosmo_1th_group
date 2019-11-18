@@ -83,6 +83,8 @@
 				</tr>
 				</c:forEach>
 			</table>
+			
+			<button class="docCreate" name="docCreate" type="button" onclick="location.href='${contextPath}/Approval01/draft.jsp'">작성</button>
 
 </body>
 </html>
