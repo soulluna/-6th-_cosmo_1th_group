@@ -1,6 +1,9 @@
 package Approval;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import Main.MemberVO;
 
 public class ApprovalService {
 
@@ -11,8 +14,8 @@ public class ApprovalService {
 	}
 	
 	//그냥 문서 출력
-	public List<ApprovalVO> listApproval() {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval();	
+	public List<ApprovalVO> listApproval(String eno) {
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(eno);	
 		return approvallist;
 	}
 	
@@ -42,4 +45,30 @@ public class ApprovalService {
 	}
 	
 	
+	//기안서 작성 시 결재 정보
+	public MemberVO midApprovalInfo(String Dname) {
+		MemberVO midUser = approvalDAO.midApprovalGet(Dname);
+		
+		
+		return midUser;
+	}
+	public MemberVO finApprovalInfo(String Dname) {
+		MemberVO finUser = approvalDAO.finApprovalGet(Dname);
+		
+		return finUser;
+	}
+	
+
+	public void draftAdd(ApprovalVO aVO, MemberVO mVO) {
+		// TODO Auto-generated method stub
+		approvalDAO.draftInset(aVO,mVO);
+	}
+
+	public long approvalUser(String userEname) {
+		// TODO Auto-generated method stub
+		long userEno = approvalDAO.appUserGetEno(userEname);
+		return userEno;
+	}
+
+
 }

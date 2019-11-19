@@ -55,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			MemberVO memberVO = memberDAO.getMember(eno);
 			HttpSession session = request.getSession(); //세션을 열어준다.
 			session.setAttribute("loginUser", memberVO);
+			
 			url = "Main01/indexMain.jsp";
 		}else {//로그인 실패
 			String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";

@@ -131,7 +131,9 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      location.href = './createdDraftDoc.html';
+      frm.action = "drafted.do";
+      frm.submit();
+  		
     } else {
       return false;
     }

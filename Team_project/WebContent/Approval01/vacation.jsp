@@ -29,7 +29,7 @@
  <div class="content">
       <jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
         <select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="${contextPath}/Approval01/draft.jsp">기안서</option>
+            <option value="${contextPath}/Approval/draft.do">기안서</option>
             <option value="${contextPath}/Approval01/vacation.jsp" selected>휴가신청서 </option>
         </select>
 
