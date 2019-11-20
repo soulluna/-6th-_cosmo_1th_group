@@ -46,14 +46,13 @@ public class ApprovalService {
 	
 	
 	//기안서 작성 시 결재 정보
-	public MemberVO midApprovalInfo(String Dname) {
-		MemberVO midUser = approvalDAO.midApprovalGet(Dname);
-		
+	public MemberVO midApprovalInfo(MemberVO mVO) {
+		MemberVO midUser = approvalDAO.midApprovalGet(mVO);
 		
 		return midUser;
 	}
-	public MemberVO finApprovalInfo(String Dname) {
-		MemberVO finUser = approvalDAO.finApprovalGet(Dname);
+	public MemberVO finApprovalInfo(MemberVO mVO) {
+		MemberVO finUser = approvalDAO.finApprovalGet(mVO);
 		
 		return finUser;
 	}
@@ -64,9 +63,9 @@ public class ApprovalService {
 		approvalDAO.draftInset(aVO,mVO);
 	}
 
-	public long approvalUser(String userEname) {
+	public String approvalUser(String userEname) {
 		// TODO Auto-generated method stub
-		long userEno = approvalDAO.appUserGetEno(userEname);
+		String userEno = approvalDAO.appUserGetEno(userEname);
 		return userEno;
 	}
 
