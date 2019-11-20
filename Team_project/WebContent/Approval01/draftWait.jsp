@@ -31,35 +31,7 @@
 
 <body>
     <div class="content">
-        <!--gnb-->
-        <div class="gnb">
-            <!--logoBar-->
-            <ul class="logobar">
-                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
-                <table id="memberinfo">
-                    <tbody>
-                        <tr>
-                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                            <td colspan="2">관리자 님 환영합니다.</td>
-                        </tr>
-                        <tr>
-                            <td><a href="../index.html">로그아웃</a>
-                                <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ul>
-            <!--//logoBar-->
-            <!--nav bar-->
-            <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-                <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
-                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-            </ul>
-            <!--//navBar-->
-        </div>
-        <!--//gnb-->
+       <jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
         <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
             <option value="./draft.html" selected>기안서</option>
             <option value="./vacation.html">휴가신청서 </option>
@@ -73,33 +45,43 @@
                 <table class="signtableleft">
                     <tr>
                         <th>이름</th>
-                        <td>홍길동</td>
+                        <td>${approval.ename}</td>
                     </tr>
                     <tr>
                         <th>직책</th>
-                        <td>사원</td>
+                        <td>${approval.rank}</td>
                     </tr>
                     <tr>
                         <th>소속</th>
-                        <td>경영지원부</td>
+                        <td>${approval.dname}</td>
                     </tr>
                 </table>
 
                 <table class="signtableright" border="1">
                     <tr>
-                        <th>사원</th>
-                        <th>과장</th>
-                        <th>부장</th>
+                        <th>${approval.rank}</th>
+                        <th>${midUser.rank}</th>
+                        <th>${finUser.rank}</th>
                     </tr>
                     <tr>
-                        <td style="vertical-align:top">홍길동<br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top">어피치<br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top">라이언<br><span style="color:red;"></span></td>
+						<td style="vertical-align: top">${approval.ename}<br>
+							<span style="color: red;">[승인]</span>
+						</td>
+						<td style="vertical-align:top">${midUser.ename}<br>
+						<c:if test="${approval.middate}">
+							<span style="color: red;">[승인]</span>
+						</c:if>
+						</td>
+                        <td style="vertical-align:top">${finUser.ename}<br>
+						<c:if test="${approval.findate}">
+							<span style="color: red;">[승인]</span>
+						</c:if>
+						</td>
                     </tr>
                     <tr>
-                        <td class="createdDayInput1"></td>
-                        <td class="createdDayInput2"></td>
-                        <td class="createdDayInput3"></td>
+                        <td class="createdDayInput1">${approval.entrydate}</td>
+                        <td class="createdDayInput2">${approval.middate}</td>
+                        <td class="createdDayInput3">${approval.findate}</td>
                     </tr>
                 </table>
             </div>

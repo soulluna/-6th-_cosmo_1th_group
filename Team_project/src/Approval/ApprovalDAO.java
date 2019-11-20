@@ -128,42 +128,27 @@ public class ApprovalDAO {
 		ApprovalVO approval = new ApprovalVO();
 		System.out.println("selectDraft");
 		try {
+			String query = "select applist, txtnum, txtname, txtcont, progress,";
+						query += "entrydate, middate, findate, eno, ename, rank, Midsugesteno, Finsugesteno,";
+						query += "(select Employee.dname from employee where employee.eno=Approval.eno) as dname ";
+						query += "from approval where txtnum=?";
 			con = dataFactory.getConnection();
-			String query = "select entrydate, middate, findate, eno, ";
-			query += "mideno, fineno, txtname, txtcont from approval where txtnum=?";
-
 			pstmt = con.prepareStatement(query);
+
 			pstmt.setInt(1, txtnum);
-			System.out.println(txtnum);
-			System.out.println(query);
 			ResultSet rs = pstmt.executeQuery();
+			
 			rs.next();
-			Date entrydate = rs.getDate("entrydate");
-			Date middate = rs.getDate("middate");
-			Date findate = rs.getDate("findate");
-			String eno = rs.getString("eno");
-			String mideno = rs.getString("midsugesteno");
-			String fineno = rs.getString("finsugesteno");
-			String txtname = rs.getString("txtname");
-			String txtcont = rs.getString("txtcont");
-
-			System.out.println(entrydate);
-			System.out.println(middate);
-			System.out.println(findate);
-			System.out.println(eno);
-			System.out.println(mideno);
-			System.out.println(fineno);
-			System.out.println(txtname);
-			System.out.println(txtcont);
-
-			approval.setEntrydate(entrydate);
-			approval.setMiddate(middate);
-			approval.setFindate(findate);
-			approval.setEno(eno);
-			approval.setMideno(mideno);
-			approval.setFineno(fineno);
-			approval.setTxtname(txtname);
-			approval.setTxtcont(txtcont);
+			approval.setTxtname(rs.getString("txtname"));
+			approval.setTxtcont(rs.getString("txtcont"));
+			approval.setProgress(rs.getString("progress"));
+			approval.setEntrydate(rs.getDate("entrydate"));
+			approval.setMiddate(rs.getDate("middate"));
+			approval.setFindate(rs.getDate("findate"));
+			approval.setEno(rs.getString("eno"));
+			approval.setEname(rs.getString("ename"));
+			approval.setRank(rs.getString("rank"));
+			approval.setDname(rs.getString("dname"));
 
 			rs.close();
 			pstmt.close();
@@ -298,6 +283,8 @@ public class ApprovalDAO {
 				pstmt.setString(2, "이사");
 			} else if (mVO.getRank().equals("부장")) {
 				pstmt.setString(2, "이사");
+			} else if (mVO.getRank().equals("이사")) {
+				pstmt.setString(2, "이사");
 			}
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
@@ -353,8 +340,6 @@ public class ApprovalDAO {
 			pstmt.setString(5, mVO.getRank());
 			pstmt.setString(6, aVO.getMideno());
 			pstmt.setString(7, aVO.getFineno());
-
-			System.out.println("11111111");
 			
 			pstmt.executeUpdate();
 

@@ -24,7 +24,6 @@ public class ApprovalController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		approvalService = new ApprovalService();
 		approvalVO = new ApprovalVO();
-
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -82,10 +81,14 @@ public class ApprovalController extends HttpServlet {
 				System.out.println();
 				System.out.println("draftWait.do");
 				System.out.println("action : " + action);
-				String txtnum = request.getParameter("txtnum");
-				System.out.println(txtnum);
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				
+				MemberVO midUser = approvalService.midApprovalInfo(mVO);
+				MemberVO finUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("midUser", midUser);
+				request.setAttribute("finUser", finUser);
 
-				approvalVO = approvalService.viewdraft(Integer.parseInt(txtnum));
+				approvalVO = approvalService.viewdraft(txtnum);
 				request.setAttribute("approval", approvalVO);
 				nextPage = "/Approval01/draftWait.jsp";
 
@@ -121,7 +124,6 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("searchKey : " + searchKey);
 				if (searchKey == null || searchKey.equals("")) {
 					approvalList = approvalService.listApproval(mVO);
-					System.out.println("11111111111");
 				} else {
 					approvalList = approvalService.listApproval(searchType, searchKey);
 				}
