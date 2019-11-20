@@ -46,14 +46,13 @@ public class ApprovalService {
 	
 	
 	//기안서 작성 시 결재 정보
-	public MemberVO midApprovalInfo(String Dname) {
-		MemberVO midUser = approvalDAO.midApprovalGet(Dname);
-		
+	public MemberVO midApprovalInfo(MemberVO mVO) {
+		MemberVO midUser = approvalDAO.midApprovalGet(mVO);
 		
 		return midUser;
 	}
-	public MemberVO finApprovalInfo(String Dname) {
-		MemberVO finUser = approvalDAO.finApprovalGet(Dname);
+	public MemberVO finApprovalInfo(MemberVO mVO) {
+		MemberVO finUser = approvalDAO.finApprovalGet(mVO);
 		
 		return finUser;
 	}
@@ -64,10 +63,33 @@ public class ApprovalService {
 		approvalDAO.draftInset(aVO,mVO);
 	}
 
-	public long approvalUser(String userEname) {
+	public String approvalUser(String userEname) {
 		// TODO Auto-generated method stub
-		long userEno = approvalDAO.appUserGetEno(userEname);
+		String userEno = approvalDAO.appUserGetEno(userEname);
 		return userEno;
+	}
+
+	public MemberVO middraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedmidUser(approvalVO);
+		return memberVO;
+	}
+	
+	
+	public MemberVO findraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedfinUser(approvalVO);
+		return memberVO;
+	}
+
+	public void draftmodify(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.modifydraft(aVO, txtnum);
+	}
+
+	public void draftDelete(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.deleteDraft(txtnum);
 	}
 
 
