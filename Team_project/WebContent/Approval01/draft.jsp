@@ -25,7 +25,6 @@
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
 <script>
-	$(document)
 </script>
 <title>기안서</title>
 </head>

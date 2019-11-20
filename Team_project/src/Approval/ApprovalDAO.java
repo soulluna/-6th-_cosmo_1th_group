@@ -39,12 +39,14 @@ public class ApprovalDAO {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
 
-			String query = "select txtnum, applist, progress, txtname, entrydate from approval where eno=?";
+			String query = "select txtnum, applist, progress, txtname, entrydate from approval where eno=? or MIDSUGESTENO=? or FINSUGESTENO=?";
 			// or MIDSUGESTENO=?
 
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mVO.getEno());
+			pstmt.setString(2, mVO.getEno());
+			pstmt.setString(3, mVO.getEno());
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -128,7 +130,7 @@ public class ApprovalDAO {
 		ApprovalVO approval = new ApprovalVO();
 		System.out.println("selectDraft");
 		try {
-			String query = "select applist, txtnum, txtname, txtcont, progress,";
+			String query = "select applist, txtnum, txtname, txtcont, progress, ";
 						query += "entrydate, middate, findate, eno, ename, rank, Midsugesteno, Finsugesteno,";
 						query += "(select Employee.dname from employee where employee.eno=Approval.eno) as dname ";
 						query += "from approval where txtnum=?";
@@ -149,6 +151,8 @@ public class ApprovalDAO {
 			approval.setEname(rs.getString("ename"));
 			approval.setRank(rs.getString("rank"));
 			approval.setDname(rs.getString("dname"));
+			approval.setMideno(rs.getString("Midsugesteno"));
+			approval.setFineno(rs.getString("Finsugesteno"));
 
 			rs.close();
 			pstmt.close();
@@ -227,7 +231,8 @@ public class ApprovalDAO {
 		}
 		return approval;
 	}
-
+	
+	//기안서 작성 화면에서 중간 결재자 정보
 	public MemberVO midApprovalGet(MemberVO mVO) {
 		// TODO Auto-generated method stub
 		MemberVO midApproval = new MemberVO();
@@ -264,6 +269,7 @@ public class ApprovalDAO {
 		return midApproval;
 	}
 
+	//기안서 작성 화면에서 마지막 결재자 정보
 	public MemberVO finApprovalGet(MemberVO mVO) {
 		// TODO Auto-generated method stub
 		MemberVO finApproval = new MemberVO();
@@ -301,7 +307,8 @@ public class ApprovalDAO {
 		}
 		return finApproval;
 	}
-
+	
+	
 	public String appUserGetEno(String userEname) {
 		// TODO Auto-generated method stub
 		String midUserEno = null;
@@ -323,7 +330,8 @@ public class ApprovalDAO {
 		}
 		return midUserEno;
 	}
-
+	
+	//기안서 작성하기
 	public void draftInset(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
 		System.out.println("DAO draftInset");
@@ -350,6 +358,103 @@ public class ApprovalDAO {
 			e.printStackTrace();
 		}
 
+	}
+
+	
+	//작성된 문서의 중간 결재 유저 정보 뽑아오기
+	public MemberVO draftedmidUser(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		System.out.println("DAO의 draftedmidUser");
+		MemberVO createdMid = new MemberVO();
+		
+		String query = "select * from Employee where eno=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			System.out.println("mid eno : "+approvalVO.getMideno());
+			pstmt.setString(1, approvalVO.getMideno());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			
+			createdMid.setRank(rs.getString("rank"));
+			createdMid.setEname(rs.getString("ename"));
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return createdMid;
+	}
+	
+	//작성된 문서의 마지막 결재 유저 정보 뽑아오기
+	public MemberVO draftedfinUser(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO createdFin = new MemberVO();
+
+		String query = "select * from Employee where eno=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, approvalVO.getFineno());
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+
+			createdFin.setRank(rs.getString("rank"));
+			createdFin.setEname(rs.getString("ename"));
+			
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return createdFin;
+	}
+
+	public void modifydraft(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+
+		String query = "update Approval set txtname=?, txtcont=? where txtnum=?";
+
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			System.out.println(aVO.getTxtname());
+			System.out.println(aVO.getTxtcont());
+			System.out.println(txtnum);
+			pstmt.setString(1, aVO.getTxtname());
+			pstmt.setString(2, aVO.getTxtcont());
+			pstmt.setInt(3, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteDraft(int txtnum) {
+		// TODO Auto-generated method stub
+		String query = "delete Approval where txtnum=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

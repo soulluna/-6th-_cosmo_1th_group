@@ -67,28 +67,32 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
 
-			} else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
-				System.out.println();
-				System.out.println("vacationWait.do");
-				System.out.println("action : " + action);
-				String txtnum = request.getParameter("txtnum");
-				System.out.println(txtnum);
-				approvalVO = approvalService.viewvacation(Integer.parseInt(txtnum));
-				request.setAttribute("approval", approvalVO);
-				nextPage = "/Approval01/vacationWait.jsp";
-
-			} else if (action.equals("/draftWait.do")) { // 기안서 상세보기
+			} /*
+				 * else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
+				 * System.out.println(); System.out.println("vacationWait.do");
+				 * System.out.println("action : " + action); String txtnum =
+				 * request.getParameter("txtnum"); System.out.println(txtnum); approvalVO =
+				 * approvalService.viewvacation(Integer.parseInt(txtnum));
+				 * request.setAttribute("approval", approvalVO); nextPage =
+				 * "/Approval01/vacationWait.jsp";
+				 * 
+				 * }
+				 */ else if (action.equals("/draftWait.do")) { // 기안서 상세보기
 				System.out.println();
 				System.out.println("draftWait.do");
 				System.out.println("action : " + action);
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
-
+				System.out.println(txtnum);
+				
 				approvalVO = approvalService.viewdraft(txtnum);
+				System.out.println("컨트롤러 MIDENO: "+approvalVO.getMideno());
+				
+				MemberVO createdMidUser = approvalService.middraftInfo(approvalVO);
+				MemberVO createdFinUser = approvalService.findraftInfo(approvalVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
+				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approval", approvalVO);
 				nextPage = "/Approval01/draftWait.jsp";
 
@@ -117,7 +121,41 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftAdd(aVO, mVO);
 				nextPage = "/Approval/docList.do";
 				
-			} else {
+			}else if(action.equals("/draftModify.do")) { // 기안서 수정 페이지
+				System.out.println("/draftModify.do");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println("txtnum : " + txtnum);
+				MemberVO midUser = approvalService.midApprovalInfo(mVO);
+				MemberVO finUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("midUser", midUser);
+				request.setAttribute("finUser", finUser);
+				approvalVO = approvalService.viewdraft(txtnum);
+				request.setAttribute("txtnum", txtnum);
+				request.setAttribute("approvalVO", approvalVO);
+				nextPage = "/Approval01/draftModify.jsp";
+				
+			}else if(action.equals("/modified.do")) { // 기안서 수정 버튼 클릭
+				System.out.println("/modified.do");
+				ApprovalVO aVO = new ApprovalVO();
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				aVO.setTxtname(request.getParameter("title"));
+				aVO.setTxtcont(request.getParameter("reason"));
+				System.out.println("----------");
+				System.out.println(aVO.getTxtname());
+				System.out.println(aVO.getTxtcont());
+				System.out.println(txtnum);
+				System.out.println("----------");
+				approvalService.draftmodify(aVO, txtnum);
+				nextPage = "/Approval/docList.do";
+				
+			}else if(action.equals("/draftdelete.do")) { //문서 삭제
+				System.out.println("draftdelete.do");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println(txtnum);
+				approvalService.draftDelete(txtnum);
+				nextPage = "/Approval/docList.do";
+				
+			}else {
 				String searchType = request.getParameter("searchType");
 				System.out.println("searchType : " + searchType);
 				String searchKey = request.getParameter("searchKey");

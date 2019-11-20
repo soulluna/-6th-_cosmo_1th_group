@@ -69,5 +69,28 @@ public class ApprovalService {
 		return userEno;
 	}
 
+	public MemberVO middraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedmidUser(approvalVO);
+		return memberVO;
+	}
+	
+	
+	public MemberVO findraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedfinUser(approvalVO);
+		return memberVO;
+	}
+
+	public void draftmodify(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.modifydraft(aVO, txtnum);
+	}
+
+	public void draftDelete(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.deleteDraft(txtnum);
+	}
+
 
 }
