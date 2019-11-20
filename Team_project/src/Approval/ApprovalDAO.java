@@ -13,8 +13,6 @@ import javax.sql.DataSource;
 
 import Main.MemberVO;
 
-
-
 public class ApprovalDAO {
 	private Connection con;
 	private PreparedStatement pstmt;
@@ -38,16 +36,17 @@ public class ApprovalDAO {
 	}
 	
 	// 전체 글 목록 조회
-	public List<ApprovalVO> selectAllApproval(String eno) {
+	public List<ApprovalVO> selectAllApproval(MemberVO mVO) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
 			con = dataFactory.getConnection();
 
-			String query = "select txtnum, applist, progress, txtname, entrydate from approval where eno=?";
+			String query = "select txtnum, applist, progress, txtname, entrydate from approval where eno=? or MIDSUGESTENO=?;";
 			
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, eno);
+			//pstmt.setLong(1, (Long.parseLong(mVO.getEno()));
+			pstmt.setString(2, mVO.getEno());
 			ResultSet rs = pstmt.executeQuery();
 			
 			//첫 번째 목록부터

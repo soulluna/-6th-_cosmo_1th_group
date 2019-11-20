@@ -14,8 +14,8 @@ public class ApprovalService {
 	}
 	
 	//그냥 문서 출력
-	public List<ApprovalVO> listApproval(String eno) {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(eno);	
+	public List<ApprovalVO> listApproval(MemberVO mVO) {
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO);	
 		return approvallist;
 	}
 	

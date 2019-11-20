@@ -42,7 +42,6 @@ public class ApprovalController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		MemberVO mVO = (MemberVO) session.getAttribute("loginUser");
-		String eno = mVO.getEno();
 
 		String nextPage = ""; // 다음 페이지를 담을 변수 선언
 		request.setCharacterEncoding("utf-8"); // request 반응 타입 명시함
@@ -62,7 +61,7 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("searchKey : " + searchKey);
 				if (searchKey == null || searchKey.equals("")) {
 					System.out.println("searchKey가 null인 if문");
-					approvalList = approvalService.listApproval(eno);
+					approvalList = approvalService.listApproval(mVO);
 				} else {
 					approvalList = approvalService.listApproval(searchType, searchKey);
 				}
@@ -121,7 +120,7 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("searchKey : " + searchKey);
 
 				if (searchKey == null || searchKey.equals("")) {
-					approvalList = approvalService.listApproval(eno);
+					approvalList = approvalService.listApproval(mVO);
 				} else {
 					approvalList = approvalService.listApproval(searchType, searchKey);
 				}
