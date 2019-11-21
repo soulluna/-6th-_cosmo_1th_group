@@ -1,0 +1,72 @@
+* {font-size:15px;}
+
+/*gnb*/
+.gnb{
+    width : 100%;
+    height : 160px;
+    overflow: hidden;
+}
+.logobar {
+    width:100%;
+    height: 80px;
+}
+#mainLogo a img{
+    float:left;
+    width:130px;
+}   
+.topBar {  
+    overflow: hidden;
+    width:100%;
+    position: relative;
+    bottom:-15px;
+}
+/*gnb_rightMenu*/
+#memberinfo{  
+    display: block;
+    float:right;
+    margin-top:10px;
+    margin-right:20px;
+}
+#profile_img{
+    width:60px;
+    height: 60px;
+    padding:3px;
+}
+#memberinfo tr{
+    text-align: center;
+}
+#memberinfo tr td{
+    padding:3px;
+}
+#memberinfo tr td input{
+    cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    color:#fff;
+    padding:3px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+/*navigation_bar*/
+.topBar .t_menu{
+    float:left;
+    width:170px;
+    height:40px;
+    text-align: center;
+    line-height: 40px;
+    border:none;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    margin:15px 10px 0 10px;
+    font-weight: bold;
+    
+}
+.topBar .t_menu a {
+    display:inline-block;
+    color:#fff;
+    width:150px;
+}
+
+.topBar .t_menu a:visited {
+    color:#fff;
+}

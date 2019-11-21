@@ -1,6 +1,9 @@
 package Approval;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import Main.MemberVO;
 
 public class ApprovalService {
 
@@ -11,8 +14,8 @@ public class ApprovalService {
 	}
 	
 	//그냥 문서 출력
-	public List<ApprovalVO> listApproval() {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval();	
+	public List<ApprovalVO> listApproval(MemberVO mVO) {
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO);	
 		return approvallist;
 	}
 	
@@ -42,4 +45,52 @@ public class ApprovalService {
 	}
 	
 	
+	//기안서 작성 시 결재 정보
+	public MemberVO midApprovalInfo(MemberVO mVO) {
+		MemberVO midUser = approvalDAO.midApprovalGet(mVO);
+		
+		return midUser;
+	}
+	public MemberVO finApprovalInfo(MemberVO mVO) {
+		MemberVO finUser = approvalDAO.finApprovalGet(mVO);
+		
+		return finUser;
+	}
+	
+
+	public void draftAdd(ApprovalVO aVO, MemberVO mVO) {
+		// TODO Auto-generated method stub
+		approvalDAO.draftInset(aVO,mVO);
+	}
+
+	public String approvalUser(String userEname) {
+		// TODO Auto-generated method stub
+		String userEno = approvalDAO.appUserGetEno(userEname);
+		return userEno;
+	}
+
+	public MemberVO middraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedmidUser(approvalVO);
+		return memberVO;
+	}
+	
+	
+	public MemberVO findraftInfo(ApprovalVO approvalVO) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = approvalDAO.draftedfinUser(approvalVO);
+		return memberVO;
+	}
+
+	public void draftmodify(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.modifydraft(aVO, txtnum);
+	}
+
+	public void draftDelete(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.deleteDraft(txtnum);
+	}
+
+
 }

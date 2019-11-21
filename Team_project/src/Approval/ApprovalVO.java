@@ -13,11 +13,11 @@ public class ApprovalVO {
 	private Date entrydate;
 	private Date middate;
 	private Date findate;
-	private long eno;
+	private String eno;
 	private String ename;
 	private String rank;
-	private long mideno;
-	private long fineno;
+	private String mideno;
+	private String fineno;
 	private String vaclist;
 	private Date vacstart;
 	private Date vacend;
@@ -32,6 +32,15 @@ public class ApprovalVO {
 		
 		this.txtnum = txtnum;
 		this.txtcall = txtcall;
+		this.applist = applist;
+		this.progress = progress;
+		this.txtname = txtname;
+		this.entrydate = entrydate;
+	}
+	
+public ApprovalVO(int txtnum, String applist, String progress, String txtname, Date entrydate) {
+		
+		this.txtnum = txtnum;
 		this.applist = applist;
 		this.progress = progress;
 		this.txtname = txtname;
@@ -110,11 +119,11 @@ public class ApprovalVO {
 		this.findate = findate;
 	}
 
-	public long getEno() {
+	public String getEno() {
 		return eno;
 	}
 
-	public void setEno(long eno) {
+	public void setEno(String eno) {
 		this.eno = eno;
 	}
 
@@ -134,19 +143,19 @@ public class ApprovalVO {
 		this.rank = rank;
 	}
 
-	public long getMideno() {
+	public String getMideno() {
 		return mideno;
 	}
 
-	public void setMideno(long mideno) {
+	public void setMideno(String mideno) {
 		this.mideno = mideno;
 	}
 
-	public long getFineno() {
+	public String getFineno() {
 		return fineno;
 	}
 
-	public void setFineno(long fineno) {
+	public void setFineno(String fineno) {
 		this.fineno = fineno;
 	}
 

@@ -65,29 +65,26 @@ function docName() {
 var thisfilefullname;
 
 //문서 수정
-function docModify() {
-  thisfilefullname = docName();
-  console.log(thisfilefullname);
-  if (confirm("수정하시겠습니까?") == true) {
-    if (thisfilefullname == "createdDraftDoc.html") {
-      location.href = '#';
-    } else if (thisfilefullname == "vacationWait.html") {
-      location.href = './vacationModify.html';
-    }
-  } else {
-    return false;
-  }
-}
+/*function docModify() {
+	  thisfilefullname = docName();
+	  console.log(thisfilefullname);
+	  if (confirm("수정하시겠습니까?") == true) {
+	      frm.action = "draftModify.do?txtnum=txtnum";
+	      frm.submit();
+	  } else {
+	    return false;
+	  }
+	}*/
 
 //문서 삭제
-function docDelete() {
+/*function docDelete() {
   if (confirm("정말 삭제하시겠습니까?") == true) {
-    //document.removefrm.submit();
-    location.href = './doclist.html';
+	  	frm.action = "draftdelete.do?txtnum="+${txtnum};
+	  	frm.submit();
   } else {
     return false;
   }
-}
+}*/
 //문서 승인
 function docApprov() {
   if (confirm("승인하시겠습니까?") == true) {
@@ -107,7 +104,7 @@ function docReturn() {
 //문서 취소
 function docCancle() {
   if (confirm("문서함으로 넘어가겠습니까?") == true) {
-    location.href = './doclist.html';
+    location.href = 'doList.do';
   } else {
     return false;
   }
@@ -131,7 +128,9 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      location.href = './createdDraftDoc.html';
+      frm.action = "drafted.do";
+      frm.submit();
+  		
     } else {
       return false;
     }
@@ -309,10 +308,6 @@ $(document).ready(function () {
   }
 
 
-  //문서 작성 버튼 클릭 시
-  $("button[name=docCreate").on("click", function () {
-    location.href = "./draft.html";
-  });
 
   // 문서목록 검색 타입 및 검색값 콘솔 확인
   $(".search").on("click", function () {
