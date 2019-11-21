@@ -14,84 +14,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>상세게시판</title>
-    <link rel="stylesheet" href="./css/tkdtp.css">
-    <link rel="stylesheet" href="./css/gnb.css" />
-    <script src="./js/jquery-2.1.1.min.js"></script>
-    <script src="./js/jquery.easing.1.3.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/prefixfree.min.js"></script>
+    <link rel="stylesheet" href="${contextPath}/Board01/css/tkdtp.css">
+    <link rel="stylesheet" href="${contextPath}/Board01/css/gnb.css" />
+    <script src="${contextPath}/Board01/js/jquery-2.1.1.min.js"></script>
+    <script src="${contextPath}/Board01/js/jquery.easing.1.3.js"></script>
+    <script src="${contextPath}/Board01/js/jquery-ui.min.js"></script>
+    <script src="${contextPath}/Board01/js/prefixfree.min.js"></script>
 </head>
 
 <body>
 	<div class="fullWrap">
-		<!--gnb-->
-		<div class="gnb">
-			<!--logoBar-->
-			<ul class="logobar">
-				<li id="mainLogo"><a href="${contextPath}/Main01/indexMain.jsp"><img
-						src="${contextPath}/Main01/img/logo3.gif"></a></li>
-				<table id="memberinfo">
-					<tbody>
-						<tr>
-							<td id="profile_img" rowspan="2"><img
-								src="http://placehold.it/70x70"></td>
-							<td colspan="2">관리자 님 환영합니다.</td>
-						</tr>
-						<tr>
-							<td><a href="../index.html">로그아웃</a> <a
-								href="${contextPath}/Main01/member/confirm.html">내정보수정</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</ul>
-			<!--//logoBar-->
-			<!--nav bar-->
-			<ul class="topBar">
-				<li id="main" class="t_menu btn3"><a
-					href="${contextPath}/Main01/indexMain.jsp">메인</a></li>
-				<li id="system" class="t_menu btn1"><a
-					href="${contextPath}/Approval01/docList.jsp">전자결재시스템</a></li>
-				<li id="board" class="t_menu btn2"><a
-					href="${contextPath}/Board01/noticeBoardMain.jsp">게시판</a></li>
-				<li id="info_tab" class="t_menu btn4"><a
-					href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a></li>
-			</ul>
-			<!--//navBar-->
-		</div>
-		<!--//gnb-->
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
         <h1>상세페이지</h1>
         <div class="wjdduf">
-            <h2>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</h2>
+            <h2>${details.txtname}</h2>
             <div class="main_tkdtp">
-                <P>팀장</P>
+                <P>${details.ename}</P>
                 <p>댓글</p>
-                <p>2</p>
+                <p>${details.comtotal}</p>
                 <p>조회수</p>
-                <p>123</p>
+                <p>${details.viewtotal }</p>
                 <p>추천수</p>
-                <p class="co7">321</p>
+                <p class="co7">${details.likenum}</p>
                 <span class="font-11 text-muted">
                         <span class="media-info">
                             <i class="fa fa-clock-o"></i>
-                            <span class="orangered">08/29 19:14</span> </span>
+                            <span class="orangered">${details.entrydate}</span> </span>
                     </span>
             </div>
             <div class="rmfdlehd">
                 <button><a href="#(i)-1">이전글</a></button>
                 <button><a href="#(i)+1">다음글</a></button>
-                <button><a href="./noticeBoardMain.html">목록으로</a></button>
-                <button><a href="#">수정하기</a></button>
+                <button><a href="${contextPath}/Board/noticeBoardMain.do">목록으로</a></button>
+                <button onclick="fn_modForm('${contextPath}/board/modForm.do','${board.txtxnum}');"><a href="#">수정하기</a></button>
             </div>
             <div class="wjddu">
-                <textarea class="text_sodyd" readonly="readonly" cols="400" rows="100"> 가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz
-        </textarea>
+                <textarea class="text_sodyd" readonly="readonly" cols="400" rows="100">${details.txtcont}</textarea>
             </div>
             <div class="cncjsqjxms">
-                <button class="delete"><a href="#">삭제</a></button>
+                <button class="delete" onclick="deleteArticle('${contextPath}');">삭제</button>
                 <button class="n_good"><a href="#">추천</a></button>
-
             </div>
-
             <div class="media" id="c_1">
                 <div class="photo pull-left">
                     <div class="media-object"><i class="fa fa-user"></i></div>
@@ -163,7 +126,7 @@
             </div>
         </div>
         </div>
-        <script src="./js/main.js"></script>
+        <script src="${contextPath}/Board01/js/main.js"></script>
 </body>
 
 </html>
