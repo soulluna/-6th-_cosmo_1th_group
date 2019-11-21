@@ -28,7 +28,7 @@
 
 </head>
 <body>
-	<form class="reg_form" name="join" action="join.do" method="post">
+	<form class="reg_form" name="join" action="${contextPath}/Main/join.do" method="post">
 		<div>
 			<img src="${contextPath}/Main01/registration/img/logo3.gif">
 		</div>
@@ -36,7 +36,7 @@
 			<input class="txtb" type="text" id="userID" name="eno" value="${eno}">
 			<input type="hidden" name="reid" size="20"> 
 			<span class="name" data-placeholder="사원번호"></span> 
-			<input class="d_btn" type="button" value="중복확인" onclick="enoCheck();">
+			<input class="d_btn" type="button" value="중복확인" onclick="enoCheck('${contextPath}');">
 		</div>
 		<div class="secb">
 			<input class="txtb" type="text" id="userName" name="ename" value="${ename}"> 

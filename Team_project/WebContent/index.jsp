@@ -32,7 +32,7 @@
 </head>
 <body>
 	<!-- action="Team2_kim/indexMain.html" -->
-	<form class="login-form" action="login.do" method="post">
+	<form class="login-form" action="${contextPath}/Main/login.do" method="post">
 		<div>
 			<img src="${contextPath}/img/logo3.gif">
 		</div>
@@ -46,7 +46,7 @@
 		</div>
 		<input type="submit" class="lgnbtn" value="Login" id="login_submit" onclick="return validate()">
 		<div class="bottom-text">
-			아이디가 없을 경우 <a href="join.do">회원가입</a>을 해주세요.
+			아이디가 없을 경우 <a href="${contextPath}/Main/joinForm.do">회원가입</a>을 해주세요.
 		</div>
 	</form>
 	<script type="text/javascript">

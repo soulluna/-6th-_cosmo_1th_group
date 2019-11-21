@@ -57,8 +57,6 @@ public class BoardController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String action = request.getPathInfo();
 		System.out.println("action : " + action);
-
-
 		try {
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
 			if(action!=null && action.equals("/noticeBoardMain.do")) {
@@ -68,7 +66,6 @@ public class BoardController extends HttpServlet {
 				request.setAttribute("boardList", boardList);
 				nextPage = "/Board01/noticeBoardMain.jsp";
 				System.out.println("[1]" + nextPage);
-
 
 			}else if(action.equals("/write.do")) {//글쓰기 
 				System.out.println("write.do");

@@ -23,8 +23,8 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="button" value="로그아웃" onclick="location.href='${contextPath}/logout.do'"> 
-							<input type="button" value="내정보수정" onclick="location.href='${contextPath}/pwdConfirm.do'">
+							<input type="button" value="로그아웃" onclick="location.href='${contextPath}/Main/logout.do'"> 
+							<input type="button" value="내정보수정" onclick="location.href='${contextPath}/Main/pwdConfirmForm.do'">
 							<!-- <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a> -->
 						</td>
 					</tr>
@@ -34,11 +34,11 @@
 		<!--//logoBar-->
 		<!--nav bar-->
 		<ul class="topBar">
-			<li id="main" class="t_menu btn3"><a href="${contextPath}/login.do">메인</a></li>
+			<li id="main" class="t_menu btn3"><a href="${contextPath}/Main/login.do">메인</a></li>
 			<li id="cal" class="t_menu btn5"><a href="../Team3_cha/noticeBoardMain.html">일정표</a></li>
 			<li id="system" class="t_menu btn1"><a href="${contextPath}/Approval/doList.do">전자결재시스템</a></li>
 			<li id="board" class="t_menu btn2"><a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-			<li id="info_tab" class="t_menu btn4"><a href="pwdConfirm.do?eno=${loginUser.eno}">내정보수정</a></li>
+			<li id="info_tab" class="t_menu btn4"><a href="${contextPath}/Main/pwdConfirmForm.do">내정보수정</a></li>
 		</ul>
 		<!--//navBar-->
 	</div>
