@@ -8,7 +8,7 @@
    response.setContentType("text/html;utf-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="login.do"/>
+	<jsp:forward page="${contextPath}/Main/login.do"/>
 </c:if>
 <!-- contextPath = /Team_project -->
 <!DOCTYPE html>
@@ -34,10 +34,10 @@
         <div id="l_section">
             <div class="section_menu">달력
                 <div class="cal_top">
-                    <span id="prevMonth" class="cal_tit"><button id="movePrevMonth" onclick="movePrevMonth();">Prev</button></span>
+                    <span id="prevMonth" class="cal_tit"><a id="movePrevMonth" onclick="movePrevMonth();">Prev</a></span>
                     <span id="cal_top_year"></span>
                     <span id="cal_top_month"></span>
-                    <span id="nextMonth" class="cal_tit"><button id="moveNextMonth" onclick="moveNextMonth();">Next</button></span>
+                    <span id="nextMonth" class="cal_tit"><a id="moveNextMonth" onclick="moveNextMonth();">Next</a></span>
                 </div>
                 <div id="cal_tab" class="cal"></div>
             </div>

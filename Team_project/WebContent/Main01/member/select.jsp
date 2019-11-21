@@ -8,7 +8,7 @@
 	response.setContentType("text/html;utf-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="login.do"/>
+	<jsp:forward page="Main/login.do"/>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -35,11 +35,11 @@
 			<div id="section_wrap">
 				<div id="section_block1" class="block">
 					<img src="${contextPath}/Main01/member/img/pwd.png" width="150" height="150"> 
-						<input type="button" value="비밀번호 수정" onclick="location.href='pwdChange.do?eno=${loginUser.eno}'">
+						<input type="button" value="비밀번호 수정" onclick="location.href='${contextPath}/Main/pwdChangeForm.do'">
 				</div>
 				<div id="section_block2" class="block">
 					<img src="${contextPath}/Main01/member/img/user.png" width="150" height="100"> 
-					<input type="button" value="내정보 수정" onclick="location.href='userInfoChange.do?eno=${loginUser.eno}'">
+					<input type="button" value="내정보 수정" onclick="location.href='${contextPath}/Main/userInfoChangeForm.do'">
 				</div>
 			</div>
 			<!-- section_wrap -->

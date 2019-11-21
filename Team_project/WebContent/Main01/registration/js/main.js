@@ -4,7 +4,7 @@ function idok(eno){
 	self.close();
 }
 
-function enoCheck(){
+function enoCheck(url){
 	var id = document.getElementById("userID");
 	var regexpId = /^[0-9]{10}$/ //사번 정규식
 		if(document.join.eno.value==""){
@@ -15,8 +15,8 @@ function enoCheck(){
 	if(!check(regexpId,userID,"사원번호는 10자리의 숫자만 입력해주세요")){
 		return false;
 	}
-	var url = "enoCheck.do?eno="+document.join.eno.value;
-	window.open(url, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=450, height=200");
+	var nextPage = url+"/Main/enoCheckForm.do";
+	window.open(nextPage, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=450, height=200");
 
 	function check(regexpId, what, message) {
 		if(regexpId.test(what.value)) {

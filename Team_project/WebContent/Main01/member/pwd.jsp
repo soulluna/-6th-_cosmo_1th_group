@@ -12,7 +12,7 @@
 	</script>
 </c:if>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="login.do"/>
+	<jsp:forward page="${contextPath}/Main/login.do"/>
 </c:if>
 <html>
 <head>
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
 </head>
 <body>
-        <form action="pwdChange.do" method="post" onsubmit="return validate();">
+        <form action="${contextPath}/Main/pwdChange.do" method="post" onsubmit="return validate();">
             <div class="fullWrap">
                 <jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
                 <!--top_side-->

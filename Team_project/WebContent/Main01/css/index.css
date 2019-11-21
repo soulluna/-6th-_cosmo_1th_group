@@ -63,7 +63,14 @@ body{
     margin-top:30px;
 }
 
-
+#movePrevMonth, #moveNextMonth{
+	cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    color:#fff;
+    padding:3px;
+    border-radius: 6px;
+    font-weight: bold;
+}
 .scadule {
     position: relative;
     top:410px;
@@ -100,7 +107,7 @@ body{
     ;
     text-align: center;
 }
-/* 게시판 */
+/* 寃뚯떆�뙋 */
 .ListTable{
     width: 100%;
     table-layout: fixed;

@@ -16,7 +16,7 @@
 	</script>
 </c:if>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="login.do"/>
+	<jsp:forward page="Main/login.do"/>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@
 	<link rel="stylesheet" href="${contextPath}/Main01/member/css/confirm.css"/>
 </head>
 <body>
-	<form class="reg_form" action="pwdConfirm.do" onsubmit="return pwdConfirm();" method="post">
+	<form class="reg_form" action="${contextPath}/Main/pwdConfirm.do" onsubmit="return pwdConfirm();" method="post">
 		<div>
 			<img src="http://placehold.it/360x250">
 		</div>
@@ -44,7 +44,7 @@
 		</div>
 		<input type="hidden" id="eno" name="eno" value="${loginUser.eno}">
 		<input class="reg_submit" type="submit" value="확인">
-		<input class="cancel" type="button" value="취소" onclick="location.href='login.do'">
+		<input class="cancel" type="button" value="취소" onclick="location.href='${contextPath}/Main/login.do'">
 	</form>
 	<script type="text/javascript">
 		$(".secb .txtb").on("focus", function() {

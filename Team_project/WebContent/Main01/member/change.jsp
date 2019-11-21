@@ -8,7 +8,7 @@
    response.setContentType("text/html;utf-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="login.do"/>
+	<jsp:forward page="${contextPath}/Main/login.do"/>
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="${contextPath}/Main01/member/css/change.css" />
 </head>
 <body>
-	<form onsubmit="return validate();" action="userInfoChange.do" method="post">
+	<form onsubmit="return validate();" action="${contextPath}/Main/userInfoChange.do" method="post">
 		<div class="fullWrap">
 			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false"/>
 			<!--top_side-->
@@ -49,7 +49,7 @@
 										<option value="0">선택하세요</option>
 										<option value="1" selected>영업부</option>
 										<option value="2">인사부</option>
-										<option value="3">기술지원팀</option>
+										<option value="3">기술개발팀</option>
 									</select>
 								</c:when>
 								<c:when test="${loginUser.dname=='인사부'}">
@@ -57,15 +57,15 @@
 										<option value="0">선택하세요</option>
 										<option value="1" >영업부</option>
 										<option value="2" selected>인사부</option>
-										<option value="3">기술지원팀</option>
+										<option value="3">기술개발팀</option>
 									</select>
 								</c:when>
-								<c:when test="${loginUser.dname=='기술지원팀'}">
+								<c:when test="${loginUser.dname=='기술개발팀'}">
 									<select class="area" id="dep1">
 										<option value="0">선택하세요</option>
 										<option value="1" >영업부</option>
 										<option value="2">인사부</option>
-										<option value="3" selected>기술지원팀</option>
+										<option value="3" selected>기술개발팀</option>
 									</select>
 								</c:when>
 							</c:choose>
