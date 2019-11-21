@@ -35,13 +35,14 @@ public class BoardVO {
 	
 	
 	
-	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, int viewtotal, int likenum) {
+	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, Date entrydate, int viewtotal, int likenum) {
 		super();
 		this.noticelist = noticelist;
 		this.txtnum = txtnum;
 		this.txtname = txtname;
 		this.txtcont = txtcont;
 		this.ename = ename;
+		this.entrydate = entrydate;
 		this.viewtotal = viewtotal;
 		this.likenum = likenum;
 	}

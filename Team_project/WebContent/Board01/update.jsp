@@ -21,13 +21,6 @@
 <script src="./js/jquery-ui.min.js"></script>
 <script src="./js/prefixfree.min.js"></script>
 
-<script>
-	function fn_write() {
-		frmArticle.encoding = "application/x-www-form-urlencoded";
-		frmArticle.action = "${contextPath}/Board/write.do";
-		frmArticle.submit();
-	}
-</script>
 </head>
 
 <body>
@@ -38,6 +31,7 @@
 	<div class="fullWrap">
 	<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<h1>게시판 지정및 게시글 작성</h1>
+		 <form name="frmArticle" method="post" enctype="multipart/form-data">
 		<div class="wjdduf">
 			<div class="wjddu">
 				<div class="rptlvks">
@@ -61,7 +55,7 @@
 						<h2>제 목</h2>
 					</div>
 					<div class="wpahrdlqfur">
-						<input type="text" name="w_title" placeholder="제목을 입력해주세요">
+						<input type="text" name="w_title" placeholder="제목을 입력해주세요">${board.txtname}
 					</div>
 				</div>
 
@@ -81,7 +75,7 @@
 
 				<div class="zmrl">
 					<textarea class="noresize" name="contents"
-						placeholder="내용을 입력해주세요."></textarea>
+						placeholder="내용을 입력해주세요.">${board.txtcont} </textarea>
 				</div>
 				<div class="gkeks">
 					<div class="rksrur_bottom_left">
@@ -92,7 +86,7 @@
 						<button>
 							<a href="#">임시저장</a>
 						</button>
-						<button class="make" onclick="fn_write();"><p>작성하기</p></button>
+						<button class="make" onclick="fn_modify();"><p>수정하기</p></button>
 					</div>
 				</div>
 			</div>

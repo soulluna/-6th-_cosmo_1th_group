@@ -11,23 +11,25 @@ public class Boardservice {
    }
 //   
    public List<BoardVO> listBoards(){
+	   System.out.println("listBoards()");
      List<BoardVO> noticeBoardsList = boardDAO.selectAllBoards();
      return noticeBoardsList;
   }
+
    
    public BoardVO viewBoard(int articleNo) {
 	   BoardVO article = boardDAO.selectBoard(articleNo);
       return article;
    }
-//   public void modArticle(BoardVO article) {
-//	   boardDAO.updateArticle(article);
-//   }
-//   
+   public void modArticle(BoardVO board) {
+	   boardDAO.updateArticle(board);
+   }
+   
    public void addBoard(BoardVO board) {
 	   boardDAO.insertBoard(board); 
    }
-//   public void delArticle(BoardVO article) {
-//	   boardDAO.deleteArticle(article);
-//   }
-//   
+   public void delArticle(BoardVO board) {
+	   boardDAO.deleteArticle(board);
+   }
+   
 }

@@ -1,16 +1,6 @@
 $(function () {
     //상세 게시판
     //게시판/ 댓글 지우기
-    $(".delete").click(function () {
-        if (confirm("정말 삭제 하겠습니까?")) {
-            // 확인 버튼 클릭 시 동작
-            alert("삭제 되었습니다.");
-            location.replace('noticeBoardMain.jsp');
-        } else {
-            // 취소 버튼 클릭 시 동작
-            alert("삭제를 취소했습니다.");
-        }
-    });
     $(".del").click(function () {
         if (confirm("정말 삭제 하겠습니까?")) {
             // 확인 버튼 클릭 시 동작
@@ -121,3 +111,33 @@ $(".search").on("click",function(){
         alert("검색어를 입력하십시오");//검색어 입력않하면 경고창
   });
 });
+
+//javascript
+function deleteArticle(url){
+	if(confirm("정말 삭제 하겠습니까?")){
+		alert("삭제 되었습니다.");
+		location.href=url+"/Board/delArticle.do";
+	}
+	else{
+		alert("삭제를 취소했습니다.");
+	}
+}
+
+//수정하기 이동
+function fn_modForm(url,articleNo){
+	var form = document.createElement("form");
+	form.setAttribute("method","post");
+	form.setAttribute("action",url);
+	var in_txtnum = document.createElement("input") ;
+	in_txtnum.setAttribute("type","hidden");
+	in_txtnum.setAttribute("txtname","txtnum");
+	in_txtnum.setAttribute("value", txtnum);
+	form.submit();
+}
+
+//수정하기 작성
+function fn_modify(){
+	frmArticle.encoding = "application/x-www-form-urlencoded";
+	frmArticle.action = "${contextPath}/board/modArticle.do";
+	frmArticle.submit(); //<---------------------------------
+}
