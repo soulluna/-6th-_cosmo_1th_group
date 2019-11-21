@@ -65,7 +65,7 @@ comcont varchar(500),
 comnum number(3),
 viewtotal number(4),
 constraint NOT_PK primary key(txtnum),
-constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename)
+constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
 );
 
 
