@@ -92,5 +92,24 @@ public class ApprovalService {
 		approvalDAO.deleteDraft(txtnum);
 	}
 
+	
+	//기안서 중간 결재
+	public void draftmidApprove(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.approvemidDraft(txtnum);
+	}
+
+	public void draftfinApprove(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.approvefinDraft(txtnum);
+	}
+
+	public void draftmidReturn(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.returnmidDraft(txtnum);
+	}
+	
+
+
 
 }

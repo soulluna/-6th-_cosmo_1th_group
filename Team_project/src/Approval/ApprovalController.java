@@ -94,6 +94,7 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("createdFinUser", createdFinUser);
 				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approval", approvalVO);
+				
 				nextPage = "/Approval01/draftWait.jsp";
 
 			} else if (action.equals("/draft.do")) { // 기안서 작성 페이지
@@ -155,7 +156,25 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftDelete(txtnum);
 				nextPage = "/Approval/docList.do";
 				
-			}else {
+			}else if(action.equals("/midapproveddraft.do")) { //중간 결재자 결재
+				System.out.println("midapproveddraft.do");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println(txtnum);
+				approvalService.draftmidApprove(txtnum);
+				nextPage = "/Approval/docList.do"; 
+			}else if(action.equals("/finapproveddraft.do")) { //마지막 결재자 결재
+				System.out.println("finapproveddraft.do");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println(txtnum);
+				approvalService.draftfinApprove(txtnum);
+				nextPage = "/Approval/docList.do"; 
+			}else if(action.equals("/midreturneddraft.do")) { //마지막 결재자 결재
+				System.out.println("midreturneddraft");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				approvalService.draftmidReturn(txtnum);
+				nextPage = "/Approval/docList.do";
+			}
+			else {
 				String searchType = request.getParameter("searchType");
 				System.out.println("searchType : " + searchType);
 				String searchKey = request.getParameter("searchKey");

@@ -38,8 +38,7 @@ public class ApprovalDAO {
 	public List<ApprovalVO> selectAllApproval(MemberVO mVO) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
-
-			String query = "select txtnum, applist, progress, txtname, entrydate from approval where eno=? or MIDSUGESTENO=? or FINSUGESTENO=?";
+			String query = "select txtnum, applist, progress, txtname, entrydate from approval where (eno=? or MIDSUGESTENO=? or FINSUGESTENO=?)";
 			// or MIDSUGESTENO=?
 
 			con = dataFactory.getConnection();
@@ -153,7 +152,12 @@ public class ApprovalDAO {
 			approval.setDname(rs.getString("dname"));
 			approval.setMideno(rs.getString("Midsugesteno"));
 			approval.setFineno(rs.getString("Finsugesteno"));
-
+			
+			System.out.println("-----------------");
+			System.out.println(rs.getString("Midsugesteno"));
+			System.out.println(rs.getString("Finsugesteno"));
+			System.out.println("-----------------");
+			
 			rs.close();
 			pstmt.close();
 			con.close();
@@ -456,5 +460,77 @@ public class ApprovalDAO {
 		}
 		
 	}
+	
+	//중간 결재자 승인
+	public void approvemidDraft(int txtnum) {
+		// TODO Auto-generated method stub
+		String query = "update approval set MIDDATE=?, PROGRESS='진행' where txtnum=?";
+		
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, currentTime);
+			pstmt.setInt(2, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
 
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	//마지막 결재자 승인
+	public void approvefinDraft(int txtnum) {
+		// TODO Auto-generated method stub
+		String query = "update approval set findate=?, PROGRESS='완료' where txtnum=?";
+		
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, currentTime);
+			pstmt.setInt(2, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	//중간 결재자 반려
+	public void returnmidDraft(int txtnum) {
+		// TODO Auto-generated method stub
+		String query = "update approval set middate=? ,PROGRESS='반려' where txtnum=?";
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, currentTime);
+			pstmt.setInt(2, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

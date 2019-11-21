@@ -41,6 +41,40 @@ function docDelete() {
 	    return false;
 	  }
 	}
+	function docApprove() {
+		if(${approval.mideno==loginUser.eno}){
+			if (confirm("승인하시겠습니까?") == true) {
+				frm.action = "midapproveddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}else if(${approval.fineno==loginUser.eno}){
+			if (confirm("승인하시겠습니까?") == true) {
+				frm.action = "finapproveddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}
+	}
+	function docReturn() {
+		if(${approval.mideno==loginUser.eno}){
+			if (confirm("반려하시겠습니까?") == true) {
+				frm.action = "midreturneddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}else if(${approval.fineno==loginUser.eno}){
+			if (confirm("반려하시겠습니까?") == true) {
+				frm.action = "finreturneddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}
+		}
 </script>
 <title>기안서</title>
 </head>
@@ -86,12 +120,20 @@ function docDelete() {
 								style="color: red;">[승인]</span>
 							</td>
 							<td style="vertical-align: top">${createdMidUser.ename}<br>
-								<c:if test="${approval.middate}">
-									<span style="color: red;">[승인]</span>
-								</c:if>
+								<c:choose>
+									<c:when test="${approval.progress == '반려'}">
+										<span style="color: red;">[반려]</span>
+									</c:when>
+									<c:when test="${approval.middate != null}">
+										<span style="color: red;">[승인]</span>
+									</c:when>
+									<c:otherwise>
+										<span></span>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td style="vertical-align: top">${createdFinUser.ename}<br>
-								<c:if test="${approval.findate}">
+								<c:if test="${approval.findate != null}">
 									<span style="color: red;">[승인]</span>
 								</c:if>
 							</td>
@@ -103,7 +145,6 @@ function docDelete() {
 						</tr>
 					</table>
 				</div>
-
 				<div class="inputarea">
 					<table>
 						<tr>
@@ -117,12 +158,15 @@ function docDelete() {
 								<div class="inputContent"
 									style="background-color: white; vertical-align: top;">
 									${approval.txtcont}</div></td>
+
+
 						</tr>
 					</table>
 
 					<br>
 					<div class="bottomBt">
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
+
 						<c:choose>
 							<c:when test="${approval.eno==loginUser.eno}">
 								<button type="button" onclick="docModify()">수정</button>
@@ -131,6 +175,7 @@ function docDelete() {
 								<button type="button" onclick="docModify()" disabled>수정</button>
 							</c:otherwise>
 						</c:choose>
+
 						<c:choose>
 							<c:when test="${approval.eno==loginUser.eno}">
 								<button type="button" onclick="docDelete()">삭제</button>
@@ -140,8 +185,41 @@ function docDelete() {
 							</c:otherwise>
 						</c:choose>
 						
-						<button type="button" onclick="docApprov()" disabled>승인</button>
-						<button type="button" onclick="docReturn()" disabled>반려</button>
+						<c:choose>
+						<c:when
+								test="${approval.progress == '반려'}">
+								<button type="button" onclick="docReturn()" disabled>승인</button>
+							</c:when>
+							<c:when
+								test="${approval.mideno==loginUser.eno && approval.middate == null}">
+								<button type="button" onclick="docApprove()">승인</button>
+							</c:when>
+							<c:when
+								test="${approval.fineno==loginUser.eno && approval.findate == null && approval.middate != null}">
+								<button type="button" onclick="docApprove()">승인</button>
+							</c:when>
+							
+							<c:otherwise>
+								<button type="button" onclick="docApprove()" disabled>승인</button>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when
+								test="${approval.progress == '반려'}">
+								<button type="button" onclick="docReturn()" disabled>반려</button>
+							</c:when>
+							<c:when
+								test="${approval.mideno==loginUser.eno && approval.middate == null}">
+								<button type="button" onclick="docReturn()">반려</button>
+							</c:when>
+							<c:when
+								test="${approval.fineno==loginUser.eno && approval.findate == null && approval.middate != null}">
+								<button type="button" onclick="docReturn()">반려</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" onclick="docReturn()" disabled>반려</button>
+							</c:otherwise>
+						</c:choose>
 						<button type="button" onclick="docCancle()">취소</button>
 					</div>
 				</div>
