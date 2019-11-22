@@ -168,10 +168,15 @@ public class ApprovalController extends HttpServlet {
 				System.out.println(txtnum);
 				approvalService.draftfinApprove(txtnum);
 				nextPage = "/Approval/docList.do"; 
-			}else if(action.equals("/midreturneddraft.do")) { //마지막 결재자 결재
+			}else if(action.equals("/midreturneddraft.do")) { //중간 결재자 반려
 				System.out.println("midreturneddraft");
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				approvalService.draftmidReturn(txtnum);
+				nextPage = "/Approval/docList.do";
+			}else if(action.equals("/finreturneddraft.do")) { //마지막 결재자 반려
+				System.out.println("finreturneddraft");
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				approvalService.draftfinReturn(txtnum);
 				nextPage = "/Approval/docList.do";
 			}
 			else {

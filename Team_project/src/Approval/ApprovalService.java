@@ -1,5 +1,6 @@
 package Approval;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,12 +47,12 @@ public class ApprovalService {
 	
 	
 	//기안서 작성 시 결재 정보
-	public MemberVO midApprovalInfo(MemberVO mVO) {
+	public MemberVO midApprovalInfo(MemberVO mVO) throws SQLException {
 		MemberVO midUser = approvalDAO.midApprovalGet(mVO);
 		
 		return midUser;
 	}
-	public MemberVO finApprovalInfo(MemberVO mVO) {
+	public MemberVO finApprovalInfo(MemberVO mVO) throws SQLException {
 		MemberVO finUser = approvalDAO.finApprovalGet(mVO);
 		
 		return finUser;
@@ -107,6 +108,11 @@ public class ApprovalService {
 	public void draftmidReturn(int txtnum) {
 		// TODO Auto-generated method stub
 		approvalDAO.returnmidDraft(txtnum);
+	}
+
+	public void draftfinReturn(int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.returnfinDraft(txtnum);
 	}
 	
 

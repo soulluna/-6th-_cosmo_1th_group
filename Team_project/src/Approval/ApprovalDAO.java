@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,15 +131,15 @@ public class ApprovalDAO {
 		System.out.println("selectDraft");
 		try {
 			String query = "select applist, txtnum, txtname, txtcont, progress, ";
-						query += "entrydate, middate, findate, eno, ename, rank, Midsugesteno, Finsugesteno,";
-						query += "(select Employee.dname from employee where employee.eno=Approval.eno) as dname ";
-						query += "from approval where txtnum=?";
+			query += "entrydate, middate, findate, eno, ename, rank, Midsugesteno, Finsugesteno,";
+			query += "(select Employee.dname from employee where employee.eno=Approval.eno) as dname ";
+			query += "from approval where txtnum=?";
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, txtnum);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			rs.next();
 			approval.setTxtname(rs.getString("txtname"));
 			approval.setTxtcont(rs.getString("txtcont"));
@@ -152,12 +153,12 @@ public class ApprovalDAO {
 			approval.setDname(rs.getString("dname"));
 			approval.setMideno(rs.getString("Midsugesteno"));
 			approval.setFineno(rs.getString("Finsugesteno"));
-			
+
 			System.out.println("-----------------");
 			System.out.println(rs.getString("Midsugesteno"));
 			System.out.println(rs.getString("Finsugesteno"));
 			System.out.println("-----------------");
-			
+
 			rs.close();
 			pstmt.close();
 			con.close();
@@ -235,84 +236,96 @@ public class ApprovalDAO {
 		}
 		return approval;
 	}
-	
-	//기안서 작성 화면에서 중간 결재자 정보
-	public MemberVO midApprovalGet(MemberVO mVO) {
+
+	// 기안서 작성 화면에서 중간 결재자 정보
+	public MemberVO midApprovalGet(MemberVO mVO) throws SQLException {
 		// TODO Auto-generated method stub
 		MemberVO midApproval = new MemberVO();
 		System.out.println("midApprovalGet");
 		System.out.println(mVO.getDname());
 		System.out.println("midApprovalGet");
+		ResultSet rs = null;
 
-		String query = "select rank, ename from Employee where dname=? and rank=?";
+		String query = "select rank, ename from Employee where (dname=? and DNAME_TWO=?) and rank=?";
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mVO.getDname());
-			if (mVO.getRank().equals("사원")) {
-				pstmt.setString(2, "과장");
-			} else if (mVO.getRank().equals("대리")) {
-				pstmt.setString(2, "과장");
-			} else if (mVO.getRank().equals("과장")) {
-				pstmt.setString(2, "차장");
-			} else if (mVO.getRank().equals("팀장")) {
-				pstmt.setString(2, "부장");
+			pstmt.setString(2, mVO.getDname_two());
+
+			if (mVO.getRank().equals("사원") || mVO.getRank().equals("대리")) {
+				pstmt.setString(3, "팀장");
+			} else if (mVO.getRank().equals("팀장") || mVO.getRank().equals("부장")) {
+				return midApproval;
 			}
-			ResultSet rs = pstmt.executeQuery();
+
+			rs = pstmt.executeQuery();
 			rs.next();
 
 			midApproval.setRank(rs.getString("rank"));
 			midApproval.setEname(rs.getString("ename"));
-
 			rs.close();
-			pstmt.close();
-			con.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+
+			pstmt.close();
+			con.close();
 		}
 		return midApproval;
 	}
 
-	//기안서 작성 화면에서 마지막 결재자 정보
-	public MemberVO finApprovalGet(MemberVO mVO) {
+	// 기안서 작성 화면에서 마지막 결재자 정보
+	public MemberVO finApprovalGet(MemberVO mVO) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println("마지막 유저 정보 finApprovalGet");
 		MemberVO finApproval = new MemberVO();
-
-		String query = "select rank, ename from Employee where dname=? and rank=?";
+		ResultSet rs = null;
+		String query = null;
+		if (mVO.getRank().equals("부장")) {
+			query = "select rank, ename from Employee where rank=?";
+		} else if (mVO.getDname_two().equals("1팀")) {
+			query = "select rank, ename from Employee where rank=? and dname=? and DNAME_TWO=?";
+		} else if (mVO.getDname_two().equals("2팀")) {
+			query = "select rank, ename from Employee where rank=? and dname=?";
+		}
+		System.out.println(query);
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, mVO.getDname());
-			if (mVO.getRank().equals("사원")) {
-				pstmt.setString(2, "부장");
-			} else if (mVO.getRank().equals("대리")) {
-				pstmt.setString(2, "부장");
-			} else if (mVO.getRank().equals("과장")) {
-				pstmt.setString(2, "부장");
+			if (mVO.getRank().equals("사원") || mVO.getRank().equals("대리")) {
+				pstmt.setString(1, "부장");
 			} else if (mVO.getRank().equals("팀장")) {
-				pstmt.setString(2, "이사");
+				pstmt.setString(1, "부장");
 			} else if (mVO.getRank().equals("부장")) {
-				pstmt.setString(2, "이사");
-			} else if (mVO.getRank().equals("이사")) {
-				pstmt.setString(2, "이사");
+				pstmt.setString(1, "이사");
 			}
-			ResultSet rs = pstmt.executeQuery();
+
+			if (!(mVO.getRank().equals("부장"))) {
+				pstmt.setString(2, mVO.getDname());
+				if (mVO.getDname_two().equals("1팀")) {
+					pstmt.setString(3, mVO.getDname_two());
+				}
+			}
+
+			rs = pstmt.executeQuery();
 			rs.next();
-			System.out.println(rs.getString("rank"));
-			System.out.println(rs.getString("ename"));
+
 			finApproval.setRank(rs.getString("rank"));
 			finApproval.setEname(rs.getString("ename"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 
 			rs.close();
 			pstmt.close();
 			con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return finApproval;
 	}
-	
-	
+
 	public String appUserGetEno(String userEname) {
 		// TODO Auto-generated method stub
 		String midUserEno = null;
@@ -334,8 +347,8 @@ public class ApprovalDAO {
 		}
 		return midUserEno;
 	}
-	
-	//기안서 작성하기
+
+	// 기안서 작성하기
 	public void draftInset(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
 		System.out.println("DAO draftInset");
@@ -352,7 +365,7 @@ public class ApprovalDAO {
 			pstmt.setString(5, mVO.getRank());
 			pstmt.setString(6, aVO.getMideno());
 			pstmt.setString(7, aVO.getFineno());
-			
+
 			pstmt.executeUpdate();
 
 			pstmt.close();
@@ -364,36 +377,35 @@ public class ApprovalDAO {
 
 	}
 
-	
-	//작성된 문서의 중간 결재 유저 정보 뽑아오기
+	// 작성된 문서의 중간 결재 유저 정보 뽑아오기
 	public MemberVO draftedmidUser(ApprovalVO approvalVO) {
 		// TODO Auto-generated method stub
 		System.out.println("DAO의 draftedmidUser");
 		MemberVO createdMid = new MemberVO();
-		
+
 		String query = "select * from Employee where eno=?";
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			System.out.println("mid eno : "+approvalVO.getMideno());
+			System.out.println("mid eno : " + approvalVO.getMideno());
 			pstmt.setString(1, approvalVO.getMideno());
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
-			
+
 			createdMid.setRank(rs.getString("rank"));
 			createdMid.setEname(rs.getString("ename"));
-			
+
 			rs.close();
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return createdMid;
 	}
-	
-	//작성된 문서의 마지막 결재 유저 정보 뽑아오기
+
+	// 작성된 문서의 마지막 결재 유저 정보 뽑아오기
 	public MemberVO draftedfinUser(ApprovalVO approvalVO) {
 		// TODO Auto-generated method stub
 		MemberVO createdFin = new MemberVO();
@@ -408,14 +420,14 @@ public class ApprovalDAO {
 
 			createdFin.setRank(rs.getString("rank"));
 			createdFin.setEname(rs.getString("ename"));
-			
+
 			rs.close();
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return createdFin;
 	}
 
@@ -458,22 +470,21 @@ public class ApprovalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	//중간 결재자 승인
+
+	// 중간 결재자 승인
 	public void approvemidDraft(int txtnum) {
 		// TODO Auto-generated method stub
 		String query = "update approval set MIDDATE=?, PROGRESS='진행' where txtnum=?";
-		
+
 		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = 
-		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		String currentTime = sdf.format(dt);
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			
+
 			pstmt.setString(1, currentTime);
 			pstmt.setInt(2, txtnum);
 			System.out.println("executeUpdate");
@@ -486,19 +497,18 @@ public class ApprovalDAO {
 		}
 	}
 
-	//마지막 결재자 승인
+	// 마지막 결재자 승인
 	public void approvefinDraft(int txtnum) {
 		// TODO Auto-generated method stub
 		String query = "update approval set findate=?, PROGRESS='완료' where txtnum=?";
-		
+
 		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = 
-		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		String currentTime = sdf.format(dt);
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			
+
 			pstmt.setString(1, currentTime);
 			pstmt.setInt(2, txtnum);
 			System.out.println("executeUpdate");
@@ -511,13 +521,34 @@ public class ApprovalDAO {
 		}
 	}
 
-	//중간 결재자 반려
+	// 중간 결재자 반려
 	public void returnmidDraft(int txtnum) {
 		// TODO Auto-generated method stub
-		String query = "update approval set middate=? ,PROGRESS='반려' where txtnum=?";
+		String query = "update approval set middate=?, PROGRESS='반려' where txtnum=?";
 		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = 
-		     new java.text.SimpleDateFormat("yyyy-MM-dd");
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, currentTime);
+			pstmt.setInt(2, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 마지막 결재자 반려
+	public void returnfinDraft(int txtnum) {
+		// TODO Auto-generated method stub
+		String query = "update approval set FINDATE=?, PROGRESS='반려' where txtnum=?";
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		String currentTime = sdf.format(dt);
 		try {
 			con = dataFactory.getConnection();
