@@ -16,8 +16,15 @@ public class MemberVO {
 	private Date hireDate;
 	private String rank;
 	private String isadmin;
+	private String imageFileName;
 	
 	
+	public String getImageFileName() {
+		return imageFileName;
+	}
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
 	public String getEno() {
 		return eno;
 	}

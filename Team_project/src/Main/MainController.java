@@ -1,8 +1,13 @@
 package Main;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 /**
  * Servlet implementation class MainController
  */
 @WebServlet("/Main/*")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static String ARTICLE_IMAGE_PATH = "C:\\Users\\KOSMO-23\\GitHub\\-6th-_cosmo_1th_group\\Team_project\\profileImages";  //이미지의 폴더까지의 경로를 저장
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -178,19 +188,22 @@ public class MainController extends HttpServlet {
 			else if(action.equals("/userInfoChange.do")) {
 				System.out.println("정보수정완료 버튼 클릭");
 				nextPage="/Main01/member/change.jsp";
+				Map<String, String> memberMap = upload(request, response);
 				MemberDAO memberDAO = MemberDAO.getInstance();
 				MemberVO memberVO = new MemberVO();
-				String eno=request.getParameter("eno");
-				String ename=request.getParameter("ename");
-				String eng_name=request.getParameter("eng_name");
-				String tel=request.getParameter("tel");
-				String email=request.getParameter("email");
+				String eno=memberMap.get("eno");
+				String ename=memberMap.get("ename");
+				String eng_name=memberMap.get("eng_name");
+				String tel=memberMap.get("tel");
+				String email=memberMap.get("email");
+				String imageFileName = memberMap.get("imageFileName");
 				System.out.println(eno+"   "+ename+"   "+eng_name+"   "+tel+"   "+email);
 				memberVO.setEno(eno);
 				memberVO.setEname(ename);
 				memberVO.setEng_name(eng_name);
 				memberVO.setTel(tel);
 				memberVO.setEmail(email);
+				memberVO.setImageFileName(imageFileName);
 				int result=memberDAO.UpdateUserInfo(memberVO);
 				if(result==1) {
 					nextPage="/Main01/member/select.jsp";
@@ -220,4 +233,50 @@ public class MainController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		   Map<String, String> articleMap = new HashMap<String, String>();
+		   String encoding = "utf-8";
+		   File currentDirPath = new File(ARTICLE_IMAGE_PATH);
+		   DiskFileItemFactory factory = new DiskFileItemFactory();
+		   factory.setRepository(currentDirPath);
+		   factory.setSizeThreshold(1024*1024);
+		   ServletFileUpload upload = new ServletFileUpload(factory);
+		   
+		   try {
+			   List items = upload.parseRequest(request);
+			   for(int i=0; i< items.size(); i++) {
+				   	FileItem fileItem = (FileItem)items.get(i);
+				   	if(fileItem.isFormField()) {
+				   		System.out.println(fileItem.getFieldName());
+//					   	System.out.println(fileItem.getString(encoding));
+					   	articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
+				   	}else {
+				   		System.out.println(fileItem.getFieldName());
+//				   		System.out.println(fileItem.getString(encoding));
+				   		System.out.println(fileItem.getSize());
+				   		if(fileItem.getSize()>0) {
+				   			int idx = fileItem.getName().lastIndexOf("\\"); //윈도우
+				   			if(idx==-1) {//리눅스나 유닉스
+				   				idx = fileItem.getName().lastIndexOf("/"); //윈도우
+				   			}
+				   			String fileName = fileItem.getName().substring(idx+1);
+				   			System.out.println(fileName);
+				   			articleMap.put(fileItem.getFieldName(), fileName);
+				   			
+				   			File uploadFile = new File(currentDirPath+"\\"+fileName);
+				   			System.out.println(uploadFile);
+				   			fileItem.write(uploadFile);
+				   		}//end of Inner if
+				   	}//end of Outer if
+				   	
+			   }//end of for
+		   }catch(Exception e) {
+		          e.printStackTrace();
+	       }
+		   
+		   return articleMap;
+		   
+		   
+	   }
 }
