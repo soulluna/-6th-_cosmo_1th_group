@@ -35,7 +35,7 @@
 			<select class="docSelecter"
 				onchange="if(this.value) location.href=(this.value)">
 				<option value="${contextPath}/Approval/draft.do" selected>기안서</option>
-				<option value="${contextPath}/Approval01/vacation.jsp">휴가신청서
+				<option value="${contextPath}/Approval/vacation.do">휴가신청서
 				</option>
 			</select>
 

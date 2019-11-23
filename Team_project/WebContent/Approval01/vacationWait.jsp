@@ -16,172 +16,262 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
-<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
+<link rel="stylesheet"
+	href="${contextPath}/Approval01/css/jquery-ui.css" />
 
+<script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
+<script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
+<script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
+<script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
+<script src="${contextPath}/Approval01/js/main.js"></script>
+<script>
 
+function docModify() {
+	if (confirm("수정하시겠습니까?") == true) {
+		frm.action = "vacationModify.do?txtnum="+${txtnum};
+		frm.submit();
+	} else {
+		return false;
+	}
+}
+function docDelete() {
+	  if (confirm("정말 삭제하시겠습니까?") == true) {
+		  	frm.action = "draftdelete.do?txtnum="+${txtnum};
+		  	frm.submit();
+	  } else {
+	    return false;
+	  }
+	}
+	function docApprove() {
+		if(${approvalVO.mideno==loginUser.eno}){
+			if (confirm("승인하시겠습니까?") == true) {
+				frm.action = "midapproveddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}else if(${approvalVO.fineno==loginUser.eno}){
+			if (confirm("승인하시겠습니까?") == true) {
+				frm.action = "finapproveddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}
+	}
+	function docReturn() {
+		if(${approvalVO.mideno==loginUser.eno}){
+			if (confirm("반려하시겠습니까?") == true) {
+				frm.action = "midreturneddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}else if(${approvalVO.fineno==loginUser.eno}){
+			if (confirm("반려하시겠습니까?") == true) {
+				frm.action = "finreturneddraft.do?txtnum="+${txtnum};
+		  		frm.submit();
+			} else {
+				return false;
+			}
+		}
+		}
+</script>
 <title>휴가신청서</title>
 </head>
 
 <body>
-    <div class="content">
-        <!--gnb-->
-        <div class="gnb">
-            <!--logoBar-->
-            <ul class="logobar">
-                <li id="mainLogo"><a href="../Team2_kim/indexMain.html"><img src="../img/logo3.gif"></a></li>
-                <table id="memberinfo">
-                    <tbody>
-                        <tr>
-                            <td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
-                            <td colspan="2">관리자 님 환영합니다.</td>
-                        </tr>
-                        <tr>
-                            <td><a href="../index.html">로그아웃</a>
-                                <a href="../Team2_kim/member/confirm.html">내정보수정</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ul>
-            <!--//logoBar-->
-            <!--nav bar-->
-            <ul class="topBar">
-                <li id="main" class="t_menu btn3"> <a href="../Team2_kim/indexMain.html">메인</a></li>
-                <li id="system" class="t_menu btn1"> <a href="./docList.html">전자결재시스템</a></li>
-                <li id="board" class="t_menu btn2"> <a href="../Team3_cha/noticeBoardMain.html">게시판</a></li>
-                <li id="info_tab" class="t_menu btn4"> <a href="../Team2_kim/member/confirm.html">내정보수정</a></li>
-            </ul>
-            <!--//navBar-->
-        </div>
-        <!--//gnb-->
-        <select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-            <option value="./draft.html">기안서</option>
-            <option value="./vacation.html" selected>휴가신청서 </option>
+	<div class="content">
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
+		<form name="frm" method="post">
+			<select style="visibility: hidden;" class="docSelecter"
+				onchange="if(this.value) location.href=(this.value)">
+				<option value="./draft.html" selected>기안서</option>
+				<option value="./vacation.html">휴가신청서</option>
+			</select>
 
-        </select>
+			<div class="docName">
+				<h1>기안서</h1>
+			</div>
+			<div class="deptContent">
+				<div class="signtable">
+					<table class="signtableleft">
+						<tr>
+							<th>이름</th>
+							<td>${approvalVO.ename}</td>
+						</tr>
+						<tr>
+							<th>직책</th>
+							<td>${approvalVO.rank}</td>
+						</tr>
+						<tr>
+							<th>소속</th>
+							<td>${approvalVO.dname}</td>
+						</tr>
+					</table>
 
-        <div class="docName">
-            <h1>휴가 신청서</h1>
-        </div>
-        <div class="deptContent">
-            <div class="signtable">
-                <table class="signtableleft">
-                    <tr>
-                        <th>이름</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>직책</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>소속</th>
-                        <td></td>
-                    </tr>
-                </table>
+					<table class="signtableright" border="1">
+						<tr>
+							<th>${approvalVO.rank}</th>
+							<th>${createdMidUser.rank}</th>
+							<th>${createdFinUser.rank}</th>
+						</tr>
+						<tr>
+							<td style="vertical-align: top">${approvalVO.ename}<br> <span
+								style="color: red;">[승인]</span>
+							</td>
+							<td style="vertical-align: top">${createdMidUser.ename}<br>
+								<c:choose>
+									<c:when test="${approvalVO.progress == '반려'}">
+										<span class="midUser" style="color: red;">[반려]</span>
+									</c:when>
+									<c:when test="${approvalVO.middate != null}">
+										<span class="midUser" style="color: red;">[승인]</span>
+									</c:when>
+									<c:otherwise>
+										<span></span>
+									</c:otherwise>
+								</c:choose>
+							</td>
 
-                <table class="signtableright" border="1">
-                    <tr>
-                        <th>사원</th>
-                        <th>과장</th>
-                        <th>부장</th>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align:top"><span class="approval1"></span><br><span style="color:red;">[승인]</span></td>
-                        <td style="vertical-align:top"><span class="approval2"></span><br><span style="color:red;"></span></td>
-                        <td style="vertical-align:top"><span class="approval3"></span><br><span style="color:red;"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="createdDayInput1"></td>
-                        <td class="createdDayInput2"></td>
-                        <td class="createdDayInput3"></td>
-                    </tr>
-                </table>
-            </div>
+							<td style="vertical-align: top">${createdFinUser.ename}<br>
+								<c:choose>
+									<c:when
+										test="${approvalVO.progress == '반려' && approvalVO.findate != null}">
+										<span class="finUser" style="color: red;">[반려]</span>
+									</c:when>
+									<c:when test="${approvalVO.findate != null}">
+										<span class="finUser" style="color: red;">[승인]</span>
+									</c:when>
+									<c:otherwise>
+										<span></span>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
 
-            <div class="inputarea">
-                <table>
-                    <tr>
-                        <td>
-                           	 제목<br>
-                            <div class="inputTitle" style="background-color:white;">
-                                ${approval.txtname}</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <br>
-                            
-                            1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
-                            <span>
-                                <input type="radio" name="leaveradio" value="1" class="modifySelect1" id="kindsSelect1"
-                                	disabled>
-                                <label for="kindsSelect1">연차</label>
-                            </span>
-                            <span>
-                                <input type="radio" name="leaveradio" value="2" class="modifySelect2" id="kindsSelect2"
-                                    disabled>
-                                <label for="kindsSelect2">병가</label>
-                            </span>
-                            <span>
-                                <input type="radio" name="leaveradio" value="3" class="modifySelect3" id="kindsSelect3"
-                                    disabled>
-                                <label for="kindsSelect3">휴가</label>
-                            </span>
-                            <span>
-                                <input type="radio" name="leaveradio" value="4" class="modifySelect4" id="kindsSelect4"
-                                    disabled>
-                                <label for="kindsSelect4">기타</label>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <br>
-                            1-2. 요청한 휴가의 기간을 입력하세요.<br>
-                            <span class="selectedDay">${approval.vacstart}</span> ~ <span class="selectedDay">${approval.vacend}</span>
-                            (<span class="selectedDayCount"></span> 일 간)
-                        </td>
-                    </tr>
+						<tr>
+							<td class="createdDayInput1">${approvalVO.entrydate}</td>
+							<td class="createdDayInput2">${approvalVO.middate}</td>
+							<td class="createdDayInput3">${approvalVO.findate}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="inputarea">
+					<table>
+						<tr>
+							<td>제목<br>
+								<div class="inputTitle" style="background-color: white;">
+									${approvalVO.txtname}</div>
+							</td>
+						</tr>
+						<tr>
+							<td><br> 1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+								<span> <input type="radio" name="leaveradio" value="연차"
+									class="modifySelect1" id="kindsSelect1" checked="checked"
+									disabled> <label for="kindsSelect1">연차</label>
+							</span> <span> <input type="radio" name="leaveradio" value="병가"
+									class="modifySelect2" id="kindsSelect2" disabled> <label
+									for="kindsSelect2">병가</label>
+							</span> <span> <input type="radio" name="leaveradio" value="휴가"
+									class="modifySelect3" id="kindsSelect3" disabled> <label
+									for="kindsSelect3">휴가</label>
+							</span> <span> <input type="radio" name="leaveradio" value="기타"
+									class="modifySelect4" id="kindsSelect4" disabled> <label
+									for="kindsSelect4">기타</label>
+							</span></td>
+						</tr>
+						<tr>
+							<td><br> 1-2. 요청한 휴가의 기간을 입력하세요.<br> <span
+								class="selectedDay">${approvalVO.vacstart}</span> ~ <span
+								class="selectedDay">${approvalVO.vacend}</span> (<span
+								class="dayCount"></span> 일 간)</td>
+						</tr>
 
-                    <tr>
-                        <td>
-                            <br>
-                            2. 1번 보기를 선택한 사유를 쓰세요.<br>
-                            <div class="inputContent" style="background-color:white;vertical-align:top;">
-                            ${approval.txtcont}
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div class="bottomBt">
-                    <button type="button" onclick="draftCheck()" disabled>등록</button>
-                    <button type="button" onclick="docModify()">수정</button>
-                    <button type="button" onclick="docDelete()">삭제</button>
-                    <button type="button" onclick="docApprov()" disabled>승인</button>
-                    <button type="button" onclick="docReturn()" disabled>반려</button>
-                    <button type="button" onclick="docCancle()">취소</button>
-                </div>
-            </div>
-        </div>
-    </div>
+						<tr>
+							<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.<br>
+								<div class="inputContent"
+									style="background-color: white; vertical-align: top;">
+									${approvalVO.txtcont}</div></td>
+						</tr>
+					</table>
+
+					<br>
+					<div class="bottomBt">
+						<button type="button" onclick="draftCheck()" disabled>등록</button>
+
+						<c:choose>
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+								<button type="button" onclick="docModify()">수정</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" onclick="docModify()" disabled>수정</button>
+							</c:otherwise>
+						</c:choose>
+
+						<c:choose>
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+								<button type="button" onclick="docDelete()">삭제</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" onclick="docDelete()" disabled>삭제</button>
+							</c:otherwise>
+						</c:choose>
+
+						<c:choose>
+							<c:when test="${approvalVO.progress == '반려'}">
+								<button type="button" onclick="docReturn()" disabled>승인</button>
+							</c:when>
+							<c:when
+								test="${approvalVO.mideno==loginUser.eno && approvalVO.middate == null}">
+								<button type="button" onclick="docApprove()">승인</button>
+							</c:when>
+							<c:when
+								test="${approvalVO.fineno==loginUser.eno && approvalVO.findate == null && approvalVO.middate != null}">
+								<button type="button" onclick="docApprove()">승인</button>
+							</c:when>
+
+							<c:otherwise>
+								<button type="button" onclick="docApprove()" disabled>승인</button>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${approvalVO.progress == '반려'}">
+								<button type="button" onclick="docReturn()" disabled>반려</button>
+							</c:when>
+							<c:when
+								test="${approvalVO.mideno==loginUser.eno && approvalVO.middate == null}">
+								<button type="button" onclick="docReturn()">반려</button>
+							</c:when>
+							<c:when
+								test="${approvalVO.fineno==loginUser.eno && approvalVO.findate == null && approvalVO.middate != null}">
+								<button type="button" onclick="docReturn()">반려</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" onclick="docReturn()" disabled>반려</button>
+							</c:otherwise>
+						</c:choose>
+						<button type="button" onclick="docCancle()">취소</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
 </body>
-<script type="text/javascript" src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script>
-	var vaclist = "${approval.vaclist}";
-	if (vaclist == "연차") {
-		$(".modifySelect1").attr("checked", "checked");
-	} else if (vaclist == "병가") {
-		$(".modifySelect2").attr("checked", "checked");
-	} else if (vaclist == "휴가") {
-		$(".modifySelect3").attr("checked", "checked");
-	} else if (vaclist == "기타") {
-		$(".modifySelect4").attr("checked", "checked");
-	}
-	
+var vaclist = "${approvalVO.vaclist}";
+if (vaclist == "연차") {
+	$(".modifySelect1").attr("checked", "checked");
+} else if (vaclist == "병가") {
+	$(".modifySelect2").attr("checked", "checked");
+} else if (vaclist == "휴가") {
+	$(".modifySelect3").attr("checked", "checked");
+} else if (vaclist == "기타") {
+	$(".modifySelect4").attr("checked", "checked");
+}
+
+$(document).ready(function() {
 	function getDateDiff(date1, date2) {
 		var arrDate1 = date1.split("-");
 		var getDate1 = new Date(parseInt(arrDate1[0]), parseInt(arrDate1[1]) - 1,
@@ -192,7 +282,12 @@
 		var getDiffTime = getDate1.getTime() - getDate2.getTime();
 		return Math.floor(getDiffTime / (1000 * 60 * 60 * 24));
 	}
-	$('.selectedDayCount').text(getDateDiff("${approval.vacend}","${approval.vacstart}") +1);
+	$('.dayCount').text(getDateDiff("${approvalVO.vacend}","${approvalVO.vacstart}") +1);
+});
+$(document).ready(function() {
+	if(($(".midUser").text()=='[반려]') && ($(".finUser").text()=='[반려]')){
+	$(".midUser").text('[승인]');
+} 
+});
 </script>
-<script type="text/javascript" src="${contextPath}/Approval01/js/ex_main.js"></script>
 </html>

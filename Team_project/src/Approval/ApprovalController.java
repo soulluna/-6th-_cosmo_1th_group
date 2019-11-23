@@ -1,6 +1,8 @@
 package Approval;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,17 +69,23 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
 
-			} /*
-				 * else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
-				 * System.out.println(); System.out.println("vacationWait.do");
-				 * System.out.println("action : " + action); String txtnum =
-				 * request.getParameter("txtnum"); System.out.println(txtnum); approvalVO =
-				 * approvalService.viewvacation(Integer.parseInt(txtnum));
-				 * request.setAttribute("approval", approvalVO); nextPage =
-				 * "/Approval01/vacationWait.jsp";
-				 * 
-				 * }
-				 */ else if (action.equals("/draftWait.do")) { // 기안서 상세보기
+			} else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
+				System.out.println();
+				System.out.println("vacationWait.do");
+				System.out.println("action : " + action);
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println(txtnum);
+				approvalVO = approvalService.viewvacation(txtnum);
+				MemberVO createdMidUser = approvalService.middraftInfo(approvalVO);
+				MemberVO createdFinUser = approvalService.findraftInfo(approvalVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
+				request.setAttribute("txtnum", txtnum);
+				request.setAttribute("approvalVO", approvalVO);
+				
+				nextPage = "/Approval01/vacationWait.jsp";
+
+			} else if (action.equals("/draftWait.do")) { // 기안서 상세보기
 				System.out.println();
 				System.out.println("draftWait.do");
 				System.out.println("action : " + action);
@@ -93,11 +101,17 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("createdMidUser", createdMidUser);
 				request.setAttribute("createdFinUser", createdFinUser);
 				request.setAttribute("txtnum", txtnum);
-				request.setAttribute("approval", approvalVO);
+				request.setAttribute("approvalVO", approvalVO);
 				
 				nextPage = "/Approval01/draftWait.jsp";
 
-			} else if (action.equals("/draft.do")) { // 기안서 작성 페이지
+			} else if(action.equals("/vacation.do")) {
+				MemberVO midUser = approvalService.midApprovalInfo(mVO);
+				MemberVO finUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("midUser", midUser);
+				request.setAttribute("finUser", finUser);
+				nextPage = "/Approval01/vacation.jsp";
+			}else if (action.equals("/draft.do")) { // 기안서 작성 페이지
 				
 				MemberVO midUser = approvalService.midApprovalInfo(mVO);
 				MemberVO finUser = approvalService.finApprovalInfo(mVO);
@@ -122,6 +136,38 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftAdd(aVO, mVO);
 				nextPage = "/Approval/docList.do";
 				
+			} else if(action.equals("/vacationed.do")) {
+				System.out.println("휴가신청서 등록 클릭");
+				String midUser = request.getParameter("midUser");
+				String finUser = request.getParameter("finUser");
+				System.out.println(midUser);
+				System.out.println(finUser);
+				
+				ApprovalVO aVO = new ApprovalVO();
+				String midUserEno = approvalService.approvalUser(midUser);
+				String finUserEno = approvalService.approvalUser(finUser);
+				aVO.setMideno(midUserEno);
+				aVO.setFineno(finUserEno);
+				aVO.setTxtname(request.getParameter("title"));
+				aVO.setTxtcont(request.getParameter("reason"));
+				aVO.setVaclist(request.getParameter("leaveradio"));
+
+				String datepicker1 = request.getParameter("datepicker1");
+				String datepicker2 = request.getParameter("datepicker2"); 
+				
+				java.sql.Date datepicker1ToDate=java.sql.Date.valueOf(datepicker1);
+				java.sql.Date datepicker2ToDate=java.sql.Date.valueOf(datepicker2);
+				System.out.println("----");
+				System.out.println(datepicker1ToDate);
+				System.out.println("----");
+
+				aVO.setVacstart(datepicker1ToDate);
+				aVO.setVacend(datepicker2ToDate);
+				
+				approvalService.vacationAdd(aVO, mVO);
+				
+				nextPage = "/Approval/docList.do";
+				
 			}else if(action.equals("/draftModify.do")) { // 기안서 수정 페이지
 				System.out.println("/draftModify.do");
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
@@ -135,7 +181,20 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("approvalVO", approvalVO);
 				nextPage = "/Approval01/draftModify.jsp";
 				
-			}else if(action.equals("/modified.do")) { // 기안서 수정 버튼 클릭
+			}else if(action.equals("/vacationModify.do")) { // 휴가신청서 수정 페이지
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				System.out.println("txtnum : " + txtnum);
+				MemberVO midUser = approvalService.midApprovalInfo(mVO);
+				MemberVO finUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("midUser", midUser);
+				request.setAttribute("finUser", finUser);
+				approvalVO = approvalService.viewvacation(txtnum);
+				request.setAttribute("txtnum", txtnum);
+				request.setAttribute("approvalVO", approvalVO);
+				
+				nextPage = "/Approval01/vacationModify.jsp";
+				
+			}else if(action.equals("/modified.do")) { // 기안서 수정 화면에서 등록 버튼 클릭
 				System.out.println("/modified.do");
 				ApprovalVO aVO = new ApprovalVO();
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
@@ -149,6 +208,34 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftmodify(aVO, txtnum);
 				nextPage = "/Approval/docList.do";
 				
+			}else if(action.equals("/vacmodified.do")) { // 휴가신청서 수정 화면에서 등록 버튼 클릭
+				System.out.println("vacmodified.do");
+				ApprovalVO aVO = new ApprovalVO();
+				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				aVO.setVaclist(request.getParameter("leaveradio"));
+				aVO.setTxtname(request.getParameter("title"));
+				aVO.setTxtcont(request.getParameter("reason"));
+
+				String datepicker1 = request.getParameter("datepicker1");
+				String datepicker2 = request.getParameter("datepicker2"); 				
+				java.sql.Date datepicker1ToDate=java.sql.Date.valueOf(datepicker1);
+				java.sql.Date datepicker2ToDate=java.sql.Date.valueOf(datepicker2);
+				System.out.println("----");
+				System.out.println(datepicker1ToDate);
+				System.out.println("----");
+				aVO.setVacstart(datepicker1ToDate);
+				aVO.setVacend(datepicker2ToDate);
+				
+				System.out.println("----------");
+				System.out.println(aVO.getTxtname());
+				System.out.println(aVO.getTxtcont());
+				System.out.println(txtnum);
+				System.out.println("----------");
+				approvalService.vacationmodify(aVO, txtnum);
+				
+				nextPage = "/Approval/docList.do";
+				
+				nextPage = "/Approval/docList.do";
 			}else if(action.equals("/draftdelete.do")) { //문서 삭제
 				System.out.println("draftdelete.do");
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));

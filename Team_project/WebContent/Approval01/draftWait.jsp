@@ -45,14 +45,14 @@ function docDelete() {
 	  }
 	}
 	function docApprove() {
-		if(${approval.mideno==loginUser.eno}){
+		if(${approvalVO.mideno==loginUser.eno}){
 			if (confirm("승인하시겠습니까?") == true) {
 				frm.action = "midapproveddraft.do?txtnum="+${txtnum};
 		  		frm.submit();
 			} else {
 				return false;
 			}
-		}else if(${approval.fineno==loginUser.eno}){
+		}else if(${approvalVO.fineno==loginUser.eno}){
 			if (confirm("승인하시겠습니까?") == true) {
 				frm.action = "finapproveddraft.do?txtnum="+${txtnum};
 		  		frm.submit();
@@ -62,14 +62,14 @@ function docDelete() {
 		}
 	}
 	function docReturn() {
-		if(${approval.mideno==loginUser.eno}){
+		if(${approvalVO.mideno==loginUser.eno}){
 			if (confirm("반려하시겠습니까?") == true) {
 				frm.action = "midreturneddraft.do?txtnum="+${txtnum};
 		  		frm.submit();
 			} else {
 				return false;
 			}
-		}else if(${approval.fineno==loginUser.eno}){
+		}else if(${approvalVO.fineno==loginUser.eno}){
 			if (confirm("반려하시겠습니까?") == true) {
 				frm.action = "finreturneddraft.do?txtnum="+${txtnum};
 		  		frm.submit();
@@ -100,34 +100,34 @@ function docDelete() {
 					<table class="signtableleft">
 						<tr>
 							<th>이름</th>
-							<td>${approval.ename}</td>
+							<td>${approvalVO.ename}</td>
 						</tr>
 						<tr>
 							<th>직책</th>
-							<td>${approval.rank}</td>
+							<td>${approvalVO.rank}</td>
 						</tr>
 						<tr>
 							<th>소속</th>
-							<td>${approval.dname}</td>
+							<td>${approvalVO.dname}</td>
 						</tr>
 					</table>
 
 					<table class="signtableright" border="1">
 						<tr>
-							<th>${approval.rank}</th>
+							<th>${approvalVO.rank}</th>
 							<th>${createdMidUser.rank}</th>
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
-							<td style="vertical-align: top">${approval.ename}<br> <span
-								style="color: red;">[승인]</span>
+							<td style="vertical-align: top">${approvalVO.ename}<br> <span
+								style="color: red;" class="firUser">[승인]</span>
 							</td>
 							<td style="vertical-align: top">${createdMidUser.ename}<br>
 								<c:choose>
-									<c:when test="${approval.progress == '반려'}">
+									<c:when test="${approvalVO.progress == '반려'}">
 										<span class="midUser" style="color: red;">[반려]</span>
 									</c:when>
-									<c:when test="${approval.middate != null}">
+									<c:when test="${approvalVO.middate != null}">
 										<span class="midUser" style="color: red;">[승인]</span>
 									</c:when>
 									<c:otherwise>
@@ -139,10 +139,10 @@ function docDelete() {
 							<td style="vertical-align: top">${createdFinUser.ename}<br>
 								<c:choose>
 									<c:when
-										test="${approval.progress == '반려' && approval.findate != null}">
+										test="${approvalVO.progress == '반려' && approvalVO.findate != null}">
 										<span class="finUser" style="color: red;">[반려]</span>
 									</c:when>
-									<c:when test="${approval.findate != null}">
+									<c:when test="${approvalVO.findate != null}">
 										<span class="finUser" style="color: red;">[승인]</span>
 									</c:when>
 									<c:otherwise>
@@ -153,9 +153,9 @@ function docDelete() {
 						</tr>
 						
 						<tr>
-							<td class="createdDayInput1">${approval.entrydate}</td>
-							<td class="createdDayInput2">${approval.middate}</td>
-							<td class="createdDayInput3">${approval.findate}</td>
+							<td class="createdDayInput1">${approvalVO.entrydate}</td>
+							<td class="createdDayInput2">${approvalVO.middate}</td>
+							<td class="createdDayInput3">${approvalVO.findate}</td>
 						</tr>
 					</table>
 				</div>
@@ -164,14 +164,14 @@ function docDelete() {
 						<tr>
 							<td>제목<br>
 								<div class="inputTitle" style="background-color: white;">
-									${approval.txtname}</div>
+									${approvalVO.txtname}</div>
 							</td>
 						</tr>
 						<tr>
 							<td><br> 내용<br>
 								<div class="inputContent"
 									style="background-color: white; vertical-align: top;">
-									${approval.txtcont}</div></td>
+									${approvalVO.txtcont}</div></td>
 
 
 						</tr>
@@ -182,7 +182,7 @@ function docDelete() {
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
 
 						<c:choose>
-							<c:when test="${approval.eno==loginUser.eno}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docModify()">수정</button>
 							</c:when>
 							<c:otherwise>
@@ -191,7 +191,7 @@ function docDelete() {
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${approval.eno==loginUser.eno}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docDelete()">삭제</button>
 							</c:when>
 							<c:otherwise>
@@ -200,36 +200,35 @@ function docDelete() {
 						</c:choose>
 
 						<c:choose>
-							<c:when test="${approval.progress == '반려'}">
+							<c:when test="${approvalVO.progress == '반려'}">
 								<button type="button" onclick="docReturn()" disabled>승인</button>
 							</c:when>
 							<c:when
-								test="${approval.mideno==loginUser.eno && approval.middate == null}">
-								<button type="button" onclick="docApprove()">승인</button>
+								test="${approvalVO.mideno==loginUser.eno && approvalVO.middate == null}">
+								<button class="approve" type="button" onclick="docApprove()">승인</button>
 							</c:when>
 							<c:when
-								test="${approval.fineno==loginUser.eno && approval.findate == null && approval.middate != null}">
-								<button type="button" onclick="docApprove()">승인</button>
+								test="${approvalVO.fineno==loginUser.eno && approvalVO.findate == null && approvalVO.middate != null}">
+								<button class="approve" type="button" onclick="docApprove()">승인</button>
 							</c:when>
-
 							<c:otherwise>
-								<button type="button" onclick="docApprove()" disabled>승인</button>
+								<button class="approve" type="button" onclick="docApprove()" disabled>승인</button>
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${approval.progress == '반려'}">
-								<button type="button" onclick="docReturn()" disabled>반려</button>
+							<c:when test="${approvalVO.progress == '반려'}">
+								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
 							</c:when>
 							<c:when
-								test="${approval.mideno==loginUser.eno && approval.middate == null}">
-								<button type="button" onclick="docReturn()">반려</button>
+								test="${approvalVO.mideno==loginUser.eno && approvalVO.middate == null}">
+								<button class="cancle" type="button" onclick="docReturn()">반려</button>
 							</c:when>
 							<c:when
-								test="${approval.fineno==loginUser.eno && approval.findate == null && approval.middate != null}">
-								<button type="button" onclick="docReturn()">반려</button>
+								test="${approvalVO.fineno==loginUser.eno && approvalVO.findate == null && approvalVO.middate != null}">
+								<button class="cancle" type="button" onclick="docReturn()">반려</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="docReturn()" disabled>반려</button>
+								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
 							</c:otherwise>
 						</c:choose>
 						<button type="button" onclick="docCancle()">취소</button>
@@ -242,10 +241,15 @@ function docDelete() {
 </body>
 <script>
 $(document).ready(function() {
-	if(($(".midUser").text()=='[반려]') && ($(".finUser").text()=='[반려]')){
+	if(($(".midUser").text()=='[반려]') && ($(".finUser").text()=='[반려]') && $(".midUser").text()){
 	$(".midUser").text('[승인]');
-} 
-	
+	}
+	if(!($(".midUser").text()) && (${approvalVO.eno!=loginUser.eno})){
+		console.log("뭘봐");
+		$(".approve").removeAttr('disabled');
+		$(".cancle").removeAttr('disabled');
+	}
+ 
 });
 
 </script>
