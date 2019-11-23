@@ -171,61 +171,45 @@ public class ApprovalDAO {
 	}
 
 	// 휴가신청서 상세 보기
+
 	public ApprovalVO selectVacation(int txtnum) {
 		ApprovalVO approval = new ApprovalVO();
 		System.out.println("selectVacation");
 		try {
-			con = dataFactory.getConnection();
-			String query = "select entrydate, middate, findate, eno, ";
-			query += "mideno, fineno, txtname, txtcont, vaclist, vacstart, vacend ";
+			String query = "select applist, txtnum, txtname, txtcont, progress, ";
+			query += "entrydate, middate, findate, eno, ename, rank, Midsugesteno, Finsugesteno,VACLIST, VACSTART, VACEND,";
+			query += "(select Employee.dname from employee where employee.eno=Approval.eno) as dname ";
 			query += "from approval where txtnum=?";
-
-//			String query2 = "select ename, rank, dname from employee where eno=?";
-
+			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, txtnum);
-
-			System.out.println(txtnum);
-			System.out.println(query);
 			ResultSet rs = pstmt.executeQuery();
 
 			rs.next();
-			Date entrydate = rs.getDate("entrydate");
-			Date middate = rs.getDate("middate");
-			Date findate = rs.getDate("findate");
-			String eno = rs.getString("eno");
-			String mideno = rs.getString("midsugesteno");
-			String fineno = rs.getString("finsugesteno");
-			String txtname = rs.getString("txtname");
-			String txtcont = rs.getString("txtcont");
-			String vaclist = rs.getString("vaclist");
-			Date vacstart = rs.getDate("vacstart");
-			Date vacend = rs.getDate("vacend");
+			approval.setTxtname(rs.getString("txtname"));
+			approval.setTxtcont(rs.getString("txtcont"));
+			approval.setProgress(rs.getString("progress"));
+			approval.setEntrydate(rs.getDate("entrydate"));
+			approval.setMiddate(rs.getDate("middate"));
+			approval.setFindate(rs.getDate("findate"));
+			approval.setEno(rs.getString("eno"));
+			approval.setEname(rs.getString("ename"));
+			approval.setRank(rs.getString("rank"));
+			approval.setDname(rs.getString("dname"));
+			approval.setMideno(rs.getString("Midsugesteno"));
+			approval.setFineno(rs.getString("Finsugesteno"));
+			approval.setVaclist(rs.getString("VACLIST"));
+			approval.setVacstart(rs.getDate("VACSTART"));
+			approval.setVacend(rs.getDate("VACEND"));
 
-			System.out.println(entrydate);
-			System.out.println(middate);
-			System.out.println(findate);
-			System.out.println(eno);
-			System.out.println(mideno);
-			System.out.println(fineno);
-			System.out.println(txtname);
-			System.out.println(txtcont);
-			System.out.println(vaclist);
-			System.out.println(vacstart);
-			System.out.println(vacend);
-
-			approval.setEntrydate(entrydate);
-			approval.setMiddate(middate);
-			approval.setFindate(findate);
-			approval.setEno(eno);
-			approval.setMideno(mideno);
-			approval.setFineno(fineno);
-			approval.setTxtname(txtname);
-			approval.setTxtcont(txtcont);
-			approval.setVaclist(vaclist);
-			approval.setVacstart(vacstart);
-			approval.setVacend(vacend);
+			System.out.println("-----------------");
+			System.out.println(rs.getString("Midsugesteno"));
+			System.out.println(rs.getString("Finsugesteno"));
+			System.out.println(rs.getString("VACLIST"));
+			System.out.println(rs.getDate("VACSTART"));
+			System.out.println(rs.getDate("VACEND"));
+			System.out.println("-----------------");
 
 			rs.close();
 			pstmt.close();
@@ -233,6 +217,7 @@ public class ApprovalDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+
 		}
 		return approval;
 	}
@@ -390,15 +375,19 @@ public class ApprovalDAO {
 			System.out.println("mid eno : " + approvalVO.getMideno());
 			pstmt.setString(1, approvalVO.getMideno());
 			ResultSet rs = pstmt.executeQuery();
-			rs.next();
+			try {
+				rs.next();
+				createdMid.setRank(rs.getString("rank"));
+				createdMid.setEname(rs.getString("ename"));
 
-			createdMid.setRank(rs.getString("rank"));
-			createdMid.setEname(rs.getString("ename"));
+			} catch (Exception e) {
+				rs.close();
+			}
 
-			rs.close();
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 
@@ -555,6 +544,67 @@ public class ApprovalDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, currentTime);
 			pstmt.setInt(2, txtnum);
+			System.out.println("executeUpdate");
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 휴가신청서 등록
+	public void vacationInset(ApprovalVO aVO, MemberVO mVO) {
+		// TODO Auto-generated method stub
+		System.out.println("DAO vacationInset");
+		String query = "insert into Approval (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO, VACLIST, VACSTART, VACEND)";
+		query += "values ('휴가신청서', approval_seq.nextval, ?, ?, '대기', ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			con = dataFactory.getConnection();
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, aVO.getTxtname());
+			pstmt.setString(2, aVO.getTxtcont());
+			pstmt.setString(3, mVO.getEno());
+			pstmt.setString(4, mVO.getEname());
+			pstmt.setString(5, mVO.getRank());
+			pstmt.setString(6, aVO.getMideno());
+			pstmt.setString(7, aVO.getFineno());
+			pstmt.setString(8, aVO.getVaclist());
+			System.out.println("getVaclist()까지 옴");
+
+			pstmt.setDate(9, aVO.getVacstart());
+			pstmt.setDate(10, aVO.getVacend());
+
+			pstmt.executeUpdate();
+
+			pstmt.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void modifyvacation(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+
+		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=? where txtnum=?";
+
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			System.out.println(aVO.getTxtname());
+			System.out.println(aVO.getTxtcont());
+			System.out.println(txtnum);
+			pstmt.setString(1, aVO.getTxtname());
+			pstmt.setString(2, aVO.getTxtcont());
+			pstmt.setString(3, aVO.getVaclist());
+			pstmt.setDate(4, aVO.getVacstart());
+			pstmt.setDate(5, aVO.getVacend());
+			pstmt.setInt(6, txtnum);
 			System.out.println("executeUpdate");
 			pstmt.executeUpdate();
 

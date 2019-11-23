@@ -45,7 +45,6 @@ public class ApprovalService {
 		return approval;
 	}
 	
-	
 	//기안서 작성 시 결재 정보
 	public MemberVO midApprovalInfo(MemberVO mVO) throws SQLException {
 		MemberVO midUser = approvalDAO.midApprovalGet(mVO);
@@ -113,6 +112,16 @@ public class ApprovalService {
 	public void draftfinReturn(int txtnum) {
 		// TODO Auto-generated method stub
 		approvalDAO.returnfinDraft(txtnum);
+	}
+
+	public void vacationAdd(ApprovalVO aVO, MemberVO mVO) {
+		// TODO Auto-generated method stub
+		approvalDAO.vacationInset(aVO,mVO);
+	}
+
+	public void vacationmodify(ApprovalVO aVO, int txtnum) {
+		// TODO Auto-generated method stub
+		approvalDAO.modifyvacation(aVO, txtnum);
 	}
 	
 
