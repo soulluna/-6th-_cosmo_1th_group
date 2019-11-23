@@ -84,3 +84,34 @@ insert into EMPLOYEE values('1889934937', 'master@123!', '최영태', 'choiyoung
 insert into EMPLOYEE values('1889254983', 'master@123!', '임소현', 'limsohyun', 'ding11128@naver.com', '01049345393', '개발팀', '1팀',  '2011/03/01','대리', 'false');
 
 
+
+
+
+
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('9052501152','master@123!','이진호','leejinho','ding263229@naver.com','01063901047','인사부','1팀',('2001/03/01'),'이사','true');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('6361307962','master@123!','김윤경','kimyunkyeung','dg22118@naver.com','01092528218','기술개발부','2팀',('2012/03/01'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('3123879202','master@123!','이우인','ieeuin','se2658903@gmail.com','01095800356','인사부','1팀',('2013/02/01'),'부장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('2238284512','master@123!','차현진','chahyunjin','doing2658@naver.com','01038277757','인사부','2팀',('2012/03/01'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('2273979279','master@123!','원치운','woonchiwoon','doing2238@naver.com','01024764171','영업부','2팀',('2010/03/01'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1338176239','master@123!','유학선','youhakseon','doee2658@naver.com','01074661788','영업부','1팀',('2009/03/01'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('5374007484','master@123!','조현석','jyohyungseok','doefg2g58@naver.com','01031105013','기술개발부','1팀',('2018/09/01'),'부장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('2401310079','master@123!','함종우','hamjeongwoo','do2936h8@naver.com','01074812659','기술개발부','1팀',('2019/01/01'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('2625239070','master@123!','안영우','anyeongwoo','powidn@naver.com','01017196083','기술개발부','1팀',('2019/03/01'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('5356873369','master@123!','석인영','seokinyoung','seokin@naver.com','01050814789','인사부','1팀',('2018/09/01'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1889934935','master@123!','신한솔','sinhansol','hansol258@naver.com','01092123030','인사부','2팀',('2019/03/01'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1889934937','master@123!','최영태','choiyoungtae','dong1928@naver.com','01049345312','기술개발부','2팀',('2015/03/01'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1889254983','master@123!','임소현','limsohyun','ding11128@naver.com','01049345393','기술개발부','1팀',('2011/03/01'),'대리','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('5879652145','master@123!','김재상','kimjaesang','kimkim2132@naver.com','01085694452','영업부','1팀',('2019/06/13'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('9632547812','master@123!','이한음','leehanum','lee4321@gmail.com','01058221145','영업부','1팀',('2018/07/03'),'대리','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1145879525','master@123!','박육원','parkyukwon','parkbark@gmail.com','01012569875','영업부','2팀',('2019/09/18'),'사원','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('5586452135','master@123!','한실음','hansilum','hansilumum@naver.com','01096587433','영업부','2팀',('2018/11/01'),'대리','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1234567855','master@123!','박석행','barksukhang','barksuk54@gmail.com','01038454253','인사부','1팀',('2018/07/10'),'대리','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1453834484','master@123!','이은상','leeunsang','dldmstkd@naver.com','01052365587','인사부','1팀',('2017/11/09'),'팀장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1455553455','master@123!','이손은','leesonun','thsdms1333@gmail.com','01085471269','인사부','2팀',('2018/07/12'),'대리','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('8778554126','master@123!','정철욱','jungcheoluk','jnjnjnds@gmail.com','01085239666','영업부','1팀',('2015/11/05'),'부장','false');
+Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('4435443432','master@123!','마한동','mahandong','mahandong3@naver.com','01085644477','기술개발부','2팀',('2018/11/01'),'대리','false');
+
+
+
+
+
