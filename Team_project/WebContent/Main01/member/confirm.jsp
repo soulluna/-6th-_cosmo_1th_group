@@ -7,7 +7,6 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html;utf-8");
 %>
-
 <c:if test='${result!=null}'>
 	<script>
 		window.onload = function(){
@@ -16,7 +15,7 @@
 	</script>
 </c:if>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="Main/login.do"/>
+	<jsp:forward page="${contextPath}/Main01/login.jsp"/>
 </c:if>
 <!DOCTYPE html>
 <html>

@@ -7,11 +7,10 @@
 	request.setCharacterEncoding("UTF-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="${contextPath}/Main/login.do"/>
+	<jsp:forward page="${contextPath}/Main01/index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,7 +69,6 @@
 								</tr>
 							</thead>
 							<tbody>
-
 								<%-- <tr>
 							<td class="co1">부서</td>
 							<td class="co2">공지</td>
@@ -84,51 +82,56 @@
 						</tr> --%>
 								<c:forEach var="board" items="${boardList}">
 									<tr class="record">
-										<td class="co1">${write.noticelist}</td>
+									<c:choose>
+										<c:when test="${board.noticelist==1}">
+											<td class="co1">부서</td>
+										</c:when>
+										<c:when test="${board.noticelist==2}">
+											<td class="co1">자유</td>
+										</c:when>
+										<c:otherwise>
+											<td class="co1">취미</td>
+										</c:otherwise>	
+									</c:choose>
 										<td class="co2">${board.txtnum}</td>
-										<td class="co3"><a
-											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}<%-- BoardController?command=viewBoard&txtnum=${board.txtnum} --%>">${board.txtname}</a></td>
+										<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}<%-- BoardController?command=viewBoard&txtnum=${board.txtnum} --%>">${board.txtname}</a></td>
 										<td class="co4">${board.ename}</td>
 										<td class="co5">${board.entrydate}</td>
 										<td class="co6">${board.viewtotal}</td>
 										<td class="co7">${board.likenum}</td>
 									</tr>
 								</c:forEach>
-								
 							</tbody>
 						</table>
 					</div>
-					</div>
-					</c:when>
-								</c:choose>
-					<div class="dlehd">
-						<div class="page">
-							<a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a
-								href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">다음</a>
-						</div>
-
-
-
-						<div class="wkrtjd">
-							<a onclick="location.href='${contextPath}/Board01/write.jsp'">글쓰기</a>
-						</div>
-					</div>
-
-					<div class="gkeks">
-						<select class="tpqn" name="searchType">
-							<option value="제목">제목</option>
-							<option value="제목+내용">제목+내용</option>
-							<option value="작성자">작성자</option>
-						</select>
-						<div class="rjator">
-							<input type="text" name="searchKey" placeholder="검색어 입력">
-							<button class="search">
-								<a href="#">검색 </a>
-							</button>
-							
-						</div>
-					</div>
 				</div>
+			</c:when>
+		</c:choose>
+		<div class="dlehd">
+			<div class="page">
+				<a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
+				<a href="#">4</a> <a href="#">5</a> <a href="#">다음</a>
+			</div>
+			<div class="wkrtjd">
+				<a onclick="location.href='${contextPath}/Board01/write.jsp'">글쓰기</a>
+			</div>
+		</div>
+
+		<div class="gkeks">
+			<select class="tpqn" name="searchType">
+				<option value="제목">제목</option>
+				<option value="제목+내용">제목+내용</option>
+				<option value="작성자">작성자</option>
+			</select>
+			<div class="rjator">
+				<input type="text" name="searchKey" placeholder="검색어 입력">
+				<button class="search">
+					<a href="#">검색 </a>
+				</button>
+
+			</div>
+		</div>
+	</div>
 
 	<script src="${contextPath}/Board01/js/main.js"></script>
 </body>

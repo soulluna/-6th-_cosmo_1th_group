@@ -12,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Main.MemberDAO;
 import Main.MemberVO;
+
+
 
 
 /**
@@ -70,20 +72,18 @@ public class BoardController extends HttpServlet {
 				System.out.println("write.do");
 				String txtname = request.getParameter("w_title");
 				String txtcont = request.getParameter("contents");
-				String noticelist = request.getParameter("searchtype");
 				String ename = request.getParameter("ename");
-				String eno=request.getParameter("eno");
-
-				MemberDAO memberDAO = new MemberDAO();
-				MemberVO memberVO = new MemberVO();
-				memberVO = memberDAO.getMember(eno);
-				boardVO.setRank(memberVO.getRank());
-				boardVO.setEname(memberVO.getEname());
-				boardVO.setEno(memberVO.getEno());
-				System.out.println(txtname+"   "+txtcont);
+				int noticeList = Integer.parseInt(request.getParameter("noticeList"));
+				
+				HttpSession session = request.getSession();//session을 이용하여 원하는 정보를 받아온다
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				boardVO.setRank(loginUser.getRank());
+				boardVO.setEname(loginUser.getEname());
+				boardVO.setEno(loginUser.getEno());
+				
+				boardVO.setNoticelist(noticeList);
 				boardVO.setTxtname(txtname);
 				boardVO.setTxtcont(txtcont);
-				boardVO.setNoticelist(noticelist);
 				boardVO.setEname(ename);
 
 				boardservice.addBoard(boardVO);
@@ -91,21 +91,27 @@ public class BoardController extends HttpServlet {
 
 			}else if(action.equals("/details.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 				System.out.println("details.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
-				String num = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
-				boardVO=boardservice.viewBoard(Integer.parseInt(num));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
+				String txtnum = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
+				boardVO=boardservice.viewBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
 				request.setAttribute("details", boardVO);//가져온 결과값을 보내줌
 				nextPage="/Board01/details.jsp";//결과페이지를 이동하기 위해 nextPage에 경로 지정
+
+			}else if(action.equals("/like.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
+				System.out.println("like.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
+				String txtnum = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
+				boardVO=boardservice.likeBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
+				nextPage="/Board/details.do";//결과페이지를 이동하기 위해 nextPage에 경로 지정
 
 			}else if(action.equals("/modForm.do")) { //수정하기 페이지 이동
 				System.out.println("modForm.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
 				int num = (Integer.parseInt(request.getParameter("txtnum")));//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함     
-				String name = request.getParameter("txtname");
-				String cont = request.getParameter("txtcont");
+				String txtname = request.getParameter("txtname");
+				String txtcont = request.getParameter("txtcont");
 				String noticelist = request.getParameter("noticelist");
 
 				boardVO.setTxtnum(num);
-				boardVO.setTxtname(name); 
-				boardVO.setTxtname(cont);
+				boardVO.setTxtname(txtname); 
+				boardVO.setTxtname(txtcont);
 				boardVO.setTxtname(noticelist);
 				boardservice.modArticle(boardVO); //article번호를 읽어와서 boardService에 viewArticle함수를 요청
 
@@ -129,8 +135,12 @@ public class BoardController extends HttpServlet {
 			}
 			else if(action.equals("/delArticle.do")){	//삭제하기
 				System.out.println("delArticle.do");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				String eno = loginUser.getEno();
+				boardVO.setEno(eno);
 				boardservice.delArticle(boardVO);
-				nextPage = "/BoardnoticeBoardMain.do";
+				nextPage = "/Board/noticeBoardMain.do";
 			}
 			else {
 				boardList = boardservice.listBoards();

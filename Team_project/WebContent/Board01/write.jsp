@@ -47,7 +47,7 @@
 						<h2>게시판</h2>
 					</div>
 					<div>
-						<select class="tpqn1" name="searchtype">
+						<select class="tpqn1" name="noticeList">
 							<option value="1">부서</option>
 							<option value="2">취미</option>
 							<option value="3">자유</option>

@@ -31,5 +31,10 @@ public class Boardservice {
    public void delArticle(BoardVO board) {
 	   boardDAO.deleteArticle(board);
    }
+public BoardVO likeBoard(int txtnum) {
+	// TODO Auto-generated method stub
+	boardDAO.updateLike(txtnum);
+	return null;
+}
    
 }

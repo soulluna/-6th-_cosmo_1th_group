@@ -14,7 +14,7 @@ public class BoardVO {
 //	   private int goods;
 	   //eno 사번 , rank 직책  comnum comtotal comcont; 
 	  
-	   private String noticelist;	//부서지정
+	   private int noticelist;	//부서지정
 	   private int txtnum;	//	글번호
 	   private String txtname;	//글제목
 	   private String txtcont;	//글내용
@@ -33,28 +33,6 @@ public class BoardVO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-	public BoardVO(String noticelist, int txtnum, String txtname, String txtcont, String ename, Date entrydate, int viewtotal, int likenum) {
-		super();
-		this.noticelist = noticelist;
-		this.txtnum = txtnum;
-		this.txtname = txtname;
-		this.txtcont = txtcont;
-		this.ename = ename;
-		this.entrydate = entrydate;
-		this.viewtotal = viewtotal;
-		this.likenum = likenum;
-	}
-
-
-
-	public String getNoticelist() {
-		return noticelist;
-	}
-	public void setNoticelist(String noticelist) {
-		this.noticelist = noticelist;
-	}
 	public int getTxtnum() {
 		return txtnum;
 	}
@@ -127,6 +105,11 @@ public class BoardVO {
 	public void setComnum(int comnum) {
 		this.comnum = comnum;
 	}
-	
+	public int getNoticelist() {
+		return noticelist;
+	}
+	public void setNoticelist(int noticelist) {
+		this.noticelist = noticelist;
+	}
 	   
 }

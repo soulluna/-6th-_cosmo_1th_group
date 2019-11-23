@@ -8,7 +8,7 @@
    response.setContentType("text/html;utf-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="${contextPath}/Main/login.do"/>
+	<jsp:forward page="${contextPath}/Main01/login.jsp"/>
 </c:if>
 <!-- contextPath = /Team_project -->
 <!DOCTYPE html>
