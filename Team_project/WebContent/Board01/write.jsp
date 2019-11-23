@@ -6,7 +6,9 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-
+<c:if test="${empty loginUser}">
+	<jsp:forward page="${contextPath}/Main/login.do"/>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
