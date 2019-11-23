@@ -106,17 +106,17 @@ public class ApprovalController extends HttpServlet {
 				nextPage = "/Approval01/draftWait.jsp";
 
 			} else if(action.equals("/vacation.do")) {
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				nextPage = "/Approval01/vacation.jsp";
 			}else if (action.equals("/draft.do")) { // 기안서 작성 페이지
 				
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				nextPage = "/Approval01/draft.jsp";
 
 			} else if (action.equals("/drafted.do")) { // 기안서 페이지 등록 완료 시
@@ -136,7 +136,7 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftAdd(aVO, mVO);
 				nextPage = "/Approval/docList.do";
 				
-			} else if(action.equals("/vacationed.do")) {
+			} else if(action.equals("/vacationed.do")) { // 휴가신청서 페이지 등록 완료 시
 				System.out.println("휴가신청서 등록 클릭");
 				String midUser = request.getParameter("midUser");
 				String finUser = request.getParameter("finUser");
@@ -172,10 +172,10 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("/draftModify.do");
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				System.out.println("txtnum : " + txtnum);
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				approvalVO = approvalService.viewdraft(txtnum);
 				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approvalVO", approvalVO);
@@ -184,10 +184,10 @@ public class ApprovalController extends HttpServlet {
 			}else if(action.equals("/vacationModify.do")) { // 휴가신청서 수정 페이지
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				System.out.println("txtnum : " + txtnum);
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				approvalVO = approvalService.viewvacation(txtnum);
 				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approvalVO", approvalVO);

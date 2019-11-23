@@ -63,8 +63,8 @@
 					<table class="signtableright" border="1">
 						<tr>
 							<th>${loginUser.rank}</th>
-							<th>${midUser.rank}</th>
-							<th>${finUser.rank}</th>
+							<th>${createdMidUser.rank}</th>
+							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
 							<td style="vertical-align: top">
@@ -72,13 +72,13 @@
 							<input type="hidden" name="firUser" style='width:80px; text-align:center;' value="${loginUser.ename}">
 							<br> <span style="color: red;"></span></td>
 							<td style="vertical-align: top">
-							<input type="text" name="midUser" style='width:80px; text-align:center;' value="${midUser.ename}" disabled>
-							<input type="hidden" name="midUser" style='width:80px; text-align:center;' value="${midUser.ename}">
+							<input type="text" name="midUser" style='width:80px; text-align:center;' value="${createdMidUser.ename}" disabled>
+							<input type="hidden" name="midUser" style='width:80px; text-align:center;' value="${createdMidUser.ename}">
 							<br>
 							<span style="color: red;"></span></td>
 							<td style="vertical-align: top">
-							<input type="text" name="finUser" style='width:80px; text-align:center;' value="${finUser.ename}" disabled>
-							<input type="hidden" name="finUser" style='width:80px; text-align:center;' value="${finUser.ename}">
+							<input type="text" name="finUser" style='width:80px; text-align:center;' value="${createdFinUser.ename}" disabled>
+							<input type="hidden" name="finUser" style='width:80px; text-align:center;' value="${createdFinUser.ename}">
 							<br>
 								<span style="color: red;"></span></td>
 						</tr>

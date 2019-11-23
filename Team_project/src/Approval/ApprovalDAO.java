@@ -372,14 +372,13 @@ public class ApprovalDAO {
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			System.out.println("mid eno : " + approvalVO.getMideno());
 			pstmt.setString(1, approvalVO.getMideno());
 			ResultSet rs = pstmt.executeQuery();
 			try {
 				rs.next();
 				createdMid.setRank(rs.getString("rank"));
 				createdMid.setEname(rs.getString("ename"));
-
+				createdMid.setEno(rs.getString("eno"));
 			} catch (Exception e) {
 				rs.close();
 			}
@@ -387,7 +386,6 @@ public class ApprovalDAO {
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 
@@ -409,6 +407,7 @@ public class ApprovalDAO {
 
 			createdFin.setRank(rs.getString("rank"));
 			createdFin.setEname(rs.getString("ename"));
+			createdFin.setEno(rs.getString("eno"));
 
 			rs.close();
 			pstmt.close();
