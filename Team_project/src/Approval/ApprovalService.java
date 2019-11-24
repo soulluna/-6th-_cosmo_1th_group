@@ -1,8 +1,9 @@
 package Approval;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Main.MemberVO;
 
@@ -21,9 +22,9 @@ public class ApprovalService {
 	}
 	
 	//검색어 있을 때 문서 출력
-	public List<ApprovalVO> listApproval(String searchType, String searchKey){
+	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey){
 		System.out.println("listApproval(매개변수) : " + searchType + ", " + searchKey);
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(searchType, searchKey);	
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey);	
 		return approvallist;
 	}
 	
@@ -125,6 +126,18 @@ public class ApprovalService {
 		// TODO Auto-generated method stub
 		approvalDAO.modifyvacation(aVO, txtnum);
 	}
+
+	/*
+	 * //페이징 테스트 함수 public Map listArticles(Map pagingMap) { // TODO Auto-generated
+	 * method stub Map articlesMap = new HashMap(); List<ApprovalVO> articlesList =
+	 * approvalDAO.selectAllArticles(pagingMap); int totArticles =
+	 * approvalDAO.selectTotArticles(); articlesMap.put("articlesList",
+	 * articlesList); articlesMap.put("totArticles", totArticles);
+	 * 
+	 * return articlesMap; } public List<ApprovalVO> listArticles(){
+	 * List<ApprovalVO> articlesList = approvalDAO.selectAllArticles(); return
+	 * articlesList; }
+	 */
 	
 
 

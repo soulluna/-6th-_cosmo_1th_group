@@ -58,7 +58,7 @@ var thisfilefullname;
 // 문서 취소
 function docCancle() {
 	if (confirm("문서함으로 넘어가겠습니까?") == true) {
-		location.href = 'doList.do';
+		location.href = 'docList.do';
 	} else {
 		return false;
 	}

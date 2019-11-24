@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -39,30 +40,39 @@ public class ApprovalDAO {
 	public List<ApprovalVO> selectAllApproval(MemberVO mVO) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
-			String query = "select txtnum, applist, progress, txtname, entrydate from approval where (eno=? or MIDSUGESTENO=? or FINSUGESTENO=?)";
-			// or MIDSUGESTENO=?
+			
+			String query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end)";
 
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, mVO.getEno());
-			pstmt.setString(2, mVO.getEno());
-			pstmt.setString(3, mVO.getEno());
+			for (int i = 1; i <= 7; i++) {
+				pstmt.setString(i, mVO.getEno());
+			}
 
 			ResultSet rs = pstmt.executeQuery();
 
 			// 첫 번째 목록부터
 			while (rs.next()) {
 				// 값을 가져옴
+				ApprovalVO approvalVO = new ApprovalVO();
 				int txtnum = rs.getInt("txtnum");
 				String applist = rs.getString("applist");
 				String progress = rs.getString("progress");
 				String txtname = rs.getString("txtname");
 				Date entrydate = rs.getDate("entrydate");
-
-				// 값을 넣어 객체 생성
-				ApprovalVO approvalVO = new ApprovalVO(txtnum, applist, progress, txtname, entrydate);
-
-				// 생성한 객체를 하나씩 추가
+				String eno = rs.getString("eno");
+				String midsugesteno = rs.getString("midsugesteno");
+				String finsugesteno = rs.getString("finsugesteno");
+				approvalVO.setApplist(applist);
+				approvalVO.setProgress(progress);
+				approvalVO.setTxtnum(txtnum);
+				approvalVO.setTxtname(txtname);
+				approvalVO.setEntrydate(entrydate);
+				approvalVO.setEno(eno);
+				approvalVO.setMideno(midsugesteno);
+				approvalVO.setFineno(finsugesteno);
 				approvalList.add(approvalVO);
 			}
 			rs.close();
@@ -76,40 +86,48 @@ public class ApprovalDAO {
 	}
 
 	// 검색 목록 가져오기
-	public List<ApprovalVO> selectAllApproval(String searchType, String searchKey) {
+	public List<ApprovalVO> selectAllApproval(MemberVO mVO, String searchType, String searchKey) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		String query = null;
 		try {
 			con = dataFactory.getConnection();
 			System.out.println(searchType);
 			System.out.println(searchKey);
+			
 			if (searchType.equals("1")) {
-				query = "select txtnum, applist, progress, txtname, entrydate from approval where ename='안영우' and applist like ?";
+				query = "select * from approval where eno='?' and applist like ?";
 			} else if (searchType.equals("2")) {
-				query = "select txtnum, applist, progress, txtname, entrydate from approval where ename='안영우' and txtname like ?";
+				query = "select * from approval where eno='?' and txtname like ?";
 			}
 			System.out.println(query);
 
 			pstmt = con.prepareStatement(query);
 			System.out.println("pstmt : " + pstmt);
-
-			pstmt.setString(1, "%" + searchKey + "%");
+			pstmt.setString(1, mVO.getEno());
+			pstmt.setString(2, "%" + searchKey + "%");
 			ResultSet rs = pstmt.executeQuery();
 			System.out.println("rs : " + rs);
 
 			// 첫 번째 목록부터
 			while (rs.next()) {
 				// 값을 가져옴
+				ApprovalVO approvalVO = new ApprovalVO();
 				int txtnum = rs.getInt("txtnum");
 				String applist = rs.getString("applist");
 				String progress = rs.getString("progress");
 				String txtname = rs.getString("txtname");
 				Date entrydate = rs.getDate("entrydate");
-
-				// 값을 넣어 객체 생성
-				ApprovalVO approvalVO = new ApprovalVO(txtnum, applist, progress, txtname, entrydate);
-
-				// 생성한 객체를 하나씩 추가
+				String eno = rs.getString("eno");
+				String midsugesteno = rs.getString("midsugesteno");
+				String finsugesteno = rs.getString("finsugesteno");
+				approvalVO.setApplist(applist);
+				approvalVO.setProgress(progress);
+				approvalVO.setTxtnum(txtnum);
+				approvalVO.setTxtname(txtname);
+				approvalVO.setEntrydate(entrydate);
+				approvalVO.setEno(eno);
+				approvalVO.setMideno(midsugesteno);
+				approvalVO.setFineno(finsugesteno);
 				approvalList.add(approvalVO);
 
 			}
@@ -625,4 +643,40 @@ public class ApprovalDAO {
 			e.printStackTrace();
 		}
 	}
+
+	/*
+	 * //페이징 테스트 public List selectAllArticles(Map pagingMap) { // TODO
+	 * Auto-generated method stub List articlesList = new ArrayList(); int section =
+	 * (Integer) pagingMap.get("section"); int pageNum = (Integer)
+	 * pagingMap.get("pageNum"); int pageAllNum = selectTotArticles(); String query
+	 * =
+	 * "select * from Approval where ? between(?-1)*100+(?-1)*10+1 and (?-1)*100+?*10)"
+	 * ; try { con = dataFactory.getConnection(); pstmt =
+	 * con.prepareStatement(query); pstmt.setInt(1, pageAllNum); pstmt.setInt(2,
+	 * section); pstmt.setInt(3, pageNum); pstmt.setInt(4, section); pstmt.setInt(5,
+	 * pageNum); ResultSet rs = pstmt.executeQuery(); while(rs.next()) { ApprovalVO
+	 * article = new ApprovalVO(); String applist = rs.getString("applist"); int
+	 * txtnum = rs.getInt("txtnum"); String txtname = rs.getString("TXTNAME");
+	 * String txtcont = rs.getString("TXTCONT"); String progress =
+	 * rs.getString("PROGRESS"); Date entrydate = rs.getDate("ENTRYDATE");
+	 * article.setApplist(applist); article.setTxtnum(txtnum);
+	 * article.setTxtname(txtname); article.setTxtcont(txtcont);
+	 * article.setProgress(progress); article.setEntrydate(entrydate);
+	 * articlesList.add(article); } rs.close(); pstmt.close(); con.close();
+	 * 
+	 * }catch(Exception e) { e.printStackTrace(); }
+	 * 
+	 * return articlesList; } public int selectTotArticles() { // TODO
+	 * Auto-generated method stub String query =
+	 * "select count(txtnum) from Approval"; try { con =
+	 * dataFactory.getConnection(); pstmt = con.prepareStatement(query); ResultSet
+	 * rs = pstmt.executeQuery(); if(rs.next()) { return(rs.getInt(1)); }
+	 * rs.close(); pstmt.close(); con.close(); }catch(Exception e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * return 0; }
+	 * 
+	 * public List<ApprovalVO> selectAllArticles() { // TODO Auto-generated method
+	 * stub return null; }
+	 */
 }
