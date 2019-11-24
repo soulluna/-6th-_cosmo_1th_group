@@ -321,10 +321,12 @@ public class ApprovalDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, userEname);
 			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			midUserEno = rs.getString("eno");
-
-			rs.close();
+			try{
+				rs.next();
+				midUserEno = rs.getString("eno");
+			}catch (Exception e) {
+				rs.close();
+			}
 			pstmt.close();
 			con.close();
 		} catch (Exception e) {
@@ -418,21 +420,27 @@ public class ApprovalDAO {
 
 		return createdFin;
 	}
-
+	
+	//기안서 수정
 	public void modifydraft(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
-
-		String query = "update Approval set txtname=?, txtcont=? where txtnum=?";
-
+		System.out.println("modifydraft");
+		String query = "update Approval set txtname=?, txtcont=?, entrydate=? where txtnum=?";
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			System.out.println(aVO.getTxtname());
 			System.out.println(aVO.getTxtcont());
+			System.out.println(currentTime);
 			System.out.println(txtnum);
 			pstmt.setString(1, aVO.getTxtname());
 			pstmt.setString(2, aVO.getTxtcont());
-			pstmt.setInt(3, txtnum);
+			pstmt.setString(3, currentTime);
+			pstmt.setInt(4, txtnum);
 			System.out.println("executeUpdate");
 			pstmt.executeUpdate();
 
@@ -512,7 +520,7 @@ public class ApprovalDAO {
 	// 중간 결재자 반려
 	public void returnmidDraft(int txtnum) {
 		// TODO Auto-generated method stub
-		String query = "update approval set middate=?, PROGRESS='반려' where txtnum=?";
+		String query = "update approval set middate=?, PROGRESS='반려1' where txtnum=?";
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		String currentTime = sdf.format(dt);
@@ -534,7 +542,7 @@ public class ApprovalDAO {
 	// 마지막 결재자 반려
 	public void returnfinDraft(int txtnum) {
 		// TODO Auto-generated method stub
-		String query = "update approval set FINDATE=?, PROGRESS='반려' where txtnum=?";
+		String query = "update approval set FINDATE=?, PROGRESS='반려2' where txtnum=?";
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		String currentTime = sdf.format(dt);
@@ -586,12 +594,15 @@ public class ApprovalDAO {
 		}
 
 	}
-
+	
+	//휴가신청서 수정
 	public void modifyvacation(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
-
-		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=? where txtnum=?";
-
+		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=?, entrydate=? where txtnum=?";
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentTime = sdf.format(dt);
+		
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
@@ -603,7 +614,8 @@ public class ApprovalDAO {
 			pstmt.setString(3, aVO.getVaclist());
 			pstmt.setDate(4, aVO.getVacstart());
 			pstmt.setDate(5, aVO.getVacend());
-			pstmt.setInt(6, txtnum);
+			pstmt.setString(6, currentTime);
+			pstmt.setInt(7, txtnum);
 			System.out.println("executeUpdate");
 			pstmt.executeUpdate();
 

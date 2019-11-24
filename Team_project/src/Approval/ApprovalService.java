@@ -82,6 +82,7 @@ public class ApprovalService {
 		return memberVO;
 	}
 
+	//기안서 수정 페이지의 등록 버튼 클릭
 	public void draftmodify(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
 		approvalDAO.modifydraft(aVO, txtnum);
@@ -103,7 +104,8 @@ public class ApprovalService {
 		// TODO Auto-generated method stub
 		approvalDAO.approvefinDraft(txtnum);
 	}
-
+	
+	//중간 결재자 반려
 	public void draftmidReturn(int txtnum) {
 		// TODO Auto-generated method stub
 		approvalDAO.returnmidDraft(txtnum);
