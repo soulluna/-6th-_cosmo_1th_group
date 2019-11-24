@@ -67,7 +67,7 @@ public class ApprovalController extends HttpServlet {
 				 * articlesMap); nextPage = "/Approval01/docList2.jsp";
 				 * System.out.println("-----//페이징 테스트------");
 				 */
-
+				
 				System.out.println("/docList.do");
 				System.out.println("action : " + action);
 				String searchType = request.getParameter("searchType");

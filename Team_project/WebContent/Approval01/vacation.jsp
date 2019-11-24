@@ -75,6 +75,9 @@
 <title>휴가신청서</title>
 </head>
 <body>
+<c:choose>
+		<c:when test="${loginUser!=null}">
+		
 	<div class="content">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<form name="frm" method="post">
@@ -193,5 +196,13 @@
 			</div>
 		</form>
 	</div>
+		</c:when>
+		<c:otherwise>
+			<script>
+				location.href = "${contextPath}/index.jsp";
+			</script>
+		</c:otherwise>
+	</c:choose>
+
 </body>
 </html>

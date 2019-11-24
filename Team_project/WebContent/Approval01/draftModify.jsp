@@ -51,6 +51,10 @@ function draftCheck() {
 </script>
 <title>기안서 수정</title>
 </head>
+<body>
+<c:choose>
+		<c:when test="${loginUser!=null}">
+		
 <div class="content">
 	<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 	<form name="frm" method="post">
@@ -134,7 +138,15 @@ function draftCheck() {
 		</div>
 	</form>
 </div>
-<body>
+		</c:when>
+		<c:otherwise>
+			<script>
+				location.href = "${contextPath}/index.jsp";
+			</script>
+		</c:otherwise>
+	</c:choose>
+
+
 
 </body>
 </html>

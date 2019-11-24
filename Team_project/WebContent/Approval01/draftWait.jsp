@@ -83,144 +83,161 @@ function docDelete() {
 </head>
 
 <body>
-	<div class="content">
-		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-		<form name="frm" method="post">
-			<select style="visibility: hidden;" class="docSelecter"
-				onchange="if(this.value) location.href=(this.value)">
-				<option value="./draft.html" selected>기안서</option>
-				<option value="./vacation.html">휴가신청서</option>
-			</select>
+	<c:choose>
+		<c:when test="${loginUser!=null}">
 
-			<div class="docName">
-				<h1>기안서</h1>
-			</div>
-			<div class="deptContent">
-				<div class="signtable">
-					<table class="signtableleft">
-						<tr>
-							<th>이름</th>
-							<td>${approvalVO.ename}</td>
-						</tr>
-						<tr>
-							<th>직책</th>
-							<td>${approvalVO.rank}</td>
-						</tr>
-						<tr>
-							<th>소속</th>
-							<td>${approvalVO.dname}</td>
-						</tr>
-					</table>
-					
-					<%-- <input class="loginUserEno" type="hidden" value="${loginUser.eno}">
+			<div class="content">
+				<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
+				<form name="frm" method="post">
+					<select style="visibility: hidden;" class="docSelecter"
+						onchange="if(this.value) location.href=(this.value)">
+						<option value="./draft.html" selected>기안서</option>
+						<option value="./vacation.html">휴가신청서</option>
+					</select>
+
+					<div class="docName">
+						<h1>기안서</h1>
+					</div>
+					<div class="deptContent">
+						<div class="signtable">
+							<table class="signtableleft">
+								<tr>
+									<th>이름</th>
+									<td>${approvalVO.ename}</td>
+								</tr>
+								<tr>
+									<th>직책</th>
+									<td>${approvalVO.rank}</td>
+								</tr>
+								<tr>
+									<th>소속</th>
+									<td>${approvalVO.dname}</td>
+								</tr>
+							</table>
+
+							<%-- <input class="loginUserEno" type="hidden" value="${loginUser.eno}">
 					<input class="approvalVOEno" type="hidden" value="${approvalVO.eno}">
 					<input class="midEno" type="hidden" value="${createdMidUser.eno}">
 					<input class="finEno" type="hidden" value="${createdFinUser.eno}"> --%>
-					
-					<table class="signtableright" border="1">
-						<tr>
-							<th>${approvalVO.rank}</th>
-							<th>${createdMidUser.rank}</th>
-							<th>${createdFinUser.rank}</th>
-						</tr>
-						<tr>
-							<td style="vertical-align: top">${approvalVO.ename}<br>
-							<span style="color: red;">[승인]</span>
-							</td>
-							<td style="vertical-align: top">${createdMidUser.ename}<br>
-								<c:choose>
-									<c:when test="${approvalVO.progress == '대기'}">
-										<span style="color: red;"></span>
-									</c:when>
-									<c:when test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
+
+							<table class="signtableright" border="1">
+								<tr>
+									<th>${approvalVO.rank}</th>
+									<th>${createdMidUser.rank}</th>
+									<th>${createdFinUser.rank}</th>
+								</tr>
+								<tr>
+									<td style="vertical-align: top">${approvalVO.ename}<br>
 										<span style="color: red;">[승인]</span>
-									</c:when>
-									<c:when test="${approvalVO.progress == '반려1'}">
-										<span style="color: red;">[반려]</span>
+									</td>
+									<td style="vertical-align: top">${createdMidUser.ename}<br>
+										<c:choose>
+											<c:when test="${approvalVO.progress == '대기'}">
+												<span style="color: red;"></span>
+											</c:when>
+											<c:when
+												test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
+												<span style="color: red;">[승인]</span>
+											</c:when>
+											<c:when test="${approvalVO.progress == '반려1'}">
+												<span style="color: red;">[반려]</span>
+											</c:when>
+											<c:otherwise>
+												<span style="color: red;"></span>
+											</c:otherwise>
+										</c:choose>
+									</td>
+
+									<td style="vertical-align: top">${createdFinUser.ename}<br>
+										<c:choose>
+											<c:when test="${approvalVO.progress == '완료'}">
+												<span style="color: red;">[승인]</span>
+											</c:when>
+											<c:when test="${approvalVO.progress == '반려2'}">
+												<span style="color: red;">[반려]</span>
+											</c:when>
+											<c:otherwise>
+												<span style="color: red;"></span>
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="createdDayInput1">${approvalVO.entrydate}</td>
+									<td class="createdDayInput2">${approvalVO.middate}</td>
+									<td class="createdDayInput3">${approvalVO.findate}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="inputarea">
+							<table>
+								<tr>
+									<td>제목<br>
+										<div class="inputTitle" style="background-color: white;">
+											${approvalVO.txtname}</div>
+									</td>
+								</tr>
+								<tr>
+									<td><br> 내용<br>
+										<div class="inputContent"
+											style="background-color: white; vertical-align: top;">
+											${approvalVO.txtcont}</div></td>
+
+
+								</tr>
+							</table>
+
+							<br>
+							<div class="bottomBt">
+								<button type="button" onclick="draftCheck()" disabled>등록</button>
+
+								<c:choose>
+									<c:when
+										test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+										<button type="button" onclick="docModify()">수정</button>
 									</c:when>
 									<c:otherwise>
-										<span style="color: red;"></span>
+										<button type="button" onclick="docModify()" disabled>수정</button>
 									</c:otherwise>
 								</c:choose>
-							</td>
 
-							<td style="vertical-align: top">${createdFinUser.ename}<br>
 								<c:choose>
-									<c:when test="${approvalVO.progress == '완료'}">
-										<span style="color: red;">[승인]</span>
-									</c:when>
-									<c:when test="${approvalVO.progress == '반려2'}">
-										<span style="color: red;">[반려]</span>
+									<c:when
+										test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+										<button type="button" onclick="docDelete()">삭제</button>
 									</c:when>
 									<c:otherwise>
-										<span style="color: red;"></span>
+										<button type="button" onclick="docDelete()" disabled>삭제</button>
 									</c:otherwise>
 								</c:choose>
-							</td>
-						</tr>
-						
-						<tr>
-							<td class="createdDayInput1">${approvalVO.entrydate}</td>
-							<td class="createdDayInput2">${approvalVO.middate}</td>
-							<td class="createdDayInput3">${approvalVO.findate}</td>
-						</tr>
-					</table>
-				</div>
-				<div class="inputarea">
-					<table>
-						<tr>
-							<td>제목<br>
-								<div class="inputTitle" style="background-color: white;">
-									${approvalVO.txtname}</div>
-							</td>
-						</tr>
-						<tr>
-							<td><br> 내용<br>
-								<div class="inputContent"
-									style="background-color: white; vertical-align: top;">
-									${approvalVO.txtcont}</div></td>
+								<c:choose>
+									<c:when
+										test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}">
+										<button class="approve" type="button" onclick="docApprove()">승인</button>
+										<button class="cancle" type="button" onclick="docReturn()">반려</button>
+									</c:when>
+									<c:otherwise>
+										<button class="approve" type="button" onclick="docApprove()"
+											disabled>승인</button>
+										<button class="cancle" type="button" onclick="docReturn()"
+											disabled>반려</button>
+									</c:otherwise>
+								</c:choose>
 
-
-						</tr>
-					</table>
-
-					<br>
-					<div class="bottomBt">
-						<button type="button" onclick="draftCheck()" disabled>등록</button>
-
-						<c:choose>
-							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
-								<button type="button" onclick="docModify()">수정</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" onclick="docModify()" disabled>수정</button>
-							</c:otherwise>
-						</c:choose>
-
-						<c:choose>
-							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
-								<button type="button" onclick="docDelete()">삭제</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" onclick="docDelete()" disabled>삭제</button>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}">
-								<button class="approve" type="button" onclick="docApprove()">승인</button>
-								<button class="cancle" type="button" onclick="docReturn()" >반려</button>
-							</c:when>
-							<c:otherwise>
-								<button class="approve" type="button" onclick="docApprove()" disabled>승인</button>
-								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
-							</c:otherwise>
-						</c:choose>
-						
-						<button type="button" onclick="docCancle()">취소</button>
+								<button type="button" onclick="docCancle()">취소</button>
+							</div>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
-		</form>
-	</div>
+		</c:when>
+		<c:otherwise>
+			<script>
+				location.href = "${contextPath}/index.jsp";
+			</script>
+		</c:otherwise>
+	</c:choose>
+
 </body>
 </html>
