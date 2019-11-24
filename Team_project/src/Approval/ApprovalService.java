@@ -127,6 +127,27 @@ public class ApprovalService {
 		approvalDAO.modifyvacation(aVO, txtnum);
 	}
 
+	//수신발신 정렬
+	public List<ApprovalVO> listSort1(MemberVO mVO) {
+		// TODO Auto-generated method stub
+		List<ApprovalVO> approvallist = approvalDAO.sortList1(mVO);	
+		return approvallist;
+		
+	}
+
+	//문서 상태 정렬
+	public List<ApprovalVO> listSort2(MemberVO mVO) {
+		// TODO Auto-generated method stub
+		List<ApprovalVO> approvallist = approvalDAO.sortList2(mVO);	
+		return approvallist;
+	}
+	
+	//문서 날짜 정렬
+	public List<ApprovalVO> listSort3(MemberVO mVO) {
+		List<ApprovalVO> approvallist = approvalDAO.sortList3(mVO);	
+		return approvallist;
+	}
+
 	/*
 	 * //페이징 테스트 함수 public Map listArticles(Map pagingMap) { // TODO Auto-generated
 	 * method stub Map articlesMap = new HashMap(); List<ApprovalVO> articlesList =

@@ -277,8 +277,21 @@ public class ApprovalController extends HttpServlet {
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				approvalService.draftfinReturn(txtnum);
 				nextPage = "/Approval/docList.do";
-			}
-			else {
+			}else if(action.equals("/disRecSort.do")) {//수신발신 정렬
+				approvalList = approvalService.listSort1(mVO);
+				request.setAttribute("approvalList", approvalList);
+				nextPage = "/Approval01/docList.jsp";
+				
+			}else if(action.equals("/docStateSort.do")) { //문서 상태 정렬
+				approvalList = approvalService.listSort2(mVO);
+				request.setAttribute("approvalList", approvalList);
+				nextPage = "/Approval01/docList.jsp";
+				
+			}else if(action.equals("/docDaySort.do")) { //문서 날짜 정렬
+				approvalList = approvalService.listSort3(mVO);
+				request.setAttribute("approvalList", approvalList);
+				nextPage = "/Approval01/docList.jsp";
+			}else {
 
 				/*
 				 * System.out.println("-----페이징 테스트------"); String _section =
