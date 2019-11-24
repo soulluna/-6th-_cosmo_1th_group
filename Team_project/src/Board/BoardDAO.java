@@ -59,6 +59,7 @@ public class BoardDAO {
 	}
 	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기
 		BoardVO board = new BoardVO();
+		updateViewTotal(num);
 		System.out.println("selectBoard");
 		try {
 			con = dataFactory.getConnection();

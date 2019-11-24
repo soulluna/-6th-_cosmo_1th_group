@@ -108,7 +108,7 @@ public class BoardController extends HttpServlet {
 				System.out.println("like.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
 				String txtnum = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 				boardservice.likeBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
-				nextPage="/Board/details.do";//결과페이지를 이동하기 위해 nextPage에 경로 지정
+				nextPage="/Board/details.do?txtnum="+txtnum;//결과페이지를 이동하기 위해 nextPage에 경로 지정
 			}
 			else if(action.equals("/modForm.do")) { //수정하기 페이지 이동
 				System.out.println("modForm.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
@@ -152,7 +152,7 @@ public class BoardController extends HttpServlet {
 				boardVO.setComcont(comcont);
 				boardVO.setComuser(comuser);
 				boardservice.addComment(boardVO);
-				nextPage = "/Board/details.do";
+				nextPage = "/Board/details.dotxtnum="+txtnum;
 			}
 			else {
 				boardList = boardservice.listBoards();
