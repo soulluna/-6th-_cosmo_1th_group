@@ -59,11 +59,18 @@ eno varchar2(20) not null,
 ename varchar2(10) not null,
 rank varchar2(8) not null,
 noticelist number(1),
+<<<<<<< HEAD
+likenum number(3),
+comcont varchar(500),
+comuser varchar2(10),
+viewtotal number(4),
+=======
 likenum number(3) default 0,
 comtotal number(3) default 0,
 comcont varchar(500),
 comnum number(3),
 viewtotal number(4) default 0,
+>>>>>>> fbafb04d9e8fd00815013e6ee95e3ffbb5f283cb
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
 );

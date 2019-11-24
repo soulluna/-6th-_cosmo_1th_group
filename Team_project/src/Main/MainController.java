@@ -68,21 +68,26 @@ public class MainController extends HttpServlet {
 		System.out.println("action : " + action);
 		try {
 			if(action!=null&&action.equals("/login.do")) {
-				System.out.println("로그인 버튼 클릭");
-				String eno = request.getParameter("eno");
-				String pwd = request.getParameter("pwd");
-				MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
-				int result = memberDAO.ConfirmID(eno, pwd);
-				if(result==1) {//로그인 성공
-					MemberVO memberVO = memberDAO.getMember(eno);
-					HttpSession session = request.getSession(); //세션을 열어준다.
-					session.setAttribute("loginUser", memberVO);
+				HttpSession session = request.getSession(); //세션을 열어준다.
+				if(session.getAttribute("loginUser")!=null) {
 					nextPage = "/Main01/indexMain.jsp";
-				}else {//로그인 실패
-					String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";
-					System.out.println(message);
-					request.setAttribute("result", result);
-					nextPage = "/index.jsp";
+				}
+				else {
+					System.out.println("로그인 버튼 클릭");
+					String eno = request.getParameter("eno");
+					String pwd = request.getParameter("pwd");
+					MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
+					int result = memberDAO.ConfirmID(eno, pwd);
+					if(result==1) {//로그인 성공
+						MemberVO memberVO = memberDAO.getMember(eno);
+						session.setAttribute("loginUser", memberVO);
+						nextPage = "/Main01/indexMain.jsp";
+					}else {//로그인 실패
+						String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";
+						System.out.println(message);
+						request.setAttribute("result", result);
+						nextPage = "/index.jsp";
+					}
 				}
 			}
 			else if(action.equals("/joinForm.do")) {//회원가입 페이지 이동
@@ -134,7 +139,7 @@ public class MainController extends HttpServlet {
 			else if(action.equals("/pwdConfirmForm.do")) {//메인페이지 및 gnb에서 개인정보 수정버튼 클릭
 				System.out.println("비밀번호 수정버튼 클릭");
 				nextPage = "/Main01/member/confirm.jsp";
-				
+
 			}
 			else if(action.equals("/pwdConfirm.do")) {//비밀번호 확인페이지에서 확인버튼 클릭
 				System.out.println("비밀번호 확인버튼 클릭");
@@ -233,50 +238,50 @@ public class MainController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		   Map<String, String> articleMap = new HashMap<String, String>();
-		   String encoding = "utf-8";
-		   File currentDirPath = new File(ARTICLE_IMAGE_PATH);
-		   DiskFileItemFactory factory = new DiskFileItemFactory();
-		   factory.setRepository(currentDirPath);
-		   factory.setSizeThreshold(1024*1024);
-		   ServletFileUpload upload = new ServletFileUpload(factory);
-		   
-		   try {
-			   List items = upload.parseRequest(request);
-			   for(int i=0; i< items.size(); i++) {
-				   	FileItem fileItem = (FileItem)items.get(i);
-				   	if(fileItem.isFormField()) {
-				   		System.out.println(fileItem.getFieldName());
-//					   	System.out.println(fileItem.getString(encoding));
-					   	articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
-				   	}else {
-				   		System.out.println(fileItem.getFieldName());
-//				   		System.out.println(fileItem.getString(encoding));
-				   		System.out.println(fileItem.getSize());
-				   		if(fileItem.getSize()>0) {
-				   			int idx = fileItem.getName().lastIndexOf("\\"); //윈도우
-				   			if(idx==-1) {//리눅스나 유닉스
-				   				idx = fileItem.getName().lastIndexOf("/"); //윈도우
-				   			}
-				   			String fileName = fileItem.getName().substring(idx+1);
-				   			System.out.println(fileName);
-				   			articleMap.put(fileItem.getFieldName(), fileName);
-				   			
-				   			File uploadFile = new File(currentDirPath+"\\"+fileName);
-				   			System.out.println(uploadFile);
-				   			fileItem.write(uploadFile);
-				   		}//end of Inner if
-				   	}//end of Outer if
-				   	
-			   }//end of for
-		   }catch(Exception e) {
-		          e.printStackTrace();
-	       }
-		   
-		   return articleMap;
-		   
-		   
-	   }
+		Map<String, String> articleMap = new HashMap<String, String>();
+		String encoding = "utf-8";
+		File currentDirPath = new File(ARTICLE_IMAGE_PATH);
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setRepository(currentDirPath);
+		factory.setSizeThreshold(1024*1024);
+		ServletFileUpload upload = new ServletFileUpload(factory);
+
+		try {
+			List items = upload.parseRequest(request);
+			for(int i=0; i< items.size(); i++) {
+				FileItem fileItem = (FileItem)items.get(i);
+				if(fileItem.isFormField()) {
+					System.out.println(fileItem.getFieldName());
+					//					   	System.out.println(fileItem.getString(encoding));
+					articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
+				}else {
+					System.out.println(fileItem.getFieldName());
+					//				   		System.out.println(fileItem.getString(encoding));
+					System.out.println(fileItem.getSize());
+					if(fileItem.getSize()>0) {
+						int idx = fileItem.getName().lastIndexOf("\\"); //윈도우
+						if(idx==-1) {//리눅스나 유닉스
+							idx = fileItem.getName().lastIndexOf("/"); //윈도우
+						}
+						String fileName = fileItem.getName().substring(idx+1);
+						System.out.println(fileName);
+						articleMap.put(fileItem.getFieldName(), fileName);
+
+						File uploadFile = new File(currentDirPath+"\\"+fileName);
+						System.out.println(uploadFile);
+						fileItem.write(uploadFile);
+					}//end of Inner if
+				}//end of Outer if
+
+			}//end of for
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return articleMap;
+
+
+	}
 }

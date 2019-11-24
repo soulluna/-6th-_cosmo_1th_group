@@ -27,8 +27,16 @@ public class BoardVO {
 	   private String rank;
 	   private int comtotal;
 	   private String comcont;
-	   private int comnum;
+	   private String comuser;
 	   
+	public String getComuser() {
+		return comuser;
+	}
+
+	public void setComuser(String comuser) {
+		this.comuser = comuser;
+	}
+
 	public BoardVO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -98,12 +106,6 @@ public class BoardVO {
 	}
 	public void setComcont(String comcont) {
 		this.comcont = comcont;
-	}
-	public int getComnum() {
-		return comnum;
-	}
-	public void setComnum(int comnum) {
-		this.comnum = comnum;
 	}
 	public int getNoticelist() {
 		return noticelist;

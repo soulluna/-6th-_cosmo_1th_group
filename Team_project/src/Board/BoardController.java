@@ -26,14 +26,12 @@ import Main.MemberVO;
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Boardservice boardservice;
-	BoardVO boardVO;
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		boardservice = new Boardservice();
-		boardVO = new BoardVO();
 	}
 
 	/**
@@ -61,72 +59,75 @@ public class BoardController extends HttpServlet {
 		System.out.println("action : " + action);
 		try {
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
+			HttpSession session = request.getSession();
+			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");	
+			if(loginUser==null) {
+				nextPage = "/index.jsp";
+			}
 			if(action!=null && action.equals("/noticeBoardMain.do")) {
 				System.out.println("noticeBoardMain.do");
-
 				boardList = boardservice.listBoards();
 				request.setAttribute("boardList", boardList);
 				nextPage = "/Board01/noticeBoardMain.jsp";
-
-			}else if(action.equals("/write.do")) {//글쓰기 
+			}
+			else if(action.equals("/searchKeyword.do")) {
+				System.out.println("searchKeyword.do");
+				String noticelist = request.getParameter("noticelist");
+				System.out.println(noticelist);
+				boardList = boardservice.alignBoard(noticelist);
+				request.setAttribute("boardList", boardList);
+				nextPage = "/Board01/noticeBoardMain.jsp";
+			}
+			else if(action.equals("/write.do")) {//글쓰기 
 				System.out.println("write.do");
-				String txtname = request.getParameter("w_title");
-				String txtcont = request.getParameter("contents");
-				String ename = request.getParameter("ename");
-				int noticeList = Integer.parseInt(request.getParameter("noticeList"));
-				
-				HttpSession session = request.getSession();//session을 이용하여 원하는 정보를 받아온다
-				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-				boardVO.setRank(loginUser.getRank());
-				boardVO.setEname(loginUser.getEname());
+				BoardVO boardVO = new BoardVO();
+				String txtname = request.getParameter("w_title");				
+				String txtcont = request.getParameter("contents");				
+				int noticeList = Integer.parseInt(request.getParameter("noticeList"));											
+				boardVO.setRank(loginUser.getRank());				
+				boardVO.setEname(loginUser.getEname());				
 				boardVO.setEno(loginUser.getEno());
-				
-				boardVO.setNoticelist(noticeList);
-				boardVO.setTxtname(txtname);
+				System.out.println(loginUser.getEno());				
+				boardVO.setNoticelist(noticeList);				
+				boardVO.setTxtname(txtname);				
 				boardVO.setTxtcont(txtcont);
-				boardVO.setEname(ename);
-
-				boardservice.addBoard(boardVO);
+				boardservice.addBoard(boardVO);				
 				nextPage="/Board/noticeBoardMain.do";
-
-			}else if(action.equals("/details.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
+			}
+			else if(action.equals("/details.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 				System.out.println("details.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
+				BoardVO boardVO = new BoardVO();
 				String txtnum = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
+				System.out.println(txtnum);
 				boardVO=boardservice.viewBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
-				request.setAttribute("details", boardVO);//가져온 결과값을 보내줌
+				request.setAttribute("board", boardVO);//가져온 결과값을 보내줌
 				nextPage="/Board01/details.jsp";//결과페이지를 이동하기 위해 nextPage에 경로 지정
 
-			}else if(action.equals("/like.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
+			}
+			else if(action.equals("/like.do")) {//글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 				System.out.println("like.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
 				String txtnum = request.getParameter("txtnum");//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
-				boardVO=boardservice.likeBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
-				nextPage="/Board/details.do";//결과페이지를 이동하기 위해 nextPage에 경로 지정
-
-			}else if(action.equals("/modForm.do")) { //수정하기 페이지 이동
+				boardservice.likeBoard(Integer.parseInt(txtnum));//article번호를 읽어와서 boardService에 viewArticle함수를 요청
+				nextPage="/Board/details.do?txtnum="+txtnum;//결과페이지를 이동하기 위해 nextPage에 경로 지정
+			}
+			else if(action.equals("/modForm.do")) { //수정하기 페이지 이동
 				System.out.println("modForm.do");//페이지 이동 확인하기 위한 출력구문(디버깅용)
-				int num = (Integer.parseInt(request.getParameter("txtnum")));//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함     
-				String txtname = request.getParameter("txtname");
-				String txtcont = request.getParameter("txtcont");
-				String noticelist = request.getParameter("noticelist");
-
-				boardVO.setTxtnum(num);
-				boardVO.setTxtname(txtname); 
-				boardVO.setTxtname(txtcont);
-				boardVO.setTxtname(noticelist);
-				boardservice.modArticle(boardVO); //article번호를 읽어와서 boardService에 viewArticle함수를 요청
-
-				request.setAttribute("modform", boardVO);//가져온 결과값을 보내줌
+				BoardVO boardVO = new BoardVO();
+				int txtnum = (Integer.parseInt(request.getParameter("txtnum")));//article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함     
+				boardVO=boardservice.viewBoard(txtnum);
+				
+				request.setAttribute("board", boardVO);//가져온 결과값을 보내줌
 				nextPage="/Board01/update.jsp";
 			}
 			else if(action.equals("/modArticle.do")){//글 수정하기
 				System.out.println("modArticle.do");
+				BoardVO boardVO = new BoardVO();
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				String txtname = request.getParameter("txtname");
 				String txtcont = request.getParameter("txtcont");
 				System.out.println(txtnum);
 				System.out.println(txtname);
 				System.out.println(txtcont);         	
-				
 				boardVO.setTxtnum(txtnum);
 				boardVO.setTxtname(txtname);
 				boardVO.setTxtcont(txtcont);
@@ -135,12 +136,23 @@ public class BoardController extends HttpServlet {
 			}
 			else if(action.equals("/delArticle.do")){	//삭제하기
 				System.out.println("delArticle.do");
-				HttpSession session = request.getSession();
-				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-				String eno = loginUser.getEno();
-				boardVO.setEno(eno);
-				boardservice.delArticle(boardVO);
+				String txtnum=request.getParameter("txtnum");
+				
+				boardservice.delArticle(txtnum);
 				nextPage = "/Board/noticeBoardMain.do";
+			}
+			else if(action.equals("/addComment.do")) {
+				System.out.println("addComment.do");
+				String txtnum=request.getParameter("txtnum");
+				String comcont=request.getParameter("comment");
+				String comuser = loginUser.getEname();
+				System.out.println(comcont+"   "+txtnum);
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(Integer.parseInt(txtnum));
+				boardVO.setComcont(comcont);
+				boardVO.setComuser(comuser);
+				boardservice.addComment(boardVO);
+				nextPage = "/Board/details.dotxtnum="+txtnum;
 			}
 			else {
 				boardList = boardservice.listBoards();

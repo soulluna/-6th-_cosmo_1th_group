@@ -31,7 +31,9 @@
 	}
 </script>
 </head>
-
+<c:if test="${empty loginUser}">
+	<jsp:forward page="${contextPath}/index.jsp" />
+</c:if>
 <body>
 <form name="frmArticle" method="post" enctype="multipart/form-data">
 	<input type="hidden" id = "eno" name="eno" value="${loginUser.eno}">
@@ -91,9 +93,6 @@
 
 					</div>
 					<div class="rksrur_bottom_right">
-						<button>
-							<a href="#">임시저장</a>
-						</button>
 						<button class="make" onclick="fn_write();"><p>작성하기</p></button>
 					</div>
 				</div>

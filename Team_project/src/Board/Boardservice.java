@@ -18,23 +18,34 @@ public class Boardservice {
 
    
    public BoardVO viewBoard(int articleNo) {
-	   BoardVO article = boardDAO.selectBoard(articleNo);
+	  BoardVO article = boardDAO.selectBoard(articleNo);
       return article;
    }
    public void modArticle(BoardVO board) {
 	   boardDAO.updateArticle(board);
    }
    
-   public void addBoard(BoardVO board) {
-	   boardDAO.insertBoard(board); 
+   public void addBoard(BoardVO boardVO) {
+	   System.out.println("보드보드");
+	   boardDAO.insertBoard(boardVO); 
    }
-   public void delArticle(BoardVO board) {
-	   boardDAO.deleteArticle(board);
+   public void delArticle(String txtnum) {
+	   boardDAO.deleteArticle(txtnum);
    }
-public BoardVO likeBoard(int txtnum) {
+public void likeBoard(int txtnum) {
 	// TODO Auto-generated method stub
 	boardDAO.updateLike(txtnum);
-	return null;
+}
+public List<BoardVO> alignBoard(String noticelist) {
+	List<BoardVO> noticeBoardsList = boardDAO.selectAlign(noticelist);
+	return noticeBoardsList;
+	// TODO Auto-generated method stub
+	
+}
+public void addComment(BoardVO boardVO) {
+	boardDAO.InsertComment(boardVO);
+	// TODO Auto-generated method stub
+	
 }
    
 }

@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("UTF-8");
 %>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="${contextPath}/Main01/index.jsp" />
+	<jsp:forward page="${contextPath}/index.jsp" />
 </c:if>
 <!DOCTYPE html>
 <html>
@@ -22,25 +22,27 @@
 <script src="${contextPath}/Board01/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Board01/js/jquery-ui.min.js"></script>
 <script src="${contextPath}/Board01/js/prefixfree.min.js"></script>
+<script src="${contextPath}/Board01/js/main.js"></script>
 </head>
 
 <body>
 	<div class="fullWrap">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-		<%-- <%@include file="/WEB-INF/GNB/header.jsp" %>--%>
 		<h1>6기 1조 프로젝트 전체 게시판</h1>
 		<div class="side">
 			<a href="${contextPath}/Board/noticeBoardMain.do">
 				<div>전체</div>
-			</a> <a href="${contextPath}/Board01/department.jsp">
+			</a> 
+			<a href="${contextPath}/Board/searchKeyword.do?noticelist=1">
 				<div>부서</div>
-			</a> <a href="${contextPath}/Board01/hobby.jsp">
+			</a> 
+			<a href="${contextPath}/Board/searchKeyword.do?noticelist=2">
 				<div>취미</div>
-			</a> <a href="${contextPath}/Board01/free.jsp">
+			</a> 
+			<a href="${contextPath}/Board/searchKeyword.do?noticelist=3">
 				<div>자유</div>
 			</a>
 		</div>
-
 		<c:choose>
 			<c:when test="${boardList==null}">
 				<tr>
@@ -69,32 +71,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<%-- <tr>
-							<td class="co1">부서</td>
-							<td class="co2">공지</td>
-							<td class="co3"><a href="${contextPath}/Board01/details.jsp">
-									<p>가나다라마바사아자차카타파하abcdefghijklmnopqrstuvwxyz</p>
-							</a><span>(2)</span></td>
-							<td class="co4">팀장</td>
-							<td class="co5">19.08.05</td>
-							<td class="co6">123</td>
-							<td class="co7">132</td>
-						</tr> --%>
 								<c:forEach var="board" items="${boardList}">
 									<tr class="record">
-									<c:choose>
-										<c:when test="${board.noticelist==1}">
-											<td class="co1">부서</td>
-										</c:when>
-										<c:when test="${board.noticelist==2}">
-											<td class="co1">자유</td>
-										</c:when>
-										<c:otherwise>
-											<td class="co1">취미</td>
-										</c:otherwise>	
-									</c:choose>
+										<c:choose>
+											<c:when test="${board.noticelist==1}">
+												<td class="co1">부서</td>
+											</c:when>
+											<c:when test="${board.noticelist==2}">
+												<td class="co1">취미</td>
+											</c:when>
+											<c:otherwise>
+												<td class="co1">자유</td>
+											</c:otherwise>
+										</c:choose>
 										<td class="co2">${board.txtnum}</td>
-										<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}<%-- BoardController?command=viewBoard&txtnum=${board.txtnum} --%>">${board.txtname}</a></td>
+										<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
 										<td class="co4">${board.ename}</td>
 										<td class="co5">${board.entrydate}</td>
 										<td class="co6">${board.viewtotal}</td>
@@ -128,12 +119,10 @@
 				<button class="search">
 					<a href="#">검색 </a>
 				</button>
-
 			</div>
 		</div>
 	</div>
 
-	<script src="${contextPath}/Board01/js/main.js"></script>
 </body>
 
 </html>

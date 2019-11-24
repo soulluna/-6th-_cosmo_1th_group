@@ -14,7 +14,7 @@
 	<div class="gnb">
 		<!--logoBar-->
 		<ul class="logobar">
-			<li id="mainLogo"><a href="${contextPath}/login.do"><img src="${contextPath}/img/logo3.gif"></a></li>
+			<li id="mainLogo"><a href="${contextPath}/Main/login.do"><img src="${contextPath}/img/logo3.gif"></a></li>
 			<table id="memberinfo">
 				<tbody>
 					<tr>
