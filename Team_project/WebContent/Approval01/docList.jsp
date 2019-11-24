@@ -66,8 +66,15 @@
 				</tr>
 				<c:forEach items="${approvalList}" var="approval" varStatus="15">
 				<tr>
-					<td>${approval.txtcall}</td>
-					<td>${approval.applist}</td>
+						<c:choose>
+							<c:when test="${approval.eno==loginUser.eno}">
+								<td>발신</td>
+							</c:when>
+							<c:otherwise>
+								<td>수신</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${approval.applist}</td>
 					<td>${approval.progress}</td>
 
 					<c:choose>

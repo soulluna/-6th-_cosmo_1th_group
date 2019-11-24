@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -43,11 +42,13 @@ public class ApprovalDAO {
 			
 			String query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end)";
-
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))" ;
+			query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc";
+			
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 7; i++) {
+			for (int i = 1; i <= 9; i++) {
 				pstmt.setString(i, mVO.getEno());
 			}
 
@@ -94,17 +95,31 @@ public class ApprovalDAO {
 			System.out.println(searchType);
 			System.out.println(searchKey);
 			
+			
+			
 			if (searchType.equals("1")) {
-				query = "select * from approval where eno='?' and applist like ?";
+				query = "select * from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
+				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc";
+				
 			} else if (searchType.equals("2")) {
-				query = "select * from approval where eno='?' and txtname like ?";
+				query = "select * from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
+				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc";
 			}
-			System.out.println(query);
 
 			pstmt = con.prepareStatement(query);
-			System.out.println("pstmt : " + pstmt);
-			pstmt.setString(1, mVO.getEno());
-			pstmt.setString(2, "%" + searchKey + "%");
+
+			for (int i = 1; i <= 8; i++) {
+				pstmt.setString(i, mVO.getEno());
+			}
+			pstmt.setString(9, "%" + searchKey + "%");
+			pstmt.setString(10, mVO.getEno());
+			
 			ResultSet rs = pstmt.executeQuery();
 			System.out.println("rs : " + rs);
 
