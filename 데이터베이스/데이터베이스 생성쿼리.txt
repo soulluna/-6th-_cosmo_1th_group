@@ -59,11 +59,18 @@ eno varchar2(20) not null,
 ename varchar2(10) not null,
 rank varchar2(8) not null,
 noticelist number(1),
+<<<<<<< HEAD
 likenum number(3),
-comtotal number(3),
+comcont varchar(500),
+comuser varchar2(10),
+viewtotal number(4),
+=======
+likenum number(3) default 0,
+comtotal number(3) default 0,
 comcont varchar(500),
 comnum number(3),
-viewtotal number(4),
+viewtotal number(4) default 0,
+>>>>>>> fbafb04d9e8fd00815013e6ee95e3ffbb5f283cb
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
 );
@@ -110,6 +117,14 @@ Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,
 Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('1455553455','master@123!','이손은','leesonun','thsdms1333@gmail.com','01085471269','인사부','2팀',('2018/07/12'),'대리','false');
 Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('8778554126','master@123!','정철욱','jungcheoluk','jnjnjnds@gmail.com','01085239666','영업부','1팀',('2015/11/05'),'부장','false');
 Insert into EMPLOYEE (ENO,PWD,ENAME,ENG_NAME,EMAIL,TEL,DNAME,DNAME_TWO,HIREDATE,RANK,ISADMIN) values ('4435443432','master@123!','마한동','mahandong','mahandong3@naver.com','01085644477','기술개발부','2팀',('2018/11/01'),'대리','false');
+
+
+
+INSERT INTO "ADMIN"."APPROVAL" (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENTRYDATE, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO) VALUES ('기안서', approval_seq.nextval, '안영우 사원 작성 기안서', '안영우 사원 작성 기안서', '대기', TO_DATE('2019-11-24 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), '2625239070', '안영우', '사원', '2401310079', '5374007484');
+ 
+페이지 넘기기 기능 테스트 자료
+
+
 
 
 

@@ -17,7 +17,6 @@ public class BoardDAO {
 	private DataSource dataFactory; 
 
 	public BoardDAO() {
-		super();
 		try {
 			Context ctx = new InitialContext(); 
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
@@ -58,40 +57,41 @@ public class BoardDAO {
 		}
 		return boardList;
 	}
-
-	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기위한거
+	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기
 		BoardVO board = new BoardVO();
+		System.out.println("selectBoard");
 		try {
-			con = dataFactory.getConnection();
-			updateViewTotal(num);
 			con = dataFactory.getConnection();
 			String query = "select * from NOTICE where txtnum=?";
 			pstmt = con.prepareStatement(query);// query를 con객체를 이용하여 db에 쿼리문을 보냄
 			pstmt.setInt(1, num);
 			System.out.println(query);
 			ResultSet rs = pstmt.executeQuery();// 보낸 쿼리문에 대한 결과를 rs객체를 이용하여 받음
-
-			rs.next(); // 커서 이동
-			int noticelist = rs.getInt("noticelist");
-			int txtnum = rs.getInt("txtnum");
-			String txtname = rs.getString("txtname");
-			String txtcont = rs.getString("txtcont");
-			String ename = rs.getString("ename");
-			String eno=rs.getString("eno");
-			Date entrydate = rs.getDate("entrydate");
-			int viewtotal = rs.getInt("viewtotal");
-			int likenum = rs.getInt("likenum");
-
-			board.setNoticelist(noticelist);
-			board.setTxtnum(txtnum);
-			board.setTxtname(txtname);
-			board.setTxtcont(txtcont);
-			board.setEname(ename);
-			board.setEntrydate(entrydate);
-			board.setViewtotal(viewtotal);
-			board.setLikenum(likenum);
-			board.setEno(eno);
-
+			if(rs.next()) {// 커서 이동
+				int noticelist = rs.getInt("noticelist");
+				int txtnum = rs.getInt("txtnum");
+				String txtname = rs.getString("txtname");
+				String txtcont = rs.getString("txtcont");
+				String ename = rs.getString("ename");
+				String eno=rs.getString("eno");
+				Date entrydate = rs.getDate("entrydate");
+				int viewtotal = rs.getInt("viewtotal");
+				int likenum = rs.getInt("likenum");
+				String comcont=rs.getString("comcont");
+				String comuser=rs.getString("comuser");
+System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum+"  "+comcont+"   "+comuser);
+				board.setNoticelist(noticelist);
+				board.setTxtnum(txtnum);
+				board.setTxtname(txtname);
+				board.setTxtcont(txtcont);
+				board.setEname(ename);
+				board.setEntrydate(entrydate);
+				board.setViewtotal(viewtotal);
+				board.setLikenum(likenum);
+				board.setEno(eno);
+				board.setComcont(comcont);
+				board.setComuser(comuser);
+			}
 			rs.close();
 			pstmt.close();
 			con.close();
@@ -99,7 +99,6 @@ public class BoardDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return board;
 	}
 	public void updateViewTotal(int num) {
@@ -118,7 +117,6 @@ public class BoardDAO {
 	}
 
 	public int selecttxtnum() {
-
 		int txtnum = 0;
 		try {
 			con = dataFactory.getConnection();
@@ -129,7 +127,6 @@ public class BoardDAO {
 			ResultSet rs =  pstmt.getResultSet();
 			rs.next();
 			txtnum = rs.getInt("maxtxtnum");
-			System.out.println(txtnum);
 
 			rs.close();
 			pstmt.close();
@@ -142,51 +139,16 @@ public class BoardDAO {
 		return txtnum;
 	}
 	
-	public void insertBoard(BoardVO board) {	//글쓰기
-		System.out.println("insertBaord");
-		int txtnum = selecttxtnum();
-		try {
-			con = dataFactory.getConnection();
-			int noticelist = board.getNoticelist();
-			String txtname = board.getTxtname();
-			String ename = board.getEname();
-			String eno = board.getEno();
-			int viewtotal = board.getViewtotal();
-			String txtcont = board.getTxtcont();
-			String rank = board.getRank();
-			String query = "insert into NOTICE(noticelist, txtname, txtnum, ename, viewtotal, txtcont, eno, rank) values(?,?,?,?,?,?,?,?)";
-			
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, noticelist);
-			pstmt.setString(2, txtname);
-			pstmt.setInt(3, txtnum);
-			pstmt.setString(4, ename);
-			pstmt.setInt(5, viewtotal);
-			pstmt.setString(6, txtcont);
-			pstmt.setString(7, eno);
-			pstmt.setString(8, rank);
-
-			pstmt.executeUpdate();
-			pstmt.close();
-			con.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void deleteArticle(BoardVO board) {
+	public void deleteArticle(String txtnum) {
 		// TODO Auto-generated method stub
 		System.out.println("deleteArticle");
 		try { 
 			con = dataFactory.getConnection();
-			int txtnum = board.getTxtnum();
-			String eno=board.getEno();
 			System.out.println(txtnum);
 			String query = "delete from NOTICE where txtnum=?";
 			System.out.println(query);
 			pstmt=con.prepareStatement(query);
-			pstmt.setInt(1, txtnum);
+			pstmt.setString(1, txtnum);
 			pstmt.executeUpdate();
 			pstmt.close();
 			con.close();
@@ -233,6 +195,80 @@ public class BoardDAO {
 			pstmt.close();
 			con.close();
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void insertBoard(BoardVO boardVO) {
+		// TODO Auto-generated method stub
+		int txtnum=selecttxtnum();
+		System.out.println("insertBoard");
+		String query="insert into notice(txtnum, txtname, txtcont, ename, noticelist, rank, eno) values(?, ?, ?, ?, ?, ?, ?)";
+		try {
+			con=dataFactory.getConnection();
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, txtnum);
+			pstmt.setString(2, boardVO.getTxtname());
+			pstmt.setString(3, boardVO.getTxtcont());
+			pstmt.setString(4, boardVO.getEname());
+			pstmt.setInt(5, boardVO.getNoticelist());
+			pstmt.setString(6, boardVO.getRank());
+			pstmt.setString(7, boardVO.getEno());
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public List<BoardVO> selectAlign(String noticelist) {//정렬 버튼 클릭 시 게시글 정렬하기
+		// TODO Auto-generated method stub
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+		try {
+			con = dataFactory.getConnection();
+			String query = "select txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+					+ " from NOTICE where noticelist=? order by txtnum desc";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, noticelist);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// articleVO인스턴스에 받은 값을 매개변수로 생성함
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(rs.getInt("txtnum"));
+				boardVO.setTxtname(rs.getString("txtname"));
+				boardVO.setTxtcont(rs.getString("txtcont"));
+				boardVO.setEname(rs.getString("ename"));
+				boardVO.setNoticelist(rs.getInt("noticelist"));
+				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setViewtotal(rs.getInt("viewtotal"));
+				boardVO.setLikenum(rs.getInt("likenum"));
+				boardList.add(boardVO);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardList;
+	}
+
+	public void InsertComment(BoardVO boardVO) {//댓글 달기
+		// TODO Auto-generated method stub
+		System.out.println("InsertComment");
+		String query="update notice set comcont=?, comuser=?  where txtnum=?";
+		try {
+			con=dataFactory.getConnection();
+			pstmt=con.prepareStatement(query);
+			pstmt.setString(1, boardVO.getComcont());
+			pstmt.setString(2, boardVO.getComuser());
+			pstmt.setInt(3, boardVO.getTxtnum());
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

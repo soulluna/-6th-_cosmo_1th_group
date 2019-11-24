@@ -12,7 +12,7 @@
 	</script>
 </c:if>
 <c:if test="${empty loginUser}">
-	<jsp:forward page="${contextPath}/Main01/login.jsp"/>
+	<jsp:forward page="${contextPath}/index.jsp"/>
 </c:if>
 <html>
 <head>
