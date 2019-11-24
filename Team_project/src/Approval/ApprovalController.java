@@ -1,10 +1,10 @@
 package Approval;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Board.Boardservice;
 import Main.MemberVO;
 
 @WebServlet("/Approval/*")
@@ -54,6 +55,19 @@ public class ApprovalController extends HttpServlet {
 			List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 
 			if (action != null && action.equals("/docList.do")) {
+				/*
+				 * System.out.println("-----페이징 테스트------"); String _section =
+				 * request.getParameter("section"); String _pageNum =
+				 * request.getParameter("pageNum"); int section = Integer.parseInt((_section ==
+				 * null) ? "1" : _section); int pageNum = Integer.parseInt((_pageNum == null) ?
+				 * "1" : _pageNum); Map pagingMap = new HashMap(); pagingMap.put("section",
+				 * section); pagingMap.put("pageNum", pageNum); Map articlesMap =
+				 * approvalService.listArticles(pagingMap); articlesMap.put("section", section);
+				 * articlesMap.put("pageNum", pageNum); request.setAttribute("articlesMap",
+				 * articlesMap); nextPage = "/Approval01/docList2.jsp";
+				 * System.out.println("-----//페이징 테스트------");
+				 */
+
 				System.out.println("/docList.do");
 				System.out.println("action : " + action);
 				String searchType = request.getParameter("searchType");
@@ -64,7 +78,7 @@ public class ApprovalController extends HttpServlet {
 					System.out.println("searchKey가 null인 if문");
 					approvalList = approvalService.listApproval(mVO);
 				} else {
-					approvalList = approvalService.listApproval(searchType, searchKey);
+					approvalList = approvalService.listApproval(mVO, searchType, searchKey);
 				}
 				request.setAttribute("approvalList", approvalList);
 				nextPage = "/Approval01/docList.jsp";
@@ -106,17 +120,17 @@ public class ApprovalController extends HttpServlet {
 				nextPage = "/Approval01/draftWait.jsp";
 
 			} else if(action.equals("/vacation.do")) {
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				nextPage = "/Approval01/vacation.jsp";
 			}else if (action.equals("/draft.do")) { // 기안서 작성 페이지
 				
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				nextPage = "/Approval01/draft.jsp";
 
 			} else if (action.equals("/drafted.do")) { // 기안서 페이지 등록 완료 시
@@ -136,7 +150,7 @@ public class ApprovalController extends HttpServlet {
 				approvalService.draftAdd(aVO, mVO);
 				nextPage = "/Approval/docList.do";
 				
-			} else if(action.equals("/vacationed.do")) {
+			} else if(action.equals("/vacationed.do")) { // 휴가신청서 페이지 등록 완료 시
 				System.out.println("휴가신청서 등록 클릭");
 				String midUser = request.getParameter("midUser");
 				String finUser = request.getParameter("finUser");
@@ -172,10 +186,10 @@ public class ApprovalController extends HttpServlet {
 				System.out.println("/draftModify.do");
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				System.out.println("txtnum : " + txtnum);
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				approvalVO = approvalService.viewdraft(txtnum);
 				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approvalVO", approvalVO);
@@ -184,10 +198,10 @@ public class ApprovalController extends HttpServlet {
 			}else if(action.equals("/vacationModify.do")) { // 휴가신청서 수정 페이지
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 				System.out.println("txtnum : " + txtnum);
-				MemberVO midUser = approvalService.midApprovalInfo(mVO);
-				MemberVO finUser = approvalService.finApprovalInfo(mVO);
-				request.setAttribute("midUser", midUser);
-				request.setAttribute("finUser", finUser);
+				MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
+				MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+				request.setAttribute("createdMidUser", createdMidUser);
+				request.setAttribute("createdFinUser", createdFinUser);
 				approvalVO = approvalService.viewvacation(txtnum);
 				request.setAttribute("txtnum", txtnum);
 				request.setAttribute("approvalVO", approvalVO);
@@ -232,9 +246,7 @@ public class ApprovalController extends HttpServlet {
 				System.out.println(txtnum);
 				System.out.println("----------");
 				approvalService.vacationmodify(aVO, txtnum);
-				
-				nextPage = "/Approval/docList.do";
-				
+
 				nextPage = "/Approval/docList.do";
 			}else if(action.equals("/draftdelete.do")) { //문서 삭제
 				System.out.println("draftdelete.do");
@@ -267,17 +279,29 @@ public class ApprovalController extends HttpServlet {
 				nextPage = "/Approval/docList.do";
 			}
 			else {
-				String searchType = request.getParameter("searchType");
-				System.out.println("searchType : " + searchType);
-				String searchKey = request.getParameter("searchKey");
-				System.out.println("searchKey : " + searchKey);
-				if (searchKey == null || searchKey.equals("")) {
-					approvalList = approvalService.listApproval(mVO);
-				} else {
-					approvalList = approvalService.listApproval(searchType, searchKey);
-				}
-				request.setAttribute("approvalList", approvalList);
-				nextPage = "/Approval01/docList.jsp";
+
+				/*
+				 * System.out.println("-----페이징 테스트------"); String _section =
+				 * request.getParameter("section"); String _pageNum =
+				 * request.getParameter("pageNum"); int section = Integer.parseInt((_section ==
+				 * null) ? "1" : _section); int pageNum = Integer.parseInt((_pageNum == null) ?
+				 * "1" : _pageNum); Map pagingMap = new HashMap(); pagingMap.put("section",
+				 * section); pagingMap.put("pageNum", pageNum); Map articlesMap =
+				 * approvalService.listArticles(pagingMap); articlesMap.put("section", section);
+				 * articlesMap.put("pageNum", pageNum); request.setAttribute("articlesMap",
+				 * articlesMap); nextPage = "/Approval01/docList2.jsp";
+				 * System.out.println("-----//페이징 테스트------");
+				 */
+				/*
+				 * String searchType = request.getParameter("searchType");
+				 * System.out.println("searchType : " + searchType); String searchKey =
+				 * request.getParameter("searchKey"); System.out.println("searchKey : " +
+				 * searchKey); if (searchKey == null || searchKey.equals("")) { approvalList =
+				 * approvalService.listApproval(mVO); } else { approvalList =
+				 * approvalService.listApproval(mVO, searchType, searchKey); }
+				 * request.setAttribute("approvalList", approvalList); nextPage =
+				 * "/Approval01/docList.jsp";
+				 */
 			}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
