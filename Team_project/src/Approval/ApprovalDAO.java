@@ -95,8 +95,6 @@ public class ApprovalDAO {
 			System.out.println(searchType);
 			System.out.println(searchKey);
 			
-			
-			
 			if (searchType.equals("1")) {
 				query = "select * from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
