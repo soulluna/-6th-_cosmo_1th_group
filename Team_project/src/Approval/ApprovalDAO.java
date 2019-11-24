@@ -814,6 +814,7 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
+	//메인 문서 10개
 	public List<ApprovalVO> listMain10(MemberVO mVO) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
@@ -845,9 +846,13 @@ public class ApprovalDAO {
 				approvalVO.setEno(rs.getString("eno"));
 				approvalVO.setMideno(rs.getString("midsugesteno"));
 				approvalVO.setFineno(rs.getString("finsugesteno"));
-				
 				approvalList.add(approvalVO);
 				
+				if(approvalList.size()>=10) {
+					System.out.println(approvalList.size());
+					break;
+				}
+
 			}
 			rs.close();
 			pstmt.close();

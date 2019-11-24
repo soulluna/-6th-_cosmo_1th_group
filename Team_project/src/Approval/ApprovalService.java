@@ -147,6 +147,13 @@ public class ApprovalService {
 		List<ApprovalVO> approvallist = approvalDAO.sortList3(mVO);	
 		return approvallist;
 	}
+	
+	//메인 문서 10개
+	public List<ApprovalVO> mainList10(MemberVO mVO) {
+		List<ApprovalVO> approvallist = approvalDAO.listMain10(mVO);	
+		return approvallist;
+	}
+
 
 	/*
 	 * //페이징 테스트 함수 public Map listArticles(Map pagingMap) { // TODO Auto-generated
