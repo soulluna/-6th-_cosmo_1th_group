@@ -30,7 +30,7 @@
 
 function docModify() {
 	if (confirm("수정하시겠습니까?") == true) {
-		frm.action = "draftModify.do?txtnum="+${txtnum};
+		frm.action = "draftModify.do";
 		frm.submit();
 	} else {
 		return false;
@@ -38,7 +38,7 @@ function docModify() {
 }
 function docDelete() {
 	  if (confirm("정말 삭제하시겠습니까?") == true) {
-		  	frm.action = "draftdelete.do?txtnum="+${txtnum};
+		  	frm.action = "draftdelete.do";
 		  	frm.submit();
 	  } else {
 	    return false;
@@ -47,14 +47,14 @@ function docDelete() {
 	function docApprove() {
 		if(${approvalVO.mideno==loginUser.eno}){
 			if (confirm("승인하시겠습니까?") == true) {
-				frm.action = "midapproveddraft.do?txtnum="+${txtnum};
+				frm.action = "midapproveddraft.do";
 		  		frm.submit();
 			} else {
 				return false;
 			}
 		}else if(${approvalVO.fineno==loginUser.eno}){
 			if (confirm("승인하시겠습니까?") == true) {
-				frm.action = "finapproveddraft.do?txtnum="+${txtnum};
+				frm.action = "finapproveddraft.do";
 		  		frm.submit();
 			} else {
 				return false;
@@ -64,14 +64,14 @@ function docDelete() {
 	function docReturn() {
 		if(${approvalVO.mideno==loginUser.eno}){
 			if (confirm("반려하시겠습니까?") == true) {
-				frm.action = "midreturneddraft.do?txtnum="+${txtnum};
+				frm.action = "midreturneddraft.do";
 		  		frm.submit();
 			} else {
 				return false;
 			}
 		}else if(${approvalVO.fineno==loginUser.eno}){
 			if (confirm("반려하시겠습니까?") == true) {
-				frm.action = "finreturneddraft.do?txtnum="+${txtnum};
+				frm.action = "finreturneddraft.do";
 		  		frm.submit();
 			} else {
 				return false;
@@ -89,6 +89,7 @@ function docDelete() {
 			<div class="content">
 				<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 				<form name="frm" method="post">
+				<input type="hidden" name="txtnum" value="${txtnum}">
 					<select style="visibility: hidden;" class="docSelecter"
 						onchange="if(this.value) location.href=(this.value)">
 						<option value="./draft.html" selected>기안서</option>

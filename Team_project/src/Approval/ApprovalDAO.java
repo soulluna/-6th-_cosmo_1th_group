@@ -765,20 +765,20 @@ public class ApprovalDAO {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		String query = null;
 		try {
-			if (sortList1Num == 0) {
+			if (sortList3Num == 0) {
 				query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
 				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))";
 				query += "order by ENTRYDATE, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)";
-				sortList1Num = 1;
-			} else if (sortList1Num == 1) {
+				sortList3Num = 1;
+			} else if (sortList3Num == 1) {
 				query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
 				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))";
 				query += "order by ENTRYDATE desc, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)";
-				sortList1Num = 0;
+				sortList3Num = 0;
 			}
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);

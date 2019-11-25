@@ -45,11 +45,7 @@
 			thisfilefullname = docName();
 			console.log(thisfilefullname);
 			if (confirm("등록하시겠습니까?") == true) {
-				frm.action = "vacmodified.do?txtnum=" + $
-				{
-					txtnum
-				}
-				;
+				frm.action = "vacmodified.do";
 				frm.submit();
 
 			} else {
@@ -113,8 +109,7 @@
 			<div class="content">
 				<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 				<form name="frm" method="post">
-
-
+				<input type="hidden" name="txtnum" value="${txtnum}">
 					<div class="docName">
 						<h1>기안서</h1>
 					</div>

@@ -40,7 +40,7 @@ function draftCheck() {
       for (i = 0; i <= 1; i++) {
         console.log(draftInputValue[i]);
       }
-      frm.action = "modified.do?txtnum="+${txtnum};
+      frm.action = "modified.do";
       frm.submit();
   		
     } else {
@@ -58,6 +58,7 @@ function draftCheck() {
 <div class="content">
 	<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 	<form name="frm" method="post">
+	<input type="hidden" name="txtnum" value="${txtnum}">
 		<div class="docName">
 			<h1>기안서</h1>
 		</div>
