@@ -94,7 +94,9 @@
 					</tr>
 				</c:forEach>
 			</table>
-
+			<c:forEach var="page" begin="1" end="${pagingMap.maxPageNum}">
+				<a href="${contextPath}/Approval/docList.do?pageNum=${page}">${page}</a>
+			</c:forEach>
 			<button class="docCreate" name="docCreate" type="button"
 				onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
 		</div>

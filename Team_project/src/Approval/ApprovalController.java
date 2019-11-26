@@ -59,19 +59,32 @@ public class ApprovalController extends HttpServlet {
 				nextPage = "/index.jsp";
 			} else {
 				if (action != null && action.equals("/docList.do")) {
-
+					Map pagingMap = new HashMap();
 					System.out.println("/docList.do");
 					System.out.println("action : " + action);
 					String searchType = request.getParameter("searchType");
-					System.out.println("searchType : " + searchType);
 					String searchKey = request.getParameter("searchKey");
-					System.out.println("searchKey : " + searchKey);
+					String _pageNum = request.getParameter("pageNum");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int docMaxNum = approvalService.docCount(mVO);
+					System.out.println("------");
+					System.out.println(docMaxNum);
+					System.out.println("------");
+					int maxPageNum = docMaxNum / 15 + 1;
+					pagingMap.put("pageNum", pageNum);
+					pagingMap.put("docMaxNum", docMaxNum);
+					pagingMap.put("maxPageNum", maxPageNum);
 					if (searchKey == null || searchKey.equals("")) {
 						System.out.println("searchKey가 null인 if문");
-						approvalList = approvalService.listApproval(mVO);
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listApproval(mVO, 1 + ((i - 1) * 15),
+										15 + ((i - 1) * 15));
+						}
 					} else {
 						approvalList = approvalService.listApproval(mVO, searchType, searchKey);
 					}
+					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
 
@@ -100,7 +113,6 @@ public class ApprovalController extends HttpServlet {
 					System.out.println(txtnum);
 
 					approvalVO = approvalService.viewdraft(txtnum);
-					System.out.println("컨트롤러 MIDENO: " + approvalVO.getMideno());
 
 					MemberVO createdMidUser = approvalService.middraftInfo(approvalVO);
 					MemberVO createdFinUser = approvalService.findraftInfo(approvalVO);
@@ -129,8 +141,6 @@ public class ApprovalController extends HttpServlet {
 					System.out.println("기안서 등록 클릭");
 					String midUser = request.getParameter("midUser");
 					String finUser = request.getParameter("finUser");
-					System.out.println(midUser);
-					System.out.println(finUser);
 
 					ApprovalVO aVO = new ApprovalVO();
 					String midUserEno = approvalService.approvalUser(midUser);
@@ -146,8 +156,6 @@ public class ApprovalController extends HttpServlet {
 					System.out.println("휴가신청서 등록 클릭");
 					String midUser = request.getParameter("midUser");
 					String finUser = request.getParameter("finUser");
-					System.out.println(midUser);
-					System.out.println(finUser);
 
 					ApprovalVO aVO = new ApprovalVO();
 					String midUserEno = approvalService.approvalUser(midUser);
@@ -163,9 +171,6 @@ public class ApprovalController extends HttpServlet {
 
 					java.sql.Date datepicker1ToDate = java.sql.Date.valueOf(datepicker1);
 					java.sql.Date datepicker2ToDate = java.sql.Date.valueOf(datepicker2);
-					System.out.println("----");
-					System.out.println(datepicker1ToDate);
-					System.out.println("----");
 
 					aVO.setVacstart(datepicker1ToDate);
 					aVO.setVacend(datepicker2ToDate);
@@ -206,11 +211,6 @@ public class ApprovalController extends HttpServlet {
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					aVO.setTxtname(request.getParameter("title"));
 					aVO.setTxtcont(request.getParameter("reason"));
-					System.out.println("----------");
-					System.out.println(aVO.getTxtname());
-					System.out.println(aVO.getTxtcont());
-					System.out.println(txtnum);
-					System.out.println("----------");
 					approvalService.draftmodify(aVO, txtnum);
 					nextPage = "/Approval/docList.do";
 
@@ -226,17 +226,10 @@ public class ApprovalController extends HttpServlet {
 					String datepicker2 = request.getParameter("datepicker2");
 					java.sql.Date datepicker1ToDate = java.sql.Date.valueOf(datepicker1);
 					java.sql.Date datepicker2ToDate = java.sql.Date.valueOf(datepicker2);
-					System.out.println("----");
-					System.out.println(datepicker1ToDate);
-					System.out.println("----");
+					
 					aVO.setVacstart(datepicker1ToDate);
 					aVO.setVacend(datepicker2ToDate);
 
-					System.out.println("----------");
-					System.out.println(aVO.getTxtname());
-					System.out.println(aVO.getTxtcont());
-					System.out.println(txtnum);
-					System.out.println("----------");
 					approvalService.vacationmodify(aVO, txtnum);
 
 					nextPage = "/Approval/docList.do";
@@ -286,13 +279,12 @@ public class ApprovalController extends HttpServlet {
 				} else {
 					System.out.println("/else");
 					System.out.println("action : " + action);
+					
 					String searchType = request.getParameter("searchType");
-					System.out.println("searchType : " + searchType);
 					String searchKey = request.getParameter("searchKey");
-					System.out.println("searchKey : " + searchKey);
 					if (searchKey == null || searchKey.equals("")) {
 						System.out.println("searchKey가 null인 if문");
-						approvalList = approvalService.listApproval(mVO);
+						approvalList = approvalService.listApproval(mVO, 1, 15);
 					} else {
 						approvalList = approvalService.listApproval(mVO, searchType, searchKey);
 					}
@@ -303,9 +295,12 @@ public class ApprovalController extends HttpServlet {
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		}catch(
+
+	Exception e)
+	{
+		e.printStackTrace();
 	}
+}
 
 }

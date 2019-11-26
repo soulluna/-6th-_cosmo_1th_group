@@ -16,8 +16,8 @@ public class ApprovalService {
 	}
 	
 	//그냥 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO) {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO);	
+	public List<ApprovalVO> listApproval(MemberVO mVO, int a, int b) {
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, a, b);	
 		return approvallist;
 	}
 	
@@ -154,20 +154,11 @@ public class ApprovalService {
 		return approvallist;
 	}
 
+	//글 개수 조회
+	public int docCount(MemberVO mVO) {
+		// TODO Auto-generated method stub
+		return approvalDAO.countDoc(mVO);
+	}
 
-	/*
-	 * //페이징 테스트 함수 public Map listArticles(Map pagingMap) { // TODO Auto-generated
-	 * method stub Map articlesMap = new HashMap(); List<ApprovalVO> articlesList =
-	 * approvalDAO.selectAllArticles(pagingMap); int totArticles =
-	 * approvalDAO.selectTotArticles(); articlesMap.put("articlesList",
-	 * articlesList); articlesMap.put("totArticles", totArticles);
-	 * 
-	 * return articlesMap; } public List<ApprovalVO> listArticles(){
-	 * List<ApprovalVO> articlesList = approvalDAO.selectAllArticles(); return
-	 * articlesList; }
-	 */
 	
-
-
-
 }
