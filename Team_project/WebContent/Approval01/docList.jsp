@@ -94,9 +94,12 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<c:forEach var="page" begin="1" end="${pagingMap.maxPageNum}">
-				<a href="${contextPath}/Approval/docList.do?pageNum=${page}">${page}</a>
-			</c:forEach>
+			<%-- <c:forEach var="sessionPage" begin="1" end="${pagingMap.maxPageNum}/5+1"> --%>
+				<c:forEach var="page" begin="1" end="${pagingMap.maxPageNum}">	
+					<a href="${contextPath}/Approval/docList.do?pageNum=${page}">${page}</a>
+						<%-- <c:if test="${pagingMap.maxPageNum/5+1} "><a>다음</a></c:if> --%>						
+				</c:forEach>
+		<%-- 	</c:forEach> --%>
 			<button class="docCreate" name="docCreate" type="button"
 				onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
 		</div>

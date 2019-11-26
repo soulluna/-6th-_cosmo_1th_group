@@ -66,6 +66,7 @@ public class ApprovalController extends HttpServlet {
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
 					int docMaxNum = approvalService.docCount(mVO);
 					System.out.println("------");
 					System.out.println(docMaxNum);
