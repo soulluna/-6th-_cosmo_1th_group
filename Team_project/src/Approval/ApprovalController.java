@@ -59,18 +59,6 @@ public class ApprovalController extends HttpServlet {
 				nextPage = "/index.jsp";
 			} else {
 				if (action != null && action.equals("/docList.do")) {
-					/*
-					 * System.out.println("-----페이징 테스트------"); String _section =
-					 * request.getParameter("section"); String _pageNum =
-					 * request.getParameter("pageNum"); int section = Integer.parseInt((_section ==
-					 * null) ? "1" : _section); int pageNum = Integer.parseInt((_pageNum == null) ?
-					 * "1" : _pageNum); Map pagingMap = new HashMap(); pagingMap.put("section",
-					 * section); pagingMap.put("pageNum", pageNum); Map articlesMap =
-					 * approvalService.listArticles(pagingMap); articlesMap.put("section", section);
-					 * articlesMap.put("pageNum", pageNum); request.setAttribute("articlesMap",
-					 * articlesMap); nextPage = "/Approval01/docList2.jsp";
-					 * System.out.println("-----//페이징 테스트------");
-					 */
 
 					System.out.println("/docList.do");
 					System.out.println("action : " + action);
@@ -293,6 +281,21 @@ public class ApprovalController extends HttpServlet {
 
 				} else if (action.equals("/docDaySort.do")) { // 문서 날짜 정렬
 					approvalList = approvalService.listSort3(mVO);
+					request.setAttribute("approvalList", approvalList);
+					nextPage = "/Approval01/docList.jsp";
+				} else {
+					System.out.println("/else");
+					System.out.println("action : " + action);
+					String searchType = request.getParameter("searchType");
+					System.out.println("searchType : " + searchType);
+					String searchKey = request.getParameter("searchKey");
+					System.out.println("searchKey : " + searchKey);
+					if (searchKey == null || searchKey.equals("")) {
+						System.out.println("searchKey가 null인 if문");
+						approvalList = approvalService.listApproval(mVO);
+					} else {
+						approvalList = approvalService.listApproval(mVO, searchType, searchKey);
+					}
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
 				}
