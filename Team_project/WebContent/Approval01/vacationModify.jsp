@@ -96,141 +96,127 @@
 				});
 			}
 		}); //datepicker2 변동 시 날짜 변경
-
 	});
 </script>
-
 <title>휴가신청서</title>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${loginUser!=null}">
-
-			<div class="content">
-				<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-				<form name="frm" method="post">
-				<input type="hidden" name="txtnum" value="${txtnum}">
-					<div class="docName">
-						<h1>기안서</h1>
-					</div>
-					<div class="deptContent">
-						<div class="signtable">
-							<table class="signtableleft">
-								<tr>
-									<th>이름</th>
-									<td>${loginUser.ename}</td>
-								</tr>
-								<tr>
-									<th>직책</th>
-									<td>${loginUser.rank}</td>
-								</tr>
-								<tr>
-									<th>소속</th>
-									<td>${loginUser.dname}</td>
-								</tr>
-							</table>
-
-							<table class="signtableright" border="1">
-								<tr>
-									<th>${loginUser.rank}</th>
-									<th>${createdMidUser.rank}</th>
-									<th>${createdFinUser.rank}</th>
-								</tr>
-								<tr>
-									<td style="vertical-align: top"><input type="text"
-										name="firUser" style='width: 80px; text-align: center;'
-										value="${loginUser.ename}" disabled> <input
-										type="hidden" name="firUser"
-										style='width: 80px; text-align: center;'
-										value="${loginUser.ename}"> <br> <span
-										style="color: red;"></span></td>
-									<td style="vertical-align: top"><input type="text"
-										name="midUser" style='width: 80px; text-align: center;'
-										value="${createdMidUser.ename}" disabled> <input
-										type="hidden" name="midUser"
-										style='width: 80px; text-align: center;'
-										value="${createdMidUser.ename}"> <br> <span
-										style="color: red;"></span></td>
-									<td style="vertical-align: top"><input type="text"
-										name="finUser" style='width: 80px; text-align: center;'
-										value="${createdFinUser.ename}" disabled> <input
-										type="hidden" name="finUser"
-										style='width: 80px; text-align: center;'
-										value="${createdFinUser.ename}"> <br> <span
-										style="color: red;"></span></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</table>
-						</div>
-
-						<div class="inputarea">
-							<table>
-								<tr>
-									<td>제목<br> <input class="inputTitle" type="text"
-										name="title" required placeholder="제목을 입력해주세요." maxlength="50"
-										value="${approvalVO.txtname}">
-									</td>
-								</tr>
-								<tr>
-									<td><br> 1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
-										<span> <input type="radio" name="leaveradio" value="연차"
-											class="modifySelect1" id="kindsSelect1"> <label
-											for="kindsSelect1">연차</label>
-									</span> <span> <input type="radio" name="leaveradio" value="병가"
-											class="modifySelect2" id="kindsSelect2"> <label
-											for="kindsSelect2">병가</label>
-									</span> <span> <input type="radio" name="leaveradio" value="휴가"
-											class="modifySelect3" id="kindsSelect3"> <label
-											for="kindsSelect3">휴가</label>
-									</span> <span> <input type="radio" name="leaveradio" value="기타"
-											class="modifySelect4" id="kindsSelect4"> <label
-											for="kindsSelect4">기타</label>
-									</span></td>
-								</tr>
-								<tr>
-									<td><br> 1-2. 요청한 휴가의 기간을 입력하세요.<br> <input
-										type="text" id="datepicker1" name="datepicker1"
-										placeholder="년/월/일" readonly style="height: 35px;"
-										value="${approvalVO.vacstart}"> ~ <input type="text"
-										id="datepicker2" name="datepicker2" placeholder="년/월/일"
-										readonly style="height: 35px;" value="${approvalVO.vacend}">
-										(<span class="dayCount"></span>일 간) <span
-										class="dayCountAlret" style="color: red; display: none;">날짜를
-											올바르게 선택하세요.</span></td>
-
-								</tr>
-								<tr>
-									<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.${approvalVO.vaclist}<br>
-										<textarea class="inputContent" name="reason"
-											placeholder="사유을 입력해주세요." required maxlength="2000">${approvalVO.txtcont}</textarea></td>
-								</tr>
-							</table>
-
-							<br>
-							<div class="bottomBt">
-								<button type="button" onclick="vacationCheck()">등록</button>
-								<button type="button" onclick="docModify()" disabled>수정</button>
-								<button type="button" onclick="docDelete()" disabled>삭제</button>
-								<button type="button" onclick="docApprov()" disabled>승인</button>
-								<button type="button" onclick="docReturn()" disabled>반려</button>
-								<button type="button" onclick="docCancle()">취소</button>
-							</div>
-						</div>
-					</div>
-				</form>
+	<div class="content">
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
+		<form name="frm" method="post">
+			<input type="hidden" name="txtnum" value="${txtnum}">
+			<div class="docName">
+				<h1>기안서</h1>
 			</div>
-		</c:when>
-		<c:otherwise>
-			<script>
-				location.href = "${contextPath}/index.jsp";
-			</script>
-		</c:otherwise>
-	</c:choose>
+			<div class="deptContent">
+				<div class="signtable">
+					<table class="signtableleft">
+						<tr>
+							<th>이름</th>
+							<td>${loginUser.ename}</td>
+						</tr>
+						<tr>
+							<th>직책</th>
+							<td>${loginUser.rank}</td>
+						</tr>
+						<tr>
+							<th>소속</th>
+							<td>${loginUser.dname}</td>
+						</tr>
+					</table>
 
+					<table class="signtableright" border="1">
+						<tr>
+							<th>${loginUser.rank}</th>
+							<th>${createdMidUser.rank}</th>
+							<th>${createdFinUser.rank}</th>
+						</tr>
+						<tr>
+							<td style="vertical-align: top"><input type="text"
+								name="firUser" style='width: 80px; text-align: center;'
+								value="${loginUser.ename}" disabled> <input
+								type="hidden" name="firUser"
+								style='width: 80px; text-align: center;'
+								value="${loginUser.ename}"> <br> <span
+								style="color: red;"></span></td>
+							<td style="vertical-align: top"><input type="text"
+								name="midUser" style='width: 80px; text-align: center;'
+								value="${createdMidUser.ename}" disabled> <input
+								type="hidden" name="midUser"
+								style='width: 80px; text-align: center;'
+								value="${createdMidUser.ename}"> <br> <span
+								style="color: red;"></span></td>
+							<td style="vertical-align: top"><input type="text"
+								name="finUser" style='width: 80px; text-align: center;'
+								value="${createdFinUser.ename}" disabled> <input
+								type="hidden" name="finUser"
+								style='width: 80px; text-align: center;'
+								value="${createdFinUser.ename}"> <br> <span
+								style="color: red;"></span></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="inputarea">
+					<table>
+						<tr>
+							<td>제목<br> <input class="inputTitle" type="text"
+								name="title" required placeholder="제목을 입력해주세요." maxlength="50"
+								value="${approvalVO.txtname}">
+							</td>
+						</tr>
+						<tr>
+							<td><br> 1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+								<span> <input type="radio" name="leaveradio" value="연차"
+									class="modifySelect1" id="kindsSelect1"> <label
+									for="kindsSelect1">연차</label>
+							</span> <span> <input type="radio" name="leaveradio" value="병가"
+									class="modifySelect2" id="kindsSelect2"> <label
+									for="kindsSelect2">병가</label>
+							</span> <span> <input type="radio" name="leaveradio" value="휴가"
+									class="modifySelect3" id="kindsSelect3"> <label
+									for="kindsSelect3">휴가</label>
+							</span> <span> <input type="radio" name="leaveradio" value="기타"
+									class="modifySelect4" id="kindsSelect4"> <label
+									for="kindsSelect4">기타</label>
+							</span></td>
+						</tr>
+						<tr>
+							<td><br> 1-2. 요청한 휴가의 기간을 입력하세요.<br> <input
+								type="text" id="datepicker1" name="datepicker1"
+								placeholder="년/월/일" readonly style="height: 35px;"
+								value="${approvalVO.vacstart}"> ~ <input type="text"
+								id="datepicker2" name="datepicker2" placeholder="년/월/일" readonly
+								style="height: 35px;" value="${approvalVO.vacend}"> (<span
+								class="dayCount"></span>일 간) <span class="dayCountAlret"
+								style="color: red; display: none;">날짜를 올바르게 선택하세요.</span></td>
+
+						</tr>
+						<tr>
+							<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.${approvalVO.vaclist}<br>
+								<textarea class="inputContent" name="reason"
+									placeholder="사유을 입력해주세요." required maxlength="2000">${approvalVO.txtcont}</textarea></td>
+						</tr>
+					</table>
+
+					<br>
+					<div class="bottomBt">
+						<button type="button" onclick="vacationCheck()">등록</button>
+						<button type="button" onclick="docModify()" disabled>수정</button>
+						<button type="button" onclick="docDelete()" disabled>삭제</button>
+						<button type="button" onclick="docApprov()" disabled>승인</button>
+						<button type="button" onclick="docReturn()" disabled>반려</button>
+						<button type="button" onclick="docCancle()">취소</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 <script>
 	var vaclist = "${approvalVO.vaclist}";

@@ -31,80 +31,75 @@
 
 </head>
 <body>
-	<c:choose>
-		<c:when test="${loginUser!=null}">
 
-			<!--전체 컨텐츠-->
-			<div class="content">
-				<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
+	<!--전체 컨텐츠-->
+	<div class="content">
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 
-				<div class="docName">
-					<h1>내 문서함</h1>
-				</div>
-				<!--깊은 컨텐츠-->
-				<div class="deptContent" style="margin: 10px;">
-					<!--문서종류, 검색값, 검색버튼-->
-					<div>
-						<form>
-							<select name="searchType">
-								<option value="1" selected="">결재종류</option>
-								<option value="2">문서제목</option>
-							</select> <input type="text" class="searchInput" name="searchKey">
-							<input type="submit" class="search" value="검색"
-								style="height: 30px;" onclick="docListSearchCheck()">
-						</form>
-					</div>
-					<!--//문서종류, 검색값, 검색버튼-->
+		<div class="docName">
+			<h1>내 문서함</h1>
+		</div>
+		<!--깊은 컨텐츠-->
+		<div class="deptContent" style="margin: 10px;">
+			<!--문서종류, 검색값, 검색버튼-->
+			<div>
+				<form>
+					<select name="searchType">
+						<option value="1" selected="">결재종류</option>
+						<option value="2">문서제목</option>
+					</select> <input type="text" class="searchInput" name="searchKey"> <input
+						type="submit" class="search" value="검색" style="height: 30px;"
+						onclick="docListSearchCheck()">
+				</form>
+			</div>
+			<!--//문서종류, 검색값, 검색버튼-->
 
-					<!--문서 목록표-->
-					<table class="docListTable" border="1">
-						<tr>
-							<th width="60px"><a
-								href="${contextPath}/Approval/disRecSort.do">수/발신</a></th>
-							<th width="120px">결재종류</th>
-							<th width="80px"><a
-								href="${contextPath}/Approval/docStateSort.do">결재상태</a></th>
-							<th width="700px">문서제목</th>
-							<th width="100px"><a
-								href="${contextPath}/Approval/docDaySort.do">등록일자</a></th>
-						</tr>
-						<c:forEach items="${approvalList}" var="approval" varStatus="15">
-							<tr>
-								<c:choose>
-									<c:when test="${approval.eno==loginUser.eno}">
-										<td>발신</td>
-									</c:when>
-									<c:otherwise>
-										<td>수신</td>
-									</c:otherwise>
-								</c:choose>
-								<td>${approval.applist}</td>
-								<td>${approval.progress}</td>
+			<!--문서 목록표-->
+			<table class="docListTable" border="1">
+				<tr>
+					<th width="60px"><a
+						href="${contextPath}/Approval/disRecSort.do">수/발신</a></th>
+					<th width="120px">결재종류</th>
+					<th width="80px"><a
+						href="${contextPath}/Approval/docStateSort.do">결재상태</a></th>
+					<th width="700px">문서제목</th>
+					<th width="100px"><a
+						href="${contextPath}/Approval/docDaySort.do">등록일자</a></th>
+				</tr>
+				<c:forEach items="${approvalList}" var="approval" varStatus="15">
+					<tr>
+						<c:choose>
+							<c:when test="${approval.eno==loginUser.eno}">
+								<td>발신</td>
+							</c:when>
+							<c:otherwise>
+								<td>수신</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${approval.applist}</td>
+						<td>${approval.progress}</td>
 
-								<c:choose>
-									<c:when test="${approval.applist == '기안서'}">
-										<td><a
-											href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
-									</c:when>
-									<c:when test="${approval.applist == '휴가신청서'}">
-										<td><a
-											href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
-									</c:when>
-								</c:choose>
+						<c:choose>
+							<c:when test="${approval.applist == '기안서'}">
+								<td><a
+									href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+							</c:when>
+							<c:when test="${approval.applist == '휴가신청서'}">
+								<td><a
+									href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+							</c:when>
+						</c:choose>
 
-								<td>${approval.entrydate}</td>
-							</tr>
-						</c:forEach>
-					</table>
+						<td>${approval.entrydate}</td>
+					</tr>
+				</c:forEach>
+			</table>
 
-					<button class="docCreate" name="docCreate" type="button"
-						onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
-		</c:when>
-		<c:otherwise>
-			<script>
-				location.href = "${contextPath}/index.jsp";
-			</script>
-		</c:otherwise>
-	</c:choose>
+			<button class="docCreate" name="docCreate" type="button"
+				onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+		</div>
+		<!--//깊은 컨텐츠-->
+	</div>
+	<!--//전체 컨텐츠-->
 </body>
 </html>
