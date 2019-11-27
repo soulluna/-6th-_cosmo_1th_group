@@ -128,9 +128,9 @@ public class ApprovalService {
 	}
 
 	//수신발신 정렬
-	public List<ApprovalVO> listSort1(MemberVO mVO) {
+	public List<ApprovalVO> listSort1(MemberVO mVO, int rowNum1, int rowNum2) {
 		// TODO Auto-generated method stub
-		List<ApprovalVO> approvallist = approvalDAO.sortList1(mVO);	
+		List<ApprovalVO> approvallist = approvalDAO.sortList1(mVO, rowNum1, rowNum2);	
 		return approvallist;
 		
 	}
@@ -155,9 +155,9 @@ public class ApprovalService {
 	}
 
 	//글 개수 조회
-	public int docCount(MemberVO mVO) {
+	public int docAllCount(MemberVO mVO) {
 		// TODO Auto-generated method stub
-		return approvalDAO.countDoc(mVO);
+		return approvalDAO.countAllDoc(mVO);
 	}
 
 	

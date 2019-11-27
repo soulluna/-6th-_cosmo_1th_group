@@ -68,7 +68,7 @@ public class ApprovalController extends HttpServlet {
 					String _pageSessionNum = request.getParameter("pageSession");
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
 					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
-					int docMaxNum = approvalService.docCount(mVO);
+					int docMaxNum = approvalService.docAllCount(mVO);
 					System.out.println("------");
 					System.out.println(docMaxNum);
 					System.out.println("------");
@@ -274,7 +274,32 @@ public class ApprovalController extends HttpServlet {
 					approvalService.draftfinReturn(txtnum);
 					nextPage = "/Approval/docList.do";
 				} else if (action.equals("/disRecSort.do")) {// 수신발신 정렬
-					approvalList = approvalService.listSort1(mVO);
+					Map pagingMap = new HashMap();
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+					int docMaxNum = approvalService.docAllCount(mVO);
+					System.out.println("------");
+					System.out.println(docMaxNum);
+					System.out.println("------");
+					int maxPageNum = docMaxNum / 15 + 1;
+					int maxSessionNum = maxPageNum / 5 + 1;
+					pagingMap.put("pageNum", pageNum);
+					pagingMap.put("docMaxNum", docMaxNum);
+					pagingMap.put("maxPageNum", maxPageNum);
+					pagingMap.put("maxSessionNum", maxSessionNum);
+					pagingMap.put("pageSessionNum", pageSessionNum);
+					
+					for (int i = 1; i <= maxPageNum; i++) {
+						if (pageNum == i)
+							approvalList = approvalService.listSort1(mVO, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+					}
+					request.setAttribute("pagingMap", pagingMap);
+					request.setAttribute("approvalList", approvalList);
+					
+					
+					
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
 

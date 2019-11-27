@@ -669,23 +669,30 @@ public class ApprovalDAO {
 	}
 	
 	//수신발신 정렬
-	public List<ApprovalVO> sortList1(MemberVO mVO) {
+	public List<ApprovalVO> sortList1(MemberVO mVO, int rowNum1, int rowNum2) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		String query = null;
 		try {
 			if (sortList1Num == 0) {
-				query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
+				query = "select * from(select rownum as rownum2, A.* from ";
+				query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
+				query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))";
-				query += "order by (CASE WHEN eno!=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc";
+				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
+				query += "order by (CASE WHEN eno!=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
+				query += "where rownum2 between ? and ?";
 				sortList1Num = 1;
+				
 			} else if (sortList1Num == 1) {
-				query = "select * from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
+				query = "select * from(select rownum as rownum2, A.* from ";
+				query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
+				query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 				query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))";
-				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc";
+				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
+				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
+				query += "where rownum2 between ? and ?";
 				sortList1Num = 0;
 			}
 			con = dataFactory.getConnection();
@@ -693,6 +700,9 @@ public class ApprovalDAO {
 			for (int i = 1; i <= 9; i++) {
 				pstmt.setString(i, mVO.getEno());
 			}
+			
+			pstmt.setInt(10, rowNum1);
+			pstmt.setInt(11, rowNum2);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -878,7 +888,8 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
-	public int countDoc(MemberVO mVO) {
+	//전체 글 수
+	public int countAllDoc(MemberVO mVO) {
 		// TODO Auto-generated method stub
 		int docMax = 0;
 		String query = "select count(*) from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
