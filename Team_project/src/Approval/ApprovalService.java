@@ -160,5 +160,10 @@ public class ApprovalService {
 		return approvalDAO.countAllDoc(mVO);
 	}
 
+	public int docSearchCount(MemberVO mVO, String searchType, String searchKey) {
+		// TODO Auto-generated method stub
+		return approvalDAO.countSearchDoc(mVO, searchType, searchKey);
+	}
+
 	
 }

@@ -916,4 +916,46 @@ public class ApprovalDAO {
 		}
 		return docMax;
 	}
+
+	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey) {
+		// TODO Auto-generated method stub
+		int docMax = 0;
+		String query = null;
+		if (searchType.equals("1")) {
+			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
+			
+		}else if (searchType.equals("2")) {
+			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
+			}
+		
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			for (int i = 1; i <= 8; i++) {
+				pstmt.setString(i, mVO.getEno());
+			}
+			pstmt.setString(9, "%" + searchKey + "%");
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				docMax = rs.getInt("count(*)");
+			}
+			System.out.println("---함수안---");
+			System.out.println(docMax);
+			System.out.println("---함수안---");
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return docMax;
+		
+	}
 }
