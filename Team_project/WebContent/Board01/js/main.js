@@ -5,11 +5,8 @@ $(function () {
 		if (confirm("정말 삭제 하겠습니까?")) {
 			// 확인 버튼 클릭 시 동작
 			alert("삭제 되었습니다.");
-
 			//상세페이지 댓글 지우기
-			$(this).parent('.media-body').css({'display':'none'})
-
-
+			$(this).parent('.media-body').css({'display':'none'}) //바꿔야함
 		} else {
 			// 취소 버튼 클릭 시 동작
 			alert("삭제를 취소했습니다.");
@@ -59,31 +56,19 @@ $(function () {
 
 
 	//글작성 페이지
-	$(".back").click(function () {
+	$(".back").click(function(){
 		if (confirm("확인시 내용이 있을경우 사라집니다.")) {
-			// 확인 버튼 클릭 시 동작
-			location.replace('noticeBoardMain.jsp');
+			history.back();
+			/*frmArticle.action = url+"/Board/noticeBoardMain.do"*/
+			/*location.replace('/Board/noticeBoardMain.do');*/
 		} else {
 			// 취소 버튼 클릭 시 동작
 		}
 	});
 	//글장석.html 입력값 확인
-	var write = new Array();
-	function check() {
-		write[0] = $("select[name=searchtype] option:selected").val();
-		write[1] = $("input[name=txtnum]").val();
-		write[2] = $("textarea[name=txtcont]").val();
-		write[3] = $("input[name=empty]:checked").val();
-		if (!write[1]) {
-			alert("제목을 입력해주세요.");
-			return;
-		} else if (!write[2]) {
-			alert("내용을 입력해주세요.");
-			return;
-		}
-	} // else
+	
 
-	$(".make").click(check);
+	
 
 
 //	메인게시판페이지 검색 타입 및 검색값 콘솔 확인
