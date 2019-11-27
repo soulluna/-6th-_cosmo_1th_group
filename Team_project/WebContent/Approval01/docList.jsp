@@ -60,13 +60,13 @@
 			<table class="docListTable" border="1">
 				<tr>
 					<th width="60px"><a
-						href="${contextPath}/Approval/disRecSort.do">수/발신</a></th>
+						href="${contextPath}/Approval/disRecSort.do?searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
 					<th width="120px">결재종류</th>
 					<th width="80px"><a
-						href="${contextPath}/Approval/docStateSort.do">결재상태</a></th>
+						href="${contextPath}/Approval/docStateSort.do?searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
 					<th width="700px">문서제목</th>
 					<th width="100px"><a
-						href="${contextPath}/Approval/docDaySort.do">등록일자</a></th>
+						href="${contextPath}/Approval/docDaySort.do?searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
 				</tr>
 				<c:forEach items="${approvalList}" var="approval" varStatus="15">
 					<tr>

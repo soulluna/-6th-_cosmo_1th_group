@@ -286,41 +286,161 @@ public class ApprovalController extends HttpServlet {
 					nextPage = "/Approval/docList.do";
 				} else if (action.equals("/disRecSort.do")) {// 수신발신 정렬
 					Map pagingMap = new HashMap();
+					System.out.println("/docList.do");
+					System.out.println("action : " + action);
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
 					String _pageSessionNum = request.getParameter("pageSession");
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
 					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
-					int docMaxNum = approvalService.docAllCount(mVO);
+					int docMaxNum = 0;
+					int maxPageNum = 0;
+					if (searchKey == null || searchKey.equals("")) {
+						docMaxNum = approvalService.docAllCount(mVO);
+					} else {
+						docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey);
+					}
+					
 					System.out.println("------");
 					System.out.println(docMaxNum);
 					System.out.println("------");
-					int maxPageNum = docMaxNum / 15 + 1;
+					if (docMaxNum % 15 == 0) {
+						maxPageNum = docMaxNum / 15;
+					}else {
+						maxPageNum = docMaxNum / 15 + 1;
+					}
 					int maxSessionNum = maxPageNum / 5 + 1;
 					pagingMap.put("pageNum", pageNum);
 					pagingMap.put("docMaxNum", docMaxNum);
 					pagingMap.put("maxPageNum", maxPageNum);
 					pagingMap.put("maxSessionNum", maxSessionNum);
 					pagingMap.put("pageSessionNum", pageSessionNum);
-					
-					for (int i = 1; i <= maxPageNum; i++) {
-						if (pageNum == i)
-							approvalList = approvalService.listSort1(mVO, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+					if (searchKey == null || searchKey.equals("")) {
+						System.out.println("searchKey가 null인 if문");
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort1(mVO, 1 + ((i - 1) * 15),
+										15 + ((i - 1) * 15));
+						}
+					} else {
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort1(mVO, searchType, searchKey,
+										1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+						}
 					}
+				
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
 					request.setAttribute("pagingMap", pagingMap);
-					request.setAttribute("approvalList", approvalList);
-					
-					
-					
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
 
 				} else if (action.equals("/docStateSort.do")) { // 문서 상태 정렬
-					approvalList = approvalService.listSort2(mVO);
+					Map pagingMap = new HashMap();
+					System.out.println("/docList.do");
+					System.out.println("action : " + action);
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+					int docMaxNum = 0;
+					int maxPageNum = 0;
+					if (searchKey == null || searchKey.equals("")) {
+						docMaxNum = approvalService.docAllCount(mVO);
+					} else {
+						docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey);
+					}
+					
+					System.out.println("------");
+					System.out.println(docMaxNum);
+					System.out.println("------");
+					if (docMaxNum % 15 == 0) {
+						maxPageNum = docMaxNum / 15;
+					}else {
+						maxPageNum = docMaxNum / 15 + 1;
+					}
+					int maxSessionNum = maxPageNum / 5 + 1;
+					pagingMap.put("pageNum", pageNum);
+					pagingMap.put("docMaxNum", docMaxNum);
+					pagingMap.put("maxPageNum", maxPageNum);
+					pagingMap.put("maxSessionNum", maxSessionNum);
+					pagingMap.put("pageSessionNum", pageSessionNum);
+					if (searchKey == null || searchKey.equals("")) {
+						System.out.println("searchKey가 null인 if문");
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort2(mVO, 1 + ((i - 1) * 15),
+										15 + ((i - 1) * 15));
+						}
+					} else {
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort2(mVO, searchType, searchKey,
+										1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+						}
+					}
+				
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("approvalList", approvalList);
+					
 					nextPage = "/Approval01/docList.jsp";
 
 				} else if (action.equals("/docDaySort.do")) { // 문서 날짜 정렬
-					approvalList = approvalService.listSort3(mVO);
+					Map pagingMap = new HashMap();
+					System.out.println("/docList.do");
+					System.out.println("action : " + action);
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+					int docMaxNum = 0;
+					int maxPageNum = 0;
+					if (searchKey == null || searchKey.equals("")) {
+						docMaxNum = approvalService.docAllCount(mVO);
+					} else {
+						docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey);
+					}
+					
+					System.out.println("------");
+					System.out.println(docMaxNum);
+					System.out.println("------");
+					if (docMaxNum % 15 == 0) {
+						maxPageNum = docMaxNum / 15;
+					}else {
+						maxPageNum = docMaxNum / 15 + 1;
+					}
+					int maxSessionNum = maxPageNum / 5 + 1;
+					pagingMap.put("pageNum", pageNum);
+					pagingMap.put("docMaxNum", docMaxNum);
+					pagingMap.put("maxPageNum", maxPageNum);
+					pagingMap.put("maxSessionNum", maxSessionNum);
+					pagingMap.put("pageSessionNum", pageSessionNum);
+					if (searchKey == null || searchKey.equals("")) {
+						System.out.println("searchKey가 null인 if문");
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort3(mVO, 1 + ((i - 1) * 15),
+										15 + ((i - 1) * 15));
+						}
+					} else {
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listSort3(mVO, searchType, searchKey,
+										1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+						}
+					}
+				
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
 				} /*
