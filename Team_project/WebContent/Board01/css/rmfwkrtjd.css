@@ -49,6 +49,4 @@ button>a{color: white;}
 .rksrur_bottom_left{float: left;}
 .rksrur_bottom_right{float: right; position: relative;}
 
-.rksrur_bottom_right>button:first-of-type{background-color: #555}
-
-.make > p{color: white;}
+.rksrur_bottom_right>button:first-of-type{background-color: #1b5ac2; color:white;}

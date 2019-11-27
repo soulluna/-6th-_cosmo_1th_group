@@ -62,6 +62,9 @@
 						rows="100">${board.txtcont}</textarea>
 				</div>
 				<div class="cncjsqjxms">
+				
+					<button style="visibility:hidden" class="delete">
+				
 					<c:if test="${loginUser.eno==board.eno}">
 						<button class="delete"
 							onclick="deleteArticle('${contextPath}','${board.txtnum}');">삭제</button>
@@ -89,7 +92,7 @@
 							</div>
 							<div class="media-body">
 								<div class="media-heading">
-									<b><a href="#"><span>${board.comuser}</span></a></b><span>
+									<b><a href="#"><span>${board.comuser}</span></a></b>
 								</div>
 								<div class="media-content">${board.comcont}</div>
 							</div>
