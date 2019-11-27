@@ -16,15 +16,15 @@ public class ApprovalService {
 	}
 	
 	//그냥 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO, int a, int b) {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, a, b);	
+	public List<ApprovalVO> listApproval(MemberVO mVO, int rowNum1, int rowNum2) {
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, rowNum1, rowNum2);	
 		return approvallist;
 	}
 	
 	//검색어 있을 때 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey){
+	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2){
 		System.out.println("listApproval(매개변수) : " + searchType + ", " + searchKey);
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey);	
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey, rowNum1, rowNum2);	
 		return approvallist;
 	}
 	

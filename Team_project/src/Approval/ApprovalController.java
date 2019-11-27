@@ -65,16 +65,20 @@ public class ApprovalController extends HttpServlet {
 					String searchType = request.getParameter("searchType");
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
-					int pageSessionNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
 					int docMaxNum = approvalService.docCount(mVO);
 					System.out.println("------");
 					System.out.println(docMaxNum);
 					System.out.println("------");
 					int maxPageNum = docMaxNum / 15 + 1;
+					int maxSessionNum = maxPageNum / 5 + 1;
 					pagingMap.put("pageNum", pageNum);
 					pagingMap.put("docMaxNum", docMaxNum);
 					pagingMap.put("maxPageNum", maxPageNum);
+					pagingMap.put("maxSessionNum", maxSessionNum);
+					pagingMap.put("pageSessionNum", pageSessionNum);
 					if (searchKey == null || searchKey.equals("")) {
 						System.out.println("searchKey가 null인 if문");
 						for (int i = 1; i <= maxPageNum; i++) {
@@ -83,10 +87,16 @@ public class ApprovalController extends HttpServlet {
 										15 + ((i - 1) * 15));
 						}
 					} else {
-						approvalList = approvalService.listApproval(mVO, searchType, searchKey);
+						for (int i = 1; i <= maxPageNum; i++) {
+							if (pageNum == i)
+								approvalList = approvalService.listApproval(mVO, searchType, searchKey,
+										1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+						}
 					}
 					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("approvalList", approvalList);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
 					nextPage = "/Approval01/docList.jsp";
 
 				} else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
@@ -227,7 +237,7 @@ public class ApprovalController extends HttpServlet {
 					String datepicker2 = request.getParameter("datepicker2");
 					java.sql.Date datepicker1ToDate = java.sql.Date.valueOf(datepicker1);
 					java.sql.Date datepicker2ToDate = java.sql.Date.valueOf(datepicker2);
-					
+
 					aVO.setVacstart(datepicker1ToDate);
 					aVO.setVacend(datepicker2ToDate);
 
@@ -277,31 +287,26 @@ public class ApprovalController extends HttpServlet {
 					approvalList = approvalService.listSort3(mVO);
 					request.setAttribute("approvalList", approvalList);
 					nextPage = "/Approval01/docList.jsp";
-				} else {
-					System.out.println("/else");
-					System.out.println("action : " + action);
-					
-					String searchType = request.getParameter("searchType");
-					String searchKey = request.getParameter("searchKey");
-					if (searchKey == null || searchKey.equals("")) {
-						System.out.println("searchKey가 null인 if문");
-						approvalList = approvalService.listApproval(mVO, 1, 15);
-					} else {
-						approvalList = approvalService.listApproval(mVO, searchType, searchKey);
-					}
-					request.setAttribute("approvalList", approvalList);
-					nextPage = "/Approval01/docList.jsp";
-				}
+				} /*
+					 * else { System.out.println("/else"); System.out.println("action : " + action);
+					 * 
+					 * String searchType = request.getParameter("searchType"); String searchKey =
+					 * request.getParameter("searchKey"); if (searchKey == null ||
+					 * searchKey.equals("")) { System.out.println("searchKey가 null인 if문");
+					 * approvalList = approvalService.listApproval(mVO, 1, 15); } else {
+					 * approvalList = approvalService.listApproval(mVO, searchType, searchKey); }
+					 * request.setAttribute("approvalList", approvalList); nextPage =
+					 * "/Approval01/docList.jsp"; }
+					 */
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);
 
-		}catch(
+		} catch (
 
-	Exception e)
-	{
-		e.printStackTrace();
+		Exception e) {
+			e.printStackTrace();
+		}
 	}
-}
 
 }

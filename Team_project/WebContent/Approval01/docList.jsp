@@ -47,9 +47,11 @@
 					<select name="searchType">
 						<option value="1" selected="">결재종류</option>
 						<option value="2">문서제목</option>
-					</select> <input type="text" class="searchInput" name="searchKey"> <input
+					</select>
+					<input type="text" class="searchInput" name="searchKey" />
+					<input
 						type="submit" class="search" value="검색" style="height: 30px;"
-						onclick="docListSearchCheck()">
+						onclick="docListSearchCheck()" />
 				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
@@ -78,7 +80,6 @@
 						</c:choose>
 						<td>${approval.applist}</td>
 						<td>${approval.progress}</td>
-
 						<c:choose>
 							<c:when test="${approval.applist == '기안서'}">
 								<td><a
@@ -94,14 +95,30 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<%-- <c:forEach var="sessionPage" begin="1" end="${pagingMap.maxPageNum}/5+1"> --%>
-				<c:forEach var="page" begin="1" end="${pagingMap.maxPageNum}">	
-					<a href="${contextPath}/Approval/docList.do?pageNum=${page}">${page}</a>
-						<%-- <c:if test="${pagingMap.maxPageNum/5+1} "><a>다음</a></c:if> --%>						
+
+			<div class="bottomNumber">
+				<c:if
+					test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
+					<a
+						href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
+				</c:if>
+
+				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}"
+					end="${pagingMap.pageSessionNum*5}">
+					<c:if test="${page <= pagingMap.maxPageNum}">
+						<a
+							href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+					</c:if>
 				</c:forEach>
-		<%-- 	</c:forEach> --%>
-			<button class="docCreate" name="docCreate" type="button"
-				onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+
+				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
+					<a
+						href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
+				</c:if>
+				<button class="docCreate" name="docCreate" type="button"
+					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+			</div>
+
 		</div>
 		<!--//깊은 컨텐츠-->
 	</div>
