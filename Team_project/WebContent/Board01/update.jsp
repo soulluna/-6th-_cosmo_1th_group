@@ -35,7 +35,7 @@
 			name="txtnum" value="${board.txtnum}">
 		<div class="fullWrap">
 			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-			<h1>게시판 지정및 게시글 작성</h1>
+			<h1>게시판 지정및 게시글 수정</h1>
 			<div class="wjdduf">
 				<div class="wjddu">
 					<div class="rptlvks">
