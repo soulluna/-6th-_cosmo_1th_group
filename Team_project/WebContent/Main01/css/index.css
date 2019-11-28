@@ -71,7 +71,7 @@ body{
     border-radius: 6px;
     font-weight: bold;
 }
-.scadule {
+.scadule{
     position: relative;
     top:410px;
     margin:30px auto;
@@ -79,11 +79,6 @@ body{
     width: 550px; height: 300px;
     border:1px solid #444;
     
-}
-
-.login {
-   
-
 }
 
 .scadule span{
@@ -104,7 +99,7 @@ body{
     box-sizing: border-box;
     margin-top:20px;
     width:100%; height:320px;
-    ;
+    
     text-align: center;
 }
 /* 寃뚯떆�뙋 */
@@ -128,6 +123,19 @@ body{
   background-color:white;
   height:25px;
 }
-
+.ListTable a{
+	color : #000;
+}
+.ListTable a:visited{
+	color : #000;
+}
+#buttons input{
+    cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    color:#fff;
+    padding:3px;
+    border-radius: 6px;
+    font-weight: bold;
+}
 
 

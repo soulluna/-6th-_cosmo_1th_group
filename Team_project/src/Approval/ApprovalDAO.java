@@ -1048,8 +1048,8 @@ public class ApprovalDAO {
 	}
 
 	//메인 문서 15개
-	public List<ApprovalVO> listMain15(MemberVO mVO) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
+	public ArrayList<ApprovalVO> listMain10(MemberVO mVO) {
+		ArrayList<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		try {
 			
 			String query = "select * from(select rownum as rownum2, A.* from ";
@@ -1059,7 +1059,7 @@ public class ApprovalDAO {
 			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
 			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
 			query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-			query += "where rownum2 between 1 and 15";
+			query += "where rownum2 between 1 and 10";
 			
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);

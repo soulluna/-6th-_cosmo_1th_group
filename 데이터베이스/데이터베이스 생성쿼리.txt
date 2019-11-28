@@ -42,8 +42,9 @@ constraint APP_PK primary key(txtnum),
 constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank)
 );
 
-//기안서 작성 번호 시퀀스
+//각종 시퀀스
 create sequence Approval_seq START WITH 1;
+create sequence Scadul_seq START WITH 1;
 
 
 //게시판 메인 table
@@ -65,18 +66,18 @@ constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
 );
 
-//스캐쥴러 table
-create table dailyScadul(
-    schnum number(3),
-    startDate Date,
-    endDate Date,
-    schname varchar2(100) not null,
-    schcont varchar2(500),
-    eno varchar2(20),
-    ename varchar2(10),
-    rank varchar2(8),
-    constraint SCH_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
-    constraint SCH_PK1 primary key(schnum)
+//스캐쥴러 테이블 추가
+create table dailyscadul(
+schnum number(3),
+startdate timestamp(1),
+enddate timestamp(1),
+schname varchar2(100) not null,
+schcont varchar2(500),
+eno varchar2(20),
+ename varchar2(10),
+rank varachar2(8),
+constraint sch_pk1 primary key(schnum),
+constraint sch_fk1 foreign key(eno, ename, rank) references employee(eno, ename, rank)
 );
 
 
@@ -109,6 +110,15 @@ INSERT INTO "ADMIN"."APPROVAL" (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENT
  
 페이지 넘기기 기능 테스트 자료
 
+
+
+
+insert into dailyscadul(schnum, startdate, enddate, schname, schcont, eno, ename, rank) 
+values(Scadul_seq.nextval, '2019-11-24 09:00:00', '2019-11-24 10:00:00', '테스트', '테스트', '2625239070', '안영우', '사원');
+insert into dailyscadul(schnum, startdate, enddate, schname, schcont, eno, ename, rank) 
+values(Scadul_seq.nextval, '2019-11-24 11:00:00', '2019-11-24 12:00:00', '테스트', '테스트', '2625239070', '안영우', '사원');
+
+스캐쥴러 테스트 컬럼추가
 
 
 
