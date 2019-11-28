@@ -1,4 +1,4 @@
-ï»¿* {
+* {
 margin:0; padding:0;
 text-decoration: none;
 font-family:sans-serif;
@@ -48,7 +48,7 @@ body{
 
 
 /*docList.html*/
-/*ë¬¸ì„œ ì¢…ë¥˜, ê²€ìƒ‰ê°’, ê²€ìƒ‰ ë²„íŠ¼*/
+/*¹®¼­ Á¾·ù, °Ë»ö°ª, °Ë»ö ¹öÆ°*/
 .content .deptContent{
     /* margin:15px 150px; */
     margin-top:50px;
@@ -64,7 +64,7 @@ body{
 .deptContent .searchInput{
     width:200px; height:24px; padding-top:2px; margin:0 -4.5px;outline: none;
 }
-/*ë¬¸ì„œ ë¦¬ìŠ¤íŠ¸*/
+/*¹®¼­ ¸®½ºÆ®*/
 .deptContent .docListTable{
     width: 700px;
     table-layout: fixed;
@@ -72,6 +72,12 @@ body{
     border: 1px inset #52a7e0;
     border-collapse: collapse; margin:10px 0
 }
+
+.docListTable th A:link {text-decoration:none; color:white;}
+.docListTable th A:visited {text-decoration:none; color:white;}
+.docListTable th A:active {text-decoration:none; color:cornflowerblue;}
+.docListTable th A:hover {text-decoration:none; color:cornflowerblue;}
+
 .deptContent .docListTable tr:first-child th{
     color:#fff;
 }
@@ -89,7 +95,7 @@ body{
   background-color:white;
 }
 
-/*ë¬¸ì„œ í˜ì´ì§€, ì‘ì„± ë²„íŠ¼*/
+/*¹®¼­ ÆäÀÌÁö, ÀÛ¼º ¹öÆ°*/
 .deptContent .pageButtonsCreatedoc{
     text-align: center; position:relative; height:40px; line-height: 40px;
 }
@@ -105,7 +111,7 @@ body{
 
 
 /*vacation.html*/
-/*ë¬¸ì„œ ì„ íƒ*/
+/*¹®¼­ ¼±ÅÃ*/
 .content .docSelecter{
     position: absolute;
     left:170px;
@@ -113,7 +119,7 @@ body{
     top: 200px;
     width:120px;height:35px;
 }
-/*ê²°ì¬ í…Œì´ë¸”*/
+/*°áÀç Å×ÀÌºí*/
 .content .signtable{
     overflow:hidden;
     margin:0 100px;
@@ -164,7 +170,7 @@ body{
     height:50px
 }
 
-/*ì œëª© ë° ë“±ë¡ ìˆ˜ì • ë²„íŠ¼ ë“±*/
+/*Á¦¸ñ ¹× µî·Ï ¼öÁ¤ ¹öÆ° µî*/
 .inputarea{
     margin:0 100px;
     margin-top:20px;
@@ -203,7 +209,7 @@ padding:5px;
 margin:0 3px;
 }
 
-/*ë‹¬ë ¥*/
+/*´Ş·Â*/
 .wrap { width: 500px; margin: 0 auto; }
 .btn-holder { text-align: center; margin: 10px 0 10px 0; }
 #calendar table { border-collapse: collapse; text-align: center; }
