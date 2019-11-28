@@ -49,9 +49,10 @@
 						<option value="2">문서제목</option>
 					</select>
 					<input type="text" class="searchInput" name="searchKey" />
-					<input
-						type="submit" class="search" value="검색" style="height: 30px;"
+					<input type="submit" class="search" value="검색" style="height: 30px;"
 						onclick="docListSearchCheck()" />
+					<input type="hidden" name="searchType" value="${searchType}"/>
+					<input type="hidden" name="searchKey" value="${searchKey}"/>
 				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
