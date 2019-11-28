@@ -79,8 +79,7 @@
 							<textarea class="eotrmfdlqfur" name="comment"
 								placeholder="댓글을 입력해주세요."></textarea>
 							<input type="hidden" name="txtnum" value="${board.txtnum}">
-							<button class="c_write" onclick="addComment('${contextPath}');">댓글
-								등록</button>
+							<button class="c_write" onclick="addComment('${contextPath}');">댓글 등록</button>
 						</div>
 					</c:when>
 					<c:otherwise>

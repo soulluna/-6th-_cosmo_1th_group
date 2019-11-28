@@ -18,6 +18,7 @@ public class Boardservice {
 
    
    public BoardVO viewBoard(int articleNo) {
+	   System.out.println("--viewBoard--");
 	  BoardVO article = boardDAO.selectBoard(articleNo);
       return article;
    }

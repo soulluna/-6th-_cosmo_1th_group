@@ -58,9 +58,10 @@ public class BoardDAO {
 		return boardList;
 	}
 	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기
+		System.out.println("--selectBoard--");
 		BoardVO board = new BoardVO();
 		updateViewTotal(num);
-		System.out.println("selectBoard");
+		
 		try {
 			con = dataFactory.getConnection();
 			String query = "select * from NOTICE where txtnum=?";
