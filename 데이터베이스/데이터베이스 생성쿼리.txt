@@ -5,8 +5,6 @@ grant connect, dba, resource to admin;
 
 conn admin/admin
 
-
-
 //부서 테이블
 create table EMPLOYEE(
 eno varchar2(20) not null,
@@ -21,9 +19,6 @@ hiredate date default sysdate,
 rank varchar2(8),
 isadmin varchar2(5) default 'false',
 constraint employee_pk primary key(eno, ename, rank));
-
-//글쓰기 기본사항 table
-
 
 //전자결재페이지 table
 create table APPROVAL(
@@ -68,6 +63,20 @@ comuser varchar2(10),
 viewtotal number(4) default 0,
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
+);
+
+//스캐쥴러 table
+create table dailyScadul(
+    schnum number(3),
+    startDate Date,
+    endDate Date,
+    schname varchar2(100) not null,
+    schcont varchar2(500),
+    eno varchar2(20),
+    ename varchar2(10),
+    rank varchar2(8),
+    constraint SCH_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,rank),
+    constraint SCH_PK1 primary key(schnum)
 );
 
 
