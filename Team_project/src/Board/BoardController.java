@@ -64,13 +64,13 @@ public class BoardController extends HttpServlet {
 			if(loginUser==null) {
 				nextPage = "/index.jsp";
 			}
-			if(action!=null && action.equals("/noticeBoardMain.do")) {
+			if(action!=null && action.equals("/noticeBoardMain.do")) {//전체게시글
 				System.out.println("noticeBoardMain.do");
 				boardList = boardservice.listBoards();
 				request.setAttribute("boardList", boardList);
 				nextPage = "/Board01/noticeBoardMain.jsp";
 			}
-			else if(action.equals("/searchKeyword.do")) {
+			else if(action.equals("/searchKeyword.do")) {//정렬기능
 				System.out.println("searchKeyword.do");
 				String noticelist = request.getParameter("noticelist");
 				System.out.println(noticelist);

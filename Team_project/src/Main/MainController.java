@@ -2,6 +2,7 @@ package Main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import Approval.ApprovalDAO;
+import Approval.ApprovalService;
+import Approval.ApprovalVO;
 
 /**
  * Servlet implementation class MainController
@@ -70,6 +75,15 @@ public class MainController extends HttpServlet {
 			if(action!=null&&action.equals("/login.do")) {
 				HttpSession session = request.getSession(); //세션을 열어준다.
 				if(session.getAttribute("loginUser")!=null) {
+					System.out.println("세션 살아있음");
+					MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
+					ApprovalService approvalService = new ApprovalService();
+					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
+					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
+					List<DailyScadulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+					session.setAttribute("loginUser", memberVO);
+					request.setAttribute("appList", appList);
+					request.setAttribute("scadulList", scadulList);
 					nextPage = "/Main01/indexMain.jsp";
 				}
 				else {
@@ -78,15 +92,21 @@ public class MainController extends HttpServlet {
 					String pwd = request.getParameter("pwd");
 					MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
 					int result = memberDAO.ConfirmID(eno, pwd);
-					if(result==1) {//로그인 성공
-						MemberVO memberVO = memberDAO.getMember(eno);
-						session.setAttribute("loginUser", memberVO);
-						nextPage = "/Main01/indexMain.jsp";
-					}else {//로그인 실패
+					if(result==-1) {//로그인 실패
 						String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";
 						System.out.println(message);
 						request.setAttribute("result", result);
 						nextPage = "/index.jsp";
+					}else {//로그인 성공
+						MemberVO memberVO = memberDAO.getMember(eno);
+						ApprovalService approvalService = new ApprovalService();
+						DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
+						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
+						List<DailyScadulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+						session.setAttribute("loginUser", memberVO);
+						request.setAttribute("appList", appList);
+						request.setAttribute("scadulList", scadulList);
+						nextPage = "/Main01/indexMain.jsp";
 					}
 				}
 			}
@@ -119,7 +139,7 @@ public class MainController extends HttpServlet {
 					nextPage="/index.jsp";
 				}
 			}
-			else if(action.equals("/enoCheck.do")) {
+			else if(action.equals("/enoCheck.do")) {//중복체크
 				System.out.println("중복체크 버튼 클릭");
 				String eno = request.getParameter("eno");
 				System.out.println(eno);
@@ -135,6 +155,10 @@ public class MainController extends HttpServlet {
 				nextPage = "/index.jsp";
 				HttpSession session = request.getSession();
 				session.invalidate(); // 세션종료
+			}
+			else if(action.equals("/")) {
+				System.out.println("스캐쥴 자세히 보기 클릭");
+				nextPage = "/index.jsp";
 			}
 			else if(action.equals("/pwdConfirmForm.do")) {//메인페이지 및 gnb에서 개인정보 수정버튼 클릭
 				System.out.println("비밀번호 수정버튼 클릭");
@@ -239,7 +263,7 @@ public class MainController extends HttpServlet {
 		}
 	}
 
-	private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{//이미지를 위한 파일 업로드
 		Map<String, String> articleMap = new HashMap<String, String>();
 		String encoding = "utf-8";
 		File currentDirPath = new File(ARTICLE_IMAGE_PATH);
@@ -279,9 +303,6 @@ public class MainController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-
 		return articleMap;
-
-
 	}
 }
