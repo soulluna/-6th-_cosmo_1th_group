@@ -62,18 +62,16 @@
 						rows="100">${board.txtcont}</textarea>
 				</div>
 				<div class="cncjsqjxms">
-				
-		
-				
+
 					<c:if test="${loginUser.eno==board.eno}">
-						<button class="delete"
+						<button type="button" class="delete"
 							onclick="deleteArticle('${contextPath}','${board.txtnum}');">삭제</button>
 					</c:if>
 					<c:if test="${loginUser.eno!=board.eno}">
-					<button style="visibility:hidden" class="delete"></button>
-					<button class="n_good">
-						<a href="${contextPath}/Board/like.do?txtnum=${board.txtnum}">추천</a>
-					</button>
+						<button style="visibility: hidden" class="delete"></button>
+						<button type="button" class="n_good">
+							<a href="${contextPath}/Board/like.do?txtnum=${board.txtnum}">추천</a>
+						</button>
 					</c:if>
 				</div>
 				<c:choose>
@@ -82,7 +80,7 @@
 							<textarea class="eotrmfdlqfur" name="comment"
 								placeholder="댓글을 입력해주세요."></textarea>
 							<input type="hidden" name="txtnum" value="${board.txtnum}">
-							<button class="c_write" onclick="addComment('${contextPath}');">댓글 등록</button>
+							<button class="c_write" onclick="addComment('${contextPath}');">댓글등록</button>
 						</div>
 					</c:when>
 					<c:otherwise>

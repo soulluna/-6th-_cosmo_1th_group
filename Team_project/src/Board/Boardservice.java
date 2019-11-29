@@ -2,6 +2,8 @@ package Board;
 
 import java.util.List;
 
+import Main.MemberVO;
+
 public class Boardservice {
    BoardDAO boardDAO;
 
@@ -47,6 +49,10 @@ public void addComment(BoardVO boardVO) {
 	boardDAO.InsertComment(boardVO);
 	// TODO Auto-generated method stub
 	
+}
+public List<BoardVO> listBoard(MemberVO loginUser, int i, int j) {
+	// TODO Auto-generated method stub
+	return null;
 }
    
 }

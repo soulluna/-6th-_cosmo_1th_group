@@ -100,8 +100,29 @@
 		</c:choose>
 		<div class="dlehd">
 			<div class="page">
-				<a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
-				<a href="#">4</a> <a href="#">5</a> <a href="#">다음</a>
+			<!-- ------------------------------------------------------- -->
+			
+				<c:if test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
+					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
+				</c:if>
+
+				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}" end="${pagingMap.pageSessionNum*5}">
+					<c:if test="${page <= pagingMap.maxPageNum}">
+						<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+					</c:if>
+				</c:forEach>
+
+				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
+					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
+				</c:if>
+				<button class="docCreate" name="docCreate" type="button"
+					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+			
+			
+			
+			<!-- ------------------------------------------------------- -->
+				<!-- <a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
+				<a href="#">4</a> <a href="#">5</a> <a href="#">다음</a> -->
 			</div>
 			<div class="wkrtjd">
 				<a onclick="location.href='${contextPath}/Board01/write.jsp'">글쓰기</a>
