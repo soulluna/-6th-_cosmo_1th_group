@@ -63,15 +63,18 @@
 				</div>
 				<div class="cncjsqjxms">
 				
-					<button style="visibility:hidden" class="delete">
+		
 				
 					<c:if test="${loginUser.eno==board.eno}">
 						<button class="delete"
 							onclick="deleteArticle('${contextPath}','${board.txtnum}');">삭제</button>
 					</c:if>
+					<c:if test="${loginUser.eno!=board.eno}">
+					<button style="visibility:hidden" class="delete"></button>
 					<button class="n_good">
 						<a href="${contextPath}/Board/like.do?txtnum=${board.txtnum}">추천</a>
 					</button>
+					</c:if>
 				</div>
 				<c:choose>
 					<c:when test="${board.comcont==null}">

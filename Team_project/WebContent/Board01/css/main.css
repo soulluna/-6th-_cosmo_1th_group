@@ -63,11 +63,9 @@ h1{text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e)
 .rjator{height: 40px; width: 400px; border: 1px solid #1b5ac2; background: #ffffff; text-align: left; float: left; margin-left: 400px;}
 .rjator > button > a{color: white}
 
-input{font-size: 16px; width: 380px; border: 0px; outline: none; float: left; padding: 7px 10px;}
+.rjator > input{font-size: 16px; width: 380px; border: 0px; outline: none; float: left; padding: 7px 10px;}
 
 button{ width: 60px; height: 43px; border: 0px; background: #1b5ac2; outline: none; float: left; margin-left: 400px; margin-top: -37px; color: white}
-
-button>a{color: white;}
 
 .tpqn{height: 42px; width: 100px;  position: absolute; margin-left: 302px; border: 1px solid blue;outline: none;}
 
