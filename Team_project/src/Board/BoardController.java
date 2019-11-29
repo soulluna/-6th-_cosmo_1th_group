@@ -2,7 +2,9 @@ package Board;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
@@ -63,14 +65,66 @@ public class BoardController extends HttpServlet {
 			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");	
 			if(loginUser==null) {
 				nextPage = "/index.jsp";
-			}
-			if(action!=null && action.equals("/noticeBoardMain.do")) {//전체게시글
-				System.out.println("noticeBoardMain.do");
-				boardList = boardservice.listBoards();
-				request.setAttribute("boardList", boardList);
+			} else {
+					if (action!=null && action.equals("/noticeBoardMain.do")) {//전체게시글
+						Map pagingMap = new HashMap();
+						System.out.println("noticeBoardMain.do");
+						boardList = boardservice.listBoards();
+						
+						/*String searchType = request.getParameter("searchType");
+						String searchKey = request.getParameter("searchKey");
+						String _pageNum = request.getParameter("pageNum");
+						String _pageSessionNum = request.getParameter("pageSession");
+						int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+						int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+						int docMaxNum = 0;
+						int maxPageNum = 0;
+						if (searchKey == null || searchKey.equals("")) {
+							docMaxNum = boardservice.docAllCount(loginUser);
+						} else {
+							docMaxNum = boardservice.docSearchCount(loginUser, searchType, searchKey);
+						}
+						
+						System.out.println("------");
+						System.out.println(docMaxNum);
+						System.out.println("------");
+						if (docMaxNum % 15 == 0) {
+							maxPageNum = docMaxNum / 15;
+						}else {
+							maxPageNum = docMaxNum / 15 + 1;
+						}
+						int maxSessionNum = maxPageNum / 5 + 1;
+						pagingMap.put("pageNum", pageNum);
+						pagingMap.put("docMaxNum", docMaxNum);
+						pagingMap.put("maxPageNum", maxPageNum);
+						pagingMap.put("maxSessionNum", maxSessionNum);
+						pagingMap.put("pageSessionNum", pageSessionNum);
+						if (searchKey == null || searchKey.equals("")) {
+							System.out.println("searchKey가 null인 if문");
+							for (int i = 1; i <= maxPageNum; i++) {
+								if (pageNum == i)
+									boardList = boardservice.listBoard(loginUser, 1 + ((i - 1) * 15),
+											15 + ((i - 1) * 15));
+							}
+						} else {
+							for (int i = 1; i <= maxPageNum; i++) {
+								if (pageNum == i)
+									boardList = boardservice.listBoard(loginUser, searchType, searchKey,
+											1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+							}*/
+						}
+						request.setAttribute("boardList", boardList);
+						request.setAttribute("pagingMap", pagingMap);
+						request.setAttribute("boardList", boardList);
+						request.setAttribute("searchType", searchType);
+						request.setAttribute("searchKey", searchKey);
+						nextPage = "/Approval01/docList.jsp";
+
+				/*------------------------------------------------------------------*/
+				
+				
 				nextPage = "/Board01/noticeBoardMain.jsp";
-			}
-			else if(action.equals("/searchKeyword.do")) {//정렬기능
+			} else if(action.equals("/searchKeyword.do")) {//정렬기능
 				System.out.println("searchKeyword.do");
 				String noticelist = request.getParameter("noticelist");
 				System.out.println(noticelist);
@@ -122,13 +176,16 @@ public class BoardController extends HttpServlet {
 			else if(action.equals("/modArticle.do")){//글 수정하기
 				System.out.println("modArticle.do");
 				BoardVO boardVO = new BoardVO();
+		
 				int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+				int noticelist = Integer.parseInt(request.getParameter("noticelist"));
 				String txtname = request.getParameter("txtname");
 				String txtcont = request.getParameter("txtcont");
 				System.out.println(txtnum);
 				System.out.println(txtname);
 				System.out.println(txtcont);         	
 				boardVO.setTxtnum(txtnum);
+				boardVO.setNoticelist(noticelist);
 				boardVO.setTxtname(txtname);
 				boardVO.setTxtcont(txtcont);
 				boardservice.modArticle(boardVO);

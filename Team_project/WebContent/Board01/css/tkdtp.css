@@ -25,10 +25,10 @@ button>a{color: white;}
 
 .cncjsqjxms>button:first-of-type{float: left;width: 60px; height: 30px;color: white; background: black; outline: none;}
 .cncjsqjxms{width: 1000px; position: relative; top: -5px; margin:0 auto 0;}
-.cncjsqjxms>button{width: 60px; height: 30px; background: #1b5ac2; outline: none; float: right; }
+.cncjsqjxms>button{width: 65px; height: 30px; background: #1b5ac2; outline: none; float: right; }
 .bgColor{background: cyan !important;}
 
-.eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; outline: none; float: right;}
+.eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; color:white; outline: none; float: right;}
 
 .gkeks{width: 970px; height: 50px; background-color: #f1f1f1;}
 
@@ -43,10 +43,10 @@ button>a{color: white;}
 .cmt-good > p{float: left;}
 
 .text_sodyd {width: 1000px; height: 300px; margin: 10px auto 10px;
-    resize: none; /* 사용자 임의 변경 불가 */
-    /* resize: both; /* 사용자 변경이 모두 가능 */
-    /*resize: horizontal; /* 좌우만 가능 */
-    /*resize: vertical; /* 상하만 가능 */ 
+    resize: none; /* �궗�슜�옄 �엫�쓽 蹂�寃� 遺덇� */
+    /* resize: both; /* �궗�슜�옄 蹂�寃쎌씠 紐⑤몢 媛��뒫 */
+    /*resize: horizontal; /* 醫뚯슦留� 媛��뒫 */
+    /*resize: vertical; /* �긽�븯留� 媛��뒫 */ 
      }
 .eotrmf{width: 1000px; height: 100px; margin: 0 auto 0;}
 .eotrmfdlqfur{width: 1000px; height: 100px;
