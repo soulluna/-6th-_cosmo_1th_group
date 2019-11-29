@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="${contextPath}/Main01/css/gnb.css" />
 <link rel="stylesheet" href="${contextPath}/Main01/css/calander.css" />
 <script src="${contextPath}/Main01/js/calander.js"></script>
+<script src="${contextPath}/Main01/js/main.js"></script>
 </head>
 <body>
 	<form class="fullWrap">
@@ -55,15 +56,14 @@
 					</tr>
 					<c:forEach items="${scadulList}" var="schdul">
 						<tr>
-							<td><a href="${contextPath}/Main/schdulDetail.do">${schdul.schname}</a></td>
-							<td><fmt:formatDate value="${schdul.startDate}" pattern="yyyy-mm-dd HH:MM" /></td>
-							<td><fmt:formatDate value="${schdul.endDate}" pattern="yyyy-mm-dd HH:MM" /></td>
+							<td><a href="#" onclick="schdulDetails('${contextPath}','${schdul.schnum}')">${schdul.schname}</a></td>
+							<td><fmt:formatDate value="${schdul.startDate}" pattern="yyyy-MM-dd hh:mm" /></td>
+							<td><fmt:formatDate value="${schdul.endDate}" pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div id="buttons">
-					<input type="button" value="스캐쥴 작성"
-						onclick="location.href='${contextPath}/Main/schdulWriteForm.do'">
+					<input type="button" value="스캐쥴 작성" onclick="schdulWrite('${contextPath}');">
 				</div>
 			</div>
 		</div>

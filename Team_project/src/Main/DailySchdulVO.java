@@ -2,7 +2,7 @@ package Main;
 
 import java.sql.Timestamp;
 
-public class DailyScadulVO {
+public class DailySchdulVO {
 	private int schnum;
 	private Timestamp startDate;
 	private Timestamp endDate;

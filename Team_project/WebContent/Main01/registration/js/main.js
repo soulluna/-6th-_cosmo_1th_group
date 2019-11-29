@@ -30,6 +30,7 @@ function enoCheck(url){
 }
 
 
+
 function validate(){
 	var regexpId = /^[0-9]{10}$/ //아이디 정규식
 	var regexpPwd = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/ //비밀번호 정규식

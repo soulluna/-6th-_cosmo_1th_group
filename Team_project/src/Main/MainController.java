@@ -2,7 +2,9 @@ package Main;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import Approval.ApprovalDAO;
 import Approval.ApprovalService;
 import Approval.ApprovalVO;
 
@@ -33,6 +34,8 @@ public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String ARTICLE_IMAGE_PATH = "C:\\Users\\KOSMO-23\\GitHub\\-6th-_cosmo_1th_group\\Team_project\\profileImages";  //이미지의 폴더까지의 경로를 저장
 
+	final String OLD_FORMAT = "yyyy-MM-dd";
+	final String NEW_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -80,7 +83,7 @@ public class MainController extends HttpServlet {
 					ApprovalService approvalService = new ApprovalService();
 					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
-					List<DailyScadulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+					List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
 					session.setAttribute("loginUser", memberVO);
 					request.setAttribute("appList", appList);
 					request.setAttribute("scadulList", scadulList);
@@ -102,7 +105,7 @@ public class MainController extends HttpServlet {
 						ApprovalService approvalService = new ApprovalService();
 						DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
-						List<DailyScadulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+						List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
 						session.setAttribute("loginUser", memberVO);
 						request.setAttribute("appList", appList);
 						request.setAttribute("scadulList", scadulList);
@@ -156,9 +159,51 @@ public class MainController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.invalidate(); // 세션종료
 			}
-			else if(action.equals("/")) {
-				System.out.println("스캐쥴 자세히 보기 클릭");
-				nextPage = "/index.jsp";
+			else if(action.equals("/schdulDetail.do")) {
+				System.out.println("스캐쥴 상세보기 클릭");
+				DailySchdulDAO schDAO = new DailySchdulDAO();
+				DailySchdulVO schVO = schDAO.selectSchdul(request.getParameter("schnum"));
+				request.setAttribute("schVO", schVO);
+				nextPage = "/Main01/Schduler/schdularDetails.jsp";
+			}
+			else if(action.equals("/SchedulFormWrite.do")) {
+				System.out.println("스캐쥴 작성하기 클릭");
+				nextPage = "/Main01/Schduler/SchdularWriteForm.jsp";
+			}
+			else if(action.equals("/SchedulWrite.do")) {
+				System.out.println("스캐쥴 작성완료버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				DailySchdulVO schVO = new DailySchdulVO();
+				DailySchdulDAO schDAO = new DailySchdulDAO();
+				schVO.setEno(loginUser.getEno());
+				schVO.setEname(loginUser.getEname());
+				schVO.setRank(loginUser.getRank());
+				schVO.setSchname(request.getParameter("schname"));
+				schVO.setSchcont(request.getParameter("schcont"));
+				String startDate2 = request.getParameter("startDate");
+				String endDate2 = request.getParameter("endDate");
+				String startTime = request.getParameter("startTime");
+				String endTime = request.getParameter("endTime");
+				startDate2 += " "+ startTime;
+				endDate2 += " "+ endTime;
+				startDate2+=":000000";
+				endDate2+=":000000";
+				System.out.println(startDate2);
+				System.out.println(endDate2);
+				Timestamp startDate = Timestamp.valueOf(startDate2);
+				Timestamp endDate = Timestamp.valueOf(endDate2);
+				schVO.setStartDate(startDate);
+				schVO.setEndDate(endDate);			
+				schDAO.InsertSchdul(schVO);
+				nextPage = "/Main/login.do";
+			}
+			else if(action.equals("SchdulDelete.do")) {
+				System.out.println("댓글 삭제버튼 클릭");
+				String schnum=request.getParameter("schnum");
+				DailySchdulDAO schDAO = new DailySchdulDAO();
+				schDAO.deleteSchdul(schnum);
+				nextPage = "/Main/login.do";
 			}
 			else if(action.equals("/pwdConfirmForm.do")) {//메인페이지 및 gnb에서 개인정보 수정버튼 클릭
 				System.out.println("비밀번호 수정버튼 클릭");
