@@ -58,9 +58,6 @@ ename varchar2(10) not null,
 rank varchar2(8) not null,
 noticelist number(1),
 likenum number(3) default 0,
-comtotal number(3) default 0,
-comcont varchar(500),
-comuser varchar2(10),
 viewtotal number(4) default 0,
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
@@ -78,6 +75,20 @@ ename varchar2(10),
 rank varachar2(8),
 constraint sch_pk1 primary key(schnum),
 constraint sch_fk1 foreign key(eno, ename, rank) references employee(eno, ename, rank)
+);
+
+//댓글 테이블 추가
+create table commentTb(
+    eno varchar2(20) not null,
+    rank varchar2(8),
+    ename varchar2(10) not null,
+    txtnum number(3),
+    comnum number(3),
+    comcont varchar2(500),
+    comdate date default sysdate,
+    constraint COM_PK primary key(comnum),
+    constraint COM_FK1 foreign key(eno,ename,rank) references employee(eno,ename,rank),
+    constraint COM_FK2 foreign key(txtnum) references notice(txtnum)
 );
 
 
