@@ -29,7 +29,7 @@ public class DailySchdulDAO {
 	public List<DailySchdulVO> listScadul(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from dailyscadul where eno=?";
+		String sql="select * from dailyscadul where eno=? and rownum<10 order by schnum desc";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -139,7 +139,7 @@ public class DailySchdulDAO {
 	}
 	public void deleteSchdul(String schnum) {
 		// TODO Auto-generated method stub
-		String sql="delete * from dailyscadul where schnum=?";
+		String sql="delete from dailyscadul where schnum=?";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;

@@ -27,7 +27,7 @@
 <script src="${contextPath}/Main01/Schduler/js/main.js"></script>
 </head>
 <body>
-	<form name="frm" class="reg_form">
+	<form name="frm" class="reg_form" action="${contextPath}/Main/schedulUpdate.do?schnum=${schVO.schnum}" method="post">
 		<div>
 			<img src="${contextPath}/Main01/registration/img/logo3.gif">
 		</div>
@@ -41,16 +41,16 @@
 		</div>
 		<div class="secb">
 			<span class="name">시작시간</span>
-			<input class="dateb" id="datepicker1" type="text" name="startDate" value="${schVO.startDate}">
+			<input class="dateb" id="datepicker1" type="text" name="startDate" value="${startDate}">
 			<input class="dateb" type="time" name="startTime" value="${startTime}">
 		</div>
 		<div class="secb">
 			<span class="name">종료시간</span>
-			<input class="dateb" id="datepicker2" type="text" name="endDate" value="${schVO.endDate}">
+			<input class="dateb" id="datepicker2" type="text" name="endDate" value="${endDate}">
 			<input class="dateb" type="time" name="endTime" value="${endTime}">
 		</div>
 		<input type="hidden" name="schnum" value="${schVO.schnum}">
-		<input type="submit" class="reg_submit" value="작성하기" onclick="location.href='${contextPath}/Main/schedulUpdate.do?schnum=${schVO.schnum}'">
+		<input type="submit" class="reg_submit" value="작성하기">
 		<input type="button" class="cancel" value="돌아가기" onclick="location.href='${contextPath}/Main/schdulDetail.do?schnum=${schVO.schnum}'">
 	</form>
 </body>

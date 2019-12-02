@@ -34,8 +34,8 @@ public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String ARTICLE_IMAGE_PATH = "C:\\Users\\KOSMO-23\\GitHub\\-6th-_cosmo_1th_group\\Team_project\\profileImages";  //이미지의 폴더까지의 경로를 저장
 
-	final String OLD_FORMAT = "yyyy-MM-dd";
-	final String NEW_FORMAT = "yyyy-MM-dd HH:mm";
+	final String DATE_FORMAT = "yyyy-MM-dd";
+	final String TIME_FORMAT = "HH:mm";
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -211,12 +211,23 @@ public class MainController extends HttpServlet {
 				DailySchdulVO schVO = schDAO.selectSchdul(request.getParameter("schnum"));
 				Timestamp startDate=schVO.getStartDate();
 				Timestamp endDate = schVO.getEndDate();
+				Date sdate = new Date(0);
+				Date edate = new Date(0);
+				sdate.setTime(startDate.getTime());
+				edate.setTime(endDate.getTime());
 				
-				
+				String formatsDate = new SimpleDateFormat(DATE_FORMAT).format(sdate);
+				String formateDate = new SimpleDateFormat(DATE_FORMAT).format(edate);
+				String startTime = new SimpleDateFormat(TIME_FORMAT).format(sdate);
+				String endTime = new SimpleDateFormat(TIME_FORMAT).format(edate);
+				request.setAttribute("startDate", formatsDate);
+				request.setAttribute("endDate", formateDate);
+				request.setAttribute("startTime", startTime);
+				request.setAttribute("endTime", endTime);
 				request.setAttribute("schVO", schVO);
 				nextPage = "/Main01/Schduler/schdularUpdateForm.jsp";
 			}
-			else if(action.equals("/schdulUpdate.do")) {
+			else if(action.equals("/schedulUpdate.do")) {
 				System.out.println("스캐쥴 수정완료 클릭");
 				HttpSession session = request.getSession();
 				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
@@ -225,6 +236,7 @@ public class MainController extends HttpServlet {
 				schVO.setEno(loginUser.getEno());
 				schVO.setEname(loginUser.getEname());
 				schVO.setRank(loginUser.getRank());
+				schVO.setSchnum(Integer.parseInt(request.getParameter("schnum")));
 				schVO.setSchname(request.getParameter("schname"));
 				schVO.setSchcont(request.getParameter("schcont"));
 				String startDate2 = request.getParameter("startDate");
