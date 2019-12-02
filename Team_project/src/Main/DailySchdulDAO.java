@@ -107,7 +107,7 @@ public class DailySchdulDAO {
 		}
 		return schVO;
 	}
-	public void InsertSchdul(DailySchdulVO schVO) {
+	public void insertSchdul(DailySchdulVO schVO) {
 		// TODO Auto-generated method stub
 		String sql="insert into dailyscadul(schnum, startdate, enddate, schname, schcont, eno, ename, rank) values(Scadul_seq.nextval, ?,?,?,?,?,?,?)";
 		System.out.println(sql);
@@ -159,6 +159,37 @@ public class DailySchdulDAO {
 			}catch(Exception e) {
 				e.printStackTrace();
 			} 
+		}
+	}
+	public void updateSchdul(DailySchdulVO schVO) {
+		// TODO Auto-generated method stub
+		String sql="update dailyscadul set schname=?, schcont=?, startDate=?, endDate=?, eno=?, ename=?, rank=? where schnum=?";
+		System.out.println(sql);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, schVO.getSchname());
+			pstmt.setString(2, schVO.getSchcont());
+			pstmt.setTimestamp(3, schVO.getStartDate());
+			pstmt.setTimestamp(4, schVO.getEndDate());
+			pstmt.setString(5, schVO.getEno());
+			pstmt.setString(6, schVO.getEname());
+			pstmt.setString(7, schVO.getRank());
+			pstmt.setInt(8, schVO.getSchnum());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

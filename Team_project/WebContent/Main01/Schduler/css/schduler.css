@@ -1,0 +1,54 @@
+.secb .dateb{
+    font-size: 15px;
+    color:#333;
+    border:none;
+    width:45%;
+    outline: none;
+    background: none;
+    padding: 0 5px;
+    height: 40px;
+}
+
+.reg_submit1{
+    float:left;
+    width:30%;
+    height: 50px;
+    border:none;
+    margin-top : 50px;
+    background:linear-gradient(120deg, #3498db, #8e44ad, #3498db);
+    background-size: 200%;
+    color:#fff;;
+    outline: none;
+    cursor:pointer;
+    transition:.5s;
+    margin-right : 5%;
+}
+
+.reg_submit2{
+    float:left;
+    width:30%;
+    height: 50px;
+    border:none;
+    margin-top : 50px;
+    background:linear-gradient(120deg, #3498db, #8e44ad, #3498db);
+    background-size: 200%;
+    color:#fff;;
+    outline: none;
+    cursor:pointer;
+    transition:.5s;
+    margin-right : 5%;
+}
+
+.cancel {
+    float:left;
+    width:30%;
+    height: 50px;
+    border:none;
+    margin-top : 50px;
+    background:linear-gradient(120deg, #3498db, #8e44ad, #3498db);
+    background-size: 200%;
+    color:#fff;;
+    outline: none;
+    cursor:pointer;
+    transition:.5s;
+}

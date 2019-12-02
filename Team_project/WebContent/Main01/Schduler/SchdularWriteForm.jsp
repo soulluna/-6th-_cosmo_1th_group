@@ -7,9 +7,9 @@
    request.setCharacterEncoding("UTF-8");
    response.setContentType("text/html;utf-8");
 %>
-<c:if test="${empty loginUser}">
+ <c:if test="${empty loginUser}">
 	<jsp:forward page="${contextPath}/index.jsp" />
-</c:if>
+</c:if> 
 <!-- contextPath = /Team_project -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -22,34 +22,35 @@
 <script src="${contextPath}/Main01/js/jquery-ui.min.js"></script>
 <script src="${contextPath}/Main01/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Main01/js/prefixfree.min.js"></script>
-<link rel="stylesheet" href="${contextPath}/Main01/css/index.css" />
+<link rel="stylesheet" href="${contextPath}/Main01/registration/css/reg.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 <script src="${contextPath}/Main01/Schduler/js/main.js"></script>
 </head>
 <body>
-	<form method="post" action="${contextPath}/Main/SchedulWrite.do" name="frm">
-		<table>
-			<tr>
-				<td>일정명</td>
-				<td colspan="2"><input type="text" name="schname"></td>
-			</tr>
-			<tr>
-				<td>일정내용</td>
-				<td colspan="2"><textarea name="schcont"></textarea></td>
-			</tr>
-			<tr>
-				<td>시작시간</td>
-				<td><input type="date" name="startDate"></td>
-				<td><input type="time" name="startTime"></td>
-			</tr>
-			<tr>
-				<td>종료시간</td>
-				<td><input type="date" name="endDate"></td>
-				<td><input type="time" name="endTime"></td>
-			</tr>
-		</table>
-		<input type="submit" value="작성완료" onclick="pageClose();">
-		<input type="reset" value="다시 작성">
-		<input type="button" value="메인페이지로" onclick="pageClose();">
+	<form name="frm" class="reg_form" method="post" action="${contextPath}/Main/schedulWrite.do">
+		<div>
+			<img src="${contextPath}/Main01/registration/img/logo3.gif">
+		</div>
+		<div class="secb">
+			<span class="name">일정명</span>
+			<input class="txtb" type="text" name="schname">
+		</div>
+		<div class="secb">
+			<span class="name">일정내용</span>
+			<input class="txtb" type="text" name="schcont">
+		</div>
+		<div class="secb">
+			<span class="name">시작시간</span>
+			<input class="dateb" id="datepicker1" type="text" name="startDate">
+			<input class="dateb" type="time" name="startTime">
+		</div>
+		<div class="secb">
+			<span class="name">종료시간</span>
+			<input class="dateb" id="datepicker2" type="text" name="endDate">
+			<input class="dateb" type="time" name="endTime">
+		</div>
+		<input type="submit" class="reg_submit" value="작성하기">
+		<input type="button" class="cancel" value="돌아가기" onclick="location.href='${contextPath}/Main/login.do'">
 	</form>
 </body>
 </html>
