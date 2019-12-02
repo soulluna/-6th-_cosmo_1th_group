@@ -192,9 +192,8 @@ function docDelete() {
 
 						<tr>
 							<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.<br>
-								<div class="inputContent"
-									style="background-color: white; vertical-align: top;">
-									${approvalVO.txtcont}</div></td>
+								<textarea class="inputContent" name="reason" required maxlength="1000" readOnly>${approvalVO.txtcont}</textarea>
+							</td>
 						</tr>
 					</table>
 

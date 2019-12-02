@@ -170,15 +170,13 @@ function docDelete() {
 					<table>
 						<tr>
 							<td>제목<br>
-								<div class="inputTitle" style="background-color: white;">
-									${approvalVO.txtname}</div>
+								<div class="inputTitle" style="background-color: white;">${approvalVO.txtname}</div>
 							</td>
 						</tr>
 						<tr>
 							<td><br> 내용<br>
-								<div class="inputContent"
-									style="background-color: white; vertical-align: top;">
-									${approvalVO.txtcont}</div></td>
+							<textarea class="inputContent" name="reason" maxlength="1000" readOnly>${approvalVO.txtcont}</textarea>
+							</td>
 						</tr>
 					</table>
 

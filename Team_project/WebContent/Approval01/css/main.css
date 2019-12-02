@@ -107,6 +107,24 @@ body{
     /* position:absolute; right:-10px; top:5px; padding:5px; */
     position:absolute; right:0px; padding:5px;
 }
+
+.bottomNumber{
+	text-align: center;
+}
+.bottomNumber a{
+	font-size:19.5px;
+	padding-right:15px;
+}
+
+.bottomNumber > button{
+	cursor: pointer;
+    background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+    color: #fff;
+    padding: 3px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
 /*//docList.html*/
 
 
@@ -128,17 +146,17 @@ body{
 .content .signtable td{
     background-color:white;
 }
-.content > .deptContent > .signtable >table{
+.content  .deptContent > .signtable >table{
     border: 1px inset #52a7e0;
     border-collapse: collapse;
 }
-.content > .deptContent > .signtable >table th{
+.content  .deptContent > .signtable >table th{
     background-image: linear-gradient(180deg,#3498db,#2a709e);
     padding: 5px 10px;
     border: 1px inset #52a7e0;
     color:white;
 }
-.content > .deptContent > .signtable >table td{
+.content  .deptContent > .signtable >table td{
     padding: 5px 10px;
     border: 1px inset #52a7e0;
     text-align: center;
@@ -204,10 +222,23 @@ body{
     padding-bottom: 10px;
     right: 25px;
 }
-.inputarea div.bottomBt button{
+.inputarea div.bottomBt > button{
 padding:5px;
 margin:0 3px;
+cursor: pointer;
+background-image: linear-gradient(-220deg,#3498db,#8e44ad);
+color: #fff;
+padding: 3px;
+border-radius: 6px;
+font-weight: bold;
 }
+.inputarea div.bottomBt button:disabled,button[disabled]{
+  border: 1px solid #999999;
+  background-image: linear-gradient(-220deg,#808080,#808080);
+  color: #808080;
+  cursor: auto;
+}
+
 
 /*ดÞทย*/
 .wrap { width: 500px; margin: 0 auto; }

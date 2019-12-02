@@ -178,7 +178,7 @@
 						<tr>
 							<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.<br> <textarea
 									class="inputContent" name="reason" placeholder="사유을 입력해주세요."
-									required maxlength="2000"></textarea></td>
+									required maxlength="1000"></textarea></td>
 						</tr>
 					</table>
 

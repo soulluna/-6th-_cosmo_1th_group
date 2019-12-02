@@ -70,14 +70,11 @@ function draftCheck() {
 
 // 내 문서함 검색 alert()
 function docListSearchCheck() {
-	var reg = /^기안$|^기안서$|^휴가$|^휴가\s?신청서$/;
-	var searchType = $("select[name=searchType] option:selected").text();
+	var searchType = $("select[name=searchType] option:selected").val();
 	var inputValue = $("input[name=searchKey]").val();
 
 	if (inputValue == "") {
 		alert("검색어를 입력해주세요.");
-	} else if (searchType == "결재종류" && reg.test(inputValue) == false) {
-		alert("없습니다.");
 	}
 }
 

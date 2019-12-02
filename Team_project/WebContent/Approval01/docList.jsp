@@ -24,9 +24,11 @@
 <script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
+<c:if test="${approvalList.size()==0}">
 <script>
-	
+	alert("없습니다.");
 </script>
+</c:if>
 <title>내 문서함</title>
 
 </head>
@@ -51,8 +53,8 @@
 					<input type="text" class="searchInput" name="searchKey" />
 					<input type="submit" class="search" value="검색" style="height: 30px;"
 						onclick="docListSearchCheck()" />
-					<input type="hidden" name="searchType" value="${searchType}"/>
-					<input type="hidden" name="searchKey" value="${searchKey}"/>
+					<%-- <input type="hidden" name="searchType" value="${searchType}"/>
+					<input type="hidden" name="searchKey" value="${searchKey}"/> --%>
 				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
@@ -103,9 +105,17 @@
 				</c:if>
 
 				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}" end="${pagingMap.pageSessionNum*5}">
-					<c:if test="${page <= pagingMap.maxPageNum}">
-						<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${pagingMap.pageNum == page}">
+							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}" style="color:red">${page}</a>
+						</c:when>
+					
+						<c:when test="${page <= pagingMap.maxPageNum}">
+							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+						</c:when>
+						
+					</c:choose>
+
 				</c:forEach>
 
 				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
