@@ -62,7 +62,6 @@
 						rows="100">${board.txtcont}</textarea>
 				</div>
 				<div class="cncjsqjxms">
-
 					<c:if test="${loginUser.eno==board.eno}">
 						<button type="button" class="delete"
 							onclick="deleteArticle('${contextPath}','${board.txtnum}');">삭제</button>
@@ -74,31 +73,26 @@
 						</button>
 					</c:if>
 				</div>
-				<c:choose>
-					<c:when test="${board.comcont==null}">
-						<div class="eotrmf">
-							<textarea class="eotrmfdlqfur" name="comment"
-								placeholder="댓글을 입력해주세요."></textarea>
-							<input type="hidden" name="txtnum" value="${board.txtnum}">
-							<button class="c_write" onclick="addComment('${contextPath}');">댓글등록</button>
+				<div class="media" id="c_1">
+					<div class="photo pull-left">
+						<div class="media-object">
+							<i class="fa fa-user"></i>
 						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="media" id="c_1">
-							<div class="photo pull-left">
-								<div class="media-object">
-									<i class="fa fa-user"></i>
-								</div>
-							</div>
-							<div class="media-body">
-								<div class="media-heading">
-									<b><a href="#"><span>${board.comuser}</span></a></b>
-								</div>
-								<div class="media-content">${board.comcont}</div>
-							</div>
+					</div>
+					<c:forEach items="${commentList}" var="comment">
+					<div class="media-body">
+						<div class="media-heading">
+							<b><a href="#"><span>${comment.ename}</span></a></b>
 						</div>
-					</c:otherwise>
-				</c:choose>
+						<div class="media-content">${comment.}</div>
+					</div>
+					</c:forEach>	
+				</div>					
+				<div class="eotrmf">
+					<textarea class="eotrmfdlqfur" name="comment" placeholder="댓글을 입력해주세요."></textarea>
+					<input type="hidden" name="txtnum" value="${board.txtnum}">
+					<button class="c_write" onclick="addComment('${contextPath}');">댓글등록</button>
+				</div>
 			</div>
 		</div>
 	</form>

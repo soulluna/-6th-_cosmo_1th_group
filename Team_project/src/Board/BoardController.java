@@ -137,11 +137,14 @@ public class BoardController extends HttpServlet {
 				} else if (action.equals("/details.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 					System.out.println("details.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
+					CommentDAO commentDAO = new CommentDAO();
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					System.out.println(txtnum);
-					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에
-																				// viewArticle함수를 요청
+					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에 viewArticle함수를 요청
+					ArrayList<CommentVO> commentList = commentDAO.listComments(txtnum); //댓글을 읽어오기			
+					
 					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
+					request.setAttribute("commentList", commentList);
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 
 				} else if (action.equals("/like.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
