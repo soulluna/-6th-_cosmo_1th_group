@@ -18,9 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import Main.MemberVO;
 
-
-
-
 /**
  * Servlet implementation class BoardController
  */
@@ -28,6 +25,7 @@ import Main.MemberVO;
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Boardservice boardservice;
+
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -37,11 +35,12 @@ public class BoardController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doHandle(request,response);
+		doHandle(request, response);
 	}
 
 	/**
@@ -51,6 +50,7 @@ public class BoardController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doHandle(request,response);
 	}
+	
 
 	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -69,9 +69,9 @@ public class BoardController extends HttpServlet {
 					if (action!=null && action.equals("/noticeBoardMain.do")) {//전체게시글
 						Map pagingMap = new HashMap();
 						System.out.println("noticeBoardMain.do");
-						boardList = boardservice.listBoards();
 						
-						/*String searchType = request.getParameter("searchType");
+						
+						String searchType = request.getParameter("searchType");
 						String searchKey = request.getParameter("searchKey");
 						String _pageNum = request.getParameter("pageNum");
 						String _pageSessionNum = request.getParameter("pageSession");
@@ -80,51 +80,78 @@ public class BoardController extends HttpServlet {
 						int docMaxNum = 0;
 						int maxPageNum = 0;
 						if (searchKey == null || searchKey.equals("")) {
-							docMaxNum = boardservice.docAllCount(loginUser);
+							docMaxNum = boardservice.docAllCount();
 						} else {
-							docMaxNum = boardservice.docSearchCount(loginUser, searchType, searchKey);
+							docMaxNum = boardservice.docSearchCount(searchType, searchKey);
 						}
 						
 						System.out.println("------");
 						System.out.println(docMaxNum);
 						System.out.println("------");
+						int maxSessionNum = 0; 
 						if (docMaxNum % 15 == 0) {
 							maxPageNum = docMaxNum / 15;
 						}else {
 							maxPageNum = docMaxNum / 15 + 1;
 						}
-						int maxSessionNum = maxPageNum / 5 + 1;
+						if(maxPageNum % 5 == 0) {
+							maxSessionNum = maxPageNum / 5;
+						}else {
+							maxSessionNum = maxPageNum / 5+1;
+						}
 						pagingMap.put("pageNum", pageNum);
+						System.out.println(pageNum+"페이지넘버");
 						pagingMap.put("docMaxNum", docMaxNum);
+						System.out.println(docMaxNum+"최후");
 						pagingMap.put("maxPageNum", maxPageNum);
+						System.out.println(maxPageNum+"다음페이지");
 						pagingMap.put("maxSessionNum", maxSessionNum);
+						System.out.println(maxSessionNum+" 마지막 페이지넘버");
 						pagingMap.put("pageSessionNum", pageSessionNum);
+						System.out.println(pageSessionNum+"세션페이지");
 						if (searchKey == null || searchKey.equals("")) {
 							System.out.println("searchKey가 null인 if문");
 							for (int i = 1; i <= maxPageNum; i++) {
 								if (pageNum == i)
-									boardList = boardservice.listBoard(loginUser, 1 + ((i - 1) * 15),
+									boardList = boardservice.listBoard( 1 + ((i - 1) * 15),
 											15 + ((i - 1) * 15));
 							}
 						} else {
 							for (int i = 1; i <= maxPageNum; i++) {
 								if (pageNum == i)
-									boardList = boardservice.listBoard(loginUser, searchType, searchKey,
+									boardList = boardservice.listBoard(searchType, searchKey,
 											1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
-							}*/
+							}
 						}
 						request.setAttribute("boardList", boardList);
 						request.setAttribute("pagingMap", pagingMap);
-						request.setAttribute("boardList", boardList);
 						request.setAttribute("searchType", searchType);
 						request.setAttribute("searchKey", searchKey);
-						nextPage = "/Approval01/docList.jsp";
+						nextPage = "/Board01/noticeBoardMain.jsp";
 
 				/*------------------------------------------------------------------*/
 				
 				
+				
+			} else if(action.equals("/searchList.do")){
+				System.out.println("searchList.do");
+				String searchType = request.getParameter("searchType");
+				System.out.println(searchType);
+				String searchKey= request.getParameter("searchKey");
+				System.out.println(searchKey);
+				
+				switch(searchType) {
+				case "1": boardList = boardservice.searchByTitle(searchKey);
+						
+				case "2": boardList = boardservice.searchByContNTitle(searchKey); 
+				
+						/* case "3": boardList = boardservice.searchByEname(searchKey) */
+						 
+				}
+				request.setAttribute("boardList", boardList);
 				nextPage = "/Board01/noticeBoardMain.jsp";
-			} else if(action.equals("/searchKeyword.do")) {//정렬기능
+		
+			} else if(action.equals("/searchKeyword.do")) {//정렬기능 각 게시판
 				System.out.println("searchKeyword.do");
 				String noticelist = request.getParameter("noticelist");
 				System.out.println(noticelist);
@@ -212,16 +239,19 @@ public class BoardController extends HttpServlet {
 				nextPage = "/Board/details.dotxtnum="+txtnum;
 			}
 			else {
-				boardList = boardservice.listBoards();
+					/* boardList = boardservice.listBoard(); */
 				request.setAttribute("boardsList", boardList);
 				nextPage = "/Board01/noticeBoardMain.jsp";
 			}
 			System.out.println("다음페이지 : "+nextPage);
 			RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 			dispatch.forward(request, response);//모델2 기반
-		}   
-		catch(Exception e){
+		} 
+		}catch(Exception e){
 			e.printStackTrace();
-		}
+		
+			
+}
 	}
 }
+

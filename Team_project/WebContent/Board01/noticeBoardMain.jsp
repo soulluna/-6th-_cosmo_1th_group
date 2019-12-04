@@ -32,14 +32,11 @@
 		<div class="side">
 			<a href="${contextPath}/Board/noticeBoardMain.do">
 				<div>전체</div>
-			</a> 
-			<a href="${contextPath}/Board/searchKeyword.do?noticelist=1">
+			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=1">
 				<div>부서</div>
-			</a> 
-			<a href="${contextPath}/Board/searchKeyword.do?noticelist=2">
+			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=2">
 				<div>취미</div>
-			</a> 
-			<a href="${contextPath}/Board/searchKeyword.do?noticelist=3">
+			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=3">
 				<div>자유</div>
 			</a>
 		</div>
@@ -71,7 +68,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="board" items="${boardList}">
+								<c:forEach var="board" items="${boardList}" varStatus="15">
 									<tr class="record">
 										<c:choose>
 											<c:when test="${board.noticelist==1}">
@@ -85,7 +82,8 @@
 											</c:otherwise>
 										</c:choose>
 										<td class="co2">${board.txtnum}</td>
-										<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
+										<td class="co3"><a
+											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
 										<td class="co4">${board.ename}</td>
 										<td class="co5">${board.entrydate}</td>
 										<td class="co6">${board.viewtotal}</td>
@@ -100,27 +98,28 @@
 		</c:choose>
 		<div class="dlehd">
 			<div class="page">
-			<!-- ------------------------------------------------------- -->
-			
-				<c:if test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
-					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
+				<!-- ------------------------------------------------------- -->
+
+				<c:if
+					test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
+					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
 				</c:if>
 
-				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}" end="${pagingMap.pageSessionNum*5}">
+				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}"
+					end="${pagingMap.pageSessionNum*5}">
 					<c:if test="${page <= pagingMap.maxPageNum}">
-						<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
 					</c:if>
 				</c:forEach>
 
 				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
-					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
+					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
 				</c:if>
-				<button class="docCreate" name="docCreate" type="button"
-					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
-			
-			
-			
-			<!-- ------------------------------------------------------- -->
+
+
+
+
+				<!-- ------------------------------------------------------- -->
 				<!-- <a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
 				<a href="#">4</a> <a href="#">5</a> <a href="#">다음</a> -->
 			</div>
@@ -128,20 +127,21 @@
 				<a onclick="location.href='${contextPath}/Board01/write.jsp'">글쓰기</a>
 			</div>
 		</div>
-
-		<div class="gkeks">
-			<select class="tpqn" name="searchType">
-				<option value="제목">제목</option>
-				<option value="제목+내용">제목+내용</option>
-				<option value="작성자">작성자</option>
-			</select>
-			<div class="rjator">
-				<input type="text" name="searchKey" placeholder="검색어 입력">
-				<button class="search">
-					<a href="#">검색 </a>
-				</button>
+		<form name="frm" method="post">
+			<div class="gkeks">
+				<select class="tpqn" name="searchType">
+					<option value="1">제목</option>
+					<option value="2">제목+내용</option>
+					<option value="3">작성자</option>
+				</select>
+				<div class="rjator">
+					<input type="text" name="searchKey" placeholder="검색어 입력">
+					<button type="submit" class="search" onclick="noticeSearchCheck('${contextPath}')">검색</button>
+					<input type="hidden" name="searchType" value="${searchType}" /> 
+					<input type="hidden" name="searchKey" value="${searchKey}" />
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 
 </body>

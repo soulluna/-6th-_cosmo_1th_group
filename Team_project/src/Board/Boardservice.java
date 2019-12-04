@@ -12,11 +12,20 @@ public class Boardservice {
       boardDAO = new BoardDAO();
    }
 //   
-   public List<BoardVO> listBoards(){
-	   System.out.println("listBoards()");
-     List<BoardVO> noticeBoardsList = boardDAO.selectAllBoards();
+   public List<BoardVO> listBoard(int rownum1, int rownum2){
+	   System.out.println("listBoard()");
+     List<BoardVO> noticeBoardsList = boardDAO.selectAllBoards(rownum1, rownum2);
      return noticeBoardsList;
   }
+
+
+   public List<BoardVO> listBoard(String searchType, String searchKey, int rownum1, int rownum2) {
+ 		// TODO Auto-generated method stub
+ 	   List<BoardVO> noticeBoardsList = boardDAO.selectAllBoards(searchType, searchKey, rownum1, rownum2);
+ 	     return noticeBoardsList;
+ 	}
+
+
 
    
    public BoardVO viewBoard(int articleNo) {
@@ -50,9 +59,28 @@ public void addComment(BoardVO boardVO) {
 	// TODO Auto-generated method stub
 	
 }
-public List<BoardVO> listBoard(MemberVO loginUser, int i, int j) {
+
+	
+public int docAllCount() { // TODO Auto-generated method stub
+	return boardDAO.countAllDoc(); }
+	 
+public int docSearchCount(String searchType, String searchKey) {
 	// TODO Auto-generated method stub
-	return null;
+	return boardDAO.countSearchDoc(searchType, searchKey);
 }
+public List<BoardVO> searchByTitle(String searchKey) {
+	// TODO Auto-generated method stub
+	return boardDAO.selectByTitle(searchKey);
+}
+public List<BoardVO> searchByContNTitle(String searchKey) {
+	// TODO Auto-generated method stub
+	return boardDAO.searchByContNTitle(searchKey);
+}
+/*public List<BoardVO> searchByEname(String searchKey) {
+	// TODO Auto-generated method stub
+	return boardDAO.searchByEname(searchKey);
+}*/
+
+
    
 }

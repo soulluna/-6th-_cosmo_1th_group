@@ -80,11 +80,7 @@ $(function () {
 		location.href = '#';
 		//메인게시판 검색어 없을때 경고창
 	});
-	$(".search").on("click",function(){
-		var search = $("input").val();
-		if(search=="")
-			alert("검색어를 입력하십시오");//검색어 입력않하면 경고창
-	});
+	
 });
 
 //javascript
@@ -122,3 +118,14 @@ function addComment(url){
 	frm.submit();
 }
 
+function noticeSearchCheck(url) {
+	
+	var searchType = $("select[name=searchType] option:selected").text();
+	var inputValue = $("input[name=searchKey]").val();
+
+	if (inputValue == "") {
+		alert("검색어를 입력해주세요.");
+	} else{
+		frm.action=url+"/Board/noticeBoardMain.do";
+	}
+}

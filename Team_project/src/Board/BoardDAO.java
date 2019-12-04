@@ -11,10 +11,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import Main.MemberVO;
+
 public class BoardDAO {
-	private Connection con;
-	private PreparedStatement pstmt;
-	private DataSource dataFactory; 
+	private static Connection con;
+	private static PreparedStatement pstmt;
+	private static DataSource dataFactory; 
 
 	public BoardDAO() {
 		try {
@@ -26,14 +28,19 @@ public class BoardDAO {
 		}
 	}
 
-	public List<BoardVO> selectAllBoards() {	//게시판 리스트 보여주기
+	public List<BoardVO> selectAllBoards(int rownum1, int rownum2) {	//게시판 리스트 보여주기
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			con = dataFactory.getConnection();
-			String query = "select txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-					+ " from NOTICE order by txtnum desc";
+			String query ="select * from(select rownum as rownum2 , a.* from" 
+					
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+					+ " from NOTICE order by txtnum desc) a) where rownum2 between ? and ?";
+			
 			
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, rownum1);
+			pstmt.setInt(2, rownum2);
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -57,6 +64,73 @@ public class BoardDAO {
 		}
 		return boardList;
 	}
+	public List<BoardVO> selectAllBoards(String searchType, String searchKey, int rownum1, int rownum2) {
+		// TODO Auto-generated method stub
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+		try {
+			con = dataFactory.getConnection();
+			String query = null;
+			if (searchType.equals("1")) {
+				 query ="select * from(select rownum as rownum2 , a.* from" 
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+						+ " from NOTICE where txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
+				
+			}else if (searchType.equals("2")) {
+				 query ="select * from(select rownum as rownum2 , a.* from" 
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+						+ " from NOTICE where txtname like ?  or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
+				
+			}else if (searchType.equals("3")) {
+				 query ="select * from(select rownum as rownum2 , a.* from" 
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+						+ " from NOTICE where ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
+				
+			}
+			
+			
+			pstmt = con.prepareStatement(query);
+			if (searchType.equals("1")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+				pstmt.setInt(2, rownum1);
+				pstmt.setInt(3, rownum2);
+			} else if (searchType.equals("2")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+				pstmt.setString(2, "%" + searchKey + "%");
+				pstmt.setInt(3, rownum1);
+				pstmt.setInt(4, rownum2);
+			} else if (searchType.equals("3")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+				pstmt.setInt(2, rownum1);
+				pstmt.setInt(3, rownum2);
+			}
+		
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// articleVO인스턴스에 받은 값을 매개변수로 생성함
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(rs.getInt("txtnum"));
+				boardVO.setTxtname(rs.getString("txtname"));
+				boardVO.setTxtcont(rs.getString("txtcont"));
+				boardVO.setEname(rs.getString("ename"));
+				boardVO.setNoticelist(rs.getInt("noticelist"));
+				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setViewtotal(rs.getInt("viewtotal"));
+				boardVO.setLikenum(rs.getInt("likenum"));
+				boardList.add(boardVO);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardList;
+	}
+	
+	
+	
+	
 	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기
 		System.out.println("--selectBoard--");
 		BoardVO board = new BoardVO();
@@ -228,10 +302,10 @@ System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ena
 		// TODO Auto-generated method stub
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
-			con = dataFactory.getConnection();
+			
 			String query = "select txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 					+ " from NOTICE where noticelist=? order by txtnum desc";
-			
+			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, noticelist);
 			ResultSet rs = pstmt.executeQuery();
@@ -274,5 +348,120 @@ System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ena
 			e.printStackTrace();
 		}
 	}
+
+	public int countAllDoc() { //일반
+		// TODO Auto-generated method stub
+		int docMax = 0;
+		
+		String query = "select count(*) from notice";
+	
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				docMax = rs.getInt("count(*)");
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return docMax;
+	}
+		//쿼리문 수정해야함
+	public int countSearchDoc(String searchType, String searchKey) {//검색시 전체문서수
+		// TODO Auto-generated method stub
+		int docMax = 0;
+		String query = null;
+		if (searchType.equals("1")) {
+			query = "select count(*) from notice where txtname like ?";
+			
+		}else if (searchType.equals("2")) {
+			query = "select count(*) from notice where txtname like ?  or txtcont like ?";
+			
+		}else if (searchType.equals("3")) {
+			query = "select count(*) from notice where ename like ?";
+			
+		}
+		
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+
+			if (searchType.equals("1")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+			} else if (searchType.equals("2")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+				pstmt.setString(2, "%" + searchKey + "%");
+			} else if (searchType.equals("3")) {
+				pstmt.setString(1, "%" + searchKey + "%");
+			}
+			
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				docMax = rs.getInt("count(*)");
+			}
+			System.out.println("---함수안---");
+			System.out.println(docMax);
+			System.out.println("---함수안---");
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return docMax;
+		
+	}
+
+	public List<BoardVO> selectByTitle(String searchKey) {	//검색 제목으로 지정했을떄
+		// TODO Auto-generated method stub
+		System.out.println("selectByTitle");
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+		
+		String query = "select *"
+				+ " from NOTICE where txtname like ? order by txtnum desc";
+		
+		try {
+			con =dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%" + searchKey + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// articleVO인스턴스에 받은 값을 매개변수로 생성함
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(rs.getInt("txtnum"));
+				boardVO.setTxtname(rs.getString("txtname"));
+				boardVO.setTxtcont(rs.getString("txtcont"));
+				boardVO.setEname(rs.getString("ename"));
+				boardVO.setNoticelist(rs.getInt("noticelist"));
+				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setViewtotal(rs.getInt("viewtotal"));
+				boardVO.setLikenum(rs.getInt("likenum"));
+				boardList.add(boardVO);
+			}
+			
+			
+			pstmt.close();
+			con.close();
+			rs.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return boardList;
+	}
+	public List<BoardVO> searchByContNTitle(String searchKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+
+	
 }
 
