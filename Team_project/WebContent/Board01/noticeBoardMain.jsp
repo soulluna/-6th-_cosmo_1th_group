@@ -32,11 +32,11 @@
 		<div class="side">
 			<a href="${contextPath}/Board/noticeBoardMain.do">
 				<div>전체</div>
-			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=1">
+			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=1">
 				<div>부서</div>
-			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=2">
+			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=2">
 				<div>취미</div>
-			</a> <a href="${contextPath}/Board/searchKeyword.do?noticelist=3">
+			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=3">
 				<div>자유</div>
 			</a>
 		</div>
@@ -102,18 +102,18 @@
 
 				<c:if
 					test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
-					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
+					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">이전</a>
 				</c:if>
 
 				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}"
 					end="${pagingMap.pageSessionNum*5}">
 					<c:if test="${page <= pagingMap.maxPageNum}">
-						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">${page}</a>
 					</c:if>
 				</c:forEach>
 
 				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
-					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
+					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">다음</a>
 				</c:if>
 
 
@@ -139,6 +139,7 @@
 					<button type="submit" class="search" onclick="noticeSearchCheck('${contextPath}')">검색</button>
 					<input type="hidden" name="searchType" value="${searchType}" /> 
 					<input type="hidden" name="searchKey" value="${searchKey}" />
+					<input type="hidden" name="noticeList" value="${noticeList}">
 				</div>
 			</div>
 		</form>

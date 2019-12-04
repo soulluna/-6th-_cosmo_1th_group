@@ -71,20 +71,33 @@ public class BoardController extends HttpServlet {
 			} else {
 				if (action != null && action.equals("/noticeBoardMain.do")) {// 전체게시글
 					Map pagingMap = new HashMap();
-					System.out.println("noticeBoardMain.do");
+					System.out.println("searchKeyword.do");
 
 					String searchType = request.getParameter("searchType");
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
 					String _pageSessionNum = request.getParameter("pageSession");
+					String noticeList = request.getParameter("noticeList");
+					System.out.println("noticeList : "+noticeList);
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
 					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
 					int docMaxNum = 0;
 					int maxPageNum = 0;
 					if (searchKey == null || searchKey.equals("")) {
-						docMaxNum = boardservice.docAllCount();
+						if(noticeList==null||noticeList.length()==0) {
+							docMaxNum = boardservice.docAllCount();
+						}
+						else {
+							docMaxNum = boardservice.docAllCount(noticeList);
+						}
 					} else {
-						docMaxNum = boardservice.docSearchCount(searchType, searchKey);
+						if(noticeList==null||noticeList.length()==0) {
+							docMaxNum = boardservice.docSearchCount(searchType, searchKey);
+						}
+						else{
+							docMaxNum = boardservice.docSearchCount(searchType, searchKey, noticeList);
+						}
+						
 					}
 
 					System.out.println("------");
@@ -114,32 +127,36 @@ public class BoardController extends HttpServlet {
 					if (searchKey == null || searchKey.equals("")) {
 						System.out.println("searchKey가 null인 if문");
 						for (int i = 1; i <= maxPageNum; i++) {
-							if (pageNum == i)
-								boardList = boardservice.listBoard(1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+							if (pageNum == i) {
+								if(noticeList==null||noticeList.length()==0) {
+									boardList = boardservice.listBoard(1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+								}
+								else {
+									boardList = boardservice.listBoard(1 + ((i - 1) * 15), 15 + ((i - 1) * 15), noticeList);								}
+							}
+								
 						}
 					} else {
 						for (int i = 1; i <= maxPageNum; i++) {
-							if (pageNum == i)
-								boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * 15),
-										15 + ((i - 1) * 15));
+							if (pageNum == i) {
+								if(noticeList==null||noticeList.length()==0) {
+									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+								}
+								else {
+									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15), noticeList);
+								}
+							}
 						}
 					}
 					request.setAttribute("boardList", boardList);
 					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("searchType", searchType);
 					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("noticeList", noticeList);
 					nextPage = "/Board01/noticeBoardMain.jsp";
-
 					/*------------------------------------------------------------------*/
 
-				} else if (action.equals("/searchKeyword.do")) {// 정렬기능 각 게시판
-					System.out.println("searchKeyword.do");
-					String noticelist = request.getParameter("noticelist");
-					System.out.println(noticelist);
-					boardList = boardservice.alignBoard(noticelist);
-					request.setAttribute("boardList", boardList);
-					nextPage = "/Board01/noticeBoardMain.jsp";
-				} else if (action.equals("/write.do")) {// 글쓰기
+				}else if (action.equals("/write.do")) {// 글쓰기
 					System.out.println("write.do");
 					BoardVO boardVO = new BoardVO();
 					String txtname = request.getParameter("w_title");

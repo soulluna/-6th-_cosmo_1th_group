@@ -127,5 +127,6 @@ function noticeSearchCheck(url) {
 		alert("검색어를 입력해주세요.");
 	} else{
 		frm.action=url+"/Board/noticeBoardMain.do";
+		frm.submit();
 	}
 }
