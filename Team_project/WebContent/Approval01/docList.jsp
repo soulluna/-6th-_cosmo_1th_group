@@ -24,11 +24,7 @@
 <script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
-<c:if test="${approvalList.size()==0}">
-<script>
-	alert("없습니다.");
-</script>
-</c:if>
+
 <title>내 문서함</title>
 
 </head>
@@ -53,8 +49,8 @@
 					<input type="text" class="searchInput" name="searchKey" />
 					<input type="submit" class="search" value="검색" style="height: 30px;"
 						onclick="docListSearchCheck()" />
-					<%-- <input type="hidden" name="searchType" value="${searchType}"/>
-					<input type="hidden" name="searchKey" value="${searchKey}"/> --%>
+					<%-- <input type="text" name="searchType" value="${searchType}"/>
+					<input type="text" name="searchKey" value="${searchKey}"/> --%>
 				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
@@ -63,40 +59,49 @@
 			<table class="docListTable" border="1">
 				<tr>
 					<th width="60px"><a
-						href="${contextPath}/Approval/disRecSort.do?searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
+						href="${contextPath}/Approval/disRecSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
 					<th width="120px">결재종류</th>
 					<th width="80px"><a
-						href="${contextPath}/Approval/docStateSort.do?searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
+						href="${contextPath}/Approval/docStateSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
 					<th width="700px">문서제목</th>
 					<th width="100px"><a
-						href="${contextPath}/Approval/docDaySort.do?searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
+						href="${contextPath}/Approval/docDaySort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
 				</tr>
-				<c:forEach items="${approvalList}" var="approval" varStatus="15">
-					<tr>
-						<c:choose>
-							<c:when test="${approval.eno==loginUser.eno}">
-								<td>발신</td>
-							</c:when>
-							<c:otherwise>
-								<td>수신</td>
-							</c:otherwise>
-						</c:choose>
-						<td>${approval.applist}</td>
-						<td>${approval.progress}</td>
-						<c:choose>
-							<c:when test="${approval.applist == '기안서'}">
-								<td><a
-									href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
-							</c:when>
-							<c:when test="${approval.applist == '휴가신청서'}">
-								<td><a
-									href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
-							</c:when>
-						</c:choose>
+				<c:choose>
+					<c:when test="${approvalList.size()==0}">
+						<tr>
+							<td colspan="5">검색 결과가 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${approvalList}" var="approval" varStatus="15">
+							<tr>
+								<c:choose>
+									<c:when test="${approval.eno==loginUser.eno}">
+										<td>발신</td>
+									</c:when>
+									<c:otherwise>
+										<td>수신</td>
+									</c:otherwise>
+								</c:choose>
+								<td>${approval.applist}</td>
+								<td>${approval.progress}</td>
+								<c:choose>
+									<c:when test="${approval.applist == '기안서'}">
+										<td><a
+											href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+									</c:when>
+									<c:when test="${approval.applist == '휴가신청서'}">
+										<td><a
+											href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+									</c:when>
+								</c:choose>
 
-						<td>${approval.entrydate}</td>
-					</tr>
-				</c:forEach>
+								<td>${approval.entrydate}</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</table>
 
 			<div class="bottomNumber">
@@ -117,10 +122,14 @@
 					</c:choose>
 
 				</c:forEach>
+				<c:choose>
+					<c:when
+						test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
+						<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
+					</c:when>
+					
+				</c:choose>
 
-				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
-					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
-				</c:if>
 				<button class="docCreate" name="docCreate" type="button"
 					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
 			</div>
@@ -130,4 +139,5 @@
 	</div>
 	<!--//전체 컨텐츠-->
 </body>
+
 </html>
