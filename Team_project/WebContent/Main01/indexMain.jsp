@@ -56,14 +56,14 @@
 					</tr>
 					<c:forEach items="${scadulList}" var="schdul">
 						<tr>
-							<td><a href="#" onclick="schdulDetails('${contextPath}','${schdul.schnum}')">${schdul.schname}</a></td>
+							<td><a href="#" onclick="location.href='${contextPath}/Main/schdulDetail.do?schnum=${schdul.schnum}'">${schdul.schname}</a></td>
 							<td><fmt:formatDate value="${schdul.startDate}" pattern="yyyy-MM-dd hh:mm" /></td>
 							<td><fmt:formatDate value="${schdul.endDate}" pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div id="buttons">
-					<input type="button" value="스캐쥴 작성" onclick="schdulWrite('${contextPath}');">
+					<input type="button" value="스캐쥴 작성" onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
 				</div>
 			</div>
 		</div>

@@ -108,7 +108,7 @@
 						<tr>
 							<td><br> 내용<br> <textarea class="inputContent"
 									name="reason" placeholder="내용을 입력해주세요." required
-									maxlength="2000"></textarea></td>
+									maxlength="1000"></textarea></td>
 						</tr>
 					</table>
 					<br>

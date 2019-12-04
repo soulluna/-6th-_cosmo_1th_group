@@ -24,8 +24,8 @@ constraint employee_pk primary key(eno, ename, rank));
 create table APPROVAL(
 applist varchar2(20),
 txtnum number(10),
-txtname varchar2(100) not null,
-txtcont varchar2(1000) not null,
+txtname varchar2(150) not null,
+txtcont varchar2(3000) not null,
 progress varchar2(10) not null,
 entrydate date default sysdate,
 middate date,
@@ -58,9 +58,6 @@ ename varchar2(10) not null,
 rank varchar2(8) not null,
 noticelist number(1),
 likenum number(3) default 0,
-comtotal number(3) default 0,
-comcont varchar(500),
-comuser varchar2(10),
 viewtotal number(4) default 0,
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
@@ -78,6 +75,20 @@ ename varchar2(10),
 rank varachar2(8),
 constraint sch_pk1 primary key(schnum),
 constraint sch_fk1 foreign key(eno, ename, rank) references employee(eno, ename, rank)
+);
+
+//댓글 테이블 추가
+create table commentTb(
+    eno varchar2(20) not null,
+    rank varchar2(8),
+    ename varchar2(10) not null,
+    txtnum number(3),
+    comnum number(3),
+    comcont varchar2(500),
+    comdate date default sysdate,
+    constraint COM_PK primary key(comnum),
+    constraint COM_FK1 foreign key(eno,ename,rank) references employee(eno,ename,rank),
+    constraint COM_FK2 foreign key(txtnum) references notice(txtnum)
 );
 
 
@@ -116,7 +127,7 @@ INSERT INTO "ADMIN"."APPROVAL" (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENT
 insert into dailyscadul(schnum, startdate, enddate, schname, schcont, eno, ename, rank) 
 values(Scadul_seq.nextval, '2019-11-24 09:00:00', '2019-11-24 10:00:00', '테스트', '테스트', '2625239070', '안영우', '사원');
 insert into dailyscadul(schnum, startdate, enddate, schname, schcont, eno, ename, rank) 
-values(Scadul_seq.nextval, '2019-11-24 11:00:00', '2019-11-24 12:00:00', '테스트', '테스트', '2625239070', '안영우', '사원');
+values(Scadul_seq.nextval, '2019-12-05 11:00:00', '2019-12-05 12:00:00', '테스트', '테스트', '2625239070', '안영우', '사원');
 
 스캐쥴러 테스트 컬럼추가
 

@@ -23,7 +23,6 @@ body{
     box-shadow: 5px 5px 10px #444;
 }
 
-
 .secb{
     border-bottom: 2px solid #adadad;
     position: relative;
@@ -31,7 +30,6 @@ body{
 }
 
 .secb .txtb{
-
     font-size: 15px;
     color:#333;
     border:none;
@@ -53,7 +51,7 @@ body{
     transition: .5s;
 }
 
-/*테두리 그라디언트 후*/
+/*�뀒�몢由� 洹몃씪�뵒�뼵�듃 �썑*/
 .secb .name::after{
     content:'';
     position: absolute;
@@ -83,8 +81,6 @@ select{
 
 
 .secb .d_btn {
-    
-    
     width:20%;
     height: 35px;
     border:none;
