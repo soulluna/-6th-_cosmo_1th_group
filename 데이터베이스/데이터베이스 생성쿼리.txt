@@ -24,8 +24,8 @@ constraint employee_pk primary key(eno, ename, rank));
 create table APPROVAL(
 applist varchar2(20),
 txtnum number(10),
-txtname varchar2(100) not null,
-txtcont varchar2(1000) not null,
+txtname varchar2(150) not null,
+txtcont varchar2(3000) not null,
 progress varchar2(10) not null,
 entrydate date default sysdate,
 middate date,
