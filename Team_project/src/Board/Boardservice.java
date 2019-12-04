@@ -68,19 +68,6 @@ public int docSearchCount(String searchType, String searchKey) {
 	// TODO Auto-generated method stub
 	return boardDAO.countSearchDoc(searchType, searchKey);
 }
-public List<BoardVO> searchByTitle(String searchKey) {
-	// TODO Auto-generated method stub
-	return boardDAO.selectByTitle(searchKey);
-}
-public List<BoardVO> searchByContNTitle(String searchKey) {
-	// TODO Auto-generated method stub
-	return boardDAO.searchByContNTitle(searchKey);
-}
-/*public List<BoardVO> searchByEname(String searchKey) {
-	// TODO Auto-generated method stub
-	return boardDAO.searchByEname(searchKey);
-}*/
-
 
    
 }

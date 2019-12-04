@@ -418,51 +418,5 @@ System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ena
 		
 	}
 
-	public List<BoardVO> selectByTitle(String searchKey) {	//검색 제목으로 지정했을떄
-		// TODO Auto-generated method stub
-		System.out.println("selectByTitle");
-		List<BoardVO> boardList = new ArrayList<BoardVO>();
-		
-		String query = "select *"
-				+ " from NOTICE where txtname like ? order by txtnum desc";
-		
-		try {
-			con =dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%" + searchKey + "%");
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				// articleVO인스턴스에 받은 값을 매개변수로 생성함
-				BoardVO boardVO = new BoardVO();
-				boardVO.setTxtnum(rs.getInt("txtnum"));
-				boardVO.setTxtname(rs.getString("txtname"));
-				boardVO.setTxtcont(rs.getString("txtcont"));
-				boardVO.setEname(rs.getString("ename"));
-				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
-				boardVO.setViewtotal(rs.getInt("viewtotal"));
-				boardVO.setLikenum(rs.getInt("likenum"));
-				boardList.add(boardVO);
-			}
-			
-			
-			pstmt.close();
-			con.close();
-			rs.close();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return boardList;
-	}
-	public List<BoardVO> searchByContNTitle(String searchKey) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	
-
-	
 }
 

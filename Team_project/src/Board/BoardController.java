@@ -132,26 +132,6 @@ public class BoardController extends HttpServlet {
 
 					/*------------------------------------------------------------------*/
 
-				} else if (action.equals("/searchList.do")) {
-					System.out.println("searchList.do");
-					String searchType = request.getParameter("searchType");
-					System.out.println(searchType);
-					String searchKey = request.getParameter("searchKey");
-					System.out.println(searchKey);
-
-					switch (searchType) {
-					case "1":
-						boardList = boardservice.searchByTitle(searchKey);
-
-					case "2":
-						boardList = boardservice.searchByContNTitle(searchKey);
-
-						/* case "3": boardList = boardservice.searchByEname(searchKey) */
-
-					}
-					request.setAttribute("boardList", boardList);
-					nextPage = "/Board01/noticeBoardMain.jsp";
-
 				} else if (action.equals("/searchKeyword.do")) {// 정렬기능 각 게시판
 					System.out.println("searchKeyword.do");
 					String noticelist = request.getParameter("noticelist");
