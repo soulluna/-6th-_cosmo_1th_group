@@ -51,7 +51,7 @@
 						<a href="#(i)+1">다음글</a>
 					</button>
 					<button>
-						<a href="${contextPath}/Board/noticeBoardMain.do">목록으로</a>
+						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}">목록으로</a>
 					</button>
 					<button>
 						<a href="${contextPath}/Board/modForm.do?txtnum=${board.txtnum}">수정하기</a>
@@ -64,7 +64,7 @@
 				<div class="cncjsqjxms">
 					<c:if test="${loginUser.eno==board.eno}">
 						<button type="button" class="delete"
-							onclick="deleteArticle('${contextPath}','${board.txtnum}');">삭제</button>
+							onclick="deleteArticle('${contextPath}','${board.txtnum}','${pageNum}');">삭제</button>
 					</c:if>
 					<c:if test="${loginUser.eno!=board.eno}">
 						<button style="visibility: hidden" class="delete"></button>

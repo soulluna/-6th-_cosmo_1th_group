@@ -40,33 +40,28 @@
 				<div>자유</div>
 			</a>
 		</div>
-		<c:choose>
-			<c:when test="${boardList==null}">
-				<tr>
-					<td colspan="4">
 
-						<p align="center">
-							<b> <span>게시글이 존재하지 않습니다.</span>
-							</b>
-						</p>
-					</td>
-				</tr>
-			</c:when>
-			<c:when test="${boardList!=null}">
-				<div class="wjdduf">
-					<div class="akwcna">
-						<table border="1" class="line">
-							<thead>
-								<tr class="name">
-									<th class="co1">게시판</th>
-									<th class="co2">번호</th>
-									<th class="co3">제목</th>
-									<th class="co4">작성자</th>
-									<th class="co5">생성날자</th>
-									<th class="co6">조회</th>
-									<th class="co7">추천</th>
-								</tr>
-							</thead>
+		<div class="wjdduf">
+			<div class="akwcna">
+				<table border="1" class="line">
+					<thead>
+						<tr class="name">
+							<th class="co1">게시판</th>
+							<th class="co2">번호</th>
+							<th class="co3">제목</th>
+							<th class="co4">작성자</th>
+							<th class="co5">생성날자</th>
+							<th class="co6">조회</th>
+							<th class="co7">추천</th>
+						</tr>
+					</thead>
+					<c:choose>
+						<c:when test="${boardList.size()==0}">
+							<tr>
+								<td colspan="7" align="center">게시글이 존재하지 않습니다.</td>
+							</tr>
+						</c:when>
+						<c:when test="${boardList.size()!=0}">
 							<tbody>
 								<c:forEach var="board" items="${boardList}" varStatus="15">
 									<tr class="record">
@@ -83,7 +78,7 @@
 										</c:choose>
 										<td class="co2">${board.txtnum}</td>
 										<td class="co3"><a
-											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
+											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}">${board.txtname}</a></td>
 										<td class="co4">${board.ename}</td>
 										<td class="co5">${board.entrydate}</td>
 										<td class="co6">${board.viewtotal}</td>
@@ -91,29 +86,39 @@
 									</tr>
 								</c:forEach>
 							</tbody>
-						</table>
-					</div>
-				</div>
-			</c:when>
-		</c:choose>
+						</c:when>
+					</c:choose>
+				</table>
+			</div>
+		</div>
 		<div class="dlehd">
 			<div class="page">
 				<!-- ------------------------------------------------------- -->
 
 				<c:if
 					test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
-					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">이전</a>
+					<a
+						href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">이전</a>
 				</c:if>
 
 				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}"
 					end="${pagingMap.pageSessionNum*5}">
-					<c:if test="${page <= pagingMap.maxPageNum}">
-						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">${page}</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${page==pagingMap.pageNum}">
+							<a
+								href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}"
+								style="color: red">${page}</a>
+						</c:when>
+						<c:when test="${page <= pagingMap.maxPageNum}">
+							<a
+								href="${contextPath}/Board/noticeBoardMain.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">${page}</a>
+						</c:when>
+					</c:choose>
 				</c:forEach>
 
 				<c:if test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
-					<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">다음</a>
+					<a
+						href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">다음</a>
 				</c:if>
 
 
@@ -136,10 +141,11 @@
 				</select>
 				<div class="rjator">
 					<input type="text" name="searchKey" placeholder="검색어 입력">
-					<button type="submit" class="search" onclick="noticeSearchCheck('${contextPath}')">검색</button>
-					<input type="hidden" name="searchType" value="${searchType}" /> 
-					<input type="hidden" name="searchKey" value="${searchKey}" />
-					<input type="hidden" name="noticeList" value="${noticeList}">
+					<button type="submit" class="search"
+						onclick="noticeSearchCheck('${contextPath}')">검색</button>
+					<input type="hidden" name="searchType" value="${searchType}" /> <input
+						type="hidden" name="searchKey" value="${searchKey}" /> <input
+						type="hidden" name="noticeList" value="${noticeList}">
 				</div>
 			</div>
 		</form>

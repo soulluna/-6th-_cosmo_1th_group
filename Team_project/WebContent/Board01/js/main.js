@@ -84,10 +84,10 @@ $(function () {
 });
 
 //javascript
-function deleteArticle(url,num){
+function deleteArticle(url,num,pageNum){
 	if(confirm("정말 삭제 하겠습니까?")){
 		alert("삭제 되었습니다.");
-		location.href=url+"/Board/delArticle.do?txtnum="+num;
+		location.href=url+"/Board/delArticle.do?txtnum="+num+"&pageNum="+pageNum;
 	}
 	else{
 		alert("삭제를 취소했습니다.");
