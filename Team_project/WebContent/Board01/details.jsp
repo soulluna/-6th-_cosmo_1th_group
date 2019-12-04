@@ -79,14 +79,14 @@
 							<i class="fa fa-user"></i>
 						</div>
 					</div>
-					<c:forEach items="${commentList}" var="comment">
+					<%-- <c:forEach items="${commentList}" var="comment">
 					<div class="media-body">
 						<div class="media-heading">
 							<b><a href="#"><span>${comment.ename}</span></a></b>
 						</div>
 						<div class="media-content">${comment.}</div>
 					</div>
-					</c:forEach>	
+					</c:forEach>	 --%>
 				</div>					
 				<div class="eotrmf">
 					<textarea class="eotrmfdlqfur" name="comment" placeholder="댓글을 입력해주세요."></textarea>

@@ -104,6 +104,7 @@ public class BoardDAO {
 				pstmt.setInt(3, rownum2);
 			}
 		
+
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
