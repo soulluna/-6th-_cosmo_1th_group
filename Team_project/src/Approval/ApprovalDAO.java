@@ -476,9 +476,9 @@ public class ApprovalDAO {
 	public void modifydraft(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
 		System.out.println("modifydraft");
-		String query = "update Approval set txtname=?, txtcont=?, entrydate=? where txtnum=?";
+		String query = "update Approval set txtname=?, txtcont=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
 		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(dt);
 
 		try {
@@ -662,9 +662,9 @@ public class ApprovalDAO {
 	// 휴가신청서 수정
 	public void modifyvacation(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
-		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=?, entrydate=? where txtnum=?";
+		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
 		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(dt);
 
 		try {

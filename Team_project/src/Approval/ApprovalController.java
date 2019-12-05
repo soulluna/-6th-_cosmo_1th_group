@@ -271,7 +271,6 @@ public class ApprovalController extends HttpServlet {
 					System.out.println(txtnum);
 					approvalService.draftDelete(txtnum);
 					nextPage = "/Approval/docList.do";
-
 				} else if (action.equals("/midapproveddraft.do")) { // 중간 결재자 결재
 					System.out.println("midapproveddraft.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
