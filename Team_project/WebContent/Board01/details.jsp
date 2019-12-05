@@ -23,79 +23,84 @@
 </head>
 
 <body>
-	<form name="frm">
-		<div class="fullWrap">
-			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-			<h1>상세페이지</h1>
-			<div class="wjdduf">
-				<h2>${board.txtname}</h2>
-				<div class="main_tkdtp">
-					<P>${board.ename}</P>
-					<p>댓글</p>
-					<p>${board.comtotal}</p>
-					<p>조회수</p>
-					<p>${board.viewtotal}</p>
-					<p>추천수</p>
-					<p class="co7">${board.likenum}</p>
-					<span class="font-11 text-muted"> <span class="media-info">
-							<i class="fa fa-clock-o"></i> <span class="orangered">${board.entrydate}
-						</span>
+	<div class="fullWrap">
+		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
+		<h1>상세페이지</h1>
+		<div class="wjdduf">
+			<h2>${board.txtname}</h2>
+			<div class="main_tkdtp">
+				<P>${board.ename}</P>
+				<p>댓글</p>
+				<p>${board.comtotal}</p>
+				<p>조회수</p>
+				<p>${board.viewtotal}</p>
+				<p>추천수</p>
+				<p class="co7">${board.likenum}</p>
+				<span class="font-11 text-muted"> <span class="media-info">
+						<i class="fa fa-clock-o"></i> <span class="orangered">${board.entrydate}
 					</span>
-					</span>
-				</div>
-				<div class="rmfdlehd">
-					<button>
-						<a href="#(i)-1">이전글</a>
-					</button>
-					<button>
-						<a href="#(i)+1">다음글</a>
-					</button>
-					<button>
-						<a href="${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}">목록으로</a>
-					</button>
-					<button>
-						<a href="${contextPath}/Board/modForm.do?txtnum=${board.txtnum}">수정하기</a>
-					</button>
-				</div>
-				<div class="wjddu">
-					<textarea class="text_sodyd" readonly="readonly" cols="400"
-						rows="100">${board.txtcont}</textarea>
-				</div>
-				<div class="cncjsqjxms">
-					<c:if test="${loginUser.eno==board.eno}">
-						<button type="button" class="delete"
-							onclick="deleteArticle('${contextPath}','${board.txtnum}','${pageNum}');">삭제</button>
-					</c:if>
-					<c:if test="${loginUser.eno!=board.eno}">
-						<button style="visibility: hidden" class="delete"></button>
-						<button type="button" class="n_good">
-							<a href="${contextPath}/Board/like.do?txtnum=${board.txtnum}">추천</a>
-						</button>
-					</c:if>
-				</div>
-				<div class="media" id="c_1">
-					<div class="photo pull-left">
-						<div class="media-object">
-							<i class="fa fa-user"></i>
-						</div>
-					</div>
-					<%-- <c:forEach items="${commentList}" var="comment">
-					<div class="media-body">
-						<div class="media-heading">
-							<b><a href="#"><span>${comment.ename}</span></a></b>
-						</div>
-						<div class="media-content">${comment.}</div>
-					</div>
-					</c:forEach>	 --%>
-				</div>					
-				<div class="eotrmf">
-					<textarea class="eotrmfdlqfur" name="comment" placeholder="댓글을 입력해주세요."></textarea>
-					<input type="hidden" name="txtnum" value="${board.txtnum}">
-					<button class="c_write" onclick="addComment('${contextPath}');">댓글등록</button>
-				</div>
+				</span>
+				</span>
 			</div>
+			<div class="rmfdlehd">
+				<button>이전글</button>
+				<button>다음글</button>
+				<button
+					onclick="location.href='${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}'">목록으로</button>
+				<button
+					onclick="location.href='${contextPath}/Board/modForm.do?txtnum=${board.txtnum}&pageNum=${pageNum}'">수정하기
+				</button>
+			</div>
+			<div class="wjddu">
+				<textarea class="text_sodyd" readonly="readonly" cols="400"
+					rows="100">${board.txtcont}</textarea>
+			</div>
+			<div class="cncjsqjxms">
+				<c:if test="${loginUser.eno==board.eno}">
+					<button type="button" class="delete" onclick="deleteArticle('${contextPath}','${board.txtnum}','${pageNum}');">삭제</button>
+				</c:if>
+				<c:if test="${loginUser.eno!=board.eno}">
+					<button style="visibility: hidden" class="delete"></button>
+					<button type="button" class="n_good" onclick="location.href='${contextPath}/Board/like.do?txtnum=${board.txtnum}&pageNum=${pageNum}'">추천</button>
+				</c:if>
+			</div>
+			<div class="media" id="c_1">
+				<div class="photo pull-left">
+					<div class="media-object">
+						<i class="fa fa-user"></i>
+					</div>
+				</div>
+				<c:forEach items="${commentList}" var="comment">
+					<div class="media-body">
+						<b><span>${comment.ename}</span></b> 
+						<span class="font-11 text-muted"> 
+							<span class="media-info">
+								<i class="fa fa-clock-o"></i>
+								<span class="orangered"><fmt:formatDate value="${comment.comdate}" pattern="yyyy-MM-dd hh:mm" />
+							</span> 
+						</span>
+							<c:if test="${loginUser.eno==comment.eno}">
+							<button class="del" 
+							onclick="location.href='${contextPath}/Board/delComment.do?comnum=${comment.comnum}&txtnum=${comment.txtnum}&pageNum=${pageNum}'">
+							X</button>
+							</c:if>
+						</span>
+						<div class="print-hide pull-right font-11 "></div>
+						<div class="media-content">${comment.comcont}</div>
+					</div>
+			</c:forEach>
 		</div>
-	</form>
+		<c:if test="${commentList.size()<3}">
+			<div class="eotrmf">
+				<textarea class="eotrmfdlqfur" name="context"
+					placeholder="댓글을 입력해주세요."></textarea>
+				<input type="button" class="c_write"
+					onclick="addComment('${contextPath}','${board.txtnum}','${pageNum}');"
+					value="댓글등록">
+			</div>
+		</c:if>
+	</div>
+	</div>
 </body>
 
 </html>

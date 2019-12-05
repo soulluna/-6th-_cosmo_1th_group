@@ -284,9 +284,7 @@ public class BoardDAO {
 				Date entrydate = rs.getDate("entrydate");
 				int viewtotal = rs.getInt("viewtotal");
 				int likenum = rs.getInt("likenum");
-				String comcont=rs.getString("comcont");
-				String comuser=rs.getString("comuser");
-				System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum+"  "+comcont+"   "+comuser);
+				System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum);
 				board.setNoticelist(noticelist);
 				board.setTxtnum(txtnum);
 				board.setTxtname(txtname);
@@ -296,8 +294,6 @@ public class BoardDAO {
 				board.setViewtotal(viewtotal);
 				board.setLikenum(likenum);
 				board.setEno(eno);
-				board.setComcont(comcont);
-				board.setComuser(comuser);
 			}
 			rs.close();
 			pstmt.close();

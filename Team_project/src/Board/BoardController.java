@@ -71,8 +71,7 @@ public class BoardController extends HttpServlet {
 			} else {
 				if (action != null && action.equals("/noticeBoardMain.do")) {// 전체게시글
 					Map pagingMap = new HashMap();
-					System.out.println("searchKeyword.do");
-
+					System.out.println("noticeBoardMain.do");
 					String searchType = request.getParameter("searchType");
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
@@ -99,7 +98,6 @@ public class BoardController extends HttpServlet {
 						}
 						
 					}
-
 					System.out.println("------");
 					System.out.println(docMaxNum);
 					System.out.println("------");
@@ -174,14 +172,18 @@ public class BoardController extends HttpServlet {
 				} else if (action.equals("/details.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 					System.out.println("details.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
+					CommentDAO commentDAO = new CommentDAO();
+					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					String pageNum = request.getParameter("pageNum");
 					System.out.println("txtnum : "+txtnum);
 					System.out.println("pageNum : "+pageNum);
-					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에
-																				// viewArticle함수를 요청
+					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에 viewArticle함수를 요청
+					commentList = commentDAO.listComments(txtnum);
 					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
 					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("commentList", commentList);
+					request.setAttribute("updateComment", "0");
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 
 				} else if (action.equals("/like.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
@@ -192,10 +194,8 @@ public class BoardController extends HttpServlet {
 				} else if (action.equals("/modForm.do")) { // 수정하기 페이지 이동
 					System.out.println("modForm.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
-					int txtnum = (Integer.parseInt(request.getParameter("txtnum")));// article번호를 읽어와서 articleNo 에 따른
-																					// db의 데이터를 가져오기위함
+					int txtnum = (Integer.parseInt(request.getParameter("txtnum")));// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					boardVO = boardservice.viewBoard(txtnum);
-
 					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
 					nextPage = "/Board01/update.jsp";
 				} else if (action.equals("/modArticle.do")) {// 글 수정하기
@@ -219,22 +219,51 @@ public class BoardController extends HttpServlet {
 					System.out.println("delArticle.do");
 					String txtnum = request.getParameter("txtnum");
 					String pageNum= request.getParameter("pageNum");
-
 					boardservice.delArticle(txtnum);
 					nextPage = "/Board/noticeBoardMain.do?pageNum="+pageNum;
-				} else if (action.equals("/addComment.do")) {
+				}
+				// 여기서부터 댓글에 관련된 내용
+				else if (action.equals("/addComment.do")) {
 					System.out.println("addComment.do");
+					CommentDAO commentDAO = new CommentDAO();
+					CommentVO commentVO = new CommentVO();
 					String txtnum = request.getParameter("txtnum");
-					String comcont = request.getParameter("comment");
-					String comuser = loginUser.getEname();
+					String comcont = request.getParameter("comcont");
 					System.out.println(comcont + "   " + txtnum);
-					BoardVO boardVO = new BoardVO();
-					boardVO.setTxtnum(Integer.parseInt(txtnum));
-					boardVO.setComcont(comcont);
-					boardVO.setComuser(comuser);
-					boardservice.addComment(boardVO);
-					nextPage = "/Board/details.dotxtnum=" + txtnum;
-				} else {
+					commentVO.setEno(loginUser.getEno());
+					commentVO.setRank(loginUser.getRank());
+					commentVO.setEname(loginUser.getEname());
+					commentVO.setTxtnum(Integer.parseInt(txtnum));
+					commentVO.setComcont(comcont);
+					commentDAO.insertComment(commentVO);
+					request.setAttribute("pageNum", request.getParameter("pageNum"));
+					nextPage = "/Board/details.do?txtnum="+txtnum;
+				} else if(action.equals("/updateCommentForm.do")) {
+					System.out.println("updateCommentForm.do");
+					CommentDAO commentDAO = new CommentDAO();
+					String comnum="0";
+					String prevComcont="";
+					comnum=request.getParameter("comnum");
+					String txtnum = request.getParameter("txtnum");
+					if(!comnum.equals("0")) {
+						prevComcont = commentDAO.getComcont(comnum);
+					}
+					request.setAttribute("pageNum", request.getParameter("pageNum"));
+					request.setAttribute("updateComment", comnum);
+					request.setAttribute("prevComcont", prevComcont);
+					nextPage = "/Board/details.do?txtnum="+txtnum;
+					
+				} else if(action.equals("/delComment.do")) {
+					System.out.println("delComment.do");
+					String comnum = request.getParameter("comnum");
+					String txtnum = request.getParameter("txtnum");
+					CommentDAO commentDAO = new CommentDAO();
+					commentDAO.deleteComment(comnum);
+					request.setAttribute("pageNum", request.getParameter("pageNum"));
+					nextPage = "/Board/details.do?txtnum="+txtnum;
+				}
+				
+				else {
 					/* boardList = boardservice.listBoard(); */
 					request.setAttribute("boardsList", boardList);
 					nextPage = "/Board01/noticeBoardMain.jsp";

@@ -53,4 +53,58 @@ public class CommentDAO {
 		}
 		return commentList;
 	}
+
+	public void insertComment(CommentVO commentVO) {
+		// TODO Auto-generated method stub
+		String query="insert into commenttb(eno, rank, ename, txtnum, comnum, comcont) values(?, ?, ?, ?, Comment_seq.nextval, ?)";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, commentVO.getEno());
+			pstmt.setString(2, commentVO.getRank());
+			pstmt.setString(3, commentVO.getEname());
+			pstmt.setInt(4, commentVO.getTxtnum());
+			pstmt.setString(5, commentVO.getComcont());
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteComment(String comnum) {//댓글 삭제
+		// TODO Auto-generated method stub
+		String query="delete from commenttb where comnum=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, comnum);
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getComcont(String comnum) {
+		// TODO Auto-generated method stub
+		String result="";
+		String query="select comcont where comnum=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, comnum);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getString("comcont");
+			}
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

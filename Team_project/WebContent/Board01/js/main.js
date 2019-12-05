@@ -112,14 +112,13 @@ function fn_modify(url){
 	frmArticle.action = url+"/Board/modArticle.do";
 	frmArticle.submit(); //<---------------------------------
 }
-function addComment(url){
-	frm.method="post";
-	frm.action=url+"/Board/addComment.do";
-	frm.submit();
+//댓글 작성
+function addComment(url,txtnum,pageNum){
+	var comcont = $(".eotrmfdlqfur").val();
+	location.href=url+"/Board/addComment.do?txtnum="+txtnum+"&comcont="+comcont+"&pageNum="+pageNum;
 }
 
 function noticeSearchCheck(url) {
-	
 	var searchType = $("select[name=searchType] option:selected").text();
 	var inputValue = $("input[name=searchKey]").val();
 
