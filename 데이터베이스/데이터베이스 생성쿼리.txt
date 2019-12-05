@@ -69,22 +69,22 @@ constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, ra
 //스캐쥴러 테이블 추가
 create table dailyscadul(
 schnum number(3),
-startdate timestamp(1),
-enddate timestamp(1),
+startdate timestamp,
+enddate timestamp,
 schname varchar2(100) not null,
 schcont varchar2(500),
-eno varchar2(20),
-ename varchar2(10),
-rank varachar2(8),
+eno varchar2(20) not null, 
+ename varchar2(10) not null,
+rank varchar2(8) not null,
 constraint sch_pk1 primary key(schnum),
 constraint sch_fk1 foreign key(eno, ename, rank) references employee(eno, ename, rank)
 );
 
 //댓글 테이블 추가
 create table commentTb(
-    eno varchar2(20) not null,
-    rank varchar2(8),
-    ename varchar2(10) not null,
+    eno varchar2(20) not null, 
+ename varchar2(10) not null,
+rank varchar2(8) not null,
     txtnum number(3),
     comnum number(3),
     comcont varchar2(500),
