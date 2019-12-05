@@ -116,7 +116,17 @@
 					</tr>
 					<c:forEach items="${boardList}" var="board">
 						<tr>
-							<td>${board.noticeList}</td>
+							<c:choose>
+								<c:when test="${board.noticelist=='1' }">
+									<td>부서</td>
+								</c:when>
+								<c:when test="${board.noticelist=='2' }">
+									<td>부서</td>
+								</c:when>
+								<c:when test="${board.noticelist=='3' }">
+									<td>부서</td>
+								</c:when>
+							</c:choose>
 							<td><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
 							<td>${board.ename}</td>
 						</tr>

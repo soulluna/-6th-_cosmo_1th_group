@@ -46,7 +46,7 @@ constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,ran
 create sequence Approval_seq START WITH 1;
 create sequence Scadul_seq START WITH 1;
 create sequence Notice_seq start with 1;
-
+create sequence Comment_seq start with 1;
 
 //게시판 메인 table
 create table NOTICE(

@@ -107,8 +107,7 @@ public class MainController extends HttpServlet {
 						request.setAttribute("result", result);
 						nextPage = "/index.jsp";
 					}else {//로그인 성공
-						System.out.println("세션 살아있음");
-						MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
+						MemberVO memberVO = memberDAO.getMember(eno);
 						ApprovalService approvalService = new ApprovalService();
 						DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 						Boardservice boardService = new Boardservice();
