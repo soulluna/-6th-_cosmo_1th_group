@@ -16,16 +16,16 @@ h2{width: 1000px; margin: 0 auto 0;}
 .main_tkdtp>span{padding: 10px 5px; float:right;}
 
 .rmfdlehd{width: 1000px; margin: 0 auto 0;}
-.rmfdlehd>button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left;}
+.rmfdlehd>button{ width: 60px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: left; color: white;}
 
 .rmfdlehd>button:nth-child(3){float: right; width: 80px;}
 .rmfdlehd>button:last-of-type{float: right; width: 80px;}
 
-button>a{color: white;}
+button>a{}
 
 .cncjsqjxms>button:first-of-type{float: left;width: 60px; height: 30px;color: white; background: black; outline: none;}
 .cncjsqjxms{width: 1000px; position: relative; top: -5px; margin:0 auto 0;}
-.cncjsqjxms>button{width: 65px; height: 30px; background: #1b5ac2; outline: none; float: right; }
+.cncjsqjxms>button{width: 65px; height: 30px; background: #1b5ac2; outline: none; float: right; color : white;}
 .bgColor{background: cyan !important;}
 
 .eotrmf>button{width: 80px; height: 30px; background: #1b5ac2; color:white; outline: none; float: right;}
@@ -34,24 +34,26 @@ button>a{color: white;}
 
 
 .media{padding-top: 30px; width: 1000px; margin: 0 auto 0;}
-.media-body{border-bottom: 1px solid gray;padding-top: 10px;}
+.media-body{border-bottom: 1px solid gray; padding-top: 10px; }
 
-.ud{float: right; height: 20px; margin-right: 15px; cursor: pointer;}
+.up{float: right; height: 20px; margin-right: 15px; cursor: pointer; background: #1b5ac2; color : #fff;}
 
 .del{border: 1px solid red; float: right; width: 20px; height: 20px;}
 .cmt-good-btn{border: 1px solid black; width: 100px; float: right; cursor: pointer;}
 .cmt-good > p{float: left;}
 
 .text_sodyd {width: 1000px; height: 300px; margin: 10px auto 10px;
-    resize: none; /* �궗�슜�옄 �엫�쓽 蹂�寃� 遺덇� */
-    /* resize: both; /* �궗�슜�옄 蹂�寃쎌씠 紐⑤몢 媛��뒫 */
-    /*resize: horizontal; /* 醫뚯슦留� 媛��뒫 */
-    /*resize: vertical; /* �긽�븯留� 媛��뒫 */ 
+    resize: none; /* 占쎄텢占쎌뒠占쎌쁽 占쎌뿫占쎌벥 癰귨옙野껓옙 �겫�뜃占� */
+    /* resize: both; /* 占쎄텢占쎌뒠占쎌쁽 癰귨옙野껋럩�뵠 筌뤴뫀紐� 揶쏉옙占쎈뮟 */
+    /*resize: horizontal; /* �넫�슣�뒭筌랃옙 揶쏉옙占쎈뮟 */
+    /*resize: vertical; /* 占쎄맒占쎈릭筌랃옙 揶쏉옙占쎈뮟 */ 
      }
 .eotrmf{width: 1000px; height: 100px; margin: 0 auto 0;}
 .eotrmfdlqfur{width: 1000px; height: 100px;
 resize: none; margin: 10px 0;}
-
+.c_write{
+	width: 80px; height: 30px; border: 0px; background: #1b5ac2; outline: none; float: right; color: white; cursor: pointer;
+}
 .cmtBor {}
 
 .ud:hover{ text-decoration:none; color:cornflowerblue; }

@@ -16,6 +16,7 @@ p.no-uline:active  { text-decoration:none }
 .co3{width: 400px;}
 .co3>a>p{  overflow: hidden; 
     text-overflow: ellipsis;
+    
     white-space: nowrap; 
     width: 350px; 
   }

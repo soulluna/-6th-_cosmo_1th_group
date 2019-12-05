@@ -279,7 +279,6 @@ public class ApprovalDAO {
 			} else if (mVO.getRank().equals("팀장") || mVO.getRank().equals("부장")) {
 				return midApproval;
 			}
-
 			rs = pstmt.executeQuery();
 			rs.next();
 
