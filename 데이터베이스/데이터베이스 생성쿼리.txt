@@ -58,10 +58,12 @@ eno varchar2(20) not null,
 ename varchar2(10) not null,
 rank varchar2(8) not null,
 noticelist number(1),
+isAnnouncement char(1) default 'n',
 likenum number(3) default 0,
 viewtotal number(4) default 0,
 constraint NOT_PK primary key(txtnum),
 constraint NOT_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename, rank)
+
 );
 
 //스캐쥴러 테이블 추가
