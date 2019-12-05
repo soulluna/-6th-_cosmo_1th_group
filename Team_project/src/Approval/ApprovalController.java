@@ -140,7 +140,6 @@ public class ApprovalController extends HttpServlet {
 				} else if (action.equals("/draftWait.do")) { // 기안서 상세보기
 					System.out.println();
 					System.out.println("draftWait.do");
-					System.out.println("action : " + action);
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 
 					System.out.println(txtnum);
@@ -178,12 +177,13 @@ public class ApprovalController extends HttpServlet {
 					ApprovalVO aVO = new ApprovalVO();
 					String midUserEno = approvalService.approvalUser(midUser);
 					String finUserEno = approvalService.approvalUser(finUser);
+					
 					aVO.setMideno(midUserEno);
 					aVO.setFineno(finUserEno);
 					aVO.setTxtname(request.getParameter("title"));
 					aVO.setTxtcont(request.getParameter("reason"));
-					approvalService.draftAdd(aVO, mVO);
-					nextPage = "/Approval/docList.do";
+					int txtnum = approvalService.draftAdd(aVO, mVO);
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
 
 				} else if (action.equals("/vacationed.do")) { // 휴가신청서 페이지 등록 완료 시
 					System.out.println("휴가신청서 등록 클릭");
@@ -208,9 +208,8 @@ public class ApprovalController extends HttpServlet {
 					aVO.setVacstart(datepicker1ToDate);
 					aVO.setVacend(datepicker2ToDate);
 
-					approvalService.vacationAdd(aVO, mVO);
-
-					nextPage = "/Approval/docList.do";
+					int txtnum = approvalService.vacationAdd(aVO, mVO);
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
 
 				} else if (action.equals("/draftModify.do")) { // 기안서 수정 페이지
 					System.out.println("/draftModify.do");
@@ -245,7 +244,7 @@ public class ApprovalController extends HttpServlet {
 					aVO.setTxtname(request.getParameter("title"));
 					aVO.setTxtcont(request.getParameter("reason"));
 					approvalService.draftmodify(aVO, txtnum);
-					nextPage = "/Approval/docList.do";
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
 
 				} else if (action.equals("/vacmodified.do")) { // 휴가신청서 수정 화면에서 등록 버튼 클릭
 					System.out.println("vacmodified.do");
@@ -265,7 +264,7 @@ public class ApprovalController extends HttpServlet {
 
 					approvalService.vacationmodify(aVO, txtnum);
 
-					nextPage = "/Approval/docList.do";
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
 				} else if (action.equals("/draftdelete.do")) { // 문서 삭제
 					System.out.println("draftdelete.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));

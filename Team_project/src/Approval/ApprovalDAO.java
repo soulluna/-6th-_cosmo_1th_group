@@ -279,6 +279,7 @@ public class ApprovalDAO {
 			} else if (mVO.getRank().equals("팀장") || mVO.getRank().equals("부장")) {
 				return midApproval;
 			}
+
 			rs = pstmt.executeQuery();
 			rs.next();
 
@@ -371,14 +372,16 @@ public class ApprovalDAO {
 	}
 
 	// 기안서 작성하기
-	public void draftInset(ApprovalVO aVO, MemberVO mVO) {
+	public int draftInset(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
 		System.out.println("DAO draftInset");
-		String query = "insert into Approval (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO)";
+		int txtnum = 0;
+		String query = "";
+		query = "insert into Approval (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO)";
 		query += "values ('기안서', approval_seq.nextval, ?, ?, '대기', ?, ?, ?, ?, ?)";
 		try {
 			con = dataFactory.getConnection();
-
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, aVO.getTxtname());
 			pstmt.setString(2, aVO.getTxtcont());
@@ -387,15 +390,28 @@ public class ApprovalDAO {
 			pstmt.setString(5, mVO.getRank());
 			pstmt.setString(6, aVO.getMideno());
 			pstmt.setString(7, aVO.getFineno());
-
 			pstmt.executeUpdate();
-
+			pstmt.close();
+			
+			query = "select txtnum from Approval where eno=? and APPLIST='기안서' order by txtnum desc";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mVO.getEno());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				txtnum = rs.getInt("txtnum");
+				System.out.println(txtnum);
+			}
+			
+			rs.close();
 			pstmt.close();
 			con.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return txtnum; 
 
 	}
 
@@ -597,10 +613,12 @@ public class ApprovalDAO {
 	}
 
 	// 휴가신청서 등록
-	public void vacationInset(ApprovalVO aVO, MemberVO mVO) {
+	public int vacationInset(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
 		System.out.println("DAO vacationInset");
-		String query = "insert into Approval (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO, VACLIST, VACSTART, VACEND)";
+		String query = "";
+		int txtnum = 0;
+		query = "insert into Approval (APPLIST, TXTNUM, TXTNAME, TXTCONT, PROGRESS, ENO, ENAME, RANK, MIDSUGESTENO, FINSUGESTENO, VACLIST, VACSTART, VACEND)";
 		query += "values ('휴가신청서', approval_seq.nextval, ?, ?, '대기', ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			con = dataFactory.getConnection();
@@ -614,20 +632,31 @@ public class ApprovalDAO {
 			pstmt.setString(6, aVO.getMideno());
 			pstmt.setString(7, aVO.getFineno());
 			pstmt.setString(8, aVO.getVaclist());
-			System.out.println("getVaclist()까지 옴");
-
 			pstmt.setDate(9, aVO.getVacstart());
 			pstmt.setDate(10, aVO.getVacend());
 
 			pstmt.executeUpdate();
 
 			pstmt.close();
+			
+			query = "select txtnum from Approval where eno=? and APPLIST='휴가신청서' order by txtnum desc";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, mVO.getEno());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				txtnum = rs.getInt("txtnum");
+				System.out.println(txtnum);
+			}
+			
+			rs.close();
+			pstmt.close();
 			con.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return txtnum;
 	}
 
 	// 휴가신청서 수정

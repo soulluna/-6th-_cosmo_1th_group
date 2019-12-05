@@ -59,9 +59,10 @@ public class ApprovalService {
 	}
 	
 
-	public void draftAdd(ApprovalVO aVO, MemberVO mVO) {
+	public int draftAdd(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
-		approvalDAO.draftInset(aVO,mVO);
+		int txtnum = approvalDAO.draftInset(aVO,mVO);
+		return txtnum;
 	}
 
 	public String approvalUser(String userEname) {
@@ -117,9 +118,10 @@ public class ApprovalService {
 		approvalDAO.returnfinDraft(txtnum);
 	}
 
-	public void vacationAdd(ApprovalVO aVO, MemberVO mVO) {
+	public int vacationAdd(ApprovalVO aVO, MemberVO mVO) {
 		// TODO Auto-generated method stub
-		approvalDAO.vacationInset(aVO,mVO);
+		int txtnum = approvalDAO.vacationInset(aVO,mVO);
+		return txtnum;
 	}
 
 	public void vacationmodify(ApprovalVO aVO, int txtnum) {

@@ -106,7 +106,7 @@
 		<form name="frm" method="post">
 			<input type="hidden" name="txtnum" value="${txtnum}">
 			<div class="docName">
-				<h1>기안서</h1>
+				<h1>휴가신청서</h1>
 			</div>
 			<div class="deptContent">
 				<div class="signtable">
