@@ -117,17 +117,8 @@
 					<c:forEach items="${boardList}" var="board">
 						<tr>
 							<td>${board.noticeList}</td>
-							<c:choose>
-								<c:when test="${board.noticeList=='기안서'}">
-									<td><a
-										href="${contextPath}/Approval/draftWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
-								</c:when>
-								<c:when test="${board.applist=='휴가신청서'}">
-									<td><a
-										href="${contextPath}/Approval/vacationWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
-								</c:when>
-							</c:choose>
-							<td>${app.progress}</td>
+							<td><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}">${board.txtname}</a></td>
+							<td>${board.ename}</td>
 						</tr>
 					</c:forEach>
 				</table>

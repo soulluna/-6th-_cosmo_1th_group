@@ -86,7 +86,6 @@ public class MainController extends HttpServlet {
 					ApprovalService approvalService = new ApprovalService();
 					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 					Boardservice boardService = new Boardservice();
-					BoardDAO boardDAO = new BoardDAO();
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 					List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
 					List<BoardVO> boardList = boardService.selectAllBoards10();
@@ -108,14 +107,18 @@ public class MainController extends HttpServlet {
 						request.setAttribute("result", result);
 						nextPage = "/index.jsp";
 					}else {//로그인 성공
-						MemberVO memberVO = memberDAO.getMember(eno);
+						System.out.println("세션 살아있음");
+						MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
 						ApprovalService approvalService = new ApprovalService();
 						DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
+						Boardservice boardService = new Boardservice();
 						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 						List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+						List<BoardVO> boardList = boardService.selectAllBoards10();
 						session.setAttribute("loginUser", memberVO);
 						request.setAttribute("appList", appList);
 						request.setAttribute("scadulList", scadulList);
+						request.setAttribute("boardList", boardList);
 						nextPage = "/Main01/indexMain.jsp";
 					}
 				}
