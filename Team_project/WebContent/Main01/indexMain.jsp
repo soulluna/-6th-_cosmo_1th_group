@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <%
-   request.setCharacterEncoding("UTF-8");
-   response.setContentType("text/html;utf-8");
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html;utf-8");
 %>
 <c:if test="${empty loginUser}">
 	<jsp:forward page="${contextPath}/index.jsp" />
@@ -46,9 +46,9 @@
 			</div>
 			<div class="scadule">
 				<table class="ListTable" border="1">
-				<c:if test="${scadulList==null}">
-					<h3>없다구</h3>
-				</c:if>
+					<c:if test="${scadulList==null}">
+						<h3>없다구</h3>
+					</c:if>
 					<tr>
 						<th>일정</th>
 						<th>시작시간</th>
@@ -56,14 +56,18 @@
 					</tr>
 					<c:forEach items="${scadulList}" var="schdul">
 						<tr>
-							<td><a href="#" onclick="location.href='${contextPath}/Main/schdulDetail.do?schnum=${schdul.schnum}'">${schdul.schname}</a></td>
-							<td><fmt:formatDate value="${schdul.startDate}" pattern="yyyy-MM-dd hh:mm" /></td>
-							<td><fmt:formatDate value="${schdul.endDate}" pattern="yyyy-MM-dd hh:mm" /></td>
+							<td><a href="#"
+								onclick="location.href='${contextPath}/Main/schdulDetail.do?schnum=${schdul.schnum}'">${schdul.schname}</a></td>
+							<td><fmt:formatDate value="${schdul.startDate}"
+									pattern="yyyy-MM-dd hh:mm" /></td>
+							<td><fmt:formatDate value="${schdul.endDate}"
+									pattern="yyyy-MM-dd hh:mm" /></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div id="buttons">
-					<input type="button" value="스캐쥴 작성" onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
+					<input type="button" value="스캐쥴 작성"
+						onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
 				</div>
 			</div>
 		</div>
@@ -86,10 +90,12 @@
 							<td>${app.applist}</td>
 							<c:choose>
 								<c:when test="${app.applist=='기안서'}">
-									<td><a href="${contextPath}/Approval/draftWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
+									<td><a
+										href="${contextPath}/Approval/draftWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
 								</c:when>
 								<c:when test="${app.applist=='휴가신청서'}">
-									<td><a href="${contextPath}/Approval/vacationWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
+									<td><a
+										href="${contextPath}/Approval/vacationWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
 								</c:when>
 							</c:choose>
 							<td>${app.progress}</td>
@@ -102,27 +108,31 @@
 				<a href="${contextPath}/Board/noticeBoardMain.do">게시판 more></a>
 			</div>
 			<div id="board3">
-				<script>
-                    $(document).ready(function(){
-                        makeApproval();
-                    });
-                    function makeApproval() {
-                        var setBoradHTML="";
-                        setBoradHTML+="<table class='ListTable' border='1'>";
-                        setBoradHTML+="<tr><th width='15%'>결재종류</th><th>문서제목</th><th width='15%'>결재상태</th></tr>";
-                        for (var i = 0; i < 10; i++) {
-                            setBoradHTML+="<tr>";
-                            for (var j = 0; j < 3; j++) {
-                                setBoradHTML+="<td>" + "tests" + "</td>";
-                            }
-                            setBoradHTML+="</tr>";
-                            $("#board3").html(setBoradHTML);
-                        }
-                    }
-                </script>
+				<table class='ListTable' border='1'>
+					<tr>
+						<th width='15%'>게시판종류</th>
+						<th>문서제목</th>
+						<th width='15%'>작성자</th>
+					</tr>
+					<c:forEach items="${boardList}" var="board">
+						<tr>
+							<td>${board.noticeList}</td>
+							<c:choose>
+								<c:when test="${board.noticeList=='기안서'}">
+									<td><a
+										href="${contextPath}/Approval/draftWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
+								</c:when>
+								<c:when test="${board.applist=='휴가신청서'}">
+									<td><a
+										href="${contextPath}/Approval/vacationWait.do?txtnum=${app.txtnum}">${app.txtname}</a></td>
+								</c:when>
+							</c:choose>
+							<td>${app.progress}</td>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
-		</div>
-		<!--//right_side-->
+			<!--//right_side-->
 	</form>
 </body>
 </html>

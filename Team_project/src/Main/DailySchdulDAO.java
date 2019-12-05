@@ -29,7 +29,7 @@ public class DailySchdulDAO {
 	public List<DailySchdulVO> listScadul(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from dailyscadul where eno=? and rownum<10 order by schnum desc";
+		String sql="select * from (select * from dailyscadul where eno=? order by schnum desc) where rownum<10";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;

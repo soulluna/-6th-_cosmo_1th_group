@@ -224,7 +224,42 @@ public class BoardDAO {
 		}
 		return boardList;
 	}
+	public List<BoardVO> selectAllBoards10() {	//게시판 리스트 보여주기
+		List<BoardVO> boardList = new ArrayList<BoardVO>();
+		try {
+			con = dataFactory.getConnection();
+			String query ="select * from(select rownum as rownum2 , a.* from" 
 
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+					+ " from NOTICE order by txtnum desc) a) where rownum2 between ? and ?";
+
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, 10);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// articleVO인스턴스에 받은 값을 매개변수로 생성함
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(rs.getInt("txtnum"));
+				boardVO.setTxtname(rs.getString("txtname"));
+				boardVO.setTxtcont(rs.getString("txtcont"));
+				boardVO.setEname(rs.getString("ename"));
+				boardVO.setNoticelist(rs.getInt("noticelist"));
+				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setViewtotal(rs.getInt("viewtotal"));
+				boardVO.setLikenum(rs.getInt("likenum"));
+				boardList.add(boardVO);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardList;
+	}
 
 
 	public BoardVO selectBoard(int num) {	//게시판 상세페이지 이동하기

@@ -25,6 +25,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import Approval.ApprovalService;
 import Approval.ApprovalVO;
+import Board.BoardDAO;
+import Board.BoardVO;
+import Board.Boardservice;
 
 /**
  * Servlet implementation class MainController
@@ -82,11 +85,15 @@ public class MainController extends HttpServlet {
 					MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
 					ApprovalService approvalService = new ApprovalService();
 					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
+					Boardservice boardService = new Boardservice();
+					BoardDAO boardDAO = new BoardDAO();
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 					List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+					List<BoardVO> boardList = boardService.selectAllBoards10();
 					session.setAttribute("loginUser", memberVO);
 					request.setAttribute("appList", appList);
 					request.setAttribute("scadulList", scadulList);
+					request.setAttribute("boardList", boardList);
 					nextPage = "/Main01/indexMain.jsp";
 				}
 				else {

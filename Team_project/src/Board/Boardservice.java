@@ -90,6 +90,10 @@ public class Boardservice {
 		// TODO Auto-generated method stub
 		return boardDAO.countSearchDoc(searchType, searchKey, noticeList);
 	}
+	public List<BoardVO> selectAllBoards10() {
+		// TODO Auto-generated method stub
+		return boardDAO.selectAllBoards10();
+	}
 
 
 }
