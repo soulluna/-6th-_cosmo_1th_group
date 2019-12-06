@@ -12,8 +12,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import Main.MemberVO;
-
 public class BoardDAO {
 	private static Connection con;
 	private static PreparedStatement pstmt;
@@ -360,7 +358,7 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void updateArticle(BoardVO board) {
 		// TODO Auto-generated method stub
 		System.out.println("updateArticle");

@@ -222,6 +222,8 @@ public class BoardController extends HttpServlet {
 					String txtnum = request.getParameter("txtnum");
 					String pageNum= request.getParameter("pageNum");
 					boardservice.delArticle(txtnum);
+					CommentDAO commentDAO = new CommentDAO();
+					commentDAO.deleteCommentByTxtnum(txtnum);
 					nextPage = "/Board/noticeBoardMain.do?pageNum="+pageNum;
 				}
 				// 여기서부터 댓글에 관련된 내용

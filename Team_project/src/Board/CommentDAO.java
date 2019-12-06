@@ -87,6 +87,20 @@ public class CommentDAO {
 			e.printStackTrace();
 		}
 	}
+	public void deleteCommentByTxtnum(String txtnum) {//댓글 삭제
+		// TODO Auto-generated method stub
+		String query="delete from commenttb where txtnum=?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, txtnum);
+			pstmt.executeUpdate();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public String getComcont(String comnum) {
 		// TODO Auto-generated method stub
