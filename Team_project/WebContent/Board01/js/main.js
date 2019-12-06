@@ -129,3 +129,23 @@ function noticeSearchCheck(url) {
 		frm.submit();
 	}
 }
+
+function go_prev(url, txtnum, pageNum){
+	var new_page=txtnum-1;
+	if(new_page<1){
+		alert("이전글이 없습니다.");
+	}
+	else{
+		location.href=url+"/Board/details.do?txtnum="+new_page+"&pageNum="+pageNum;
+	}
+}
+
+function go_next(url, txtnum, pageNum, maxTxtnum){
+	var new_page=txtnum+1;
+	if(new_page>maxTxtnum){
+		alert("다음글이 없습니다.");
+	}
+	else{
+		location.href=url+"/Board/details.do?txtnum="+new_page+"&pageNum="+pageNum;
+	}
+}

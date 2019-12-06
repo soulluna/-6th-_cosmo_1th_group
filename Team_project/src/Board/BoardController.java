@@ -176,6 +176,7 @@ public class BoardController extends HttpServlet {
 					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					String pageNum = request.getParameter("pageNum");
+					int maxTxtnum = boardservice.docAllCount();
 					System.out.println("txtnum : "+txtnum);
 					System.out.println("pageNum : "+pageNum);
 					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에 viewArticle함수를 요청
@@ -183,6 +184,7 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
 					request.setAttribute("pageNum", pageNum);
 					request.setAttribute("commentList", commentList);
+					request.setAttribute("maxTxtnum", maxTxtnum);
 					request.setAttribute("updateComment", "0");
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 

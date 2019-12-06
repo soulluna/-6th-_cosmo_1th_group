@@ -43,8 +43,8 @@
 				</span>
 			</div>
 			<div class="rmfdlehd">
-				<button>이전글</button>
-				<button>다음글</button>
+				<button onclick="go_prev('${contextPath}',${board.txtnum},'${pageNum}');">이전글</button>
+				<button onclick="go_next('${contextPath}', ${board.txtnum},'${pageNum}',${maxTxtnum});">다음글</button>
 				<button
 					onclick="location.href='${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}'">목록으로</button>
 				<button
