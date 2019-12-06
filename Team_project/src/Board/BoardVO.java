@@ -22,7 +22,7 @@ public class BoardVO {
 	   private Timestamp entrydate;	//입력일
 	   private int viewtotal;	//조회수
 	   private int likenum;		//추천수
-	   
+	   private String isAnnouncement;
 	   private String eno; 
 	   private String rank;
 	   private int comtotal;
@@ -113,5 +113,14 @@ public class BoardVO {
 	public void setNoticelist(int noticelist) {
 		this.noticelist = noticelist;
 	}
+
+	public String getIsAnnouncement() {
+		return isAnnouncement;
+	}
+
+	public void setIsAnnouncement(String isAnnouncement) {
+		this.isAnnouncement = isAnnouncement;
+	}
+	
 	   
 }
