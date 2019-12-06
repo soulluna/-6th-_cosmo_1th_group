@@ -130,8 +130,11 @@
 					
 				</c:choose>
 
-				<button class="docCreate" name="docCreate" type="button"
+				<c:if test="${loginUser.eno != 9052501152}">
+					<button class="docCreate" name="docCreate" type="button"
 					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+				</c:if>
+
 			</div>
 
 		</div>
