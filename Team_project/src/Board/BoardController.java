@@ -96,7 +96,6 @@ public class BoardController extends HttpServlet {
 						else{
 							docMaxNum = boardservice.docSearchCount(searchType, searchKey, noticeList);
 						}
-						
 					}
 					System.out.println("------");
 					System.out.println(docMaxNum);

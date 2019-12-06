@@ -55,9 +55,8 @@ function fn_write() {
 		<h1>게시판 지정및 게시글 작성</h1>
 		<form name="frmArticle" method="post">
 			<input type="hidden" id="eno" name="eno" value="${loginUser.eno}">
-			<input type="hidden" id="ename" name="ename"
-				value="${loginUser.ename}"> <input type="hidden" id="rank"
-				name="rank" value="${loginUser.rank}">
+			<input type="hidden" id="ename" name="ename" value="${loginUser.ename}"> 
+			<input type="hidden" id="rank" name="rank" value="${loginUser.rank}">
 			<div class="wjdduf">
 				<div class="wjddu">
 					<div class="rptlvks">
