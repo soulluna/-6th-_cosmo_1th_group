@@ -83,14 +83,14 @@ public class BoardController extends HttpServlet {
 					int docMaxNum = 0;
 					int maxPageNum = 0;
 					if (searchKey == null || searchKey.equals("")) {
-						if(noticeList==null||noticeList.length()==0) {
+						if(noticeList==null||noticeList.equals("")) {
 							docMaxNum = boardservice.docAllCount();
 						}
 						else {
 							docMaxNum = boardservice.docAllCount(noticeList);
 						}
 					} else {
-						if(noticeList==null||noticeList.length()==0) {
+						if(noticeList==null||noticeList.equals("")) {
 							docMaxNum = boardservice.docSearchCount(searchType, searchKey);
 						}
 						else{
@@ -168,7 +168,7 @@ public class BoardController extends HttpServlet {
 					boardVO.setTxtname(txtname);
 					boardVO.setTxtcont(txtcont);
 					boardservice.addBoard(boardVO);
-					nextPage = "/Board/noticeBoardMain.do";
+					nextPage = "/Board/noticeBoardMain.do?noticeList=";
 				} else if (action.equals("/details.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 					System.out.println("details.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
@@ -185,7 +185,6 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("pageNum", pageNum);
 					request.setAttribute("commentList", commentList);
 					request.setAttribute("maxTxtnum", maxTxtnum);
-					request.setAttribute("updateComment", "0");
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 
 				} else if (action.equals("/like.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
