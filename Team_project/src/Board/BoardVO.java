@@ -1,6 +1,6 @@
 package Board;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BoardVO {
 
@@ -19,7 +19,7 @@ public class BoardVO {
 	   private String txtname;	//글제목
 	   private String txtcont;	//글내용
 	   private String ename;	//사원이름
-	   private Date entrydate;	//입력일
+	   private Timestamp entrydate;	//입력일
 	   private int viewtotal;	//조회수
 	   private int likenum;		//추천수
 	   
@@ -65,10 +65,10 @@ public class BoardVO {
 	public void setEname(String ename) {
 		this.ename = ename;
 	}
-	public Date getEntrydate() {
+	public Timestamp getEntrydate() {
 		return entrydate;
 	}
-	public void setEntrydate(Date entrydate) {
+	public void setEntrydate(Timestamp entrydate) {
 		this.entrydate = entrydate;
 	}
 	public int getViewtotal() {

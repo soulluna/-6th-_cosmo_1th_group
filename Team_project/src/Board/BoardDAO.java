@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);
@@ -88,7 +89,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);
@@ -151,7 +152,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);
@@ -211,7 +212,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);
@@ -247,7 +248,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);
@@ -281,7 +282,7 @@ public class BoardDAO {
 				String txtcont = rs.getString("txtcont");
 				String ename = rs.getString("ename");
 				String eno=rs.getString("eno");
-				Date entrydate = rs.getDate("entrydate");
+				Timestamp entrydate = rs.getTimestamp("entrydate");
 				int viewtotal = rs.getInt("viewtotal");
 				int likenum = rs.getInt("likenum");
 				System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum);
@@ -444,7 +445,7 @@ public class BoardDAO {
 				boardVO.setTxtcont(rs.getString("txtcont"));
 				boardVO.setEname(rs.getString("ename"));
 				boardVO.setNoticelist(rs.getInt("noticelist"));
-				boardVO.setEntrydate(rs.getDate("entrydate"));
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
 				boardList.add(boardVO);

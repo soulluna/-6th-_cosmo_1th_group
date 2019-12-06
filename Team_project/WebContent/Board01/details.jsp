@@ -37,7 +37,8 @@
 				<p>추천수</p>
 				<p class="co7">${board.likenum}</p>
 				<span class="font-11 text-muted"> <span class="media-info">
-						<i class="fa fa-clock-o"></i> <span class="orangered">${board.entrydate}
+						<i class="fa fa-clock-o"></i>
+						<span class="orangered"><fmt:formatDate value="${board.entrydate}" pattern="yyyy-MM-dd hh:mm" />
 					</span>
 				</span>
 				</span>
@@ -47,9 +48,11 @@
 				<button onclick="go_next('${contextPath}', ${board.txtnum},'${pageNum}',${maxTxtnum});">다음글</button>
 				<button
 					onclick="location.href='${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}'">목록으로</button>
+					<c:if test="${loginUser.eno==board.eno}">
 				<button
 					onclick="location.href='${contextPath}/Board/modForm.do?txtnum=${board.txtnum}&pageNum=${pageNum}'">수정하기
 				</button>
+				</c:if>
 			</div>
 			<div class="wjddu">
 				<textarea class="text_sodyd" readonly="readonly" cols="400"

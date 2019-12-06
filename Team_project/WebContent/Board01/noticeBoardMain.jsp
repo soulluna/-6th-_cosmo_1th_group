@@ -80,7 +80,7 @@
 										<td class="co3"><a
 											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}">${board.txtname}</a></td>
 										<td class="co4">${board.ename}</td>
-										<td class="co5">${board.entrydate}</td>
+										<td class="co5"><fmt:formatDate value="${board.entrydate}" pattern="yyyy-MM-dd" /></td>
 										<td class="co6">${board.viewtotal}</td>
 										<td class="co7">${board.likenum}</td>
 									</tr>
