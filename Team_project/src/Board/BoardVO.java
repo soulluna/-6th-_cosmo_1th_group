@@ -28,7 +28,16 @@ public class BoardVO {
 	   private int comtotal;
 	   private String comcont;
 	   private String comuser;
+	   private int comcount;
 	   
+	public int getComcount() {
+		return comcount;
+	}
+
+	public void setComcount(int comcount) {
+		this.comcount = comcount;
+	}
+
 	public String getComuser() {
 		return comuser;
 	}
