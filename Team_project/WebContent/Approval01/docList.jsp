@@ -88,11 +88,11 @@
 								<td>${approval.progress}</td>
 								<c:choose>
 									<c:when test="${approval.applist == '기안서'}">
-										<td><a
+										<td style="text-align: left;">&nbsp;<a
 											href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
 									</c:when>
 									<c:when test="${approval.applist == '휴가신청서'}">
-										<td><a
+										<td style="text-align: left;">&nbsp;<a
 											href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
 									</c:when>
 								</c:choose>
