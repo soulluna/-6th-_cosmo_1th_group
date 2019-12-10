@@ -63,7 +63,20 @@
 						</c:when>
 						<c:when test="${boardList.size()!=0}">
 							<tbody>
-								<c:forEach var="board" items="${boardList}" varStatus="15">
+								<c:if test="${announceList.size()!=0 && pagingMap.pageNum==1}">
+									<c:forEach var="announce" items="${announceList}">
+										<tr class="record">	
+											<td class="co1">공지</td>
+											<td class="co2">${announce.txtnum}</td>
+											<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${announce.txtnum}&pageNum=${pagingMap.pageNum}">${announce.txtname}</a></td>
+											<td class="co4">${announce.ename}</td>
+											<td class="co5"><fmt:formatDate value="${announce.entrydate}" pattern="yyyy-MM-dd" /></td>
+											<td class="co6">${announce.viewtotal}</td>
+											<td class="co7">${announce.likenum}</td>
+										</tr>
+									</c:forEach>
+								</c:if>
+								<c:forEach var="board" items="${boardList}">
 									<tr class="record">
 										<c:choose>
 											<c:when test="${board.noticelist==1}">
@@ -94,7 +107,6 @@
 		<div class="dlehd">
 			<div class="page">
 				<!-- ------------------------------------------------------- -->
-
 				<c:if
 					test="${(pagingMap.maxSessionNum >= pagingMap.pageSessionNum) && pagingMap.pageSessionNum != 1}">
 					<a
@@ -120,10 +132,6 @@
 					<a
 						href="${contextPath}/Board/noticeBoardMain.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}&noticeList=${noticeList}">다음</a>
 				</c:if>
-
-
-
-
 				<!-- ------------------------------------------------------- -->
 				<!-- <a href="#">이전</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a>
 				<a href="#">4</a> <a href="#">5</a> <a href="#">다음</a> -->

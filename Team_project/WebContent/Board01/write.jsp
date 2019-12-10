@@ -38,6 +38,12 @@ function fn_write() {
 		alert("내용을 입력해주세요.");
 	} else {
 		console.log("함수 : fn_write");
+		if(frmArticle.isAnnouncement.checked==true){
+			frmArticle.isAnnouncement.value='y';
+		}
+		else{
+			frmArticle.isAnnouncement.value='n';
+		}
 		frmArticle.encoding = "application/x-www-form-urlencoded";
 		frmArticle.action = "${contextPath}/Board/write.do";
 		frmArticle.submit();
@@ -71,7 +77,7 @@ function fn_write() {
 							</select>
 						</div>
 						<h3>
-							<input type="checkbox" id="jb-input-checkbox" name="empty">
+							<input type="checkbox" id="jb-input-checkbox" name="isAnnouncement">
 							<label for="jb-input-checkbox">공지로 지정</label>
 						</h3>
 					</div>
@@ -115,9 +121,7 @@ function fn_write() {
 			</div>
 		</form>
 	</div>
-
 	<script src="${contextPath}/Board01/js/main.js"></script>
-
 </body>
 
 </html>

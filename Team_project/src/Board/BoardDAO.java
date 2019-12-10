@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 public class BoardDAO {
 	private static Connection con;
 	private static PreparedStatement pstmt;
+	private static ResultSet rs;
 	private static DataSource dataFactory; 
 
 	public BoardDAO() {
@@ -77,7 +78,7 @@ public class BoardDAO {
 			pstmt.setString(1, noticeList);
 			pstmt.setInt(2, rownum1);
 			pstmt.setInt(3, rownum2);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
@@ -138,10 +139,7 @@ public class BoardDAO {
 				pstmt.setInt(2, rownum1);
 				pstmt.setInt(3, rownum2);
 			}
-
-
-			ResultSet rs = pstmt.executeQuery();
-
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
 				BoardVO boardVO = new BoardVO();
@@ -201,7 +199,7 @@ public class BoardDAO {
 				pstmt.setInt(3, rownum1);
 				pstmt.setInt(4, rownum2);
 			}
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
 				BoardVO boardVO = new BoardVO();
@@ -223,6 +221,39 @@ public class BoardDAO {
 		}
 		return boardList;
 	}
+	
+	public List<BoardVO> selectAnnounceBoards(){
+		List<BoardVO> announceList = new ArrayList<BoardVO>();
+		int announceCount = countIsAnnoucement();
+		String query ="select * from(select rownum as rownum2 , a.* from" 
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
+					+ " from NOTICE where isannouncement='y' order by txtnum desc) a) where rownum2 between 1 and ?";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, announceCount);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardVO boardVO = new BoardVO();
+				boardVO.setTxtnum(rs.getInt("txtnum"));
+				boardVO.setTxtname(rs.getString("txtname"));
+				boardVO.setTxtcont(rs.getString("txtcont"));
+				boardVO.setEname(rs.getString("ename"));
+				boardVO.setNoticelist(0);
+				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
+				boardVO.setViewtotal(rs.getInt("viewtotal"));
+				boardVO.setLikenum(rs.getInt("likenum"));
+				announceList.add(boardVO);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return announceList;
+	}
+	
 	public List<BoardVO> selectAllBoards10() {	//게시판 리스트 보여주기
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
@@ -236,7 +267,7 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, 1);
 			pstmt.setInt(2, 10);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
@@ -272,7 +303,7 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);// query를 con객체를 이용하여 db에 쿼리문을 보냄
 			pstmt.setInt(1, num);
 			System.out.println(query);
-			ResultSet rs = pstmt.executeQuery();// 보낸 쿼리문에 대한 결과를 rs객체를 이용하여 받음
+			rs = pstmt.executeQuery();// 보낸 쿼리문에 대한 결과를 rs객체를 이용하여 받음
 			if(rs.next()) {// 커서 이동
 				int noticelist = rs.getInt("noticelist");
 				int txtnum = rs.getInt("txtnum");
@@ -303,7 +334,8 @@ public class BoardDAO {
 		}
 		return board;
 	}
-	public void updateViewTotal(int num) {
+	
+	public void updateViewTotal(int num) {//조회수 증가
 		try {
 			con = dataFactory.getConnection();
 			String query = "update NOTICE set viewTotal=viewTotal+1 where txtnum=?";
@@ -318,7 +350,7 @@ public class BoardDAO {
 		}
 	}
 
-	public int selecttxtnum() {
+	public int selecttxtnum() {//글번호 지정
 		int txtnum = 0;
 		try {
 			con = dataFactory.getConnection();
@@ -326,7 +358,7 @@ public class BoardDAO {
 			System.out.println(query);
 			pstmt = con.prepareStatement(query);
 			pstmt.executeQuery(query);
-			ResultSet rs =  pstmt.getResultSet();
+			rs =  pstmt.getResultSet();
 			rs.next();
 			txtnum = rs.getInt("maxtxtnum");
 
@@ -341,7 +373,7 @@ public class BoardDAO {
 		return txtnum;
 	}
 
-	public void deleteArticle(String txtnum) {
+	public void deleteArticle(String txtnum) {//게시글 삭제
 		// TODO Auto-generated method stub
 		System.out.println("deleteArticle");
 		try { 
@@ -359,22 +391,23 @@ public class BoardDAO {
 		}
 	}
 	
-	public void updateArticle(BoardVO board) {
+	public void updateArticle(BoardVO board) {//게시글 업데이트
 		// TODO Auto-generated method stub
 		System.out.println("updateArticle");
 		int noticelist = board.getNoticelist();
 		int txtnum = board.getTxtnum();
 		String txtname = board.getTxtname();
 		String txtcont = board.getTxtcont();
+		String isAnnouncement = board.getIsAnnouncement();
 		try {
 			con = dataFactory.getConnection();
-			String query="update notice set noticelist=?, txtname=?, txtcont=? where txtnum=?";
+			String query="update notice set noticelist=?, txtname=?, txtcont=?, isannouncement=? where txtnum=?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, noticelist);
 			pstmt.setString(2,txtname);
 			pstmt.setString(3,txtcont);
 			pstmt.setInt(4, txtnum);
-
+			pstmt.setString(5, isAnnouncement);
 			pstmt.executeUpdate();
 			pstmt.close();
 			con.close();
@@ -394,6 +427,7 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, txtnum);
 			pstmt.executeUpdate();
+			
 			pstmt.close();
 			con.close();
 		}catch(Exception e){
@@ -401,11 +435,11 @@ public class BoardDAO {
 		}
 	}
 
-	public void insertBoard(BoardVO boardVO) {
+	public void insertBoard(BoardVO boardVO) {//게시글 추가
 		// TODO Auto-generated method stub
 		int txtnum=selecttxtnum();
 		System.out.println("insertBoard");
-		String query="insert into notice(txtnum, txtname, txtcont, ename, noticelist, rank, eno) values(?, ?, ?, ?, ?, ?, ?)";
+		String query="insert into notice(txtnum, txtname, txtcont, ename, noticelist, rank, eno, isAnnouncement) values(?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			con=dataFactory.getConnection();
 			pstmt=con.prepareStatement(query);
@@ -416,6 +450,7 @@ public class BoardDAO {
 			pstmt.setInt(5, boardVO.getNoticelist());
 			pstmt.setString(6, boardVO.getRank());
 			pstmt.setString(7, boardVO.getEno());
+			pstmt.setString(8, boardVO.getIsAnnouncement());
 			pstmt.executeUpdate();
 			pstmt.close();
 			con.close();
@@ -434,7 +469,7 @@ public class BoardDAO {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, noticelist);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
 				BoardVO boardVO = new BoardVO();
@@ -484,7 +519,7 @@ public class BoardDAO {
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				docMax = rs.getInt("count(*)");
 			}
@@ -518,6 +553,27 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return docMax;
+	}
+	public int countIsAnnoucement() { // 공지글 갯수 세기
+		int announceCount=1;
+		String query="select count(*) from notice where isannouncement='y'";
+		try {
+			con=dataFactory.getConnection();
+			pstmt=con.prepareStatement(query);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				announceCount = rs.getInt("count(*)");
+				if(announceCount>5) {
+					announceCount=5;
+				}
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return announceCount;
 	}
 	//쿼리문 수정해야함
 	public int countSearchDoc(String searchType, String searchKey) {//검색시 전체문서수
@@ -591,7 +647,7 @@ public class BoardDAO {
 			} else if (searchType.equals("3")) {
 				pstmt.setString(2, "%" + searchKey + "%");
 			}
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				docMax = rs.getInt("count(*)");
 			}

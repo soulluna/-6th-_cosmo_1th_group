@@ -50,8 +50,16 @@
 							</select>
 						</div>
 						<h3>
-							<input type="checkbox" id="jb-input-checkbox" name="empty">
-							<label for="jb-input-checkbox">공지로 지정</label>
+						<c:choose>
+							<c:when test="${board.isAnnouncement=='y'}">
+								<input type="checkbox" id="jb-input-checkbox" name="isAnnouncement" checked>
+								<label for="jb-input-checkbox">공지로 지정</label>
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id="jb-input-checkbox" name="isAnnouncement">
+								<label for="jb-input-checkbox">공지로 지정</label>
+							</c:otherwise>
+						</c:choose>
 						</h3>
 					</div>
 					<div class="wpahr">

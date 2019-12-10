@@ -64,6 +64,7 @@ public class BoardController extends HttpServlet {
 		System.out.println("action : " + action);
 		try {
 			List<BoardVO> boardList = new ArrayList<BoardVO>();
+			List<BoardVO> announceList = new ArrayList<BoardVO>();
 			HttpSession session = request.getSession();
 			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 			if (loginUser == null) {
@@ -82,6 +83,8 @@ public class BoardController extends HttpServlet {
 					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
 					int docMaxNum = 0;
 					int maxPageNum = 0;
+					int announceCount=0;
+					announceCount = boardservice.announceCount();
 					if (searchKey == null || searchKey.equals("")) {
 						if(noticeList==null||noticeList.equals("")) {
 							docMaxNum = boardservice.docAllCount();
@@ -97,19 +100,22 @@ public class BoardController extends HttpServlet {
 							docMaxNum = boardservice.docSearchCount(searchType, searchKey, noticeList);
 						}
 					}
+					final int COUNT_ROW=15;
+					final int ROWS_PAGE=5;
 					System.out.println("------");
 					System.out.println(docMaxNum);
 					System.out.println("------");
 					int maxSessionNum = 0;
-					if (docMaxNum % 15 == 0) {
-						maxPageNum = docMaxNum / 15;
+					docMaxNum+=announceCount;
+					if (docMaxNum % COUNT_ROW == 0) {
+						maxPageNum = docMaxNum / COUNT_ROW;
 					} else {
-						maxPageNum = docMaxNum / 15 + 1;
+						maxPageNum = docMaxNum / COUNT_ROW + 1;
 					}
 					if (maxPageNum % 5 == 0) {
-						maxSessionNum = maxPageNum / 5;
+						maxSessionNum = maxPageNum / ROWS_PAGE;
 					} else {
-						maxSessionNum = maxPageNum / 5 + 1;
+						maxSessionNum = maxPageNum / ROWS_PAGE + 1;
 					}
 					pagingMap.put("pageNum", pageNum);
 					System.out.println(pageNum + "페이지넘버");
@@ -121,30 +127,44 @@ public class BoardController extends HttpServlet {
 					System.out.println(maxSessionNum + " 마지막 페이지넘버");
 					pagingMap.put("pageSessionNum", pageSessionNum);
 					System.out.println(pageSessionNum + "세션페이지");
+					System.out.println(announceCount + "공지글 개수");
 					if (searchKey == null || searchKey.equals("")) {
 						System.out.println("searchKey가 null인 if문");
 						for (int i = 1; i <= maxPageNum; i++) {
 							if (pageNum == i) {
 								if(noticeList==null||noticeList.length()==0) {
-									boardList = boardservice.listBoard(1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+									if(i==1) {
+										announceList = boardservice.getAnnounceList();
+										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount);
+									}
+									else {
+										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW)-announceCount, COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount);
+									}
 								}
 								else {
-									boardList = boardservice.listBoard(1 + ((i - 1) * 15), 15 + ((i - 1) * 15), noticeList);								}
+									if(i==1) {
+										announceList = boardservice.getAnnounceList();
+										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount, noticeList);	
+									}
+									else {
+										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW)-announceCount, COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount, noticeList);
+									}
+								}
 							}
-								
 						}
 					} else {
 						for (int i = 1; i <= maxPageNum; i++) {
 							if (pageNum == i) {
 								if(noticeList==null||noticeList.length()==0) {
-									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
+									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW));
 								}
 								else {
-									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * 15), 15 + ((i - 1) * 15), noticeList);
+									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW), noticeList);
 								}
 							}
 						}
 					}
+					request.setAttribute("announceList", announceList);
 					request.setAttribute("boardList", boardList);
 					request.setAttribute("pagingMap", pagingMap);
 					request.setAttribute("searchType", searchType);
@@ -159,6 +179,7 @@ public class BoardController extends HttpServlet {
 					String txtname = request.getParameter("w_title");
 					String txtcont = request.getParameter("contents");
 					int noticeList = Integer.parseInt(request.getParameter("noticeList"));
+					String isAnnouncement = request.getParameter("isAnnouncement");
 					boardVO.setRank(loginUser.getRank());
 					boardVO.setEname(loginUser.getEname());
 					boardVO.setEno(loginUser.getEno());
@@ -166,8 +187,10 @@ public class BoardController extends HttpServlet {
 					boardVO.setNoticelist(noticeList);
 					boardVO.setTxtname(txtname);
 					boardVO.setTxtcont(txtcont);
+					boardVO.setIsAnnouncement(isAnnouncement);
 					boardservice.addBoard(boardVO);
 					nextPage = "/Board/noticeBoardMain.do?noticeList=";
+					
 				} else if (action.equals("/details.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 					System.out.println("details.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
@@ -198,14 +221,15 @@ public class BoardController extends HttpServlet {
 					boardVO = boardservice.viewBoard(txtnum);
 					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
 					nextPage = "/Board01/update.jsp";
+					
 				} else if (action.equals("/modArticle.do")) {// 글 수정하기
 					System.out.println("modArticle.do");
 					BoardVO boardVO = new BoardVO();
-
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					int noticelist = Integer.parseInt(request.getParameter("noticelist"));
 					String txtname = request.getParameter("txtname");
 					String txtcont = request.getParameter("txtcont");
+					String isAnnouncement = request.getParameter("isAnnouncement");
 					System.out.println(txtnum);
 					System.out.println(txtname);
 					System.out.println(txtcont);
@@ -213,8 +237,10 @@ public class BoardController extends HttpServlet {
 					boardVO.setNoticelist(noticelist);
 					boardVO.setTxtname(txtname);
 					boardVO.setTxtcont(txtcont);
+					boardVO.setIsAnnouncement(isAnnouncement);
 					boardservice.modArticle(boardVO);
 					nextPage = "/Board/noticeBoardMain.do";
+					
 				} else if (action.equals("/delArticle.do")) { // 삭제하기
 					System.out.println("delArticle.do");
 					String txtnum = request.getParameter("txtnum");
@@ -254,7 +280,7 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("updateComment", comnum);
 					request.setAttribute("prevComcont", prevComcont);
 					nextPage = "/Board/details.do?txtnum="+txtnum;
-					
+
 				} else if(action.equals("/delComment.do")) {
 					System.out.println("delComment.do");
 					String comnum = request.getParameter("comnum");
@@ -264,7 +290,7 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("pageNum", request.getParameter("pageNum"));
 					nextPage = "/Board/details.do?txtnum="+txtnum;
 				}
-				
+
 				else {
 					/* boardList = boardservice.listBoard(); */
 					request.setAttribute("boardsList", boardList);

@@ -94,6 +94,14 @@ public class Boardservice {
 		// TODO Auto-generated method stub
 		return boardDAO.selectAllBoards10();
 	}
+	public int announceCount() {
+		// TODO Auto-generated method stub
+		return boardDAO.countIsAnnoucement();
+	}
+	public List<BoardVO> getAnnounceList() {
+		// TODO Auto-generated method stub
+		return boardDAO.selectAnnounceBoards();
+	}
 
 
 }
