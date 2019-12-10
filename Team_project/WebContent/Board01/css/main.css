@@ -18,7 +18,7 @@ a:active  { text-decoration:none; color:cornflowerblue; }
 .co1{width: 80px; text-align: center; padding: 8px 0; font-size: 15px;}
 .co2{width: 80px; text-align: center; font-size: 15px; }
 .co3{width: 450px; font-size: 15px; padding-left: 10px;}
-.co3>a>p{ display:inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 400px;  font-size: 15px;}
+.co3>a{ display:inline-block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 400px;  font-size: 15px;}
 .co3>span{font-size:17px;}
 .co4{width: 110px;text-align: center; font-size: 15px;}
 .co5{width: 100px;text-align: center; font-size: 15px;}

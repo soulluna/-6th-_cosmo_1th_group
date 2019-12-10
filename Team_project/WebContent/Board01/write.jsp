@@ -95,8 +95,7 @@ function fn_write() {
 					</div>
 
 					<div class="logo">
-						<a href="${contextPath}/Main01/indexMain.jsp">
-						<img src="${contextPath}/Board01/img/logo3.gif"></a>
+						<a><img src="${contextPath}/Board01/img/logo3.gif"></a>
 					</div>
 
 					<div class="zmrl">
