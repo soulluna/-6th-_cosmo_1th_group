@@ -39,7 +39,7 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, rownum1);
 			pstmt.setInt(2, rownum2);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// articleVO인스턴스에 받은 값을 매개변수로 생성함
@@ -428,7 +428,6 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, txtnum);
 			pstmt.executeUpdate();
-			
 			pstmt.close();
 			con.close();
 		}catch(Exception e){
@@ -543,7 +542,7 @@ public class BoardDAO {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, noticeList);
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				docMax = rs.getInt("count(*)");
 			}
@@ -606,7 +605,7 @@ public class BoardDAO {
 			}
 
 
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				docMax = rs.getInt("count(*)");
 			}
