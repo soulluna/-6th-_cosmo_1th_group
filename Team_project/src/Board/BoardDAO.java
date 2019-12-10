@@ -314,6 +314,7 @@ public class BoardDAO {
 				Timestamp entrydate = rs.getTimestamp("entrydate");
 				int viewtotal = rs.getInt("viewtotal");
 				int likenum = rs.getInt("likenum");
+				String isAnnouncement = rs.getString("isannouncement");
 				System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum);
 				board.setNoticelist(noticelist);
 				board.setTxtnum(txtnum);
@@ -324,6 +325,7 @@ public class BoardDAO {
 				board.setViewtotal(viewtotal);
 				board.setLikenum(likenum);
 				board.setEno(eno);
+				board.setIsAnnouncement(isAnnouncement);
 			}
 			rs.close();
 			pstmt.close();
@@ -406,8 +408,8 @@ public class BoardDAO {
 			pstmt.setInt(1, noticelist);
 			pstmt.setString(2,txtname);
 			pstmt.setString(3,txtcont);
-			pstmt.setInt(4, txtnum);
-			pstmt.setString(5, isAnnouncement);
+			pstmt.setString(4, isAnnouncement);
+			pstmt.setInt(5, txtnum);
 			pstmt.executeUpdate();
 			pstmt.close();
 			con.close();

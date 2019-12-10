@@ -66,9 +66,9 @@ $(function () {
 		}
 	});
 	//글장석.html 입력값 확인
-	
 
-	
+
+
 
 
 //	메인게시판페이지 검색 타입 및 검색값 콘솔 확인
@@ -80,7 +80,7 @@ $(function () {
 		location.href = '#';
 		//메인게시판 검색어 없을때 경고창
 	});
-	
+
 });
 
 //javascript
@@ -107,28 +107,7 @@ function fn_modForm(url,articleNo){
 }
 
 //수정하기 작성
-function fn_modify(url){
-	write[0] = $("input[name=w_title]").val();
-	console.log(write[0]);
-	write[1] = $("textarea[name=contents]").val();
-	console.log(write[1]);
-	if (!write[0]) {
-		alert("제목을 입력해주세요.");
-	} else if (!write[1]) {
-		alert("내용을 입력해주세요.");
-	} else {
-		console.log("함수 : fn_update");
-		if(frmArticle.isAnnouncement.checked==true){
-			frmArticle.isAnnouncement.value='y';
-		}
-		else{
-			frmArticle.isAnnouncement.value='n';
-			frmArticle.encoding = "application/x-www-form-urlencoded";
-			frmArticle.action = url+"/Board/modArticle.do";
-			frmArticle.submit(); //<---------------------------------
-		}
-	}
-}
+
 //댓글 작성
 function addComment(url,txtnum,pageNum){
 	var comcont = $(".eotrmfdlqfur").val();

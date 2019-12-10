@@ -59,7 +59,7 @@ function fn_write() {
 	<div class="fullWrap">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<h1>게시판 지정및 게시글 작성</h1>
-		<form name="frmArticle" method="post">
+		<form name="frmArticle" method="get">
 			<input type="hidden" id="eno" name="eno" value="${loginUser.eno}">
 			<input type="hidden" id="ename" name="ename" value="${loginUser.ename}"> 
 			<input type="hidden" id="rank" name="rank" value="${loginUser.rank}">

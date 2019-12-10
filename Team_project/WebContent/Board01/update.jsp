@@ -25,14 +25,26 @@
 	<jsp:forward page="${contextPath}/index.jsp" />
 </c:if>
 </head>
-
+<script>
+function fn_modify(url){
+	if(frmArticle.isAnnouncement.checked==true){
+		frmArticle.isAnnoun.value='y';
+	}
+	else{
+		frmArticle.isAnnoun.value='n';
+	}
+	frmArticle.encoding = "application/x-www-form-urlencoded";
+	frmArticle.action = url+"/Board/modArticle.do"; 
+	frmArticle.submit(); //<--------------------------------- 
+}
+</script>
 <body>
-	<form name="frmArticle" method="post" enctype="multipart/form-data">
+	<form name="frmArticle" method="get" enctype="multipart/form-data">
 		<input type="hidden" id="eno" name="eno" value="${loginUser.eno}">
-		<input type="hidden" id="ename" name="ename"
-			value="${loginUser.ename}"> <input type="hidden" id="rank"
-			name="rank" value="${loginUser.rank}"> <input type="hidden"
-			name="txtnum" value="${board.txtnum}">
+		<input type="hidden" id="ename" name="ename" value="${loginUser.ename}"> 
+		<input type="hidden" id="rank" name="rank" value="${loginUser.rank}"> 
+		<input type="hidden" name="txtnum" value="${board.txtnum}">
+		<input type="hidden" name="isAnnoun">
 		<div class="fullWrap">
 			<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 			<h1>게시판 지정및 게시글 수정</h1>
@@ -99,5 +111,4 @@
 		</div>
 	</form>
 </body>
-
 </html>

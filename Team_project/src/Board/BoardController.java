@@ -180,6 +180,7 @@ public class BoardController extends HttpServlet {
 					String txtcont = request.getParameter("contents");
 					int noticeList = Integer.parseInt(request.getParameter("noticeList"));
 					String isAnnouncement = request.getParameter("isAnnouncement");
+					System.out.println(isAnnouncement);
 					boardVO.setRank(loginUser.getRank());
 					boardVO.setEname(loginUser.getEname());
 					boardVO.setEno(loginUser.getEno());
@@ -214,6 +215,7 @@ public class BoardController extends HttpServlet {
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					boardservice.likeBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에 viewArticle함수를 요청
 					nextPage = "/Board/details.do?txtnum=" + txtnum;// 결과페이지를 이동하기 위해 nextPage에 경로 지정
+					
 				} else if (action.equals("/modForm.do")) { // 수정하기 페이지 이동
 					System.out.println("modForm.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					BoardVO boardVO = new BoardVO();
@@ -229,10 +231,11 @@ public class BoardController extends HttpServlet {
 					int noticelist = Integer.parseInt(request.getParameter("noticelist"));
 					String txtname = request.getParameter("txtname");
 					String txtcont = request.getParameter("txtcont");
-					String isAnnouncement = request.getParameter("isAnnouncement");
+					String isAnnouncement = request.getParameter("isAnnoun");
 					System.out.println(txtnum);
 					System.out.println(txtname);
 					System.out.println(txtcont);
+					System.out.println(isAnnouncement);
 					boardVO.setTxtnum(txtnum);
 					boardVO.setNoticelist(noticelist);
 					boardVO.setTxtname(txtname);
