@@ -1,7 +1,6 @@
 package Board;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -32,10 +31,9 @@ public class BoardDAO {
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			con = dataFactory.getConnection();
-			String query ="select * from(select rownum as rownum2 , a.* from" 
-
-					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-					+ " from NOTICE order by txtnum desc) a) where rownum2 between ? and ?";
+			String query = "select * from(select rownum as rownum2 , a.* from"
+							+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+							+ " from NOTICE p2 order by txtnum desc) a) where rownum2 between ? and ?";
 
 
 			pstmt = con.prepareStatement(query);
@@ -54,6 +52,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				boardList.add(boardVO);
 			}
 			rs.close();

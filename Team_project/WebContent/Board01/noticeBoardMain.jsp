@@ -65,12 +65,14 @@
 							<tbody>
 								<c:if test="${announceList.size()!=0 && pagingMap.pageNum==1}">
 									<c:forEach var="announce" items="${announceList}">
-										<tr class="record">	
+										<tr class="record">
 											<td class="co1">공지</td>
 											<td class="co2">${announce.txtnum}</td>
-											<td class="co3"><a href="${contextPath}/Board/details.do?txtnum=${announce.txtnum}&pageNum=${pagingMap.pageNum}">${announce.txtname}</a></td>
+											<td class="co3"><a
+												href="${contextPath}/Board/details.do?txtnum=${announce.txtnum}&pageNum=${pagingMap.pageNum}">${announce.txtname}</a></td>
 											<td class="co4">${announce.ename}</td>
-											<td class="co5"><fmt:formatDate value="${announce.entrydate}" pattern="yyyy-MM-dd" /></td>
+											<td class="co5"><fmt:formatDate
+													value="${announce.entrydate}" pattern="yyyy-MM-dd" /></td>
 											<td class="co6">${announce.viewtotal}</td>
 											<td class="co7">${announce.likenum}</td>
 										</tr>
@@ -91,9 +93,12 @@
 										</c:choose>
 										<td class="co2">${board.txtnum}</td>
 										<td class="co3"><a
-											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}">${board.txtname}</a></td>
+											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}">${board.txtname}</a>
+										 <c:if test="${board.comcount != 0}"><span>[${board.comcount}]</span></c:if>
+										 </td>
 										<td class="co4">${board.ename}</td>
-										<td class="co5"><fmt:formatDate value="${board.entrydate}" pattern="yyyy-MM-dd" /></td>
+										<td class="co5"><fmt:formatDate
+												value="${board.entrydate}" pattern="yyyy-MM-dd" /></td>
 										<td class="co6">${board.viewtotal}</td>
 										<td class="co7">${board.likenum}</td>
 									</tr>
