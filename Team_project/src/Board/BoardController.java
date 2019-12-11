@@ -78,6 +78,9 @@ public class BoardController extends HttpServlet {
 					String _pageNum = request.getParameter("pageNum");
 					String _pageSessionNum = request.getParameter("pageSession");
 					String noticeList = request.getParameter("noticeList");
+					System.out.println("========현재 상태========");
+					System.out.println("serchType : "+searchType);
+					System.out.println("searchKey : "+searchKey);
 					System.out.println("noticeList : "+noticeList);
 					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
 					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
@@ -102,9 +105,8 @@ public class BoardController extends HttpServlet {
 					}
 					final int COUNT_ROW=15;
 					final int ROWS_PAGE=5;
-					System.out.println("------");
-					System.out.println(docMaxNum);
-					System.out.println("------");
+					System.out.println("현재 상태에서의 게시글 수 : "+docMaxNum);
+					System.out.println("======================");
 					int maxSessionNum = 0;
 					docMaxNum+=announceCount;
 					if (docMaxNum % COUNT_ROW == 0) {
@@ -129,11 +131,11 @@ public class BoardController extends HttpServlet {
 					System.out.println(pageSessionNum + "세션페이지");
 					System.out.println(announceCount + "공지글 개수");
 					if (searchKey == null || searchKey.equals("")) {
-						System.out.println("searchKey가 null인 if문");
+						System.out.println("아무것도 지정되지 않은 상태");
 						for (int i = 1; i <= maxPageNum; i++) {
 							if (pageNum == i) {
-								if(noticeList==null||noticeList.length()==0) {
-									if(i==1) {
+								if(noticeList==null||noticeList.length()==0) { // 게시판 종류가 지정되어있지 않은 경우							
+									if(i==1) { // 1페이지에 공지를 띄우기 위함
 										announceList = boardservice.getAnnounceList();
 										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount);
 									}
@@ -141,8 +143,8 @@ public class BoardController extends HttpServlet {
 										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW)-announceCount, COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount);
 									}
 								}
-								else {
-									if(i==1) {
+								else { // 게시판 종류가 지정된 경우
+									if(i==1) { // 1페이지에 공지를 띄우기 위함
 										announceList = boardservice.getAnnounceList();
 										boardList = boardservice.listBoard(1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW)-announceCount, noticeList);	
 									}
@@ -152,13 +154,17 @@ public class BoardController extends HttpServlet {
 								}
 							}
 						}
-					} else {
+					} 
+					else {
+						System.out.println("검색어 입력됨");
 						for (int i = 1; i <= maxPageNum; i++) {
 							if (pageNum == i) {
-								if(noticeList==null||noticeList.length()==0) {
+								if(noticeList==null||noticeList.length()==0) { // 전체 게시판에서 검색했을 때
+									System.out.println("전체 게시판에서 검색했을 때");
 									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW));
 								}
-								else {
+								else { // 각 부서 게시판에서 검색했을 때
+									System.out.println("각 부서 게시판에서 검색했을 때");
 									boardList = boardservice.listBoard(searchType, searchKey, 1 + ((i - 1) * COUNT_ROW), COUNT_ROW + ((i - 1) * COUNT_ROW), noticeList);
 								}
 							}

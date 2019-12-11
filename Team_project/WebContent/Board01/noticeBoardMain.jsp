@@ -154,11 +154,10 @@
 				</select>
 				<div class="rjator">
 					<input type="text" name="searchKey" placeholder="검색어 입력">
-					<button type="submit" class="search"
-						onclick="noticeSearchCheck('${contextPath}')">검색</button>
-					<input type="hidden" name="searchType" value="${searchType}" /> <input
-						type="hidden" name="searchKey" value="${searchKey}" /> <input
-						type="hidden" name="noticeList" value="${noticeList}">
+					<button type="submit" class="search" onclick="noticeSearchCheck('${contextPath}')">검색</button>
+					<input type="hidden" name="searchType" value="${searchType}" /> 
+					<input type="hidden" name="searchKey" value="${searchKey}" /> 
+					<input type="hidden" name="noticeList" value="${noticeList}">
 				</div>
 			</div>
 		</form>

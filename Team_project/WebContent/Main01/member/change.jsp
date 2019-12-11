@@ -45,7 +45,7 @@
 							<td>
 							<c:choose>
 								<c:when test="${loginUser.dname=='영업부'}">
-									<select class="area" id="dep1">
+									<select class="area" id="dep1" disabled>
 										<option value="0">선택하세요</option>
 										<option value="1" selected>영업부</option>
 										<option value="2">인사부</option>
@@ -53,7 +53,7 @@
 									</select>
 								</c:when>
 								<c:when test="${loginUser.dname=='인사부'}">
-									<select class="area" id="dep1">
+									<select class="area" id="dep1" disabled>
 										<option value="0">선택하세요</option>
 										<option value="1" >영업부</option>
 										<option value="2" selected>인사부</option>
@@ -61,7 +61,7 @@
 									</select>
 								</c:when>
 								<c:when test="${loginUser.dname=='기술개발팀'}">
-									<select class="area" id="dep1">
+									<select class="area" id="dep1" disabled>
 										<option value="0">선택하세요</option>
 										<option value="1" >영업부</option>
 										<option value="2">인사부</option>
@@ -74,7 +74,7 @@
 							<td>
 							<c:choose>
 								<c:when test="${loginUser.dname_two=='1팀'}">
-								<select class="area" id="dep2">
+								<select class="area" id="dep2" disabled>
 									<option value="0">선택하세요</option>
 									<option value="4" selected>1팀</option>
 									<option value="5">2팀</option>
@@ -82,7 +82,7 @@
 								</select>
 								</c:when>
 								<c:when test="${loginUser.dname_two=='2팀'}">
-								<select class="area" id="dep2">
+								<select class="area" id="dep2" disabled>
 									<option value="0">선택하세요</option>
 									<option value="4" >1팀</option>
 									<option value="5" selected>2팀</option>
@@ -90,7 +90,7 @@
 								</select>
 								</c:when>
 								<c:when test="${loginUser.dname_two=='3팀'}">
-								<select class="area" id="dep2">
+								<select class="area" id="dep2" disabled>
 									<option value="0">선택하세요</option>
 									<option value="4" >1팀</option>
 									<option value="5">2팀</option>

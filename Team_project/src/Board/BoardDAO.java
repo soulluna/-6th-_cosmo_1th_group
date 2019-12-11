@@ -112,12 +112,12 @@ public class BoardDAO {
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
-			}else if (searchType.equals("2")) {
+			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
-			}else if (searchType.equals("3")) {
+			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
@@ -171,12 +171,12 @@ public class BoardDAO {
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where noticeList=? and txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
-			}else if (searchType.equals("2")) {
+			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where noticeList=? and txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
-			}else if (searchType.equals("3")) {
+			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 						+ " from NOTICE where noticeList=? and ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
@@ -253,16 +253,14 @@ public class BoardDAO {
 		return announceList;
 	}
 	
-	public List<BoardVO> selectAllBoards10() {	//게시판 리스트 보여주기
+	public List<BoardVO> selectAllBoards10() {	//메인 페이지 영역에서 게시판 리스트 보여주기 위한 메소드
+		System.out.println("--selectAllBoards10--");
 		List<BoardVO> boardList = new ArrayList<BoardVO>();
 		try {
 			con = dataFactory.getConnection();
 			String query ="select * from(select rownum as rownum2 , a.* from" 
-
 					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
 					+ " from NOTICE order by txtnum desc) a) where rownum2 between ? and ?";
-
-
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, 1);
 			pstmt.setInt(2, 10);
@@ -314,7 +312,6 @@ public class BoardDAO {
 				int viewtotal = rs.getInt("viewtotal");
 				int likenum = rs.getInt("likenum");
 				String isAnnouncement = rs.getString("isannouncement");
-				System.out.println(noticelist+"   "+txtnum+"   "+txtname+"   "+txtcont+"   "+ename+"   "+eno+"   "+entrydate+"   "+viewtotal+"   "+likenum);
 				board.setNoticelist(noticelist);
 				board.setTxtnum(txtnum);
 				board.setTxtname(txtname);

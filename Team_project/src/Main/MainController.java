@@ -35,8 +35,9 @@ import Board.Boardservice;
 @WebServlet("/Main/*")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ARTICLE_IMAGE_PATH = "C:\\Users\\KOSMO-23\\GitHub\\-6th-_cosmo_1th_group\\Team_project\\profileImages";  //이미지의 폴더까지의 경로를 저장
-
+	//이미지의 폴더까지의 경로를 저장
+	private static String ARTICLE_IMAGE_PATH = "C:\\Users\\KOSMO-23\\GitHub\\-6th-_cosmo_1th_group\\Team_project\\profileImages";  
+	//dataformat 지정
 	final String DATE_FORMAT = "yyyy-MM-dd";
 	final String TIME_FORMAT = "HH:mm";
 	/**
@@ -78,9 +79,10 @@ public class MainController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println("action : " + action);
 		try {
-			if(action!=null&&action.equals("/login.do")) {
+			if(action!=null&&action.equals("/login.do")) {//로그인 및 세션이 살아있는지 확인하는 구문
+				
 				HttpSession session = request.getSession(); //세션을 열어준다.
-				if(session.getAttribute("loginUser")!=null) {
+				if(session.getAttribute("loginUser")!=null) { // 로그인 되어있는 상태면
 					System.out.println("세션 살아있음");
 					MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
 					ApprovalService approvalService = new ApprovalService();
@@ -95,29 +97,33 @@ public class MainController extends HttpServlet {
 					request.setAttribute("boardList", boardList);
 					nextPage = "/Main01/indexMain.jsp";
 				}
-				else {
+				else {//세션이 닫혀있는 상태면(최초로그인)
 					System.out.println("로그인 버튼 클릭");
 					String eno = request.getParameter("eno");
 					String pwd = request.getParameter("pwd");
-					MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
-					int result = memberDAO.ConfirmID(eno, pwd);
+					MemberDAO memberDAO = MemberDAO.getInstance(); 
+					int result = memberDAO.ConfirmID(eno, pwd); //데이터베이스에 해당 사번 및 비밀번호가 맞는지 확인
 					if(result==-1) {//로그인 실패
 						String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";
 						System.out.println(message);
 						request.setAttribute("result", result);
 						nextPage = "/index.jsp";
-					}else {//로그인 성공
-						MemberVO memberVO = memberDAO.getMember(eno);
+					}else { //로그인 성공
+						//각 사번에 해당하는 사원정보, 스캐쥴정보, 결재정보, 게시판 정보를 받아오기 위한 객체 생성
+						MemberVO memberVO = memberDAO.getMember(eno); 
 						ApprovalService approvalService = new ApprovalService();
 						DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 						Boardservice boardService = new Boardservice();
+						//각 메소드를 통해 해당 정보를 받아옴
 						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 						List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
 						List<BoardVO> boardList = boardService.selectAllBoards10();
+						//setAttribute를 통해 정보를 jsp페이지로 전송
 						session.setAttribute("loginUser", memberVO);
 						request.setAttribute("appList", appList);
 						request.setAttribute("scadulList", scadulList);
 						request.setAttribute("boardList", boardList);
+						//다음 페이지 이동
 						nextPage = "/Main01/indexMain.jsp";
 					}
 				}
@@ -308,6 +314,9 @@ public class MainController extends HttpServlet {
 				memberVO.setPwd(pwd);
 				int result=memberDAO.updatePwd(memberVO);
 				if(result==1) {
+					memberVO = memberDAO.getMember(eno);
+					HttpSession session = request.getSession();
+					session.setAttribute("loginUser", memberVO);
 					nextPage="/Main01/member/select.jsp";
 				}
 				else {//결과값을 주어서 잘못됨을 말해줌
@@ -322,24 +331,25 @@ public class MainController extends HttpServlet {
 			else if(action.equals("/userInfoChange.do")) {
 				System.out.println("정보수정완료 버튼 클릭");
 				nextPage="/Main01/member/change.jsp";
-				Map<String, String> memberMap = upload(request, response);
+				
 				MemberDAO memberDAO = MemberDAO.getInstance();
 				MemberVO memberVO = new MemberVO();
-				String eno=memberMap.get("eno");
-				String ename=memberMap.get("ename");
-				String eng_name=memberMap.get("eng_name");
-				String tel=memberMap.get("tel");
-				String email=memberMap.get("email");
-				String imageFileName = memberMap.get("imageFileName");
+				String eno=request.getParameter("eno");
+				String ename=request.getParameter("ename");
+				String eng_name=request.getParameter("eng_name");
+				String tel=request.getParameter("tel");
+				String email=request.getParameter("email");
 				System.out.println(eno+"   "+ename+"   "+eng_name+"   "+tel+"   "+email);
 				memberVO.setEno(eno);
 				memberVO.setEname(ename);
 				memberVO.setEng_name(eng_name);
 				memberVO.setTel(tel);
 				memberVO.setEmail(email);
-				memberVO.setImageFileName(imageFileName);
 				int result=memberDAO.UpdateUserInfo(memberVO);
 				if(result==1) {
+					memberVO = memberDAO.getMember(eno);
+					HttpSession session = request.getSession();
+					session.setAttribute("loginUser", memberVO);
 					nextPage="/Main01/member/select.jsp";
 				}
 				else {

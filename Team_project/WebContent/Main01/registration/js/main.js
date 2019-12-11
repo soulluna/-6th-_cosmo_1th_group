@@ -92,8 +92,8 @@ function validate(){
 }
 
 function backPage(){
-	if(confirm("취소시 로그인 페이지로 돌아갑니다. 정말 취소하시겠습니까?")==true){
-		location.href="login.do";
+	if(confirm("취소시 로그인 페이지로 돌아갑니다. 정말 취소하시겠습니까?")){
+		location.href="index.jsp";
 	}else{
 		return false;
 	}	
