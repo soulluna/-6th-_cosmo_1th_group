@@ -69,8 +69,8 @@ public class BoardDAO {
 			con = dataFactory.getConnection();
 			String query ="select * from(select rownum as rownum2 , a.* from" 
 
-					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-					+ " from NOTICE where noticeList=? order by txtnum desc) a) where rownum2 between ? and ?";
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+					+ " from NOTICE p2 where noticeList=? order by txtnum desc) a) where rownum2 between ? and ?";
 
 
 			pstmt = con.prepareStatement(query);
@@ -90,6 +90,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				boardList.add(boardVO);
 			}
 			rs.close();
@@ -109,18 +110,18 @@ public class BoardDAO {
 			String query = null;
 			if (searchType.equals("1")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			}
 			pstmt = con.prepareStatement(query);
@@ -150,6 +151,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				boardList.add(boardVO);
 			}
 			rs.close();
@@ -168,18 +170,18 @@ public class BoardDAO {
 			String query = null;
 			if (searchType.equals("1")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where noticeList=? and txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where noticeList=? and txtname like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where noticeList=? and txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where noticeList=? and txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
-						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-						+ " from NOTICE where noticeList=? and ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+						+ " from NOTICE p2 where noticeList=? and ename like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			}
 			pstmt = con.prepareStatement(query);
@@ -210,6 +212,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				boardList.add(boardVO);
 			}
 			rs.close();
@@ -225,8 +228,8 @@ public class BoardDAO {
 		List<BoardVO> announceList = new ArrayList<BoardVO>();
 		int announceCount = countIsAnnoucement();
 		String query ="select * from(select rownum as rownum2 , a.* from" 
-					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-					+ " from NOTICE where isannouncement='y' order by txtnum desc) a) where rownum2 between 1 and ?";
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+					+ " from NOTICE p2 where isannouncement='y' order by txtnum desc) a) where rownum2 between 1 and ?";
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
@@ -242,6 +245,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				announceList.add(boardVO);
 			}
 			rs.close();
@@ -259,8 +263,8 @@ public class BoardDAO {
 		try {
 			con = dataFactory.getConnection();
 			String query ="select * from(select rownum as rownum2 , a.* from" 
-					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum"
-					+ " from NOTICE order by txtnum desc) a) where rownum2 between ? and ?";
+					+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
+					+ " from NOTICE p2 order by txtnum desc) a) where rownum2 between ? and ?";
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, 1);
 			pstmt.setInt(2, 10);
@@ -277,6 +281,7 @@ public class BoardDAO {
 				boardVO.setEntrydate(rs.getTimestamp("entrydate"));
 				boardVO.setViewtotal(rs.getInt("viewtotal"));
 				boardVO.setLikenum(rs.getInt("likenum"));
+				boardVO.setComcount(rs.getInt("comcount"));
 				boardList.add(boardVO);
 			}
 			rs.close();
@@ -658,7 +663,133 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		return docMax;
+	
+	}
+	public BoardVO selectPrevBoard(int num) { // 이전글보기 : 이전글의 txtnum은 현재글보다 크므로 큰 것중에 최소값을 가져옴
+		// TODO Auto-generated method stub
+		BoardVO board = new BoardVO();
+		try {
+			con = dataFactory.getConnection();
+			String query = "select * from notice where txtnum=(select min(txtnum) from notice where txtnum > ?)";
+			pstmt = con.prepareStatement(query);// query를 con객체를 이용하여 db에 쿼리문을 보냄
+			pstmt.setInt(1, num);
+			System.out.println(query);
+			rs = pstmt.executeQuery();// 보낸 쿼리문에 대한 결과를 rs객체를 이용하여 받음
+			if(rs.next()) {// 커서 이동
+				int noticelist = rs.getInt("noticelist");
+				int txtnum = rs.getInt("txtnum");
+				String txtname = rs.getString("txtname");
+				String txtcont = rs.getString("txtcont");
+				String ename = rs.getString("ename");
+				String eno=rs.getString("eno");
+				Timestamp entrydate = rs.getTimestamp("entrydate");
+				int viewtotal = rs.getInt("viewtotal");
+				int likenum = rs.getInt("likenum");
+				String isAnnouncement = rs.getString("isannouncement");
+				System.out.println("이전 글번호 : "+txtnum);
+				board.setNoticelist(noticelist);
+				board.setTxtnum(txtnum);
+				board.setTxtname(txtname);
+				board.setTxtcont(txtcont);
+				board.setEname(ename);
+				board.setEntrydate(entrydate);
+				board.setViewtotal(viewtotal);
+				board.setLikenum(likenum);
+				board.setEno(eno);
+				board.setIsAnnouncement(isAnnouncement);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return board;
+	}
+
+	public BoardVO selectNextBoard(int num) { // 다음글보기 : 다음글의 txtnum은 현재글보다 작으므로 작은 것중에 최대값을 가져옴
+		// TODO Auto-generated method stub
+		BoardVO board = new BoardVO();
+		try {
+			con = dataFactory.getConnection();
+			String query = "select * from notice where txtnum=(select max(txtnum) from notice where txtnum < ?)";
+			pstmt = con.prepareStatement(query);// query를 con객체를 이용하여 db에 쿼리문을 보냄
+			pstmt.setInt(1, num);
+			System.out.println(query);
+			rs = pstmt.executeQuery();// 보낸 쿼리문에 대한 결과를 rs객체를 이용하여 받음
+			if(rs.next()) {// 커서 이동
+				int noticelist = rs.getInt("noticelist");
+				int txtnum = rs.getInt("txtnum");
+				String txtname = rs.getString("txtname");
+				String txtcont = rs.getString("txtcont");
+				String ename = rs.getString("ename");
+				String eno=rs.getString("eno");
+				Timestamp entrydate = rs.getTimestamp("entrydate");
+				int viewtotal = rs.getInt("viewtotal");
+				int likenum = rs.getInt("likenum");
+				String isAnnouncement = rs.getString("isannouncement");
+				System.out.println("다음 글번호 : "+txtnum);
+				board.setNoticelist(noticelist);
+				board.setTxtnum(txtnum);
+				board.setTxtname(txtname);
+				board.setTxtcont(txtcont);
+				board.setEname(ename);
+				board.setEntrydate(entrydate);
+				board.setViewtotal(viewtotal);
+				board.setLikenum(likenum);
+				board.setEno(eno);
+				board.setIsAnnouncement(isAnnouncement);
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return board;
+	}
+
+	public int firstTxtnum() { // 첫번째 게시글 번호 가져오기
+		// TODO Auto-generated method stub
+		int docMin = 0;
+		String query = "select min(txtnum) form notice";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				docMin = rs.getInt("max(txtnum)");
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return docMin;
+		
+	}
+
+	public int lastTxtnum() { // 마지막 게시글 번호 가져오기
+		// TODO Auto-generated method stub
+		int docMax = 0;
+		String query = "select max(txtnum) form notice";
+		try {
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				docMax = rs.getInt("max(txtnum)");
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return docMax;
 	}
 
 }

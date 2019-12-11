@@ -102,6 +102,22 @@ public class Boardservice {
 		// TODO Auto-generated method stub
 		return boardDAO.selectAnnounceBoards();
 	}
+	public int docMinCount() {
+		// TODO Auto-generated method stub
+		return boardDAO.firstTxtnum();
+	}
+	public int docMaxCount() {
+		// TODO Auto-generated method stub
+		return boardDAO.lastTxtnum();
+	}
+	public BoardVO getPrevBoard(int txtnum) {
+		// TODO Auto-generated method stub
+		return boardDAO.selectPrevBoard(txtnum);
+	}
+	public BoardVO getNextBoard(int txtnum) {
+		// TODO Auto-generated method stub
+		return boardDAO.selectNextBoard(txtnum);
+	}
 
 
 }

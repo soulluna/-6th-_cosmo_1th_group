@@ -205,7 +205,8 @@ public class BoardController extends HttpServlet {
 					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					String pageNum = request.getParameter("pageNum");
-					int maxTxtnum = boardservice.docAllCount();
+					int maxTxtnum = boardservice.docMaxCount();
+					int minTxtnum = boardservice.docMinCount();
 					System.out.println("txtnum : "+txtnum);
 					System.out.println("pageNum : "+pageNum);
 					boardVO = boardservice.viewBoard(Integer.parseInt(txtnum));// article번호를 읽어와서 boardService에 viewArticle함수를 요청
@@ -214,8 +215,49 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("pageNum", pageNum);
 					request.setAttribute("commentList", commentList);
 					request.setAttribute("maxTxtnum", maxTxtnum);
+					request.setAttribute("minTxtnum", minTxtnum);
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 
+				} else if(action.equals("/viewPrev.do")) {//이전글 보기
+					System.out.println("viewPrev.do");
+					String txtnum = request.getParameter("txtnum");
+					String pageNum = request.getParameter("pageNum");
+					System.out.println("txtnum : "+txtnum);
+					System.out.println("pageNum : "+pageNum);
+					CommentDAO commentDAO = new CommentDAO();
+					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
+					BoardVO boardVO = new BoardVO();
+					boardVO = boardservice.getPrevBoard(Integer.parseInt(txtnum));
+					commentList = commentDAO.listComments(txtnum);
+					int maxTxtnum = boardservice.docMaxCount();
+					int minTxtnum = boardservice.docMinCount();
+					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("commentList", commentList);
+					request.setAttribute("maxTxtnum", maxTxtnum);
+					request.setAttribute("minTxtnum", minTxtnum);
+					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
+					
+				} else if(action.equals("/viewNext.do")) {//다음글 보기
+					System.out.println("viewNext.do");
+					String txtnum = request.getParameter("txtnum");
+					String pageNum = request.getParameter("pageNum");
+					System.out.println("txtnum : "+txtnum);
+					System.out.println("pageNum : "+pageNum);
+					BoardVO boardVO = new BoardVO();
+					CommentDAO commentDAO = new CommentDAO();
+					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
+					int maxTxtnum = boardservice.docMaxCount();
+					int minTxtnum = boardservice.docMinCount();
+					boardVO = boardservice.getNextBoard(Integer.parseInt(txtnum));
+					commentList = commentDAO.listComments(txtnum);
+					request.setAttribute("board", boardVO);// 가져온 결과값을 보내줌
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("commentList", commentList);
+					request.setAttribute("maxTxtnum", maxTxtnum);
+					request.setAttribute("minTxtnum", minTxtnum);
+					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
+					
 				} else if (action.equals("/like.do")) {// 글 제목을 클릭하여 상세보기 페이지 이동(상세보기)
 					System.out.println("like.do");// 페이지 이동 확인하기 위한 출력구문(디버깅용)
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
