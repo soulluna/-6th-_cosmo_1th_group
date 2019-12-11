@@ -44,8 +44,8 @@
 				</span>
 			</div>
 			<div class="rmfdlehd">
-				<button onclick="go_prev('${contextPath}',${board.txtnum},'${pageNum}');">이전글</button>
-				<button onclick="go_next('${contextPath}', ${board.txtnum},'${pageNum}',${maxTxtnum});">다음글</button>
+				<button onclick="go_prev('${contextPath}',${board.txtnum},'${pageNum}', ${maxTxtnum});">이전글</button>
+				<button onclick="go_next('${contextPath}', ${board.txtnum},'${pageNum}', ${minTxtnum});">다음글</button>
 				<button
 					onclick="location.href='${contextPath}/Board/noticeBoardMain.do?pageNum=${pageNum}'">목록으로</button>
 					<c:if test="${loginUser.eno==board.eno}">
@@ -55,8 +55,7 @@
 				</c:if>
 			</div>
 			<div class="wjddu">
-				<textarea class="text_sodyd" readonly="readonly" cols="400"
-					rows="100">${board.txtcont}</textarea>
+				<textarea class="text_sodyd" readonly="readonly" cols="400" rows="100">${board.txtcont}</textarea>
 			</div>
 			<div class="cncjsqjxms">
 				<c:if test="${loginUser.eno==board.eno}">
