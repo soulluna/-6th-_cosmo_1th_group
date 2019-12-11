@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	isELIgnored="false"
+%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -16,8 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
-<link rel="stylesheet"
-	href="${contextPath}/Approval01/css/jquery-ui.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
 <script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
@@ -25,14 +25,14 @@
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
 <script>
-function docModify() {
-	if (confirm("수정하시겠습니까?") == true) {
-		frm.action = "draftModify.do";
-		frm.submit();
-	} else {
-		return false;
+	function docModify() {
+		if (confirm("수정하시겠습니까?") == true) {
+			frm.action = "draftModify.do";
+			frm.submit();
+		} else {
+			return false;
+		}
 	}
-}
 function docDelete() {
 	  if (confirm("정말 삭제하시겠습니까?") == true) {
 		  	frm.action = "draftdelete.do";
@@ -84,9 +84,10 @@ function docDelete() {
 	<div class="content">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<form name="frm" method="post">
-			<input type="hidden" name="txtnum" value="${txtnum}"> <select
-				style="visibility: hidden;" class="docSelecter"
-				onchange="if(this.value) location.href=(this.value)">
+			<input type="hidden" name="txtnum" value="${txtnum}">
+			<select style="visibility: hidden;" class="docSelecter"
+				onchange="if(this.value) location.href=(this.value)"
+			>
 				<option value="./draft.html" selected>기안서</option>
 				<option value="./vacation.html">휴가신청서</option>
 			</select>
@@ -123,8 +124,7 @@ function docDelete() {
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
-							<td style="vertical-align: top">${approvalVO.ename}<br>
-								<span style="color: red;">[승인]</span>
+							<td style="vertical-align: top">${approvalVO.ename}<br> <span style="color: red;">[승인]</span>
 							</td>
 							<td style="vertical-align: top">${createdMidUser.ename}<br>
 								<c:choose>
@@ -169,13 +169,15 @@ function docDelete() {
 				<div class="inputarea">
 					<table>
 						<tr>
-							<td>제목<br>
+							<td>
+								제목<br>
 								<div class="inputTitle" style="background-color: white;">${approvalVO.txtname}</div>
 							</td>
 						</tr>
 						<tr>
-							<td><br> 내용<br>
-							<textarea class="inputContent" name="reason" maxlength="1000" readOnly>${approvalVO.txtcont}</textarea>
+							<td>
+								<br> 내용<br>
+								<textarea class="inputContent" name="reason" maxlength="1000" readOnly>${approvalVO.txtcont}</textarea>
 							</td>
 						</tr>
 					</table>
@@ -185,8 +187,7 @@ function docDelete() {
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
 
 						<c:choose>
-							<c:when
-								test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docModify()">수정</button>
 							</c:when>
 							<c:otherwise>
@@ -195,8 +196,7 @@ function docDelete() {
 						</c:choose>
 
 						<c:choose>
-							<c:when
-								test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docDelete()">삭제</button>
 							</c:when>
 							<c:otherwise>
@@ -210,10 +210,8 @@ function docDelete() {
 								<button class="cancle" type="button" onclick="docReturn()">반려</button>
 							</c:when>
 							<c:otherwise>
-								<button class="approve" type="button" onclick="docApprove()"
-									disabled>승인</button>
-								<button class="cancle" type="button" onclick="docReturn()"
-									disabled>반려</button>
+								<button class="approve" type="button" onclick="docApprove()" disabled>승인</button>
+								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
 							</c:otherwise>
 						</c:choose>
 

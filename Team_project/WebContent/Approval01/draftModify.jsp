@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -16,8 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
-<link rel="stylesheet"
-	href="${contextPath}/Approval01/css/jquery-ui.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
 <script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
@@ -25,7 +23,6 @@
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
 <script>
-	//draft.html 입력값 확인 및 문서 등록
 	function draftCheck() {
 		draftInputValue[0] = $("input[name=title]").val();
 		draftInputValue[1] = $("textarea[name=reason]").val();
@@ -83,27 +80,24 @@
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
-							<td style="vertical-align: top"><input type="text"
-								name="firUser" style='width: 80px; text-align: center;'
-								value="${loginUser.ename}" disabled> <input
-								type="hidden" name="firUser"
-								style='width: 80px; text-align: center;'
-								value="${loginUser.ename}"> <br> <span
-								style="color: red;"></span></td>
-							<td style="vertical-align: top"><input type="text"
-								name="midUser" style='width: 80px; text-align: center;'
-								value="${createdMidUser.ename}" disabled> <input
-								type="hidden" name="midUser"
-								style='width: 80px; text-align: center;'
-								value="${createdMidUser.ename}"> <br> <span
-								style="color: red;"></span></td>
-							<td style="vertical-align: top"><input type="text"
-								name="finUser" style='width: 80px; text-align: center;'
-								value="${createdFinUser.ename}" disabled> <input
-								type="hidden" name="finUser"
-								style='width: 80px; text-align: center;'
-								value="${createdFinUser.ename}"> <br> <span
-								style="color: red;"></span></td>
+							<td style="vertical-align: top">
+								<input type="text" name="firUser" style='width: 80px; text-align: center;' value="${loginUser.ename}" disabled>
+								<input type="hidden" name="firUser" style='width: 80px; text-align: center;' value="${loginUser.ename}">
+								<br>
+								<span style="color: red;"></span>
+							</td>
+							<td style="vertical-align: top">
+								<input type="text" name="midUser" style='width: 80px; text-align: center;' value="${createdMidUser.ename}" disabled>
+								<input type="hidden" name="midUser" style='width: 80px; text-align: center;' value="${createdMidUser.ename}">
+								<br>
+								<span style="color: red;"></span>
+							</td>
+							<td style="vertical-align: top">
+								<input type="text" name="finUser" style='width: 80px; text-align: center;' value="${createdFinUser.ename}" disabled>
+								<input type="hidden" name="finUser" style='width: 80px; text-align: center;' value="${createdFinUser.ename}">
+								<br>
+								<span style="color: red;"></span>
+							</td>
 						</tr>
 						<tr>
 							<td></td>
@@ -116,15 +110,16 @@
 				<div class="inputarea">
 					<table>
 						<tr>
-							<td>제목<br> <input class="inputTitle" type="text"
-								name="title" required placeholder="제목을 입력해주세요." maxlength="50"
-								value="${approvalVO.txtname}">
+							<td>
+								제목<br>
+								<input class="inputTitle" type="text" name="title" required placeholder="제목을 입력해주세요." maxlength="50" value="${approvalVO.txtname}">
 							</td>
 						</tr>
 						<tr>
-							<td><br> 내용<br> <textarea class="inputContent"
-									name="reason" placeholder="내용을 입력해주세요." required
-									maxlength="1000">${approvalVO.txtcont}</textarea></td>
+							<td>
+								<br> 내용<br>
+								<textarea class="inputContent" name="reason" placeholder="내용을 입력해주세요." required maxlength="1000">${approvalVO.txtcont}</textarea>
+							</td>
 						</tr>
 					</table>
 					<br>

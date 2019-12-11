@@ -22,14 +22,14 @@ public class ApprovalVO {
 	private Date vacstart;
 	private Date vacend;
 	private String dname;
-	
+
 	public ApprovalVO() {
 		super();
 
 	}
-	
+
 	public ApprovalVO(int txtnum, String txtcall, String applist, String progress, String txtname, Date entrydate) {
-		
+
 		this.txtnum = txtnum;
 		this.txtcall = txtcall;
 		this.applist = applist;
@@ -37,9 +37,9 @@ public class ApprovalVO {
 		this.txtname = txtname;
 		this.entrydate = entrydate;
 	}
-	
-public ApprovalVO(int txtnum, String applist, String progress, String txtname, Date entrydate) {
-		
+
+	public ApprovalVO(int txtnum, String applist, String progress, String txtname, Date entrydate) {
+
 		this.txtnum = txtnum;
 		this.applist = applist;
 		this.progress = progress;
@@ -191,7 +191,4 @@ public ApprovalVO(int txtnum, String applist, String progress, String txtname, D
 		this.dname = dname;
 	}
 
-
-	
-	
 }

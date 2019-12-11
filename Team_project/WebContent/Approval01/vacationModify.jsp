@@ -42,8 +42,6 @@
 		} else if (vacationInputValue[5] < 1) {
 			alert("날짜를 올바르게 선택하세요.");
 		} else {
-			thisfilefullname = docName();
-			console.log(thisfilefullname);
 			if (confirm("등록하시겠습니까?") == true) {
 				frm.action = "vacmodified.do";
 				frm.submit();

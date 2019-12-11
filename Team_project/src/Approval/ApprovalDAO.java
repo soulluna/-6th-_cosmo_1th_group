@@ -125,7 +125,6 @@ public class ApprovalDAO {
 			pstmt.setInt(11, rowNum1); // 1 16
 			pstmt.setInt(12, rowNum2); // 15 30
 			ResultSet rs = pstmt.executeQuery();
-			System.out.println("rs : " + rs);
 
 			// 첫 번째 목록부터
 			while (rs.next()) {
@@ -381,7 +380,7 @@ public class ApprovalDAO {
 		query += "values ('기안서', approval_seq.nextval, ?, ?, '대기', ?, ?, ?, ?, ?)";
 		try {
 			con = dataFactory.getConnection();
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, aVO.getTxtname());
 			pstmt.setString(2, aVO.getTxtcont());
@@ -392,17 +391,17 @@ public class ApprovalDAO {
 			pstmt.setString(7, aVO.getFineno());
 			pstmt.executeUpdate();
 			pstmt.close();
-			
+
 			query = "select txtnum from Approval where eno=? and APPLIST='기안서' order by txtnum desc";
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mVO.getEno());
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				txtnum = rs.getInt("txtnum");
 				System.out.println(txtnum);
 			}
-			
+
 			rs.close();
 			pstmt.close();
 			con.close();
@@ -410,8 +409,8 @@ public class ApprovalDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return txtnum; 
+
+		return txtnum;
 
 	}
 
@@ -638,17 +637,17 @@ public class ApprovalDAO {
 			pstmt.executeUpdate();
 
 			pstmt.close();
-			
+
 			query = "select txtnum from Approval where eno=? and APPLIST='휴가신청서' order by txtnum desc";
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, mVO.getEno());
 			ResultSet rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				txtnum = rs.getInt("txtnum");
 				System.out.println(txtnum);
 			}
-			
+
 			rs.close();
 			pstmt.close();
 			con.close();

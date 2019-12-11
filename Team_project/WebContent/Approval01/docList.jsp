@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -16,8 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
-<link rel="stylesheet"
-	href="${contextPath}/Approval01/css/jquery-ui.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
 <script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
@@ -47,8 +45,7 @@
 						<option value="2">문서제목</option>
 					</select>
 					<input type="text" class="searchInput" name="searchKey" />
-					<input type="submit" class="search" value="검색" style="height: 30px;"
-						onclick="docListSearchCheck()" />
+					<input type="submit" class="search" value="검색" style="height: 30px;" onclick="docListSearchCheck()" />
 					<%-- <input type="text" name="searchType" value="${searchType}"/>
 					<input type="text" name="searchKey" value="${searchKey}"/> --%>
 				</form>
@@ -58,14 +55,11 @@
 			<!--문서 목록표-->
 			<table class="docListTable" border="1">
 				<tr>
-					<th width="60px"><a
-						href="${contextPath}/Approval/disRecSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
+					<th width="60px"><a href="${contextPath}/Approval/disRecSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
 					<th width="120px">결재종류</th>
-					<th width="80px"><a
-						href="${contextPath}/Approval/docStateSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
+					<th width="80px"><a href="${contextPath}/Approval/docStateSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
 					<th width="700px">문서제목</th>
-					<th width="100px"><a
-						href="${contextPath}/Approval/docDaySort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
+					<th width="100px"><a href="${contextPath}/Approval/docDaySort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
 				</tr>
 				<c:choose>
 					<c:when test="${approvalList.size()==0}">
@@ -88,12 +82,14 @@
 								<td>${approval.progress}</td>
 								<c:choose>
 									<c:when test="${approval.applist == '기안서'}">
-										<td style="text-align: left;">&nbsp;<a
-											href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+										<td style="text-align: left;">
+											&nbsp;<a href="${contextPath}/Approval/draftWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a>
+										</td>
 									</c:when>
 									<c:when test="${approval.applist == '휴가신청서'}">
-										<td style="text-align: left;">&nbsp;<a
-											href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a></td>
+										<td style="text-align: left;">
+											&nbsp;<a href="${contextPath}/Approval/vacationWait.do?txtnum=${approval.txtnum}">${approval.txtname}</a>
+										</td>
 									</c:when>
 								</c:choose>
 
@@ -112,27 +108,25 @@
 				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}" end="${pagingMap.pageSessionNum*5}">
 					<c:choose>
 						<c:when test="${pagingMap.pageNum == page}">
-							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}" style="color:red">${page}</a>
+							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}" style="color: red">${page}</a>
 						</c:when>
-					
+
 						<c:when test="${page <= pagingMap.maxPageNum}">
 							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
 						</c:when>
-						
+
 					</c:choose>
 
 				</c:forEach>
 				<c:choose>
-					<c:when
-						test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
+					<c:when test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
 						<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
 					</c:when>
-					
+
 				</c:choose>
 
 				<c:if test="${loginUser.eno != 9052501152}">
-					<button class="docCreate" name="docCreate" type="button"
-					onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
+					<button class="docCreate" name="docCreate" type="button" onclick="location.href='${contextPath}/Approval/draft.do'">작성</button>
 				</c:if>
 
 			</div>

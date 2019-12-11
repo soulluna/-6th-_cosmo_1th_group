@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -16,8 +15,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="${contextPath}/Approval01/css/main.css" />
 <link rel="stylesheet" href="${contextPath}/Approval01/css/gnb.css" />
-<link rel="stylesheet"
-	href="${contextPath}/Approval01/css/jquery-ui.css" />
+<link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 
 <script src="${contextPath}/Approval01/js/jquery-2.1.1.min.js"></script>
 <script src="${contextPath}/Approval01/js/jquery-ui.min.js"></script>
@@ -83,9 +81,8 @@ function docDelete() {
 	<div class="content">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<form name="frm" method="post">
-			<input type="hidden" name="txtnum" value="${txtnum}"> <select
-				style="visibility: hidden;" class="docSelecter"
-				onchange="if(this.value) location.href=(this.value)">
+			<input type="hidden" name="txtnum" value="${txtnum}">
+			<select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
 				<option value="./draft.html" selected>기안서</option>
 				<option value="./vacation.html">휴가신청서</option>
 			</select>
@@ -125,8 +122,7 @@ function docDelete() {
 									<c:when test="${approvalVO.progress == '대기'}">
 										<span style="color: red;"></span>
 									</c:when>
-									<c:when
-										test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
+									<c:when test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
 										<span style="color: red;">[승인]</span>
 									</c:when>
 									<c:when test="${approvalVO.progress == '반려1'}">
@@ -162,36 +158,47 @@ function docDelete() {
 				<div class="inputarea">
 					<table>
 						<tr>
-							<td>제목<br>
-								<div class="inputTitle" style="background-color: white;">
-									${approvalVO.txtname}</div>
+							<td>
+								제목<br>
+								<div class="inputTitle" style="background-color: white;">${approvalVO.txtname}</div>
 							</td>
 						</tr>
 						<tr>
-							<td><br> 1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
-								<span> <input type="radio" name="leaveradio" value="연차"
-									class="modifySelect1" id="kindsSelect1" checked="checked"
-									disabled> <label for="kindsSelect1">연차</label>
-							</span> <span> <input type="radio" name="leaveradio" value="병가"
-									class="modifySelect2" id="kindsSelect2" disabled> <label
-									for="kindsSelect2">병가</label>
-							</span> <span> <input type="radio" name="leaveradio" value="휴가"
-									class="modifySelect3" id="kindsSelect3" disabled> <label
-									for="kindsSelect3">휴가</label>
-							</span> <span> <input type="radio" name="leaveradio" value="기타"
-									class="modifySelect4" id="kindsSelect4" disabled> <label
-									for="kindsSelect4">기타</label>
-							</span></td>
+							<td>
+								<br> 1.다음 중 요청하고자 하는 휴가의 종류로 알맞은 것을 고르세요.<br>
+								<span>
+									<input type="radio" name="leaveradio" value="연차" class="modifySelect1" id="kindsSelect1" checked="checked" disabled>
+									<label for="kindsSelect1">연차</label>
+								</span>
+								<span>
+									<input type="radio" name="leaveradio" value="병가" class="modifySelect2" id="kindsSelect2" disabled>
+									<label for="kindsSelect2">병가</label>
+								</span>
+								<span>
+									<input type="radio" name="leaveradio" value="휴가" class="modifySelect3" id="kindsSelect3" disabled>
+									<label for="kindsSelect3">휴가</label>
+								</span>
+								<span>
+									<input type="radio" name="leaveradio" value="기타" class="modifySelect4" id="kindsSelect4" disabled>
+									<label for="kindsSelect4">기타</label>
+								</span>
+							</td>
 						</tr>
 						<tr>
-							<td><br> 1-2. 요청한 휴가의 기간을 입력하세요.<br> <span
-								class="selectedDay">${approvalVO.vacstart}</span> ~ <span
-								class="selectedDay">${approvalVO.vacend}</span> (<span
-								class="dayCount"></span> 일 간)</td>
+							<td>
+								<br> 1-2. 요청한 휴가의 기간을 입력하세요.<br>
+								<span class="selectedDay">${approvalVO.vacstart}</span>
+								~
+								<span class="selectedDay">${approvalVO.vacend}</span>
+								(
+								<span class="dayCount"></span>
+								일 간)
+							</td>
 						</tr>
 
 						<tr>
-							<td><br> 2. 1번 보기를 선택한 사유를 쓰세요.<br>
+							<td>
+								<br> 2. 1번 보기를 선택한 사유를 쓰세요.<br>
 								<textarea class="inputContent" name="reason" required maxlength="1000" readOnly>${approvalVO.txtcont}</textarea>
 							</td>
 						</tr>
@@ -202,8 +209,7 @@ function docDelete() {
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
 
 						<c:choose>
-							<c:when
-								test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docModify()">수정</button>
 							</c:when>
 							<c:otherwise>
@@ -212,8 +218,7 @@ function docDelete() {
 						</c:choose>
 
 						<c:choose>
-							<c:when
-								test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
 								<button type="button" onclick="docDelete()">삭제</button>
 							</c:when>
 							<c:otherwise>
@@ -222,15 +227,14 @@ function docDelete() {
 						</c:choose>
 						<c:choose>
 							<c:when
-								test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}">
+								test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}"
+							>
 								<button class="approve" type="button" onclick="docApprove()">승인</button>
 								<button class="cancle" type="button" onclick="docReturn()">반려</button>
 							</c:when>
 							<c:otherwise>
-								<button class="approve" type="button" onclick="docApprove()"
-									disabled>승인</button>
-								<button class="cancle" type="button" onclick="docReturn()"
-									disabled>반려</button>
+								<button class="approve" type="button" onclick="docApprove()" disabled>승인</button>
+								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
 							</c:otherwise>
 						</c:choose>
 
