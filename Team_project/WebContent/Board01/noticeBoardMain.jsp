@@ -66,10 +66,11 @@
 								<c:if test="${announceList.size()!=0 && pagingMap.pageNum==1}">
 									<c:forEach var="announce" items="${announceList}">
 										<tr class="record">
-											<td class="co1">공지</td>
+											<td class="co1" style="color:red"><b>공지</b></td>
 											<td class="co2">${announce.txtnum}</td>
 											<td class="co3"><a
-												href="${contextPath}/Board/details.do?txtnum=${announce.txtnum}&pageNum=${pagingMap.pageNum}">${announce.txtname}</a></td>
+												href="${contextPath}/Board/details.do?txtnum=${announce.txtnum}&pageNum=${pagingMap.pageNum}">${announce.txtname}</a>
+												 <c:if test="${announce.comcount != 0}"><span>[${announce.comcount}]</span></c:if></td>
 											<td class="co4">${announce.ename}</td>
 											<td class="co5"><fmt:formatDate
 													value="${announce.entrydate}" pattern="yyyy-MM-dd" /></td>
