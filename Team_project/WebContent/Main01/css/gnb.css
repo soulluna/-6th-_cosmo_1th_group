@@ -38,7 +38,7 @@
 #memberinfo tr td{
     padding:3px;
 }
-#memberinfo tr td input{
+.lgnbtn{
     cursor: pointer;
     background-image: linear-gradient(-220deg,#3498db,#8e44ad);
     color:#fff;
@@ -47,7 +47,7 @@
     font-weight: bold;
 }
 /*navigation_bar*/
-.topBar .t_menu{
+.topBar >.t_menu{
     float:left;
     width:170px;
     height:40px;
@@ -61,12 +61,12 @@
     font-weight: bold;
     
 }
-.topBar .t_menu a {
+.topBar > .t_menu a {
     display:inline-block;
     color:#fff;
     width:150px;
 }
 
-.topBar .t_menu a:visited {
+.topBar >.t_menu a:visited {
     color:#fff;
 }

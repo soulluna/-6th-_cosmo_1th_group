@@ -24,8 +24,8 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="button" value="로그아웃" onclick="location.href='${contextPath}/Main/logout.do'"> 
-							<input type="button" value="내정보수정" onclick="location.href='${contextPath}/Main/pwdConfirmForm.do'">
+							<input type="button" class="lgnbtn" value="로그아웃" onclick="location.href='${contextPath}/Main/logout.do'"> 
+							<input type="button" class="lgnbtn" value="내정보수정" onclick="location.href='${contextPath}/Main/pwdConfirmForm.do'">
 							<!-- <a href="${contextPath}/Main01/member/confirm.jsp">내정보수정</a> -->
 						</td>
 					</tr>

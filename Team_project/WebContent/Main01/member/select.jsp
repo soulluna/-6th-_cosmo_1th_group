@@ -35,11 +35,11 @@
 			<div id="section_wrap">
 				<div id="section_block1" class="block">
 					<img src="${contextPath}/Main01/member/img/pwd.png" width="150" height="150"> 
-						<input type="button" value="비밀번호 수정" onclick="location.href='${contextPath}/Main/pwdChangeForm.do'">
+						<input type="button" class="infobtn" value="비밀번호 수정" onclick="location.href='${contextPath}/Main/pwdChangeForm.do'">
 				</div>
 				<div id="section_block2" class="block">
 					<img src="${contextPath}/Main01/member/img/user.png" width="150" height="100"> 
-					<input type="button" value="내정보 수정" onclick="location.href='${contextPath}/Main/userInfoChangeForm.do'">
+					<input type="button" class="infobtn" value="내정보 수정" onclick="location.href='${contextPath}/Main/userInfoChangeForm.do'">
 				</div>
 			</div>
 			<!-- section_wrap -->
