@@ -754,7 +754,7 @@ public class BoardDAO {
 	public int firstTxtnum() { // 첫번째 게시글 번호 가져오기
 		// TODO Auto-generated method stub
 		int docMin = 0;
-		String query = "select min(txtnum) form notice";
+		String query = "select min(txtnum) from notice";
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
@@ -775,7 +775,7 @@ public class BoardDAO {
 	public int lastTxtnum() { // 마지막 게시글 번호 가져오기
 		// TODO Auto-generated method stub
 		int docMax = 0;
-		String query = "select max(txtnum) form notice";
+		String query = "select max(txtnum) from notice";
 		try {
 			con = dataFactory.getConnection();
 			pstmt = con.prepareStatement(query);
