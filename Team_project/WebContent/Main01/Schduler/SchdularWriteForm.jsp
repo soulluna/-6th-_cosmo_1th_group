@@ -26,7 +26,18 @@
 <link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 <script src="${contextPath}/Main01/Schduler/js/main.js"></script>
 <script>
+function viewValue(){
+	var value1=document.frm.startTime.value;
+	var value2=document.frm.endTime.value;
+	var startTime = new Date(value1);
+	console.log(startTime);
+	var endTime = new Date(value2);
+	console.log(endTime);
+}
 function schWrite(url){
+	var startDate = document.frm.startDate.value;
+	var endDate = document.frm.endDate.value;
+	
 	if(document.frm.schname.value==""){
 		alert("스캐쥴명을 입력하지 않았습니다.");
 		document.frm.schname.focus();
@@ -82,7 +93,7 @@ function schWrite(url){
 		<div class="secb">
 			<span class="name">종료시간</span>
 			<input class="dateb" id="datepicker2" type="text" name="endDate">
-			<input class="dateb" type="time" name="endTime">
+			<input class="dateb" type="time" name="endTime" onBlur="viewValue();">
 		</div>
 		<input type="button" class="reg_submit" value="작성하기" onclick="schWrite('${contextPath}')">
 		<input type="button" class="cancel" value="돌아가기" onclick="location.href='${contextPath}/Main/login.do'">

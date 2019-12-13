@@ -21,7 +21,6 @@ public class ApprovalDAO {
 	private int sortList1Num = 0;
 	private int sortList2Num = 0;
 	private int sortList3Num = 0;
-
 	public ApprovalDAO() {
 		try {
 			// 커넥션풀 사용
