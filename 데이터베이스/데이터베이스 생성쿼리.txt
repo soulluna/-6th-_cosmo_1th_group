@@ -45,8 +45,8 @@ constraint APP_FK1 foreign key(eno,ename,rank) REFERENCES EMPLOYEE(eno,ename,ran
 --게시판 메인 table
 create table NOTICE(
 txtnum number(3),
-txtname varchar2(100) not null,
-txtcont varchar2(1000) not null,
+txtname varchar2(300) not null,
+txtcont varchar2(3000) not null,
 entrydate date default sysdate,
 eno varchar2(20) not null, 
 ename varchar2(10) not null,
