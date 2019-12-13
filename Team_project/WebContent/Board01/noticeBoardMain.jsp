@@ -28,7 +28,7 @@
 <body>
 	<div class="fullWrap">
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
-		<h1>6기 1조 프로젝트 전체 게시판</h1>
+		<h1>6기 1조 프로젝트 게시판</h1>
 		<div class="side">
 			<a href="${contextPath}/Board/noticeBoardMain.do">
 				<div>전체</div>
