@@ -80,7 +80,6 @@ public class MainController extends HttpServlet {
 		System.out.println("action : " + action);
 		try {
 			if(action!=null&&action.equals("/login.do")) {//로그인 및 세션이 살아있는지 확인하는 구문
-				
 				HttpSession session = request.getSession(); //세션을 열어준다.
 				if(session.getAttribute("loginUser")!=null) { // 로그인 되어있는 상태면
 					System.out.println("세션 살아있음");
@@ -106,7 +105,7 @@ public class MainController extends HttpServlet {
 					if(result==-1) {//로그인 실패
 						String message="아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요";
 						System.out.println(message);
-						request.setAttribute("result", result);
+						request.setAttribute("result", 1);
 						nextPage = "/index.jsp";
 					}else { //로그인 성공
 						//각 사번에 해당하는 사원정보, 스캐쥴정보, 결재정보, 게시판 정보를 받아오기 위한 객체 생성
@@ -176,19 +175,46 @@ public class MainController extends HttpServlet {
 			}
 			else if(action.equals("/schdulDetail.do")) {
 				System.out.println("스캐쥴 상세보기 클릭");
-				DailySchdulDAO schDAO = new DailySchdulDAO();
-				DailySchdulVO schVO = schDAO.selectSchdul(request.getParameter("schnum"));
-				request.setAttribute("schVO", schVO);
-				nextPage = "/Main01/Schduler/schdularDetails.jsp";
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
+					DailySchdulDAO schDAO = new DailySchdulDAO();
+					DailySchdulVO schVO = schDAO.selectSchdul(request.getParameter("schnum"));
+					request.setAttribute("schVO", schVO);
+					nextPage = "/Main01/Schduler/schdularDetails.jsp";
+				}
 			}
 			else if(action.equals("/schedulWriteForm.do")) {
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				System.out.println("스캐쥴 작성하기 클릭");
 				nextPage = "/Main01/Schduler/SchdularWriteForm.jsp";
+				}
 			}
 			else if(action.equals("/schedulWrite.do")) {
 				System.out.println("스캐쥴 작성완료버튼 클릭");
 				HttpSession session = request.getSession();
 				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				DailySchdulVO schVO = new DailySchdulVO();
 				DailySchdulDAO schDAO = new DailySchdulDAO();
 				schVO.setEno(loginUser.getEno());
@@ -212,16 +238,36 @@ public class MainController extends HttpServlet {
 				schVO.setEndDate(endDate);			
 				schDAO.insertSchdul(schVO);
 				nextPage = "/Main/login.do";
+				}
 			}
 			else if(action.equals("/schdulDelete.do")) {
 				System.out.println("스캐쥴 삭제버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				String schnum=request.getParameter("schnum");
 				DailySchdulDAO schDAO = new DailySchdulDAO();
 				schDAO.deleteSchdul(schnum);
 				nextPage = "/Main/login.do";
+				}
 			}
 			else if(action.equals("/schdulUpdateForm.do")) {
 				System.out.println("스캐쥴 수정버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				DailySchdulDAO schDAO = new DailySchdulDAO();
 				DailySchdulVO schVO = schDAO.selectSchdul(request.getParameter("schnum"));
 				Timestamp startDate=schVO.getStartDate();
@@ -241,11 +287,19 @@ public class MainController extends HttpServlet {
 				request.setAttribute("endTime", endTime);
 				request.setAttribute("schVO", schVO);
 				nextPage = "/Main01/Schduler/schdularUpdateForm.jsp";
+				}
 			}
 			else if(action.equals("/schedulUpdate.do")) {
 				System.out.println("스캐쥴 수정완료 클릭");
 				HttpSession session = request.getSession();
 				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				DailySchdulVO schVO = new DailySchdulVO();
 				DailySchdulDAO schDAO = new DailySchdulDAO();
 				schVO.setEno(loginUser.getEno());
@@ -270,14 +324,34 @@ public class MainController extends HttpServlet {
 				schVO.setEndDate(endDate);
 				schDAO.updateSchdul(schVO);
 				nextPage = "/Main/login.do";
+				}
 			}
 			else if(action.equals("/pwdConfirmForm.do")) {//메인페이지 및 gnb에서 개인정보 수정버튼 클릭
 				System.out.println("비밀번호 수정버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				nextPage = "/Main01/member/confirm.jsp";
+				}
 
 			}
 			else if(action.equals("/pwdConfirm.do")) {//비밀번호 확인페이지에서 확인버튼 클릭
 				System.out.println("비밀번호 확인버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				nextPage = "/Main01/member/confirm.jsp";
 				String pwd = request.getParameter("pwd");
 				String eno = request.getParameter("eno");
@@ -297,13 +371,32 @@ public class MainController extends HttpServlet {
 				}
 				System.out.println("확인 페이지 체크여부 : "+checked);
 				System.out.println("결과 : "+result);
+				}
 			}
 			else if(action.equals("/pwdChangeForm.do")) {//정보수정 선택페이지에서 비밀번호 수정하기 클릭
 				System.out.println("비밀번호 수정하기 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				nextPage = "/Main01/member/pwd.jsp";
+				}
 			}
 			else if(action.equals("/pwdChange.do")) {
 				System.out.println("비밀번호 수정버튼 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+				}
+				else {
 				nextPage="/Main01/member/pwd.jsp";
 				String eno=request.getParameter("eno");
 				String pwd=request.getParameter("changePwd");
@@ -315,7 +408,6 @@ public class MainController extends HttpServlet {
 				int result=memberDAO.updatePwd(memberVO);
 				if(result==1) {
 					memberVO = memberDAO.getMember(eno);
-					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", memberVO);
 					nextPage="/Main01/member/select.jsp";
 				}
@@ -323,15 +415,33 @@ public class MainController extends HttpServlet {
 					request.setAttribute("result", result);
 				}
 				System.out.println("결과 : "+result);
+				}
 			}
 			else if(action.equals("/userInfoChangeForm.do")) {//정보수정 선택페이지에서 개인정보 수정하기 클릭
 				System.out.println("개인정보 수정하기 클릭");
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);
+					
+				}
+				else {
 				nextPage = "/Main01/member/change.jsp";
+				}
 			}
 			else if(action.equals("/userInfoChange.do")) {
 				System.out.println("정보수정완료 버튼 클릭");
-				nextPage="/Main01/member/change.jsp";
-				
+				HttpSession session = request.getSession();
+				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				if(loginUser==null) {
+					System.out.println("세션이 끊어짐");
+					nextPage = "/index.jsp";
+					request.setAttribute("result", 2);		
+				}
+				else {
+				nextPage="/Main01/member/change.jsp";		
 				MemberDAO memberDAO = MemberDAO.getInstance();
 				MemberVO memberVO = new MemberVO();
 				String eno=request.getParameter("eno");
@@ -348,7 +458,6 @@ public class MainController extends HttpServlet {
 				int result=memberDAO.UpdateUserInfo(memberVO);
 				if(result==1) {
 					memberVO = memberDAO.getMember(eno);
-					HttpSession session = request.getSession();
 					session.setAttribute("loginUser", memberVO);
 					nextPage="/Main01/member/select.jsp";
 				}
@@ -357,6 +466,7 @@ public class MainController extends HttpServlet {
 					nextPage = "/Main01/member/change.jsp";
 				}
 				System.out.println("결과 : "+result);
+				}
 			}
 			else { //그 외의 경우에는 로그인이 되어있는지 되어있지 않은지 세션을 이용하여 파악한 후, 로그인이 되어있으면 메인페이지로, 되어있지 않으면 로그인페이지로 이동
 				HttpSession session = request.getSession();
@@ -376,48 +486,5 @@ public class MainController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private Map<String, String> upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{//이미지를 위한 파일 업로드
-		Map<String, String> articleMap = new HashMap<String, String>();
-		String encoding = "utf-8";
-		File currentDirPath = new File(ARTICLE_IMAGE_PATH);
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		factory.setRepository(currentDirPath);
-		factory.setSizeThreshold(1024*1024);
-		ServletFileUpload upload = new ServletFileUpload(factory);
-
-		try {
-			List items = upload.parseRequest(request);
-			for(int i=0; i< items.size(); i++) {
-				FileItem fileItem = (FileItem)items.get(i);
-				if(fileItem.isFormField()) {
-					System.out.println(fileItem.getFieldName());
-					//					   	System.out.println(fileItem.getString(encoding));
-					articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
-				}else {
-					System.out.println(fileItem.getFieldName());
-					//				   		System.out.println(fileItem.getString(encoding));
-					System.out.println(fileItem.getSize());
-					if(fileItem.getSize()>0) {
-						int idx = fileItem.getName().lastIndexOf("\\"); //윈도우
-						if(idx==-1) {//리눅스나 유닉스
-							idx = fileItem.getName().lastIndexOf("/"); //윈도우
-						}
-						String fileName = fileItem.getName().substring(idx+1);
-						System.out.println(fileName);
-						articleMap.put(fileItem.getFieldName(), fileName);
-
-						File uploadFile = new File(currentDirPath+"\\"+fileName);
-						System.out.println(uploadFile);
-						fileItem.write(uploadFile);
-					}//end of Inner if
-				}//end of Outer if
-
-			}//end of for
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return articleMap;
 	}
 }

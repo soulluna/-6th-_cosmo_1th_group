@@ -8,10 +8,17 @@
    response.setContentType("text/html;utf-8");
 %>
 
-<c:if test='${result!=null}'>
+<c:if test='${result==1}'>
 	<script>
 		window.onload = function(){
 			alert("아이디 혹은 비밀번호가 잘못되었습니다. 다시 입력해주세요");
+		}
+	</script>
+</c:if>
+<c:if test='${restlt==2}'>
+	<script>
+		window.onload = function(){
+			alert("자동로그아웃되었습니다. 다시 로그인해주세요");
 		}
 	</script>
 </c:if>

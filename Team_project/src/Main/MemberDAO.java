@@ -43,7 +43,7 @@ public class MemberDAO {
 			case "2":
 				dname="인사부";
 			case "3":
-				dname="기술개발팀";
+				dname="기술개발부";
 			}
 			switch(dname_two) {
 			case "4":

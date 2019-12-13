@@ -68,6 +68,7 @@ public class BoardController extends HttpServlet {
 			HttpSession session = request.getSession();
 			MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 			if (loginUser == null) {
+				request.setAttribute("result", 2);
 				nextPage = "/index.jsp";
 			} else {
 				if (action != null && action.equals("/noticeBoardMain.do")) {// 전체게시글

@@ -19,7 +19,18 @@
 			<table id="memberinfo">
 				<tbody>
 					<tr>
-						<td id="profile_img" rowspan="2"><img src="http://placehold.it/70x70"></td>
+						<td id="profile_img" rowspan="2">
+						<c:choose>
+							<c:when test="${loginUser.dname=='영업부'}">
+								<img src="${contextPath}/img/sales.jpg">
+							</c:when>
+							<c:when test="${loginUser.dname=='인사부'}">
+								<img src="${contextPath}/img/workers.jpg">
+							</c:when>
+							<c:when test="${loginUser.dname=='기술개발부'}">
+								<img src="${contextPath}/img/development.jpg">
+							</c:when>
+						</c:choose>
 						<td colspan="2">${loginUser.ename}님 환영합니다.</td>
 					</tr>
 					<tr>
