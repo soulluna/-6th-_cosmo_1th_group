@@ -90,11 +90,11 @@
 							<td>${app.applist}</td>
 							<c:choose>
 								<c:when test="${app.applist=='기안서'}">
-									<td><a
+									<td class="ali_left"><a
 										href="${contextPath}/Approval/draftWait.do?txtnum=${app.txtnum}&pageNum=1">${app.txtname}</a></td>
 								</c:when>
 								<c:when test="${app.applist=='휴가신청서'}">
-									<td><a
+									<td class="ali_left"><a
 										href="${contextPath}/Approval/vacationWait.do?txtnum=${app.txtnum}&pageNum=1">${app.txtname}</a></td>
 								</c:when>
 							</c:choose>
@@ -127,7 +127,7 @@
 									<td>부서</td>
 								</c:when>
 							</c:choose>
-							<td><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=1">${board.txtname}</a></td>
+							<td class="ali_left"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=1">${board.txtname}</a></td>
 							<td>${board.ename}</td>
 						</tr>
 					</c:forEach>

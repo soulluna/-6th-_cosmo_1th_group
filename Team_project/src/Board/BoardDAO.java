@@ -760,7 +760,7 @@ public class BoardDAO {
 			pstmt = con.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				docMin = rs.getInt("max(txtnum)");
+				docMin = rs.getInt("min(txtnum)");
 			}
 			rs.close();
 			pstmt.close();
