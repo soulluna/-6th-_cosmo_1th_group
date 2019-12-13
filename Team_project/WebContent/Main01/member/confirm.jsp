@@ -33,7 +33,7 @@
 <body>
 	<form class="reg_form" action="${contextPath}/Main/pwdConfirm.do" onsubmit="return pwdConfirm();" method="post">
 		<div>
-			<img src="http://placehold.it/360x250">
+			<img src="${contextPath}/img/logo3.gif" width="360" height="250">
 		</div>
 		<span class="name" data-placeholder="비밀번호"></span>
 		<div id="alert">본인확인을 위해 비밀번호를 입력하세요.</div>

@@ -56,6 +56,7 @@ public class ApprovalController extends HttpServlet {
 
 			if (mVO == null) {
 				System.out.println("로그인 페이지로 ㄱㄱ");
+				request.setAttribute("result", 2);
 				nextPage = "/index.jsp";
 			} else {
 				if (action != null && action.equals("/docList.do")) {
