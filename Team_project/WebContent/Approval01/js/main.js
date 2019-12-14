@@ -1,3 +1,5 @@
+
+
 //오늘 날짜(-)
 function toDayInput() {
 	var year = new Date();
@@ -44,6 +46,7 @@ function docCancle() {
 var draftInputValue = new Array();
 var vacationInputValue = new Array();
 var draftModify = new Array();
+
 
 // draft.html 입력값 확인 및 문서 등록
 function draftCheck() {
@@ -127,7 +130,22 @@ $(document).ready(
 
 			thisfilefullname = docName();
 			console.log(thisfilefullname);
-
+			
+			var progress = document.getElementsByClassName('progress');
+			for (var i = 0; i < progress.length; i++) {
+				console.log(progress[i]);
+				if(progress[i].innerHTML == '반려1' || progress[i].innerHTML == '반려2'){
+					progress[i].style.color = 'red';
+				}else if(progress[i].innerHTML == '진행'){
+					progress[i].style.color = 'blue';
+				}else if(progress[i].innerHTML == '완료'){
+					progress[i].style.color = 'green';
+				}
+				
+			}
+			
+			
+			
 			// 문서목록 검색 타입 및 검색값 콘솔 확인
 			$(".search").on("click", function() {
 				var a = $("select[name=searchType] option:selected").val();

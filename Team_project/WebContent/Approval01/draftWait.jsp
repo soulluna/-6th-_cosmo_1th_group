@@ -120,12 +120,16 @@ function docDelete() {
 					<table class="signtableright" border="1">
 						<tr>
 							<th>${approvalVO.rank}</th>
+							<c:if test="${createdMidUser.rank!=null}">
 							<th>${createdMidUser.rank}</th>
+							</c:if>
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
 							<td style="vertical-align: top">${approvalVO.ename}<br> <span style="color: red;">[승인]</span>
 							</td>
+							
+							<c:if test="${createdMidUser.rank!=null}">
 							<td style="vertical-align: top">${createdMidUser.ename}<br>
 								<c:choose>
 									<c:when test="${approvalVO.progress == '대기'}">
@@ -143,6 +147,7 @@ function docDelete() {
 									</c:otherwise>
 								</c:choose>
 							</td>
+							</c:if>
 
 							<td style="vertical-align: top">${createdFinUser.ename}<br>
 								<c:choose>
@@ -161,7 +166,9 @@ function docDelete() {
 
 						<tr>
 							<td class="createdDayInput1">${approvalVO.entrydate}</td>
+							<c:if test="${createdMidUser.rank!=null}">
 							<td class="createdDayInput2">${approvalVO.middate}</td>
+							</c:if>
 							<td class="createdDayInput3">${approvalVO.findate}</td>
 						</tr>
 					</table>
@@ -187,7 +194,7 @@ function docDelete() {
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
 
 						<c:choose>
-							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && (approvalVO.progress == '대기' || approvalVO.progress == '반려1' || approvalVO.progress == '반려2')}">
 								<button type="button" onclick="docModify()">수정</button>
 							</c:when>
 							<c:otherwise>

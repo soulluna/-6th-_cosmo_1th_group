@@ -110,30 +110,33 @@ function docDelete() {
 					<table class="signtableright" border="1">
 						<tr>
 							<th>${approvalVO.rank}</th>
-							<th>${createdMidUser.rank}</th>
+							<c:if test="${createdMidUser.rank!=null}">
+								<th>${createdMidUser.rank}</th>
+							</c:if>
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
 							<td style="vertical-align: top">${approvalVO.ename}<br>
 								<span style="color: red;">[승인]</span>
 							</td>
-							<td style="vertical-align: top">${createdMidUser.ename}<br>
-								<c:choose>
-									<c:when test="${approvalVO.progress == '대기'}">
-										<span style="color: red;"></span>
-									</c:when>
-									<c:when test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
-										<span style="color: red;">[승인]</span>
-									</c:when>
-									<c:when test="${approvalVO.progress == '반려1'}">
-										<span style="color: red;">[반려]</span>
-									</c:when>
-									<c:otherwise>
-										<span style="color: red;"></span>
-									</c:otherwise>
-								</c:choose>
-							</td>
-
+							<c:if test="${createdMidUser.rank!=null}">
+								<td style="vertical-align: top">${createdMidUser.ename}<br>
+									<c:choose>
+										<c:when test="${approvalVO.progress == '대기'}">
+											<span style="color: red;"></span>
+										</c:when>
+										<c:when test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
+											<span style="color: red;">[승인]</span>
+										</c:when>
+										<c:when test="${approvalVO.progress == '반려1'}">
+											<span style="color: red;">[반려]</span>
+										</c:when>
+										<c:otherwise>
+											<span style="color: red;"></span>
+										</c:otherwise>
+									</c:choose>
+								</td>
+							</c:if>
 							<td style="vertical-align: top">${createdFinUser.ename}<br>
 								<c:choose>
 									<c:when test="${approvalVO.progress == '완료'}">
@@ -150,7 +153,9 @@ function docDelete() {
 						</tr>
 						<tr>
 							<td class="createdDayInput1">${approvalVO.entrydate}</td>
-							<td class="createdDayInput2">${approvalVO.middate}</td>
+							<c:if test="${createdMidUser.rank!=null}">
+								<td class="createdDayInput2">${approvalVO.middate}</td>
+							</c:if>
 							<td class="createdDayInput3">${approvalVO.findate}</td>
 						</tr>
 					</table>

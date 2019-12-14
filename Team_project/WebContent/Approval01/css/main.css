@@ -233,10 +233,7 @@ border-radius: 6px;
 font-weight: bold;
 }
 .inputarea div.bottomBt button:disabled,button[disabled]{
-  border: 1px solid #999999;
-  background-image: linear-gradient(-220deg,#808080,#808080);
-  color: #808080;
-  cursor: auto;
+  display:none;
 }
 
 

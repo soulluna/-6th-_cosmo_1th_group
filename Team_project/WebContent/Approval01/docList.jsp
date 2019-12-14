@@ -58,7 +58,8 @@
 					<th width="60px"><a href="${contextPath}/Approval/disRecSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
 					<th width="120px">결재종류</th>
 					<th width="80px"><a href="${contextPath}/Approval/docStateSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
-					<th width="700px">문서제목</th>
+					<th width="600px">문서제목</th>
+					<th width="100px">작성자</th>
 					<th width="100px"><a href="${contextPath}/Approval/docDaySort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
 				</tr>
 				<c:choose>
@@ -79,7 +80,7 @@
 									</c:otherwise>
 								</c:choose>
 								<td>${approval.applist}</td>
-								<td>${approval.progress}</td>
+								<td class="progress">${approval.progress}</td>
 								<c:choose>
 									<c:when test="${approval.applist == '기안서'}">
 										<td style="text-align: left;">
@@ -92,7 +93,7 @@
 										</td>
 									</c:when>
 								</c:choose>
-
+								<td>${approval.ename}</td>
 								<td>${approval.entrydate}</td>
 							</tr>
 						</c:forEach>

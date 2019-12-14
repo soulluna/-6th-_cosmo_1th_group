@@ -104,7 +104,9 @@
 					<table class="signtableright" border="1">
 						<tr>
 							<th>${loginUser.rank}</th>
+							<c:if test="${createdMidUser.rank!=null}">
 							<th>${createdMidUser.rank}</th>
+							</c:if>
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
@@ -114,12 +116,14 @@
 								<br>
 								<span style="color: red;"></span>
 							</td>
+							<c:if test="${createdMidUser.rank!=null}">
 							<td style="vertical-align: top">
 								<input type="text" name="midUser" style='width: 80px; text-align: center;' value="${createdMidUser.ename}" disabled>
 								<input type="hidden" name="midUser" style='width: 80px; text-align: center;' value="${createdMidUser.ename}">
 								<br>
 								<span style="color: red;"></span>
 							</td>
+							</c:if>
 							<td style="vertical-align: top">
 								<input type="text" name="finUser" style='width: 80px; text-align: center;' value="${createdFinUser.ename}" disabled>
 								<input type="hidden" name="finUser" style='width: 80px; text-align: center;' value="${createdFinUser.ename}">
@@ -129,7 +133,9 @@
 						</tr>
 						<tr>
 							<td></td>
+							<c:if test="${createdMidUser.rank!=null}">
 							<td></td>
+							</c:if>
 							<td></td>
 						</tr>
 					</table>

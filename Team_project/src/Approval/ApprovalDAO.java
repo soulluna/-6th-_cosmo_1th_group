@@ -43,7 +43,7 @@ public class ApprovalDAO {
 		try {
 
 			String query = "select * from(select rownum as rownum2, A.* from ";
-			query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
+			query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno, ENAME ";
 			query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
@@ -75,6 +75,7 @@ public class ApprovalDAO {
 				approvalVO.setEno(rs.getString("eno"));
 				approvalVO.setMideno(rs.getString("midsugesteno"));
 				approvalVO.setFineno(rs.getString("finsugesteno"));
+				approvalVO.setEname(rs.getString("ename"));
 
 				approvalList.add(approvalVO);
 			}
@@ -94,7 +95,7 @@ public class ApprovalDAO {
 			int rowNum2) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
+		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno, ENAME ";
 		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
@@ -145,6 +146,7 @@ public class ApprovalDAO {
 				approvalVO.setEno(eno);
 				approvalVO.setMideno(midsugesteno);
 				approvalVO.setFineno(finsugesteno);
+				approvalVO.setEname(rs.getString("ename"));
 				approvalList.add(approvalVO);
 			}
 
@@ -474,7 +476,7 @@ public class ApprovalDAO {
 	public void modifydraft(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
 		System.out.println("modifydraft");
-		String query = "update Approval set txtname=?, txtcont=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
+		String query = "update Approval set PROGRESS = '대기', MIDDATE = null, FINDATE = null, txtname=?, txtcont=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(dt);

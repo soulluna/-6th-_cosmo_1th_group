@@ -168,6 +168,7 @@ public class ApprovalController extends HttpServlet {
 
 					MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
 					MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
+					System.out.println(createdMidUser);
 					request.setAttribute("createdMidUser", createdMidUser);
 					request.setAttribute("createdFinUser", createdFinUser);
 					nextPage = "/Approval01/draft.jsp";
