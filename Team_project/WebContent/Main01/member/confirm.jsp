@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html;utf-8");
 %>
-<c:if test='${result!=null}'>
+<c:if test='${result==1}'>
 	<script>
 		window.onload = function(){
 			alert("비밀번호가 잘못되었습니다. 다시 입력해주세요");

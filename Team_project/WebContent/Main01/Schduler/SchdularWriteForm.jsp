@@ -26,18 +26,45 @@
 <link rel="stylesheet" href="${contextPath}/Approval01/css/jquery-ui.css" />
 <script src="${contextPath}/Main01/Schduler/js/main.js"></script>
 <script>
-function viewValue(){
-	var value1=document.frm.startTime.value;
-	var value2=document.frm.endTime.value;
-	var startTime = new Date(value1);
-	console.log(startTime);
-	var endTime = new Date(value2);
-	console.log(endTime);
+function compareDate(){
+	var startDate1=document.frm.startDate.value;
+	var endDate1=document.frm.endDate.value;
+	var startDate = startDate1.split('-');
+	var endDate = endDate1.split('-');
+	var spd="";
+	var spd2="";
+	for(var i in startDate){//시작날짜와 종료날짜를 비교하기 위해 숫자로 변환 후 크기비교
+		spd+=startDate[i];
+		spd2+=endDate[i];
+	}
+	sla=Number(spd);
+	sla2=Number(spd2);
+	if(spd>spd2){
+		alert("종료날짜는 시작날짜보다 이전일 수 없습니다.");
+	}
+}
+function compareTime(){
+	var startTime1=document.frm.startTime.value;
+	var endTime1=document.frm.endTime.value;
+	var startTime = startTime1.split(':');
+	var endTime = endTime1.split(':');
+	var spt="";
+	var spt2="";
+	for(var j in startTime){
+		spt+=startTime[j];
+		spt2+=endTime[j];
+	}
+	spt=Number(spt);
+	spt2=Number(spt2);
+	if(spt>spt2){
+		alert("종료시간은 시작시간보다 이전일 수 없습니다.");
+	}	
 }
 function schWrite(url){
 	var startDate = document.frm.startDate.value;
 	var endDate = document.frm.endDate.value;
-	
+	compareDate();
+	compareTime();
 	if(document.frm.schname.value==""){
 		alert("스캐쥴명을 입력하지 않았습니다.");
 		document.frm.schname.focus();
@@ -92,8 +119,8 @@ function schWrite(url){
 		</div>
 		<div class="secb">
 			<span class="name">종료시간</span>
-			<input class="dateb" id="datepicker2" type="text" name="endDate">
-			<input class="dateb" type="time" name="endTime" onBlur="viewValue();">
+			<input class="dateb" id="datepicker2" type="text" name="endDate" onBlur="compareDate();">
+			<input class="dateb" type="time" name="endTime" onBlur="compareTime();">
 		</div>
 		<input type="button" class="reg_submit" value="작성하기" onclick="schWrite('${contextPath}')">
 		<input type="button" class="cancel" value="돌아가기" onclick="location.href='${contextPath}/Main/login.do'">

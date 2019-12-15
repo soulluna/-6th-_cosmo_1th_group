@@ -35,10 +35,6 @@
 				<table id="info_table">
 					<tbody class="filebox">
 						<tr>
-							<td rowspan="4" align="center">
-								<img src="http://placehold.it/120x150" id="imgPreview" width="120"height="150"><br> 
-								<input type="file" id="img" onchange="showImagePreview(this);"> <label for="img">첨부</label>
-							</td>
 							<td class="text_info">사번</td>
 							<td><input type="text" name="eno" readonly value="${loginUser.eno}"></td>
 							<td class="text_info">부서</td>
@@ -98,9 +94,9 @@
 						</tr>
 						<tr>
 							<td class="text_info">이름</td>
-							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${loginUser.ename}"></td>
+							<td><input type="text" id="userName" name="ename" placeholder="한글만 입력해주세요" value="${loginUser.ename}" readonly></td>
 							<td class="text_info">영문이름</td>
-							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${loginUser.eng_name}"></td>
+							<td><input type="text" id="engName" name="eng_name" placeholder="영문만 입력해주세요" value="${loginUser.eng_name}" readonly></td>
 						</tr>
 						<tr>
 							<td class="text_info">연락처</td>

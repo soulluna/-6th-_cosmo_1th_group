@@ -77,7 +77,7 @@ function validate() {
 function cancel(){
     var check=confirm("취소시 수정사항은 반영되지 않습니다.");
     if(check){
-    	location.href = "pwdConfirm.do?checked=checked";
+    	location.href = "pwdConfirm.do?checked=checked&result=2";
     }
 }
 

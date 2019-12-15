@@ -192,4 +192,46 @@ public class DailySchdulDAO {
 			}
 		}
 	}
+	public List<DailySchdulVO> listScadul(MemberVO memberVO, String getDate) {
+		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
+		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by schnum desc) where rownum<10";
+		System.out.println(sql);
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs= null;
+		try {
+			conn = getConnection();
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, memberVO.getEno());
+			pstmt.setString(2, getDate+" 00:00:00");
+			pstmt.setString(3, getDate+" 23:59:00");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				DailySchdulVO dsVO = new DailySchdulVO();
+				dsVO.setSchnum(rs.getInt("schnum"));
+				dsVO.setStartDate(rs.getTimestamp("startdate"));
+				dsVO.setEndDate(rs.getTimestamp("enddate"));
+				dsVO.setSchname(rs.getString("schname"));
+				dsVO.setSchcont(rs.getString("schcont"));
+				dsVO.setEno(rs.getString("eno"));
+				dsVO.setEname(rs.getString("ename"));
+				dsVO.setRank(rs.getString("rank"));
+				scadulList.add(dsVO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null)
+					rs.close();
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			} 
+		}
+		return scadulList;
+	}
 }

@@ -47,10 +47,11 @@ function drawDays() {
 	$("#cal_top_year").text(year);
 	$("#cal_top_month").text(month);
 	for (var i = firstDay.getDay(); i < firstDay.getDay() + lastDay.getDate(); i++) {
-		$tdDay.eq(i).text(++dayCount);
+		$tdDay.eq(i).html("<a href='javascript:void(0);' onclick='getDayScadul("+year+","+month+","+(dayCount)+");' class='black'>"+(++dayCount)+"</a>");
+		$tdDay.eq(i).css("color","black");
 		// console.log(dayCount);
 		// console.log(month);
-		if (myDate == dayCount&&month==today.getMonth()+1) {
+		if (myDate == dayCount&&month==today.getMonth()+1&&year==today.getFullYear()) {
 			$tdDay.eq(i).parent().css("background-color", "#FAF58C");
 		}
 		else{
@@ -58,10 +59,10 @@ function drawDays() {
 		}
 	}
 	for (var i = 0; i < 42; i += 7) {
-		$tdDay.eq(i).css("color", "red");
+		$tdDay.eq(i).children().css("color", "red");
 	}
 	for (var i = 6; i < 42; i += 7) {
-		$tdDay.eq(i).css("color", "blue");
+		$tdDay.eq(i).children().css("color", "blue");
 	}
 }
 //calendar 월 이동

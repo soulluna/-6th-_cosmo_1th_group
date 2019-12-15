@@ -17,3 +17,6 @@ table.calendar td{
     border: 1px solid skyblue;
     width: 50px;
 }
+.cal-day a.black{
+	color : black;
+}

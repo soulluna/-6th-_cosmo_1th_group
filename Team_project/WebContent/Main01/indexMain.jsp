@@ -27,6 +27,19 @@
 <link rel="stylesheet" href="${contextPath}/Main01/css/calander.css" />
 <script src="${contextPath}/Main01/js/calander.js"></script>
 <script src="${contextPath}/Main01/js/main.js"></script>
+<script>
+	function getDayScadul(year,month,day){
+		day+=1;
+		if(month<10){
+			month="0"+month;
+		}
+		if(day<10){
+			day="0"+day;
+		}
+		var toString=year+"-"+month+"-"+day;
+		location.href='${contextPath}/Main/login.do?date='+toString;
+	}
+</script>
 </head>
 <body>
 	<form class="fullWrap">
@@ -42,18 +55,23 @@
 						class="cal_tit"><a id="moveNextMonth"
 						onclick="moveNextMonth();">Next</a></span>
 				</div>
+				<c:if test="${scadulList!=null}">
 				<div id="cal_tab" class="cal"></div>
+				</c:if>
 			</div>
 			<div class="scadule">
-				<table class="ListTable" border="1">
-					<c:if test="${scadulList==null}">
-						<h3>없다구</h3>
-					</c:if>
+			<h2 class="bold">스캐쥴러</h2>
+				<table class="ListTable" border="1">	
 					<tr>
 						<th>일정</th>
 						<th>시작시간</th>
 						<th>종료시간</th>
 					</tr>
+					<c:if test="${scadulList.size()==0}">
+					<tr>
+						<td colspan="3" style="align : center;">스캐줄이 없습니다.</td>
+					</tr>
+					</c:if>
 					<c:forEach items="${scadulList}" var="schdul">
 						<tr>
 							<td><a href="#"
@@ -68,6 +86,8 @@
 				<div id="buttons">
 					<input type="button" value="스캐쥴 작성"
 						onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
+					<input type="button" value="스캐쥴 전체보기"
+						onclick="location.href='${contextPath}/Main/login.do'" style="float : right; margin-right : 20px;">
 				</div>
 			</div>
 		</div>

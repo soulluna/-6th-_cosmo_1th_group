@@ -84,15 +84,22 @@ public class MainController extends HttpServlet {
 				if(session.getAttribute("loginUser")!=null) { // 로그인 되어있는 상태면
 					System.out.println("세션 살아있음");
 					MemberVO memberVO = (MemberVO) session.getAttribute("loginUser");
+					String getDate=request.getParameter("date");
 					ApprovalService approvalService = new ApprovalService();
 					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 					Boardservice boardService = new Boardservice();
+					List<DailySchdulVO> schdulList=null;
+					if(getDate!=null) {
+						schdulList=dailyScadulDAO.listScadul(memberVO,getDate);
+					}
+					else {
+						schdulList = dailyScadulDAO.listScadul(memberVO);
+					}
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
-					List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
 					List<BoardVO> boardList = boardService.selectAllBoards10();
 					session.setAttribute("loginUser", memberVO);
 					request.setAttribute("appList", appList);
-					request.setAttribute("scadulList", scadulList);
+					request.setAttribute("scadulList", schdulList);
 					request.setAttribute("boardList", boardList);
 					nextPage = "/Main01/indexMain.jsp";
 				}
@@ -181,7 +188,6 @@ public class MainController extends HttpServlet {
 					System.out.println("세션이 끊어짐");
 					nextPage = "/index.jsp";
 					request.setAttribute("result", 2);
-					
 				}
 				else {
 					DailySchdulDAO schDAO = new DailySchdulDAO();
@@ -197,7 +203,6 @@ public class MainController extends HttpServlet {
 					System.out.println("세션이 끊어짐");
 					nextPage = "/index.jsp";
 					request.setAttribute("result", 2);
-					
 				}
 				else {
 				System.out.println("스캐쥴 작성하기 클릭");
@@ -334,7 +339,6 @@ public class MainController extends HttpServlet {
 					System.out.println("세션이 끊어짐");
 					nextPage = "/index.jsp";
 					request.setAttribute("result", 2);
-					
 				}
 				else {
 				nextPage = "/Main01/member/confirm.jsp";
@@ -345,17 +349,20 @@ public class MainController extends HttpServlet {
 				System.out.println("비밀번호 확인버튼 클릭");
 				HttpSession session = request.getSession();
 				MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+				String pwd = request.getParameter("pwd");
+				String eno = request.getParameter("eno");
+				String checked=request.getParameter("checked");
 				if(loginUser==null) {
 					System.out.println("세션이 끊어짐");
 					nextPage = "/index.jsp";
 					request.setAttribute("result", 2);
-					
+				}
+				else if(checked!=null) {
+					System.out.println("비밀번호 확인 완료됨");
+					nextPage = "/Main01/member/select.jsp";
 				}
 				else {
 				nextPage = "/Main01/member/confirm.jsp";
-				String pwd = request.getParameter("pwd");
-				String eno = request.getParameter("eno");
-				String checked=null;
 				System.out.println(eno+"   "+pwd);
 				MemberDAO memberDAO = MemberDAO.getInstance(); //eno와 pwd를 담을 객체생성
 				//System.out.println(eno);
@@ -367,7 +374,7 @@ public class MainController extends HttpServlet {
 				}
 				else {
 					nextPage = "/Main01/member/confirm.jsp";
-					request.setAttribute("result",result);
+					request.setAttribute("result",1);
 				}
 				System.out.println("확인 페이지 체크여부 : "+checked);
 				System.out.println("결과 : "+result);
