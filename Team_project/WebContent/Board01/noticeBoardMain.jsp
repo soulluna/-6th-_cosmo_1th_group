@@ -150,7 +150,7 @@
 			<div class="gkeks">
 				<select class="tpqn" name="searchType">
 					<option value="1">제목</option>
-					<option value="2">제목+내용</option>
+					<option value="2">내용</option>
 					<option value="3">작성자</option>
 				</select>
 				<div class="rjator">

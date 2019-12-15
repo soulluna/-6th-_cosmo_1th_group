@@ -116,7 +116,7 @@ public class BoardDAO {
 			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
-						+ " from NOTICE p2 where txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " from NOTICE p2 where txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
@@ -176,7 +176,7 @@ public class BoardDAO {
 			} else if (searchType.equals("2")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
 						+ " (select rownum as rownum1, txtnum, txtname, txtcont, ename, noticeList, entrydate, viewtotal, likenum,(select count(txtnum) from commenttb p1 where p1.txtnum=p2.txtnum) as comcount"
-						+ " from NOTICE p2 where noticeList=? and txtname like ? or txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
+						+ " from NOTICE p2 where noticeList=? and txtcont like ? order by txtnum desc) a) where rownum2 between ? and ?";
 
 			} else if (searchType.equals("3")) {
 				query ="select * from(select rownum as rownum2 , a.* from" 
