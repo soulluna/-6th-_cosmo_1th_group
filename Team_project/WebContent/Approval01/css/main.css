@@ -50,14 +50,20 @@ body{
 /*docList.html*/
 /*문서 종류, 검색값, 검색 버튼*/
 .content .deptContent{
-    /* margin:15px 150px; */
+    
+    margin : 0 auto;
     margin-top:50px;
     position: absolute;
     left: 50%;
     transform : translate(-50%);
-    width:1060px;
+    width:1150px;
     height:715px;
 }
+
+.deptContent>div>form {
+	margin-left: 50px;
+}
+
 .deptContent select{
     height:30px; outline: none;
 }
@@ -70,7 +76,8 @@ body{
     table-layout: fixed;
     text-align: center;
     border: 1px inset #52a7e0;
-    border-collapse: collapse; margin:10px 0
+    border-collapse: collapse;
+    margin:10px 0 10px 50px;
 }
 
 .docListTable th A:link {text-decoration:none; color:white;}
@@ -105,7 +112,7 @@ body{
 }
 .deptContent .docCreate{
     /* position:absolute; right:-10px; top:5px; padding:5px; */
-    position:absolute; right:0px; padding:5px;
+    position:absolute; right:70px; padding:5px;
 }
 
 .bottomNumber{
@@ -187,6 +194,11 @@ body{
 .content .signtable > .signtableright tr:nth-child(2) {
     height:50px
 }
+
+
+.side{margin-top: 80px; margin-left: -30px; float: left; position: absolute; font-size: 20px;}
+.side>a>div{padding: 11px; width: 50px; height: 50px; border:1px solid black;text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e); font-size: 18px; color: white}
+
 
 /*제목 및 등록 수정 버튼 등*/
 .inputarea{

@@ -21,6 +21,7 @@ public class ApprovalDAO {
 	private int sortList1Num = 0;
 	private int sortList2Num = 0;
 	private int sortList3Num = 0;
+
 	public ApprovalDAO() {
 		try {
 			// 커넥션풀 사용
@@ -37,93 +38,72 @@ public class ApprovalDAO {
 
 	}
 
-	// 전체 글 목록 조회
-	public List<ApprovalVO> selectAllApproval(MemberVO mVO, int rowNum1, int rowNum2) {
+	// 목록 가져오기
+	public List<ApprovalVO> selectAllApproval(MemberVO mVO, String searchType, String searchKey, String sendReceive,
+			int rowNum1, int rowNum2) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		try {
+		String query = "";
 
-			String query = "select * from(select rownum as rownum2, A.* from ";
-			query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno, ENAME ";
-			query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
-			query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-			query += "where rownum2 between ? and ?";
-
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 9; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-
-			pstmt.setInt(10, rowNum1); // 1 16
-			pstmt.setInt(11, rowNum2); // 15 30
-
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-				approvalVO.setEname(rs.getString("ename"));
-
-				approvalList.add(approvalVO);
-			}
-
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	// 검색 목록 가져오기
-	public List<ApprovalVO> selectAllApproval(MemberVO mVO, String searchType, String searchKey, int rowNum1,
-			int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno, ENAME ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
 		try {
 			con = dataFactory.getConnection();
 			System.out.println(searchType);
 			System.out.println(searchKey);
 
+			query = "select * from(select rownum as rownum2, A.* from ";
+			query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno, ENAME ";
+			query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
+
 			if (searchType.equals("1")) {
-				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
+				query += "and txtname like '%'||?||'%' ";
 
 			} else if (searchType.equals("2")) {
-				query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
+				query += "and TXTCONT like '%'||?||'%' ";
 			}
+
+			if (sendReceive.equals("발신")) {
+				query += "and eno like '%'||?||'%' ";
+
+			} else if (sendReceive.equals("수신")) {
+				query += "and eno not like '%'||?||'%' ";
+			}
+
+			query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
+			query += "where rownum2 between ? and ?";
 
 			pstmt = con.prepareStatement(query);
 
 			for (int i = 1; i <= 8; i++) {
 				pstmt.setString(i, mVO.getEno());
 			}
-			pstmt.setString(9, "%" + searchKey + "%");
-			pstmt.setString(10, mVO.getEno());
-			pstmt.setInt(11, rowNum1); // 1 16
-			pstmt.setInt(12, rowNum2); // 15 30
+			if (searchType.equals("")) {
+				if (sendReceive.equals("")) {
+					pstmt.setString(9, mVO.getEno());
+					pstmt.setInt(10, rowNum1); // 1 16
+					pstmt.setInt(11, rowNum2); // 15 30
+				} else {
+					pstmt.setString(9, mVO.getEno());
+					pstmt.setString(10, mVO.getEno());
+					pstmt.setInt(11, rowNum1); // 1 16
+					pstmt.setInt(12, rowNum2); // 15 30
+				}
+			} else {
+				pstmt.setString(9, searchKey);
+				if (sendReceive.equals("")) {
+					pstmt.setString(10, mVO.getEno());
+					pstmt.setInt(11, rowNum1); // 1 16
+					pstmt.setInt(12, rowNum2); // 15 30
+				} else {
+					pstmt.setString(10, mVO.getEno());
+					pstmt.setString(11, mVO.getEno());
+					pstmt.setInt(12, rowNum1); // 1 16
+					pstmt.setInt(13, rowNum2); // 15 30
+				}
+
+			}
+
 			ResultSet rs = pstmt.executeQuery();
 
 			// 첫 번째 목록부터
@@ -690,387 +670,6 @@ public class ApprovalDAO {
 		}
 	}
 
-	// 수신발신 정렬
-	public List<ApprovalVO> sortList1(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-		query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
-		try {
-			if (sortList1Num == 0) {
-				query += "order by (CASE WHEN eno!=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList1Num = 1;
-
-			} else if (sortList1Num == 1) {
-				query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList1Num = 0;
-			}
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 9; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-
-			pstmt.setInt(10, rowNum1);
-			pstmt.setInt(11, rowNum2);
-
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	public List<ApprovalVO> sortList1(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-
-		try {
-			if (searchType.equals("1")) {
-				if (sortList1Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by (CASE WHEN eno!=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList1Num = 1;
-				} else if (sortList1Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList1Num = 0;
-				}
-			} else if (searchType.equals("2")) {
-				if (sortList1Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by (CASE WHEN eno!=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList1Num = 1;
-				} else if (sortList1Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList1Num = 0;
-				}
-			}
-
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 8; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-			pstmt.setString(9, "%" + searchKey + "%");
-			pstmt.setString(10, mVO.getEno());
-			pstmt.setInt(11, rowNum1);
-			pstmt.setInt(12, rowNum2);
-
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	public List<ApprovalVO> sortList2(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-		query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
-		try {
-			if (sortList2Num == 0) {
-				query += "order by DECODE (PROGRESS, '대기', 5, '진행', 4, '반려1', 3, '반려2', 2, '완료', 1), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList2Num = 1;
-			} else if (sortList2Num == 1) {
-				query += "order by DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList2Num = 0;
-			}
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 9; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-			pstmt.setInt(10, rowNum1);
-			pstmt.setInt(11, rowNum2);
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	public List<ApprovalVO> sortList2(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-
-		try {
-			if (searchType.equals("1")) {
-				if (sortList2Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by DECODE (PROGRESS, '대기', 5, '진행', 4, '반려1', 3, '반려2', 2, '완료', 1), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList2Num = 1;
-				} else if (sortList2Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList2Num = 0;
-				}
-			}
-			if (searchType.equals("2")) {
-				if (sortList2Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by DECODE (PROGRESS, '대기', 5, '진행', 4, '반려1', 3, '반려2', 2, '완료', 1), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList2Num = 1;
-				} else if (sortList2Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), (CASE WHEN eno=? THEN 1 ELSE 2 END), ENTRYDATE desc) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList2Num = 0;
-				}
-			}
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 8; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-			pstmt.setString(9, "%" + searchKey + "%");
-			pstmt.setString(10, mVO.getEno());
-			pstmt.setInt(11, rowNum1);
-			pstmt.setInt(12, rowNum2);
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	public List<ApprovalVO> sortList3(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-
-		try {
-			if (searchType.equals("1")) {
-				if (sortList3Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by ENTRYDATE, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList3Num = 1;
-				} else if (sortList3Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
-					query += "order by ENTRYDATE desc, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList3Num = 0;
-				}
-			} else if (searchType.equals("2")) {
-				if (sortList3Num == 0) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by ENTRYDATE, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList3Num = 1;
-				} else if (sortList3Num == 1) {
-					query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
-					query += "order by ENTRYDATE desc, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-					query += "where rownum2 between ? and ?";
-					sortList3Num = 0;
-				}
-			}
-
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 8; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-			pstmt.setString(9, "%" + searchKey + "%");
-			pstmt.setString(10, mVO.getEno());
-			pstmt.setInt(11, rowNum1);
-			pstmt.setInt(12, rowNum2);
-
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
-	public List<ApprovalVO> sortList3(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
-		String query = "select * from(select rownum as rownum2, A.* from ";
-		query += "(select rownum as rownum1, applist, progress, txtnum, txtname, entrydate, eno, midsugesteno, finsugesteno ";
-		query += "from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-		query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
-		try {
-			if (sortList3Num == 0) {
-				query += "order by ENTRYDATE, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList3Num = 1;
-			} else if (sortList3Num == 1) {
-				query += "order by ENTRYDATE desc, (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5)) A) ";
-				query += "where rownum2 between ? and ?";
-				sortList3Num = 0;
-			}
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 9; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-			pstmt.setInt(10, rowNum1);
-			pstmt.setInt(11, rowNum2);
-			ResultSet rs = pstmt.executeQuery();
-
-			// 첫 번째 목록부터
-			while (rs.next()) {
-				// 값을 가져옴
-				ApprovalVO approvalVO = new ApprovalVO();
-
-				approvalVO.setApplist(rs.getString("applist"));
-				approvalVO.setProgress(rs.getString("progress"));
-				approvalVO.setTxtnum(rs.getInt("txtnum"));
-				approvalVO.setTxtname(rs.getString("txtname"));
-				approvalVO.setEntrydate(rs.getDate("entrydate"));
-				approvalVO.setEno(rs.getString("eno"));
-				approvalVO.setMideno(rs.getString("midsugesteno"));
-				approvalVO.setFineno(rs.getString("finsugesteno"));
-
-				approvalList.add(approvalVO);
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return approvalList;
-	}
-
 	// 메인 문서 15개
 	public ArrayList<ApprovalVO> listMain10(MemberVO mVO) {
 		ArrayList<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
@@ -1119,50 +718,33 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
-	// 전체 글 수
-	public int countAllDoc(MemberVO mVO) {
-		// TODO Auto-generated method stub
-		int docMax = 0;
-		String query = "select count(*) from Approval where eno= (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-		query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-		query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))";
-
-		try {
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 8; i++) {
-				pstmt.setString(i, mVO.getEno());
-			}
-
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				docMax = rs.getInt("count(*)");
-			}
-			rs.close();
-			pstmt.close();
-			con.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return docMax;
-	}
-
-	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey) {
+	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey, String sendReceive) {
 		// TODO Auto-generated method stub
 		int docMax = 0;
 		String query = null;
-		if (searchType.equals("1")) {
+		if (searchType.equals("")) {
 			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and applist like ? ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
+
+		} else if (searchType.equals("1")) {
+			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
+			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like '%'||?||'%' ";
 
 		} else if (searchType.equals("2")) {
 			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like ? ";
+			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and TXTCONT like '%'||?||'%' ";
+		}
+
+		if (sendReceive.equals("발신")) {
+			query += "and eno like '%'||?||'%' ";
+		} else if (sendReceive.equals("수신")) {
+			query += "and eno not like '%'||?||'%' ";
 		}
 
 		try {
@@ -1171,7 +753,17 @@ public class ApprovalDAO {
 			for (int i = 1; i <= 8; i++) {
 				pstmt.setString(i, mVO.getEno());
 			}
-			pstmt.setString(9, "%" + searchKey + "%");
+
+			if (searchType.equals("")) {
+				if (!sendReceive.equals("")) {
+					pstmt.setString(9, mVO.getEno());
+				}
+			} else {
+				pstmt.setString(9, searchKey);
+				if (!sendReceive.equals("")) {
+					pstmt.setString(10, mVO.getEno());
+				}
+			}
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {

@@ -15,16 +15,10 @@ public class ApprovalService {
 		approvalDAO = new ApprovalDAO();
 	}
 
-	// 그냥 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, rowNum1, rowNum2);
-		return approvallist;
-	}
-
-	// 검색어 있을 때 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
+	// 문서 출력
+	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey, String sendReceive, int rowNum1, int rowNum2) {
 		System.out.println("listApproval(매개변수) : " + searchType + ", " + searchKey);
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey, rowNum1, rowNum2);
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey, sendReceive, rowNum1, rowNum2);
 		return approvallist;
 	}
 
@@ -33,11 +27,6 @@ public class ApprovalService {
 		ApprovalVO approval = approvalDAO.selectDraft(txtnum);
 		return approval;
 	}
-
-	/*
-	 * //기안서 정보 public ApprovalVO writerdraft(int txtnum, long eno) { ApprovalVO
-	 * approval = approvalDAO.writerInfomation(txtnum, eno); return approval; }
-	 */
 
 	// 휴가신청서 보기
 	public ApprovalVO viewvacation(int txtnum) {
@@ -126,45 +115,6 @@ public class ApprovalService {
 		approvalDAO.modifyvacation(aVO, txtnum);
 	}
 
-	// 수신발신 정렬
-	public List<ApprovalVO> listSort1(MemberVO mVO, int rowNum1, int rowNum2) {
-		// TODO Auto-generated method stub
-		List<ApprovalVO> approvallist = approvalDAO.sortList1(mVO, rowNum1, rowNum2);
-		return approvallist;
-
-	}
-
-	// 수신발신 검색 정렬
-	public List<ApprovalVO> listSort1(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		// TODO Auto-generated method stub
-		List<ApprovalVO> approvallist = approvalDAO.sortList1(mVO, searchType, searchKey, rowNum1, rowNum2);
-		return approvallist;
-	}
-
-	// 문서 상태 정렬
-	public List<ApprovalVO> listSort2(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvallist = approvalDAO.sortList2(mVO, rowNum1, rowNum2);
-		return approvallist;
-	}
-
-	// 문서 상태 검색 정렬
-	public List<ApprovalVO> listSort2(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvallist = approvalDAO.sortList2(mVO, searchType, searchKey, rowNum1, rowNum2);
-		return approvallist;
-	}
-
-	// 문서 날짜 정렬
-	public List<ApprovalVO> listSort3(MemberVO mVO, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvallist = approvalDAO.sortList3(mVO, rowNum1, rowNum2);
-		return approvallist;
-	}
-
-	// 문서 날짜 검색 정렬
-	public List<ApprovalVO> listSort3(MemberVO mVO, String searchType, String searchKey, int rowNum1, int rowNum2) {
-		List<ApprovalVO> approvallist = approvalDAO.sortList3(mVO, searchType, searchKey, rowNum1, rowNum2);
-		return approvallist;
-	}
-
 	// 메인 문서 10개
 	public List<ApprovalVO> mainList10(MemberVO mVO) {
 		List<ApprovalVO> approvallist = approvalDAO.listMain10(mVO);
@@ -172,15 +122,9 @@ public class ApprovalService {
 	}
 
 	// 글 개수 조회
-	public int docAllCount(MemberVO mVO) {
+	public int docSearchCount(MemberVO mVO, String searchType, String searchKey, String sendReceive) {
 		// TODO Auto-generated method stub
-		return approvalDAO.countAllDoc(mVO);
-	}
-
-	// 검색 시 글 개수 조회
-	public int docSearchCount(MemberVO mVO, String searchType, String searchKey) {
-		// TODO Auto-generated method stub
-		return approvalDAO.countSearchDoc(mVO, searchType, searchKey);
+		return approvalDAO.countSearchDoc(mVO, searchType, searchKey, sendReceive);
 	}
 
 }

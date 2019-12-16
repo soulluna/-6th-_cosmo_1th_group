@@ -41,44 +41,44 @@
 			<div>
 				<form>
 					<select name="searchType">
-						<option value="1" selected="">결재종류</option>
-						<option value="2">문서제목</option>
+						<option value="1" selected="">문서제목</option>
+						<option value="2">문서내용</option>
 					</select>
 					<input type="text" class="searchInput" name="searchKey" />
 					<input type="submit" class="search" value="검색" style="height: 30px;" onclick="docListSearchCheck()" />
-					<%-- <input type="text" name="searchType" value="${searchType}"/>
-					<input type="text" name="searchKey" value="${searchKey}"/> --%>
+					<input type="text" name="sendReceive" value="${sendReceive}" />
 				</form>
 			</div>
 			<!--//문서종류, 검색값, 검색버튼-->
+			
+			<div class="side">
+				<a href="${contextPath}/Approval/docList.do?sendReceive=수신">
+					<div>수신</div>
+				</a> <a href="${contextPath}/Approval/docList.do?sendReceive=발신">
+					<div>발신</div>
+				</a>
+			</div>
 
 			<!--문서 목록표-->
 			<table class="docListTable" border="1">
 				<tr>
-					<th width="60px"><a href="${contextPath}/Approval/disRecSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">수/발신</a></th>
+					<th width="80px">문서번호</th>
 					<th width="120px">결재종류</th>
-					<th width="80px"><a href="${contextPath}/Approval/docStateSort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">결재상태</a></th>
-					<th width="600px">문서제목</th>
+					<th width="80px">결재상태</th>
+					<th width="500px">문서제목</th>
 					<th width="100px">작성자</th>
-					<th width="100px"><a href="${contextPath}/Approval/docDaySort.do?pageNum=${pagingMap.pageNum}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">등록일자</a></th>
+					<th width="100px">등록일자</th>
 				</tr>
 				<c:choose>
 					<c:when test="${approvalList.size()==0}">
 						<tr>
-							<td colspan="5">검색 결과가 없습니다.</td>
+							<td colspan="6">검색 결과가 없습니다.</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${approvalList}" var="approval" varStatus="15">
 							<tr>
-								<c:choose>
-									<c:when test="${approval.eno==loginUser.eno}">
-										<td>발신</td>
-									</c:when>
-									<c:otherwise>
-										<td>수신</td>
-									</c:otherwise>
-								</c:choose>
+								<td>${approval.txtnum}</td>
 								<td>${approval.applist}</td>
 								<td class="progress">${approval.progress}</td>
 								<c:choose>
@@ -106,19 +106,19 @@
 					<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5-4}&pageSession=${pagingMap.pageSessionNum-1}&searchType=${searchType}&searchKey=${searchKey}">이전</a>
 				</c:if>
 
+				<!-- 페이징 숫자 -->
 				<c:forEach var="page" begin="${(pagingMap.pageSessionNum-1)*5+1}" end="${pagingMap.pageSessionNum*5}">
 					<c:choose>
 						<c:when test="${pagingMap.pageNum == page}">
-							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}" style="color: red">${page}</a>
+							<a href="${contextPath}/Approval/docList.do?sendReceive=${sendReceive}&pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}" style="color: red">${page}</a>
 						</c:when>
-
 						<c:when test="${page <= pagingMap.maxPageNum}">
-							<a href="${contextPath}/Approval/docList.do?pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
+							<a href="${contextPath}/Approval/docList.do?sendReceive=${sendReceive}&pageNum=${page}&pageSession=${pagingMap.pageSessionNum}&searchType=${searchType}&searchKey=${searchKey}">${page}</a>
 						</c:when>
-
 					</c:choose>
 
 				</c:forEach>
+				
 				<c:choose>
 					<c:when test="${pagingMap.maxSessionNum > pagingMap.pageSessionNum}">
 						<a href="${contextPath}/Approval/docList.do?pageNum=${(pagingMap.pageSessionNum-1)*5+6}&pageSession=${pagingMap.pageSessionNum+1}&searchType=${searchType}&searchKey=${searchKey}">다음</a>
