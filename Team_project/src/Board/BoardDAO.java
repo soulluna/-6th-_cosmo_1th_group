@@ -131,9 +131,8 @@ public class BoardDAO {
 				pstmt.setInt(3, rownum2);
 			} else if (searchType.equals("2")) {
 				pstmt.setString(1, "%" + searchKey + "%");
-				pstmt.setString(2, "%" + searchKey + "%");
-				pstmt.setInt(3, rownum1);
-				pstmt.setInt(4, rownum2);
+				pstmt.setInt(2, rownum1);
+				pstmt.setInt(3, rownum2);
 			} else if (searchType.equals("3")) {
 				pstmt.setString(1, "%" + searchKey + "%");
 				pstmt.setInt(2, rownum1);
