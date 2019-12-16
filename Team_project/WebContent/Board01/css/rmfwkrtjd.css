@@ -6,6 +6,9 @@ img{border: 0;}
 body{ width:1200px; margin: 100px auto 0; padding: 0; display: block; list-style: none;  background-image: linear-gradient(120deg,#3498db,#8e44ad); min-height:89vh;}
 
 h1{text-align: center; background-image: linear-gradient(180deg,#3498db,#2a709e); font-size: 18px;  color: white; line-height: 35px;font-weight: bold;}
+h2, h3{font-size: 20px;}
+h3 > label{font-size: 20px;}
+h3 > input{width:20px; height: 20px;}
 button{cursor: pointer;}
 
 .wjdduf{width: 1200px; background: #f1f1f1; margin-top: 40px;}
@@ -16,7 +19,7 @@ button{cursor: pointer;}
 .rptlvks > div{float: left; padding: 0 20px 0 0;}
 .tpqn1{height: 35px; width: 100px; border: 1px solid blue;outline: none; padding: 0 10px;}
 
-.wpahr{padding: 10px 10px; float: left;width: 620px;}
+.wpahr{padding: 10px 10px 10px 8px; float: left;width: 620px;}
 .wpahr > div{float: left; }        
 .wpahrdlqfur > input{font-size: 16px; width: 500px; padding: 5px; border: 1px solid blue;outline: none; margin-left: 25px;}
 
