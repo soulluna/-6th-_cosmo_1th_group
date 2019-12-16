@@ -63,7 +63,7 @@ body{
 
 
 .cal_top {
-    margin-top:30px;
+    margin-top:5px;
 }
 
 #movePrevMonth, #moveNextMonth{
@@ -77,11 +77,11 @@ body{
 .scadule{
     position: relative;
     top:410px;
-    margin:30px auto;
+    margin-left : 15px;
     padding: 10px 0 0 10px;
-    width: 550px; height: 300px;
+    width: 550px; height: 330px;
     border:1px solid #444;
-    
+  
 }
 
 .scadule span{
@@ -89,6 +89,9 @@ body{
     display : block;
     width:300px;
     
+}
+#buttons{
+	margin-top : 3px;
 }
 /*right_section*/
 #r_section{

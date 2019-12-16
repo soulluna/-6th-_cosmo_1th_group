@@ -89,11 +89,20 @@ public class MainController extends HttpServlet {
 					DailySchdulDAO dailyScadulDAO = new DailySchdulDAO();
 					Boardservice boardService = new Boardservice();
 					List<DailySchdulVO> schdulList=null;
+					List<DailySchdulVO> schdulList2=null;
 					if(getDate!=null) {
 						schdulList=dailyScadulDAO.listScadul(memberVO,getDate);
 					}
 					else {
 						schdulList = dailyScadulDAO.listScadul(memberVO);
+					}
+					schdulList2 = dailyScadulDAO.listAllScadul(memberVO);
+					String[] startDate = new String[1000];
+					for(int i=0;i<schdulList2.size();i++) { 
+						Timestamp dates = schdulList2.get(i).getStartDate();  
+						String[] str = dates.toString().split(" ");
+						startDate[i] = str[0];
+						System.out.println(startDate[i]); 
 					}
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 					List<BoardVO> boardList = boardService.selectAllBoards10();
@@ -101,6 +110,7 @@ public class MainController extends HttpServlet {
 					request.setAttribute("appList", appList);
 					request.setAttribute("scadulList", schdulList);
 					request.setAttribute("boardList", boardList);
+					request.setAttribute("startDate", startDate);
 					nextPage = "/Main01/indexMain.jsp";
 				}
 				else {//세션이 닫혀있는 상태면(최초로그인)
@@ -122,13 +132,22 @@ public class MainController extends HttpServlet {
 						Boardservice boardService = new Boardservice();
 						//각 메소드를 통해 해당 정보를 받아옴
 						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
-						List<DailySchdulVO> scadulList = dailyScadulDAO.listScadul(memberVO);
+						List<DailySchdulVO> scadulList = dailyScadulDAO.listAllScadul(memberVO);
 						List<BoardVO> boardList = boardService.selectAllBoards10();
+						String[] startDate = new String[1000];
+						System.out.println(scadulList.size());
+						for(int i=0;i<scadulList.size();i++) { 
+							Timestamp dates = scadulList.get(i).getStartDate();  
+							String[] str = dates.toString().split(" ");
+							startDate[i] = str[0];
+							System.out.println(startDate[i]); 
+						}
 						//setAttribute를 통해 정보를 jsp페이지로 전송
 						session.setAttribute("loginUser", memberVO);
 						request.setAttribute("appList", appList);
 						request.setAttribute("scadulList", scadulList);
 						request.setAttribute("boardList", boardList);
+						request.setAttribute("startDate", startDate);
 						//다음 페이지 이동
 						nextPage = "/Main01/indexMain.jsp";
 					}

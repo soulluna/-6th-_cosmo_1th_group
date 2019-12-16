@@ -20,3 +20,6 @@ table.calendar td{
 .cal-day a.black{
 	color : black;
 }
+.cal-schedule{
+	height : 15px;
+}
