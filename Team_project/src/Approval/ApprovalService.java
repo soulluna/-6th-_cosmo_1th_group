@@ -14,11 +14,11 @@ public class ApprovalService {
 	public ApprovalService() {
 		approvalDAO = new ApprovalDAO();
 	}
-
+	
 	// 문서 출력
-	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey, String sendReceive, int rowNum1, int rowNum2) {
+	public List<ApprovalVO> listApproval(MemberVO mVO, String searchType, String searchKey, String sendReceive, String serachDocList, String serachDocState, String datepicker1, String datepicker2, int rowNum1, int rowNum2) {
 		System.out.println("listApproval(매개변수) : " + searchType + ", " + searchKey);
-		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey, sendReceive, rowNum1, rowNum2);
+		List<ApprovalVO> approvallist = approvalDAO.selectAllApproval(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2, rowNum1, rowNum2);
 		return approvallist;
 	}
 
@@ -122,9 +122,9 @@ public class ApprovalService {
 	}
 
 	// 글 개수 조회
-	public int docSearchCount(MemberVO mVO, String searchType, String searchKey, String sendReceive) {
+	public int docSearchCount(MemberVO mVO, String searchType, String searchKey, String sendReceive, String serachDocList, String serachDocState, String datepicker1, String datepicker2) {
 		// TODO Auto-generated method stub
-		return approvalDAO.countSearchDoc(mVO, searchType, searchKey, sendReceive);
+		return approvalDAO.countSearchDoc(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2);
 	}
 
 }
