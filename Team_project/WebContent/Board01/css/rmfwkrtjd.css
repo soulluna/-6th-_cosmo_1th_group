@@ -35,7 +35,7 @@ button:last-of-type{float: right;}
 button>a{color: white;}
 .back{color: white;  cursor: pointer;}
 
-.logo>a>img{width: 25%; position: absolute; right: 50px; top: 190px;}
+.logo>a>img{width: 23%; position: absolute; right: 50px; top: 190px;}
 
 .noresize {position: relative; top: 20px; width: 1000px;
         height: 480px;

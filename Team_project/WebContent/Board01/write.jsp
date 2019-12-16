@@ -90,15 +90,15 @@ function fn_write() {
 						</div>
 					</div>
 
-					<div class="cjaqnvkdlf">
+					<!-- <div class="cjaqnvkdlf">
 						<div>
 							<h2>첨부파일</h2>
 						</div>
-						<!-- <div class="rksrur"> -->
+						<div class="rksrur">
 						<input type="file" id="file" multiple>
-						<!-- <label for="file">파일</label> -->
-						<!-- </div> -->
-					</div>
+						<label for="file">파일</label>
+						</div>
+					</div> -->
 
 					<div class="logo">
 						<a><img src="${contextPath}/Board01/img/logo3.gif"></a>
