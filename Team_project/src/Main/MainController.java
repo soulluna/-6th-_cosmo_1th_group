@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -91,31 +92,126 @@ public class MainController extends HttpServlet {
 					Boardservice boardService = new Boardservice();
 					List<DailySchdulVO> schdulList=null;
 					List<DailySchdulVO> schdulList2=null;
-					if(getDate!=null) {
-						schdulList=dailyScadulDAO.listScadul(memberVO,getDate);
-					}
-					else {
-						schdulList = dailyScadulDAO.listScadul(memberVO);
-					}
-					schdulList2 = dailyScadulDAO.listAllScadul(memberVO);
 					List<DateFormat> startDateList = new ArrayList<DateFormat>();
-					for(int i=0;i<schdulList2.size();i++) { 
-						Timestamp dates = schdulList2.get(i).getStartDate();  
-						String[] str = dates.toString().split(" ");
-						String[] str2 = str[0].split("-");
-						DateFormat input = new DateFormat();
-						input.setYear(str2[0]);
-						input.setMonth(str2[1]);
-						input.setDay(str2[2]);
-						startDateList.add(input);
+					DateFormat nowDate = new DateFormat();
+					if(getDate!=null) { 
+						if(request.getParameter("month")!=null) { // prev 혹은 next 이동
+							System.out.println("달 이동");
+							DateFormat formatDate2 = new DateFormat();
+							DateFormat formatDate = new DateFormat();
+							String[] str2=getDate.split("-");
+							String[] str=getDate.split("-");
+							formatDate2.setYear(str2[0]);
+							formatDate.setYear(str[0]);
+							if(str[1].length()==1) {
+								str[1]="0"+str[1];
+								str2[1]="0"+str2[1];
+							}
+							formatDate2.setMonth(str2[1]);
+							formatDate.setMonth(str[1]);
+							switch(str[1]) {
+								case "01": case "03": case "05": case "07": case "08": case "10": case "12": formatDate.setDay("31"); break;
+								case "04": case "06": case "09": case "11": formatDate.setDay("30"); break;
+								case "02": formatDate.setDay("28");
+							}
+							formatDate2.setDay("01");
+							if(Integer.parseInt(str[0])%4==0&&(str[1]=="02")) {
+								formatDate.setDay("29");
+							}
+							String newStartDate = formatDate2.getYear()+"-"+formatDate2.getMonth()+"-"+formatDate2.getDay();
+							String newEndDate = formatDate.getYear()+"-"+formatDate.getMonth()+"-"+formatDate.getDay();
+							System.out.println("newStartDate : "+newStartDate);
+							System.out.println("newEndDate : "+newEndDate);
+							schdulList=dailyScadulDAO.listScadul(memberVO,newStartDate, newEndDate);
+							schdulList2 = dailyScadulDAO.listAllScadul(memberVO, newStartDate, newEndDate);//전체 스캐쥴을 가져와서 달력에 뿌리기 위함
+							for(int i=0;i<schdulList2.size();i++) { 
+								Timestamp dates = schdulList2.get(i).getStartDate();  
+								String[] str3 = dates.toString().split(" ");
+								String[] str4 = str3[0].split("-");
+								DateFormat input = new DateFormat();
+								input.setYear(str4[0]);
+								input.setMonth(str4[1]);
+								input.setDay(str4[2]);
+								startDateList.add(input);
+							}
+							nowDate.setYear(formatDate2.getYear());
+							nowDate.setMonth(formatDate.getMonth());
+						}
+						else { //특정 날짜클릭
+							System.out.println("특정 날짜 클릭");
+							schdulList=dailyScadulDAO.listScadul(memberVO,getDate);
+							long systemTime=System.currentTimeMillis();
+							SimpleDateFormat format = new  SimpleDateFormat(DATE_FORMAT,Locale.KOREA);
+							String dTime=format.format(systemTime);
+							System.out.println(dTime);
+							String[] splTime=dTime.split("-");
+							nowDate.setYear(splTime[0]);
+							nowDate.setMonth(splTime[1]);
+							String newStartDate = nowDate.getYear()+"-"+nowDate.getMonth()+"-"+"01";
+							switch(splTime[1]){
+								case "01": case "03": case "05": case "07": case "08": case "10": case "12": nowDate.setDay("31"); break;
+								case "04": case "06": case "09": case "11": nowDate.setDay("30"); break;
+								case "02": nowDate.setDay("28");
+							}
+							if(Integer.parseInt(splTime[0])%4==0&&(splTime[1]=="02")) {
+								nowDate.setDay("29");
+							}
+							String newEndDate=nowDate.getYear()+"-"+nowDate.getMonth()+"-"+nowDate.getDay();
+							schdulList2 = dailyScadulDAO.listAllScadul(memberVO, newStartDate, newEndDate);//전체 스캐쥴을 가져와서 달력에 뿌리기 위함
+							for(int i=0;i<schdulList2.size();i++) { 
+								Timestamp dates = schdulList2.get(i).getStartDate();  
+								String[] str = dates.toString().split(" ");
+								String[] str2 = str[0].split("-");
+								DateFormat input = new DateFormat();
+								input.setYear(str2[0]);
+								input.setMonth(str2[1]);
+								input.setDay(str2[2]);
+								startDateList.add(input);
+							}
+						}
 					}
+					else { // 다른 페이지 갔다오는 경우
+						long systemTime=System.currentTimeMillis();
+						SimpleDateFormat format = new  SimpleDateFormat(DATE_FORMAT,Locale.KOREA);
+						String dTime=format.format(systemTime);
+						System.out.println(dTime);
+						String[] splTime=dTime.split("-");
+						nowDate.setYear(splTime[0]);
+						nowDate.setMonth(splTime[1]);
+						String newStartDate = nowDate.getYear()+"-"+nowDate.getMonth()+"-"+"01";
+						switch(splTime[1]){
+							case "01": case "03": case "05": case "07": case "08": case "10": case "12": nowDate.setDay("31"); break;
+							case "04": case "06": case "09": case "11": nowDate.setDay("30"); break;
+							case "02": nowDate.setDay("28");
+						}
+						if(Integer.parseInt(splTime[0])%4==0&&(splTime[1]=="02")) {
+							nowDate.setDay("29");
+						}
+						String newEndDate=nowDate.getYear()+"-"+nowDate.getMonth()+"-"+nowDate.getDay();
+						schdulList2 = dailyScadulDAO.listAllScadul(memberVO, newStartDate, newEndDate);//전체 스캐쥴을 가져와서 달력에 뿌리기 위함
+						schdulList=dailyScadulDAO.listScadul(memberVO,newStartDate, newEndDate);
+						for(int i=0;i<schdulList2.size();i++) { 
+							Timestamp dates = schdulList2.get(i).getStartDate();  
+							String[] str = dates.toString().split(" ");
+							String[] str2 = str[0].split("-");
+							DateFormat input = new DateFormat();
+							input.setYear(str2[0]);
+							input.setMonth(str2[1]);
+							input.setDay(str2[2]);
+							startDateList.add(input);
+						}
+					}
+					//각 메소드를 통해 해당 정보를 받아옴
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 					List<BoardVO> boardList = boardService.selectAllBoards10();
+					//setAttribute를 통해 정보를 jsp페이지로 전송
 					session.setAttribute("loginUser", memberVO);
 					request.setAttribute("appList", appList);
 					request.setAttribute("scadulList", schdulList);
 					request.setAttribute("boardList", boardList);
 					request.setAttribute("startDateList", startDateList);
+					request.setAttribute("nowDate", nowDate);
+					//다음 페이지 이동
 					nextPage = "/Main01/indexMain.jsp";
 				}
 				else {//세션이 닫혀있는 상태면(최초로그인)
@@ -140,9 +236,26 @@ public class MainController extends HttpServlet {
 						List<BoardVO> boardList = boardService.selectAllBoards10();
 						List<DailySchdulVO> schdulList=null;
 						List<DailySchdulVO> schdulList2=null;
-						schdulList = dailyScadulDAO.listScadul(memberVO);
-						schdulList2 = dailyScadulDAO.listAllScadul(memberVO);
+						long systemTime=System.currentTimeMillis();
+						SimpleDateFormat format = new  SimpleDateFormat(DATE_FORMAT,Locale.KOREA);
+						String dTime=format.format(systemTime);
+						System.out.println(dTime);
+						String[] splTime=dTime.split("-");
+						DateFormat nowDate = new DateFormat();
+						nowDate.setYear(splTime[0]);
+						nowDate.setMonth(splTime[1]);
+						String newStartDate = nowDate.getYear()+"-"+nowDate.getMonth()+"-"+"01";
+						switch(splTime[1]){
+							case "01": case "03": case "05": case "07": case "08": case "10": case "12": nowDate.setDay("31"); break;
+							case "04": case "06": case "09": case "11": nowDate.setDay("28"); break;
+						}
+						if(Integer.parseInt(splTime[0])%4==0&&(splTime[1]=="02")) {
+							nowDate.setDay("29");
+						}
+						String newEndDate=nowDate.getYear()+"-"+nowDate.getMonth()+"-"+nowDate.getDay();
 						List<DateFormat> startDateList = new ArrayList<DateFormat>();
+						schdulList=dailyScadulDAO.listScadul(memberVO,newStartDate, newEndDate);
+						schdulList2 = dailyScadulDAO.listAllScadul(memberVO, newStartDate, newEndDate);//전체 스캐쥴을 가져와서 달력에 뿌리기 위함
 						for(int i=0;i<schdulList2.size();i++) { 
 							Timestamp dates = schdulList2.get(i).getStartDate();  
 							String[] str = dates.toString().split(" ");
@@ -159,6 +272,7 @@ public class MainController extends HttpServlet {
 						request.setAttribute("scadulList", schdulList);
 						request.setAttribute("boardList", boardList);
 						request.setAttribute("startDateList", startDateList);
+						request.setAttribute("nowDate", nowDate);
 						//다음 페이지 이동
 						nextPage = "/Main01/indexMain.jsp";
 					}

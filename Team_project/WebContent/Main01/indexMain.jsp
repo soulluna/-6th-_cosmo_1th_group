@@ -53,12 +53,12 @@ function drawCalendar() {
 	$("#cal_tab").html(setTableHTML);
 }
 //날짜 초기화
-function initDate() {
+function initDate(currentYear, currentMonth) {
 	$tdDay = $("td div.cal-day");
 	$tdSche = $("td div.cal-schedule");
 	dayCount = 0;
-	year = today.getFullYear();
-	month = today.getMonth() + 1;
+	year = currentYear;
+	month = currentMonth;
 	myDate = today.getDate();
 	firstDay = new Date(year, month - 1, 1);
 	lastDay = new Date(year, month, 0);
@@ -86,45 +86,6 @@ function drawDays() {
 		$tdDay.eq(i).children().css("color", "blue");
 	}
 }
-//calendar 월 이동
-
-function movePrevMonth() {
-	month--;
-	if (month <= 0) {
-		month = 12;
-		year--;
-	}
-	if (month < 10) {
-		month = String("0" + month);
-	}
-	getNewInfo();
-}
-function moveNextMonth() {
-	month++;
-	if (month > 12) {
-		month = 1;
-		year++;
-	}
-	if (month < 10) {
-		month = String("0" + month);
-	}
-	getNewInfo();
-}
-function getNewInfo() {
-	for (var i = 0; i < 42; i++) {
-		$tdDay.eq(i).text("");
-	}
-	for(var j=1;j<31;j++){
-		$tdSche.eq(j-1).css("background-color","#f1f1f1");
-	}
-	dayCount = 0;
-	console.log(year);
-	console.log(month);
-	firstDay = new Date(year, month - 1, 1);
-	lastDay = new Date(year, month, 0);
-	drawDays();
-	getSchdule();
-}
 </script>
 <script>
 	function getDayScadul(year,month,day){
@@ -137,6 +98,32 @@ function getNewInfo() {
 		}
 		var toString=year+"-"+month+"-"+day;
 		location.href='${contextPath}/Main/login.do?date='+toString;
+	}
+	function movePrevMonth(){
+		month-=1;
+		day=1;
+		if(month==0){
+			year-=1;
+			month=12;
+		}
+		else if(month<10){
+			month="0"+month;
+		}
+		var toString=year+"-"+month+"-"+day;
+		location.href='${contextPath}/Main/login.do?date='+toString+"&month=y";
+	}
+	function moveNextMonth(){
+		month+=1;
+		day=1;
+		if(month<10){
+			month="0"+month;
+		}
+		else if(month>12){
+			year+=1;
+			month=1;
+		}
+		var toString=year+"-"+month+"-"+day;
+		location.href='${contextPath}/Main/login.do?date='+toString+"&month=y";
 	}
 </script>
 </head>
@@ -157,13 +144,14 @@ function getNewInfo() {
 				<div id="cal_tab" class="cal">
 					<script>
 						drawCalendar();            
-						initDate();
+						initDate(${nowDate.year} , ${nowDate.month});
 						drawDays();
 					</script>
 				</div>
+				
 				<c:forEach items="${startDateList}" var="dates" varStatus="dateCount">
 					<c:if test="${!empty startDateList}">
-						<script>
+					<script>
 						function getSchdule(){
 							console.log(${dateCount.count});
 							console.log("getSchdule()안에서의 year : "+year);
@@ -171,9 +159,12 @@ function getNewInfo() {
 							console.log("해당 연도 : "+${dates.year});
 							console.log("해당 달 : "+${dates.month});
 							console.log("해당 일 : "+${dates.day});
-							for(var i=1;i<=31;i++){
-								if(${dates.year}==year&&${dates.month}==month&&${dates.day}==i-1){
-									$tdSche.eq(i-1).css("background-color","#3498db");
+							dayCount = 0;
+							console.log("시작일 : "+firstDay.getDay());
+							console.log("종료일 : "+lastDay.getDate());
+							for(var i = 1; i < 31; i++){
+								if(${dates.year}==year&&${dates.month}==month&&${dates.day}==i){
+									$tdSche.eq(i+firstDay.getDay()-1).css("background-color","#3498db");
 									console.log("성공값 : "+(i-1));
 								}
 							}
