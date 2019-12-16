@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,12 +98,16 @@ public class MainController extends HttpServlet {
 						schdulList = dailyScadulDAO.listScadul(memberVO);
 					}
 					schdulList2 = dailyScadulDAO.listAllScadul(memberVO);
-					String[] startDate = new String[1000];
+					List<DateFormat> startDateList = new ArrayList<DateFormat>();
 					for(int i=0;i<schdulList2.size();i++) { 
 						Timestamp dates = schdulList2.get(i).getStartDate();  
 						String[] str = dates.toString().split(" ");
-						startDate[i] = str[0];
-						System.out.println(startDate[i]); 
+						String[] str2 = str[0].split("-");
+						DateFormat input = new DateFormat();
+						input.setYear(str2[0]);
+						input.setMonth(str2[1]);
+						input.setDay(str2[2]);
+						startDateList.add(input);
 					}
 					List<ApprovalVO> appList = approvalService.mainList10(memberVO);
 					List<BoardVO> boardList = boardService.selectAllBoards10();
@@ -110,7 +115,7 @@ public class MainController extends HttpServlet {
 					request.setAttribute("appList", appList);
 					request.setAttribute("scadulList", schdulList);
 					request.setAttribute("boardList", boardList);
-					request.setAttribute("startDate", startDate);
+					request.setAttribute("startDateList", startDateList);
 					nextPage = "/Main01/indexMain.jsp";
 				}
 				else {//세션이 닫혀있는 상태면(최초로그인)
@@ -132,22 +137,28 @@ public class MainController extends HttpServlet {
 						Boardservice boardService = new Boardservice();
 						//각 메소드를 통해 해당 정보를 받아옴
 						List<ApprovalVO> appList = approvalService.mainList10(memberVO);
-						List<DailySchdulVO> scadulList = dailyScadulDAO.listAllScadul(memberVO);
 						List<BoardVO> boardList = boardService.selectAllBoards10();
-						String[] startDate = new String[1000];
-						System.out.println(scadulList.size());
-						for(int i=0;i<scadulList.size();i++) { 
-							Timestamp dates = scadulList.get(i).getStartDate();  
+						List<DailySchdulVO> schdulList=null;
+						List<DailySchdulVO> schdulList2=null;
+						schdulList = dailyScadulDAO.listScadul(memberVO);
+						schdulList2 = dailyScadulDAO.listAllScadul(memberVO);
+						List<DateFormat> startDateList = new ArrayList<DateFormat>();
+						for(int i=0;i<schdulList2.size();i++) { 
+							Timestamp dates = schdulList2.get(i).getStartDate();  
 							String[] str = dates.toString().split(" ");
-							startDate[i] = str[0];
-							System.out.println(startDate[i]); 
+							String[] str2 = str[0].split("-");
+							DateFormat input = new DateFormat();
+							input.setYear(str2[0]);
+							input.setMonth(str2[1]);
+							input.setDay(str2[2]);
+							startDateList.add(input);
 						}
 						//setAttribute를 통해 정보를 jsp페이지로 전송
 						session.setAttribute("loginUser", memberVO);
 						request.setAttribute("appList", appList);
-						request.setAttribute("scadulList", scadulList);
+						request.setAttribute("scadulList", schdulList);
 						request.setAttribute("boardList", boardList);
-						request.setAttribute("startDate", startDate);
+						request.setAttribute("startDateList", startDateList);
 						//다음 페이지 이동
 						nextPage = "/Main01/indexMain.jsp";
 					}

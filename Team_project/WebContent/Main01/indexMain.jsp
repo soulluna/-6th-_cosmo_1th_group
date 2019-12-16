@@ -87,6 +87,7 @@ function drawDays() {
 	}
 }
 //calendar 월 이동
+
 function movePrevMonth() {
 	month--;
 	if (month <= 0) {
@@ -112,6 +113,9 @@ function moveNextMonth() {
 function getNewInfo() {
 	for (var i = 0; i < 42; i++) {
 		$tdDay.eq(i).text("");
+	}
+	for(var j=1;j<31;j++){
+		$tdSche.eq(j-1).css("background-color","#f1f1f1");
 	}
 	dayCount = 0;
 	console.log(year);
@@ -148,27 +152,27 @@ function getNewInfo() {
 						onclick="movePrevMonth();">Prev</a></span> <span id="cal_top_year"></span>
 					<span id="cal_top_month"></span> <span id="nextMonth"
 						class="cal_tit"><a id="moveNextMonth"
-						onclick="moveNextMonth(); getSchdule();">Next</a></span>
+						onclick="moveNextMonth();">Next</a></span>
 				</div>
 				<div id="cal_tab" class="cal">
 					<script>
 						drawCalendar();            
 						initDate();
 						drawDays();
-						getSchdule();
 					</script>
 				</div>
-				<c:forEach items="${startDate}" var="dates">
-					<c:if test="${!empty dates}">
-					<script>
+				<c:forEach items="${startDateList}" var="dates" varStatus="dateCount">
+					<c:if test="${!empty startDateList}">
+						<script>
 						function getSchdule(){
-							console.log("구분자2");
-							for(var j=1;j<31;j++){
-								$tdSche.eq(i-1).css("background-color","#f1f1f1");
-							}
+							console.log(${dateCount.count});
+							console.log("getSchdule()안에서의 year : "+year);
+							console.log("getSchdule()안에서의 month : "+month);
+							console.log("해당 연도 : "+${dates.year});
+							console.log("해당 달 : "+${dates.month});
+							console.log("해당 일 : "+${dates.day});
 							for(var i=1;i<=31;i++){
-								var compare=year-month-i;
-								if(${dates}==compare){
+								if(${dates.year}==year&&${dates.month}==month&&${dates.day}==i-1){
 									$tdSche.eq(i-1).css("background-color","#3498db");
 									console.log("성공값 : "+(i-1));
 								}
@@ -176,22 +180,22 @@ function getNewInfo() {
 							console.log("구분자");
 						}
 						getSchdule();
-					</script>
+						</script>
 					</c:if>
 				</c:forEach>
 			</div>
 			<div class="scadule">
-			<h2 class="bold">스캐쥴러</h2>
-				<table class="ListTable" border="1">	
+				<h2 class="bold">스캐쥴러</h2>
+				<table class="ListTable" border="1">
 					<tr>
 						<th>일정</th>
 						<th>시작시간</th>
 						<th>종료시간</th>
 					</tr>
 					<c:if test="${scadulList.size()==0}">
-					<tr>
-						<td colspan="3" style="align : center;">스캐줄이 없습니다.</td>
-					</tr>
+						<tr>
+							<td colspan="3" style="align: center;">스캐줄이 없습니다.</td>
+						</tr>
 					</c:if>
 					<c:forEach items="${scadulList}" var="schdul">
 						<tr>
@@ -208,7 +212,8 @@ function getNewInfo() {
 					<input type="button" value="스캐쥴 작성"
 						onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
 					<input type="button" value="스캐쥴 전체보기"
-						onclick="location.href='${contextPath}/Main/login.do'" style="float : right; margin-right : 20px;">
+						onclick="location.href='${contextPath}/Main/login.do'"
+						style="float: right; margin-right: 20px;">
 				</div>
 			</div>
 		</div>
@@ -268,7 +273,8 @@ function getNewInfo() {
 									<td>부서</td>
 								</c:when>
 							</c:choose>
-							<td class="ali_left"><a href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=1">${board.txtname}</a></td>
+							<td class="ali_left"><a
+								href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=1">${board.txtname}</a></td>
 							<td>${board.ename}</td>
 						</tr>
 					</c:forEach>
