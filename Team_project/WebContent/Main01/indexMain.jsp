@@ -62,8 +62,6 @@ function initDate() {
 	myDate = today.getDate();
 	firstDay = new Date(year, month - 1, 1);
 	lastDay = new Date(year, month, 0);
-	console.log(myDate);
-	console.log(today.getMonth()+1);
 }
 //calendar 날짜표시
 function drawDays() {
@@ -114,9 +112,10 @@ function moveNextMonth() {
 function getNewInfo() {
 	for (var i = 0; i < 42; i++) {
 		$tdDay.eq(i).text("");
-		$tdSche.eq(i).css("background-color","#f1f1f1");
 	}
 	dayCount = 0;
+	console.log(year);
+	console.log(month);
 	firstDay = new Date(year, month - 1, 1);
 	lastDay = new Date(year, month, 0);
 	drawDays();
@@ -149,13 +148,14 @@ function getNewInfo() {
 						onclick="movePrevMonth();">Prev</a></span> <span id="cal_top_year"></span>
 					<span id="cal_top_month"></span> <span id="nextMonth"
 						class="cal_tit"><a id="moveNextMonth"
-						onclick="moveNextMonth();">Next</a></span>
+						onclick="moveNextMonth(); getSchdule();">Next</a></span>
 				</div>
 				<div id="cal_tab" class="cal">
 					<script>
 						drawCalendar();            
 						initDate();
 						drawDays();
+						getSchdule();
 					</script>
 				</div>
 				<c:forEach items="${startDate}" var="dates">
@@ -163,6 +163,9 @@ function getNewInfo() {
 					<script>
 						function getSchdule(){
 							console.log("구분자2");
+							for(var j=1;j<31;j++){
+								$tdSche.eq(i-1).css("background-color","#f1f1f1");
+							}
 							for(var i=1;i<=31;i++){
 								var compare=year-month-i;
 								if(${dates}==compare){
