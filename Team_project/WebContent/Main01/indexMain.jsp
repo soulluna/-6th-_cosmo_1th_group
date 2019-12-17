@@ -193,16 +193,16 @@ function drawDays() {
 							<td><a href="#"
 								onclick="location.href='${contextPath}/Main/schdulDetail.do?schnum=${schdul.schnum}'">${schdul.schname}</a></td>
 							<td><fmt:formatDate value="${schdul.startDate}"
-									pattern="yyyy-MM-dd hh:mm" /></td>
+									pattern="yyyy-MM-dd HH:mm" /></td>
 							<td><fmt:formatDate value="${schdul.endDate}"
-									pattern="yyyy-MM-dd hh:mm" /></td>
+									pattern="yyyy-MM-dd HH:mm" /></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div id="buttons">
 					<input type="button" value="스캐쥴 작성"
 						onclick="location.href='${contextPath}/Main/schedulWriteForm.do'">
-					<input type="button" value="스캐쥴 전체보기"
+					<input type="button" value="초기화"
 						onclick="location.href='${contextPath}/Main/login.do'"
 						style="float: right; margin-right: 20px;">
 				</div>
