@@ -59,13 +59,15 @@ public class ApprovalController extends HttpServlet {
 				request.setAttribute("result", 2);
 				nextPage = "/index.jsp";
 			} else {
-				if (action.equals("/docList.do") || action.equals("/disRecSort.do") || action.equals("/docStateSort.do")
-						|| action.equals("/docDaySort.do")) {// 문서 정렬
+				if (action.equals("/docList.do")) {// 문서 정렬
 					Map pagingMap = new HashMap();
 
 					System.out.println("action : " + action);
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
 					String sendReceive = request.getParameter("sendReceive");
-
+					String datepicker1 = request.getParameter("datepicker1");
+					String datepicker2 = request.getParameter("datepicker2");
 					String searchType = request.getParameter("searchType");
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
@@ -76,6 +78,12 @@ public class ApprovalController extends HttpServlet {
 					int maxPageNum = 0;
 					int maxSessionNum = 0;
 
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
 					if (searchType == null) {
 						searchType = "";
 					}
@@ -86,10 +94,20 @@ public class ApprovalController extends HttpServlet {
 					if (sendReceive == null) {
 						sendReceive = "수신";
 					}
+					if(datepicker1 == null) {
+						datepicker1 = "";
+					}
+					if(datepicker2 == null) {
+						datepicker2 = "";
+					}
+					
+					System.out.println("------------");
+					System.out.println(searchKey);
+					System.out.println(searchType);
+					System.out.println(serachDocState);
+					System.out.println("------------");
 
-					System.out.println(sendReceive);
-
-					docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey, sendReceive);
+					docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2);
 
 					if (docMaxNum % 15 == 0) {
 						maxPageNum = docMaxNum / 15;
@@ -118,10 +136,14 @@ public class ApprovalController extends HttpServlet {
 
 					for (int i = 1; i <= maxPageNum; i++) {
 						if (pageNum == i) {
-							approvalList = approvalService.listApproval(mVO, searchType, searchKey, sendReceive,
+							approvalList = approvalService.listApproval(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2,
 									1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
 						}
 					}
+					request.setAttribute("datepicker1", datepicker1);
+					request.setAttribute("datepicker2", datepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
 					request.setAttribute("sendReceive", sendReceive);
 					request.setAttribute("searchType", searchType);
 					request.setAttribute("searchKey", searchKey);

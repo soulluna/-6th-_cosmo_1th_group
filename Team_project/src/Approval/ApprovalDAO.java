@@ -18,9 +18,6 @@ public class ApprovalDAO {
 	private Connection con;
 	private PreparedStatement pstmt;
 	private DataSource dataFactory;
-	private int sortList1Num = 0;
-	private int sortList2Num = 0;
-	private int sortList3Num = 0;
 
 	public ApprovalDAO() {
 		try {
@@ -40,7 +37,8 @@ public class ApprovalDAO {
 
 	// 목록 가져오기
 	public List<ApprovalVO> selectAllApproval(MemberVO mVO, String searchType, String searchKey, String sendReceive,
-			int rowNum1, int rowNum2) {
+			String serachDocList, String serachDocState, String datepicker1, String datepicker2, int rowNum1,
+			int rowNum2) {
 		List<ApprovalVO> approvalList = new ArrayList<ApprovalVO>();
 		String query = "";
 
@@ -58,16 +56,46 @@ public class ApprovalDAO {
 
 			if (searchType.equals("1")) {
 				query += "and txtname like '%'||?||'%' ";
-
 			} else if (searchType.equals("2")) {
 				query += "and TXTCONT like '%'||?||'%' ";
+			} else if (searchType.equals("3")) {
+				query += "and ENAME like '%'||?||'%' ";
+			} else {
+				query += "and txtname like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
 			}
 
 			if (sendReceive.equals("발신")) {
 				query += "and eno like '%'||?||'%' ";
-
 			} else if (sendReceive.equals("수신")) {
 				query += "and eno not like '%'||?||'%' ";
+			} else {
+				query += "and eno like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (serachDocList.equals("기안서")) {
+				query += "and APPLIST like '%'||?||'%' ";
+			} else if (serachDocList.equals("휴가신청서")) {
+				query += "and APPLIST like '%'||?||'%' ";
+			} else {
+				query += "and APPLIST like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (serachDocState.equals("대기")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("진행")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("완료")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("반려1")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("반려2")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else {
+				query += "and PROGRESS like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (!datepicker1.equals("") && !datepicker2.equals("")) {
+				query += "and ENTRYDATE between TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') and TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') ";
 			}
 
 			query += "order by (CASE WHEN eno=? THEN 1 ELSE 2 END), DECODE (PROGRESS, '대기', 1, '진행', 2, '반려1', 3, '반려2', 4, '완료', 5), ENTRYDATE desc) A) ";
@@ -78,31 +106,59 @@ public class ApprovalDAO {
 			for (int i = 1; i <= 8; i++) {
 				pstmt.setString(i, mVO.getEno());
 			}
-			if (searchType.equals("")) {
-				if (sendReceive.equals("")) {
-					pstmt.setString(9, mVO.getEno());
-					pstmt.setInt(10, rowNum1); // 1 16
-					pstmt.setInt(11, rowNum2); // 15 30
-				} else {
-					pstmt.setString(9, mVO.getEno());
-					pstmt.setString(10, mVO.getEno());
-					pstmt.setInt(11, rowNum1); // 1 16
-					pstmt.setInt(12, rowNum2); // 15 30
-				}
-			} else {
+			
+			if (searchType.equals("1")) {
 				pstmt.setString(9, searchKey);
-				if (sendReceive.equals("")) {
-					pstmt.setString(10, mVO.getEno());
-					pstmt.setInt(11, rowNum1); // 1 16
-					pstmt.setInt(12, rowNum2); // 15 30
-				} else {
-					pstmt.setString(10, mVO.getEno());
-					pstmt.setString(11, mVO.getEno());
-					pstmt.setInt(12, rowNum1); // 1 16
-					pstmt.setInt(13, rowNum2); // 15 30
-				}
-
+			} else if (searchType.equals("2")) {
+				pstmt.setString(9, searchKey);
+			} else if (searchType.equals("3")) {
+				pstmt.setString(9, searchKey);
+			} else {
+				pstmt.setString(9, "");
 			}
+
+			if (sendReceive.equals("발신")) {
+				pstmt.setString(10, mVO.getEno());
+			} else if (sendReceive.equals("수신")) {
+				pstmt.setString(10, mVO.getEno());
+			} else {
+				pstmt.setString(10, "");
+			}
+
+			if (serachDocList.equals("기안서")) {
+				pstmt.setString(11, serachDocList);
+			} else if (serachDocList.equals("휴가신청서")) {
+				pstmt.setString(11, serachDocList);
+			} else {
+				pstmt.setString(11, "");
+			}
+
+			if (serachDocState.equals("대기")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("진행")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("완료")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("반려1")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("반려2")) {
+				pstmt.setString(12, serachDocState);
+			} else {
+				pstmt.setString(12, "");
+			}
+
+			if (!datepicker1.equals("") && !datepicker2.equals("")) {
+				pstmt.setString(13, datepicker1 + " 00:00:00");
+				pstmt.setString(14, datepicker2 + " 23:59:59");
+				pstmt.setString(15, mVO.getEno());
+				pstmt.setInt(16, rowNum1); // 1 16
+				pstmt.setInt(17, rowNum2); // 15 30
+			}else {
+				pstmt.setString(13, mVO.getEno());
+				pstmt.setInt(14, rowNum1); // 1 16
+				pstmt.setInt(15, rowNum2); // 15 30
+			}
+			
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -718,51 +774,115 @@ public class ApprovalDAO {
 		return approvalList;
 	}
 
-	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey, String sendReceive) {
+	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey, String sendReceive,
+			String serachDocList, String serachDocState, String datepicker1, String datepicker2) {
 		// TODO Auto-generated method stub
 		int docMax = 0;
 		String query = null;
-		if (searchType.equals("")) {
+
+		System.out.println("countSearchDoc함수 안");
+
+		try {
 			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
 			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
 			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) ";
 
-		} else if (searchType.equals("1")) {
-			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and txtname like '%'||?||'%' ";
-
-		} else if (searchType.equals("2")) {
-			query = "select count(*) from Approval where (eno= (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "MIDSUGESTENO = (case PROGRESS when '대기' then ? else ? end) or ";
-			query += "Finsugesteno = (case PROGRESS when '진행' then ? when '반려2' then ? when '완료' then ? end) or ";
-			query += "((MIDSUGESTENO is null) and Finsugesteno = (case PROGRESS when '대기' then ? end))) and TXTCONT like '%'||?||'%' ";
-		}
-
-		if (sendReceive.equals("발신")) {
-			query += "and eno like '%'||?||'%' ";
-		} else if (sendReceive.equals("수신")) {
-			query += "and eno not like '%'||?||'%' ";
-		}
-
-		try {
-			con = dataFactory.getConnection();
-			pstmt = con.prepareStatement(query);
-			for (int i = 1; i <= 8; i++) {
-				pstmt.setString(i, mVO.getEno());
+			if (searchType.equals("1")) {
+				query += "and txtname like '%'||?||'%' ";
+			} else if (searchType.equals("2")) {
+				query += "and TXTCONT like '%'||?||'%' ";
+			} else if (searchType.equals("3")) {
+				System.out.println("searchType.equals가 3일 때");
+				query += "and ENAME like '%'||?||'%' ";
+			} else {
+				query += "and txtname like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
 			}
 
-			if (searchType.equals("")) {
-				if (!sendReceive.equals("")) {
-					pstmt.setString(9, mVO.getEno());
-				}
+			if (sendReceive.equals("발신")) {
+				query += "and eno like '%'||?||'%' ";
+			} else if (sendReceive.equals("수신")) {
+				query += "and eno not like '%'||?||'%' ";
 			} else {
+				query += "and eno like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (serachDocList.equals("기안서")) {
+				query += "and APPLIST like '%'||?||'%' ";
+			} else if (serachDocList.equals("휴가신청서")) {
+				query += "and APPLIST like '%'||?||'%' ";
+			} else {
+				query += "and APPLIST like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (serachDocState.equals("대기")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("진행")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("완료")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("반려1")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else if (serachDocState.equals("반려2")) {
+				query += "and PROGRESS like '%'||?||'%' ";
+			} else {
+				query += "and PROGRESS like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
+			}
+
+			if (!datepicker1.equals("") && !datepicker2.equals("")) {
+				query += "and ENTRYDATE between TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') and TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') ";
+			}
+
+			con = dataFactory.getConnection();
+			pstmt = con.prepareStatement(query);
+
+			for (int i = 1; i <= 8; i++) {
+				pstmt.setString(i, mVO.getEno());
+			} // 8까지
+
+			if (searchType.equals("1")) {
 				pstmt.setString(9, searchKey);
-				if (!sendReceive.equals("")) {
-					pstmt.setString(10, mVO.getEno());
-				}
+			} else if (searchType.equals("2")) {
+				pstmt.setString(9, searchKey);
+			} else if (searchType.equals("3")) {
+				pstmt.setString(9, searchKey);
+			} else {
+				pstmt.setString(9, "");
+			}
+
+			if (sendReceive.equals("발신")) {
+				pstmt.setString(10, mVO.getEno());
+			} else if (sendReceive.equals("수신")) {
+				pstmt.setString(10, mVO.getEno());
+			} else {
+				pstmt.setString(10, "");
+			}
+
+			if (serachDocList.equals("기안서")) {
+				pstmt.setString(11, serachDocList);
+			} else if (serachDocList.equals("휴가신청서")) {
+				pstmt.setString(11, serachDocList);
+			} else {
+				pstmt.setString(11, "");
+			}
+
+			if (serachDocState.equals("대기")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("진행")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("완료")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("반려1")) {
+				pstmt.setString(12, serachDocState);
+			} else if (serachDocState.equals("반려2")) {
+				pstmt.setString(12, serachDocState);
+			} else {
+				pstmt.setString(12, "");
+			}
+
+			if (!datepicker1.equals("") && !datepicker2.equals("")) {
+				pstmt.setString(13, datepicker1 + " 00:00:00");
+				pstmt.setString(14, datepicker2 + " 23:59:59");
 			}
 
 			ResultSet rs = pstmt.executeQuery();

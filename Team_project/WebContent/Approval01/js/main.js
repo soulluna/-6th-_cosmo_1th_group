@@ -75,10 +75,13 @@ function draftCheck() {
 function docListSearchCheck() {
 	var searchType = $("select[name=searchType] option:selected").val();
 	var inputValue = $("input[name=searchKey]").val();
-
-	if (inputValue == "") {
+	console.log("넘어는 옴");
+	/*if (inputValue == "") {
 		alert("검색어를 입력해주세요.");
-	}
+	}*/
+	
+	frm.action = "docList.do";
+	frm.submit();
 }
 
 // vacation.html 입력값 확인 및 문서 등록
