@@ -775,7 +775,7 @@ public class ApprovalDAO {
 	}
 
 	public int countSearchDoc(MemberVO mVO, String searchType, String searchKey, String sendReceive,
-			String serachDocList, String serachDocState, String datepicker1, String datepicker2) {
+			String serachDocList, String serachDocState, String searchDatepicker1, String searchDatepicker2) {
 		// TODO Auto-generated method stub
 		int docMax = 0;
 		String query = null;
@@ -829,7 +829,7 @@ public class ApprovalDAO {
 				query += "and PROGRESS like '%'||?||'%' "; // 개수 맞추기 위해 그냥 넣은 쿼리
 			}
 
-			if (!datepicker1.equals("") && !datepicker2.equals("")) {
+			if (!searchDatepicker1.equals("") && !searchDatepicker2.equals("")) {
 				query += "and ENTRYDATE between TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') and TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') ";
 			}
 
@@ -880,9 +880,9 @@ public class ApprovalDAO {
 				pstmt.setString(12, "");
 			}
 
-			if (!datepicker1.equals("") && !datepicker2.equals("")) {
-				pstmt.setString(13, datepicker1 + " 00:00:00");
-				pstmt.setString(14, datepicker2 + " 23:59:59");
+			if (!searchDatepicker1.equals("") && !searchDatepicker2.equals("")) {
+				pstmt.setString(13, searchDatepicker1 + " 00:00:00");
+				pstmt.setString(14, searchDatepicker2 + " 23:59:59");
 			}
 
 			ResultSet rs = pstmt.executeQuery();

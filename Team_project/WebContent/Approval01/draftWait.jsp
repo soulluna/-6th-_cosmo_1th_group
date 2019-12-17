@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	isELIgnored="false"
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
@@ -25,56 +23,23 @@
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
 <script>
-	function docModify() {
+	function docModify(pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
 		if (confirm("수정하시겠습니까?") == true) {
-			frm.action = "draftModify.do";
+			frm.action = 'draftModify.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
 			frm.submit();
 		} else {
 			return false;
 		}
 	}
-function docDelete() {
+function docDelete(pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
 	  if (confirm("정말 삭제하시겠습니까?") == true) {
-		  	frm.action = "draftdelete.do";
+		  	frm.action = 'draftdelete.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
 		  	frm.submit();
-	  } else {
-	    return false;
-	  }
-	}
-	function docApprove() {
-		if(${approvalVO.mideno==loginUser.eno}){
-			if (confirm("승인하시겠습니까?") == true) {
-				frm.action = "midapproveddraft.do";
-		  		frm.submit();
-			} else {
-				return false;
-			}
-		}else if(${approvalVO.fineno==loginUser.eno}){
-			if (confirm("승인하시겠습니까?") == true) {
-				frm.action = "finapproveddraft.do";
-		  		frm.submit();
-			} else {
-				return false;
-			}
+	
+	} else {
+			return false;
 		}
 	}
-	function docReturn() {
-		if(${approvalVO.mideno==loginUser.eno}){
-			if (confirm("반려하시겠습니까?") == true) {
-				frm.action = "midreturneddraft.do";
-		  		frm.submit();
-			} else {
-				return false;
-			}
-		}else if(${approvalVO.fineno==loginUser.eno}){
-			if (confirm("반려하시겠습니까?") == true) {
-				frm.action = "finreturneddraft.do";
-		  		frm.submit();
-			} else {
-				return false;
-			}
-		}
-		}
 </script>
 <title>기안서</title>
 </head>
@@ -85,9 +50,7 @@ function docDelete() {
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<form name="frm" method="post">
 			<input type="hidden" name="txtnum" value="${txtnum}">
-			<select style="visibility: hidden;" class="docSelecter"
-				onchange="if(this.value) location.href=(this.value)"
-			>
+			<select style="visibility: hidden;" class="docSelecter" onchange="if(this.value) location.href=(this.value)">
 				<option value="./draft.html" selected>기안서</option>
 				<option value="./vacation.html">휴가신청서</option>
 			</select>
@@ -121,32 +84,32 @@ function docDelete() {
 						<tr>
 							<th>${approvalVO.rank}</th>
 							<c:if test="${createdMidUser.rank!=null}">
-							<th>${createdMidUser.rank}</th>
+								<th>${createdMidUser.rank}</th>
 							</c:if>
 							<th>${createdFinUser.rank}</th>
 						</tr>
 						<tr>
-							<td style="vertical-align: top">${approvalVO.ename}<br> <span style="color: red;">[승인]</span>
+							<td style="vertical-align: top">${approvalVO.ename}<br>
+								<span style="color: red;">[승인]</span>
 							</td>
-							
+
 							<c:if test="${createdMidUser.rank!=null}">
-							<td style="vertical-align: top">${createdMidUser.ename}<br>
-								<c:choose>
-									<c:when test="${approvalVO.progress == '대기'}">
-										<span style="color: red;"></span>
-									</c:when>
-									<c:when
-										test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
-										<span style="color: red;">[승인]</span>
-									</c:when>
-									<c:when test="${approvalVO.progress == '반려1'}">
-										<span style="color: red;">[반려]</span>
-									</c:when>
-									<c:otherwise>
-										<span style="color: red;"></span>
-									</c:otherwise>
-								</c:choose>
-							</td>
+								<td style="vertical-align: top">${createdMidUser.ename}<br>
+									<c:choose>
+										<c:when test="${approvalVO.progress == '대기'}">
+											<span style="color: red;"></span>
+										</c:when>
+										<c:when test="${(approvalVO.progress == '진행') || (approvalVO.progress == '반려2' && createdMidUser.eno != null) || (approvalVO.progress == '완료' && createdMidUser.eno != null)}">
+											<span style="color: red;">[승인]</span>
+										</c:when>
+										<c:when test="${approvalVO.progress == '반려1'}">
+											<span style="color: red;">[반려]</span>
+										</c:when>
+										<c:otherwise>
+											<span style="color: red;"></span>
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</c:if>
 
 							<td style="vertical-align: top">${createdFinUser.ename}<br>
@@ -167,7 +130,7 @@ function docDelete() {
 						<tr>
 							<td class="createdDayInput1">${approvalVO.entrydate}</td>
 							<c:if test="${createdMidUser.rank!=null}">
-							<td class="createdDayInput2">${approvalVO.middate}</td>
+								<td class="createdDayInput2">${approvalVO.middate}</td>
 							</c:if>
 							<td class="createdDayInput3">${approvalVO.findate}</td>
 						</tr>
@@ -195,34 +158,49 @@ function docDelete() {
 
 						<c:choose>
 							<c:when test="${approvalVO.eno==loginUser.eno && (approvalVO.progress == '대기' || approvalVO.progress == '반려1' || approvalVO.progress == '반려2')}">
-								<button type="button" onclick="docModify()">수정</button>
+								<button type="button"
+									onclick="docModify('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">수정</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="docModify()" disabled>수정</button>
+								<button type="button"
+									onclick="docModify('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+									disabled>수정</button>
 							</c:otherwise>
 						</c:choose>
 
 						<c:choose>
 							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
-								<button type="button" onclick="docDelete()">삭제</button>
+								<button type="button"
+									onclick="docDelete('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+								>삭제</button>
 							</c:when>
 							<c:otherwise>
-								<button type="button" onclick="docDelete()" disabled>삭제</button>
+								<button type="button"
+									onclick="docDelete('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+									disabled
+								>삭제</button>
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
 							<c:when
-								test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}">
-								<button class="approve" type="button" onclick="docApprove()">승인</button>
-								<button class="cancle" type="button" onclick="docReturn()">반려</button>
+								test="${(createdMidUser.eno == null && createdFinUser.eno == loginUser.eno && approvalVO.progress == '대기') || (approvalVO.progress == '진행' && createdFinUser.eno == loginUser.eno) || (createdMidUser.eno == loginUser.eno && approvalVO.progress == '대기')}"
+								>
+								<button class="approve" type="button"
+									onclick="docApprove('draftWait','${loginUser.eno}','${approvalVO.mideno}','${approvalVO.fineno}','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+								>승인</button>
+								<button class="cancle" type="button"
+									onclick="docReturn('draftWait','${loginUser.eno}','${approvalVO.mideno}','${approvalVO.fineno}','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+								>반려</button>
 							</c:when>
 							<c:otherwise>
-								<button class="approve" type="button" onclick="docApprove()" disabled>승인</button>
-								<button class="cancle" type="button" onclick="docReturn()" disabled>반려</button>
+								<button class="approve" type="button" onclick="docApprove('draftWait','${loginUser.eno}','${approvalVO.mideno}','${approvalVO.fineno}','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')" disabled>승인</button>
+								<button class="cancle" type="button" onclick="docReturn('draftWait','${loginUser.eno}','${approvalVO.mideno}','${approvalVO.fineno}','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')" disabled>반려</button>
 							</c:otherwise>
 						</c:choose>
 
-						<button type="button" onclick="docCancle()">취소</button>
+						<button type="button"
+							onclick="docCancle('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
+						>취소</button>
 					</div>
 				</div>
 			</div>

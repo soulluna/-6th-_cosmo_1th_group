@@ -122,9 +122,9 @@ public class ApprovalService {
 	}
 
 	// 글 개수 조회
-	public int docSearchCount(MemberVO mVO, String searchType, String searchKey, String sendReceive, String serachDocList, String serachDocState, String datepicker1, String datepicker2) {
+	public int docSearchCount(MemberVO mVO, String searchType, String searchKey, String sendReceive, String serachDocList, String serachDocState, String searchDatepicker1, String searchDatepicker2) {
 		// TODO Auto-generated method stub
-		return approvalDAO.countSearchDoc(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2);
+		return approvalDAO.countSearchDoc(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, searchDatepicker1, searchDatepicker2);
 	}
 
 }

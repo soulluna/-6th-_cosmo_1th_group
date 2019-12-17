@@ -23,32 +23,6 @@
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
 <script>
-	function vacationCheck() {
-		vacationInputValue[0] = $("input[name=title]").val();
-		vacationInputValue[1] = $(':radio[name="leaveradio"]:checked').val();
-		vacationInputValue[2] = $("#datepicker1").val();
-		vacationInputValue[3] = $("#datepicker2").val();
-		vacationInputValue[4] = $("textarea[name=reason]").val();
-		vacationInputValue[5] = parseInt($(".dayCount").text());
-
-		if (!vacationInputValue[0]) {
-			alert("제목을 입력해주세요.");
-		} else if (!vacationInputValue[2] || !vacationInputValue[3]) {
-			alert("날짜를 입력해주세요.");
-		} else if (!vacationInputValue[4]) {
-			alert("사유를 입력해주세요.");
-		} else if (vacationInputValue[5] < 1) {
-			alert("날짜를 올바르게 선택하세요.");
-		} else {
-			if (confirm("등록하시겠습니까?") == true) {
-				frm.action = "vacmodified.do";
-				frm.submit();
-
-			} else {
-				return false;
-			}
-		} // else
-	} // function vacationCheck()
 	$(function() {
 		var toDay;
 		var forDay;
@@ -213,12 +187,12 @@
 
 					<br>
 					<div class="bottomBt">
-						<button type="button" onclick="vacationCheck()">등록</button>
+						<button type="button" onclick="vacationCheck('vacationModify','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">등록</button>
 						<button type="button" onclick="docModify()" disabled>수정</button>
 						<button type="button" onclick="docDelete()" disabled>삭제</button>
 						<button type="button" onclick="docApprov()" disabled>승인</button>
 						<button type="button" onclick="docReturn()" disabled>반려</button>
-						<button type="button" onclick="docCancle()">취소</button>
+						<button type="button" onclick="docCancle('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">취소</button>
 					</div>
 				</div>
 			</div>

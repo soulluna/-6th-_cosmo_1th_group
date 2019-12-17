@@ -1,5 +1,4 @@
 
-
 //오늘 날짜(-)
 function toDayInput() {
 	var year = new Date();
@@ -35,9 +34,19 @@ function docName() {
 var thisfilefullname;
 
 // 문서 취소
-function docCancle() {
+function docCancle(pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
+	console.log(pageNum);
+	console.log(pageSessionNum);
+	console.log(searchKey);
+	console.log(searchType);
+	console.log(sendReceive);
+	console.log(serachDocState);
+	console.log(serachDocList);
+	console.log(searchDatepicker1);
+	console.log(searchDatepicker2);
+		
 	if (confirm("문서함으로 넘어가겠습니까?") == true) {
-		location.href = 'docList.do';
+		location.href = 'docList.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
 	} else {
 		return false;
 	}
@@ -47,9 +56,8 @@ var draftInputValue = new Array();
 var vacationInputValue = new Array();
 var draftModify = new Array();
 
-
-// draft.html 입력값 확인 및 문서 등록
-function draftCheck() {
+// draft.jsp 입력값 확인 및 문서 등록
+function draftCheck(page, pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
 	draftInputValue[0] = $("input[name=title]").val();
 	draftInputValue[1] = $("textarea[name=reason]").val();
 
@@ -62,8 +70,13 @@ function draftCheck() {
 			for (i = 0; i <= 1; i++) {
 				console.log(draftInputValue[i]);
 			}
-			frm.action = "drafted.do";
-			frm.submit();
+			if(page == 'draft'){
+				frm.action = 'drafted.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+				frm.submit();	
+			}else if(page == 'vacationModify'){
+				frm.action = 'modified.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+				frm.submit();
+				}
 
 		} else {
 			return false;
@@ -75,17 +88,24 @@ function draftCheck() {
 function docListSearchCheck() {
 	var searchType = $("select[name=searchType] option:selected").val();
 	var inputValue = $("input[name=searchKey]").val();
-	console.log("넘어는 옴");
-	/*if (inputValue == "") {
-		alert("검색어를 입력해주세요.");
-	}*/
-	
+
+	if (searchType == "") {
+		alert("검색 항목을 클릭하세요.")
+		return false;
+	} else {
+		if (inputValue == "") {
+			alert("검색어를 입력하세요.");
+			return false;
+		}
+	}
+
 	frm.action = "docList.do";
 	frm.submit();
 }
 
+
 // vacation.html 입력값 확인 및 문서 등록
-function vacationCheck() {
+function vacationCheck(page, pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
 	vacationInputValue[0] = $("input[name=title]").val();
 	vacationInputValue[1] = $(':radio[name="leaveradio"]:checked').val();
 	vacationInputValue[2] = $("#datepicker1").val();
@@ -102,17 +122,83 @@ function vacationCheck() {
 	} else if (vacationInputValue[5] < 1) {
 		alert("날짜를 올바르게 선택하세요.");
 	} else {
-		thisfilefullname = docName();
-		console.log(thisfilefullname);
 		if (confirm("등록하시겠습니까?") == true) {
-			frm.action = "vacationed.do";
-			frm.submit();
-
+			if(page == 'vacation'){
+				frm.action = 'vacationed.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+				frm.submit();
+			}else if(page == 'vacationModify'){
+				frm.action = 'vacmodified.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+				frm.submit();	
+			}
 		} else {
 			return false;
 		}
 	} // else
 } // function vacationCheck()
+
+
+function docApprove(page, eno, mideno, fineno, pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
+	console.log(pageNum);
+	console.log(pageNum);
+	console.log(pageNum);
+	if(mideno==eno){
+		if (confirm("승인하시겠습니까?") == true) {
+			if (page == 'draftWait'){
+				frm.action = 'midapproveddraft.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+		  		frm.submit();
+			}else if(page == 'vacationWait'){
+				frm.action = 'midapprovedvacation.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+		  		frm.submit();
+			}
+		} else {
+			return false;
+		}
+	}else if(fineno==eno){
+		if (confirm("승인하시겠습니까?") == true) {
+			if (page == 'draftWait'){
+				frm.action = 'finapproveddraft.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+			  	frm.submit();
+			}else if(page == 'vacationWait'){
+				frm.action = 'finapprovedvacation.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+			  	frm.submit();
+			}
+		} else {
+			return false;
+		}
+	}
+} //docApprove()
+
+function docReturn(page, eno, mideno, fineno, pageNum, pageSessionNum, searchKey, searchType, sendReceive, serachDocState, serachDocList, searchDatepicker1, searchDatepicker2) {
+	console.log(pageNum);
+	console.log(pageNum);
+	console.log(pageNum);
+	if(mideno==eno){
+		if (confirm("반려하시겠습니까?") == true) {
+			if (page == 'draftWait'){
+			frm.action = 'midreturneddraft.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+			  		frm.submit();
+			}else if(page == 'vacationWait'){
+				frm.action = 'midreturnedvacation.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+		  		frm.submit();
+			}
+		} else {
+			return false;
+		}
+	}else if(fineno==eno){
+		if (confirm("반려하시겠습니까?") == true) {
+			if (page == 'draftWait'){
+			frm.action = 'finreturneddraft.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+	  		frm.submit();
+			} else if (page == 'vacationWait') {
+				frm.action = 'finreturnedvacation.do?pageNum='+pageNum+'&pageSession='+pageSessionNum+'&sendReceive='+sendReceive+'&serachDocState='+serachDocState+'&serachDocList='+serachDocList+'&searchType='+searchType+'&searchKey='+searchKey+'&searchDatepicker1='+searchDatepicker1+'&searchDatepicker2='+searchDatepicker2;
+		  		frm.submit();
+			}
+		} else {
+			return false;
+		}
+	}
+} //docReturn()
+
 
 // 날짜 차이 계산 함수
 // date1 : 기준 날짜(YYYY-MM-DD), date2 : 대상 날짜(YYYY-MM-DD)
@@ -133,22 +219,21 @@ $(document).ready(
 
 			thisfilefullname = docName();
 			console.log(thisfilefullname);
-			
+
 			var progress = document.getElementsByClassName('progress');
 			for (var i = 0; i < progress.length; i++) {
 				console.log(progress[i]);
-				if(progress[i].innerHTML == '반려1' || progress[i].innerHTML == '반려2'){
+				if (progress[i].innerHTML == '반려1'
+						|| progress[i].innerHTML == '반려2') {
 					progress[i].style.color = 'red';
-				}else if(progress[i].innerHTML == '진행'){
+				} else if (progress[i].innerHTML == '진행') {
 					progress[i].style.color = 'blue';
-				}else if(progress[i].innerHTML == '완료'){
+				} else if (progress[i].innerHTML == '완료') {
 					progress[i].style.color = 'green';
 				}
-				
+
 			}
-			
-			
-			
+
 			// 문서목록 검색 타입 및 검색값 콘솔 확인
 			$(".search").on("click", function() {
 				var a = $("select[name=searchType] option:selected").val();

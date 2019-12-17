@@ -66,8 +66,8 @@ public class ApprovalController extends HttpServlet {
 					String serachDocList = request.getParameter("serachDocList");
 					String serachDocState = request.getParameter("serachDocState");
 					String sendReceive = request.getParameter("sendReceive");
-					String datepicker1 = request.getParameter("datepicker1");
-					String datepicker2 = request.getParameter("datepicker2");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
 					String searchType = request.getParameter("searchType");
 					String searchKey = request.getParameter("searchKey");
 					String _pageNum = request.getParameter("pageNum");
@@ -94,11 +94,11 @@ public class ApprovalController extends HttpServlet {
 					if (sendReceive == null) {
 						sendReceive = "수신";
 					}
-					if(datepicker1 == null) {
-						datepicker1 = "";
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
 					}
-					if(datepicker2 == null) {
-						datepicker2 = "";
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
 					}
 					
 					System.out.println("------------");
@@ -107,7 +107,7 @@ public class ApprovalController extends HttpServlet {
 					System.out.println(serachDocState);
 					System.out.println("------------");
 
-					docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2);
+					docMaxNum = approvalService.docSearchCount(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, searchDatepicker1, searchDatepicker2);
 
 					if (docMaxNum % 15 == 0) {
 						maxPageNum = docMaxNum / 15;
@@ -136,12 +136,12 @@ public class ApprovalController extends HttpServlet {
 
 					for (int i = 1; i <= maxPageNum; i++) {
 						if (pageNum == i) {
-							approvalList = approvalService.listApproval(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, datepicker1, datepicker2,
+							approvalList = approvalService.listApproval(mVO, searchType, searchKey, sendReceive, serachDocList, serachDocState, searchDatepicker1, searchDatepicker2,
 									1 + ((i - 1) * 15), 15 + ((i - 1) * 15));
 						}
 					}
-					request.setAttribute("datepicker1", datepicker1);
-					request.setAttribute("datepicker2", datepicker2);
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
 					request.setAttribute("serachDocList", serachDocList);
 					request.setAttribute("serachDocState", serachDocState);
 					request.setAttribute("sendReceive", sendReceive);
@@ -152,10 +152,51 @@ public class ApprovalController extends HttpServlet {
 					nextPage = "/Approval01/docList.jsp";
 
 				} else if (action.equals("/vacationWait.do")) { // 휴가신청서 상세보기
-					System.out.println();
+					
 					System.out.println("vacationWait.do");
 					System.out.println("action : " + action);
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+					
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					System.out.println("----------------");
+					System.out.println(searchDatepicker1);
+					System.out.println(searchDatepicker2);
+					System.out.println("----------------");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
+					
 					System.out.println(txtnum);
 					approvalVO = approvalService.viewvacation(txtnum);
 					MemberVO createdMidUser = approvalService.middraftInfo(approvalVO);
@@ -165,6 +206,18 @@ public class ApprovalController extends HttpServlet {
 					request.setAttribute("txtnum", txtnum);
 					request.setAttribute("approvalVO", approvalVO);
 
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
+					
+					
 					nextPage = "/Approval01/vacationWait.jsp";
 
 				} else if (action.equals("/draftWait.do")) { // 기안서 상세보기
@@ -172,7 +225,42 @@ public class ApprovalController extends HttpServlet {
 					System.out.println("draftWait.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 
-					System.out.println(txtnum);
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
+					
 
 					approvalVO = approvalService.viewdraft(txtnum);
 
@@ -182,22 +270,127 @@ public class ApprovalController extends HttpServlet {
 					request.setAttribute("createdFinUser", createdFinUser);
 					request.setAttribute("txtnum", txtnum);
 					request.setAttribute("approvalVO", approvalVO);
-
+					
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval01/draftWait.jsp";
 
-				} else if (action.equals("/vacation.do")) {
+				} else if (action.equals("/vacation.do")) { //휴가신청서 작성 페이지
+
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
 					MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
 					MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
 					request.setAttribute("createdMidUser", createdMidUser);
 					request.setAttribute("createdFinUser", createdFinUser);
+					
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval01/vacation.jsp";
+					
 				} else if (action.equals("/draft.do")) { // 기안서 작성 페이지
 
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
 					MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
 					MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
 					System.out.println(createdMidUser);
+					
 					request.setAttribute("createdMidUser", createdMidUser);
 					request.setAttribute("createdFinUser", createdFinUser);
+					
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval01/draft.jsp";
 
 				} else if (action.equals("/drafted.do")) { // 기안서 페이지 등록 완료 시
@@ -208,12 +401,58 @@ public class ApprovalController extends HttpServlet {
 					ApprovalVO aVO = new ApprovalVO();
 					String midUserEno = approvalService.approvalUser(midUser);
 					String finUserEno = approvalService.approvalUser(finUser);
+					
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
 
 					aVO.setMideno(midUserEno);
 					aVO.setFineno(finUserEno);
 					aVO.setTxtname(request.getParameter("title"));
 					aVO.setTxtcont(request.getParameter("reason"));
 					int txtnum = approvalService.draftAdd(aVO, mVO);
+					
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval/draftWait.do?txtnum=" + txtnum;
 
 				} else if (action.equals("/vacationed.do")) { // 휴가신청서 페이지 등록 완료 시
@@ -246,6 +485,42 @@ public class ApprovalController extends HttpServlet {
 					System.out.println("/draftModify.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					System.out.println("txtnum : " + txtnum);
+					
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
 					MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
 					MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
 					request.setAttribute("createdMidUser", createdMidUser);
@@ -253,11 +528,58 @@ public class ApprovalController extends HttpServlet {
 					approvalVO = approvalService.viewdraft(txtnum);
 					request.setAttribute("txtnum", txtnum);
 					request.setAttribute("approvalVO", approvalVO);
+					
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval01/draftModify.jsp";
 
 				} else if (action.equals("/vacationModify.do")) { // 휴가신청서 수정 페이지
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					System.out.println("txtnum : " + txtnum);
+					
+					String serachDocList = request.getParameter("serachDocList");
+					String serachDocState = request.getParameter("serachDocState");
+					String sendReceive = request.getParameter("sendReceive");
+					String searchDatepicker1 = request.getParameter("searchDatepicker1");
+					String searchDatepicker2 = request.getParameter("searchDatepicker2");
+					String searchType = request.getParameter("searchType");
+					String searchKey = request.getParameter("searchKey");
+					String _pageNum = request.getParameter("pageNum");
+					String _pageSessionNum = request.getParameter("pageSession");
+					int pageNum = (Integer.parseInt((_pageNum == null ? "1" : _pageNum)));
+					int pageSessionNum = (Integer.parseInt((_pageSessionNum == null ? "1" : _pageSessionNum)));
+
+					if(serachDocList == null) {
+						serachDocList = "";
+					}
+					if(serachDocState == null) {
+						serachDocState  = "";
+					}
+					if (searchType == null) {
+						searchType = "";
+					}
+					if (searchKey == null) {
+						searchKey = "";
+					}
+
+					if (sendReceive == null) {
+						sendReceive = "수신";
+					}
+					if(searchDatepicker1 == null) {
+						searchDatepicker1 = "";
+					}
+					if(searchDatepicker2 == null) {
+						searchDatepicker2 = "";
+					}
+					
 					MemberVO createdMidUser = approvalService.midApprovalInfo(mVO);
 					MemberVO createdFinUser = approvalService.finApprovalInfo(mVO);
 					request.setAttribute("createdMidUser", createdMidUser);
@@ -266,6 +588,16 @@ public class ApprovalController extends HttpServlet {
 					request.setAttribute("txtnum", txtnum);
 					request.setAttribute("approvalVO", approvalVO);
 
+					request.setAttribute("searchDatepicker1", searchDatepicker1);
+					request.setAttribute("searchDatepicker2", searchDatepicker2);
+					request.setAttribute("serachDocList", serachDocList);
+					request.setAttribute("serachDocState", serachDocState);
+					request.setAttribute("sendReceive", sendReceive);
+					request.setAttribute("searchType", searchType);
+					request.setAttribute("searchKey", searchKey);
+					request.setAttribute("pageNum", pageNum);
+					request.setAttribute("pageSessionNum", pageSessionNum);
+					
 					nextPage = "/Approval01/vacationModify.jsp";
 
 				} else if (action.equals("/modified.do")) { // 기안서 수정 화면에서 등록 버튼 클릭
@@ -296,35 +628,65 @@ public class ApprovalController extends HttpServlet {
 					approvalService.vacationmodify(aVO, txtnum);
 
 					nextPage = "/Approval/vacationWait.do?txtnum=" + txtnum;
+					
 				} else if (action.equals("/draftdelete.do")) { // 문서 삭제
 					System.out.println("draftdelete.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					System.out.println(txtnum);
 					approvalService.draftDelete(txtnum);
 					nextPage = "/Approval/docList.do";
-				} else if (action.equals("/midapproveddraft.do")) { // 중간 결재자 결재
+					
+				} else if (action.equals("/midapproveddraft.do")) { // 기안서 중간 결재자 결재
 					System.out.println("midapproveddraft.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					System.out.println(txtnum);
 					approvalService.draftmidApprove(txtnum);
-					nextPage = "/Approval/docList.do";
-				} else if (action.equals("/finapproveddraft.do")) { // 마지막 결재자 결재
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
+					
+				} else if (action.equals("/midapprovedvacation.do")) { // 휴가신청서 중간 결재자 결재
+					System.out.println("midapproveddraft.do");
+					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+					System.out.println(txtnum);
+					approvalService.draftmidApprove(txtnum);
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
+				
+				} else if (action.equals("/finapproveddraft.do")) { // 기안서 마지막 결재자 결재
 					System.out.println("finapproveddraft.do");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					System.out.println(txtnum);
 					approvalService.draftfinApprove(txtnum);
-					nextPage = "/Approval/docList.do";
-				} else if (action.equals("/midreturneddraft.do")) { // 중간 결재자 반려
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
+					
+				} else if (action.equals("/finapprovedvacation.do")) { // 휴가신청서 마지막 결재자 결재
+					System.out.println("finapprovedvacation.do");
+					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+					System.out.println(txtnum);
+					approvalService.draftfinApprove(txtnum);
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
+					
+				} else if (action.equals("/midreturneddraft.do")) { // 기안서 중간 결재자 반려
 					System.out.println("midreturneddraft");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					approvalService.draftmidReturn(txtnum);
-					nextPage = "/Approval/docList.do";
-				} else if (action.equals("/finreturneddraft.do")) { // 마지막 결재자 반려
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
+				
+				} else if (action.equals("/midreturnedvacation.do")) { // 휴가신청서 중간 결재자 반려
+					System.out.println("midreturnedvacation");
+					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+					approvalService.draftmidReturn(txtnum);
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
+					
+				} else if (action.equals("/finreturneddraft.do")) { // 기안서 마지막 결재자 반려
 					System.out.println("finreturneddraft");
 					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
 					approvalService.draftfinReturn(txtnum);
-					nextPage = "/Approval/docList.do";
-
+					nextPage = "/Approval/draftWait.do?txtnum="+txtnum;
+				
+				} else if (action.equals("/finreturnedvacation.do")) { // 휴가신청서 마지막 결재자 반려
+					System.out.println("finreturnedvacation");
+					int txtnum = Integer.parseInt(request.getParameter("txtnum"));
+					approvalService.draftfinReturn(txtnum);
+					nextPage = "/Approval/vacationWait.do?txtnum="+txtnum;
 				}
 
 			}

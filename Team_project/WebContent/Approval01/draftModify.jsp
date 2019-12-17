@@ -22,29 +22,7 @@
 <script src="${contextPath}/Approval01/js/jquery.easing.1.3.js"></script>
 <script src="${contextPath}/Approval01/js/prefixfree.min.js"></script>
 <script src="${contextPath}/Approval01/js/main.js"></script>
-<script>
-	function draftCheck() {
-		draftInputValue[0] = $("input[name=title]").val();
-		draftInputValue[1] = $("textarea[name=reason]").val();
 
-		if (!draftInputValue[0]) {
-			alert("제목을 입력해주세요.");
-		} else if (!draftInputValue[1]) {
-			alert("내용을 입력해주세요.");
-		} else {
-			if (confirm("등록하시겠습니까?") == true) {
-				for (i = 0; i <= 1; i++) {
-					console.log(draftInputValue[i]);
-				}
-				frm.action = "modified.do";
-				frm.submit();
-
-			} else {
-				return false;
-			}
-		} // else
-	} //function draftCheck()
-</script>
 <title>기안서 수정</title>
 </head>
 <body>
@@ -130,12 +108,12 @@
 					</table>
 					<br>
 					<div class="bottomBt">
-						<button type="button" onclick="draftCheck()">등록</button>
+						<button type="button" onclick="draftCheck('draft','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">등록</button>
 						<button type="button" onclick="docModify()" disabled>수정</button>
 						<button type="button" onclick="docDelete()" disabled>삭제</button>
 						<button type="button" onclick="docApprov()" disabled>승인</button>
 						<button type="button" onclick="docReturn()" disabled>반려</button>
-						<button type="button" onclick="docCancle()">취소</button>
+						<button type="button" onclick="docCancle('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">취소</button>
 					</div>
 				</div>
 			</div>

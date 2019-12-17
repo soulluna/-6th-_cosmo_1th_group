@@ -77,8 +77,8 @@
 		<jsp:include page="/WEB-INF/GNB/header.jsp" flush="false" />
 		<form name="frm" method="post">
 			<select class="docSelecter" onchange="if(this.value) location.href=(this.value)">
-				<option value="${contextPath}/Approval/draft.do">기안서</option>
-				<option value="${contextPath}/Approval/vacation.do" selected>휴가신청서</option>
+				<option value="${contextPath}/Approval/draft.do?pageNum=${pageNum}&pageSession=${pageSessionNum}&sendReceive=${sendReceive}&serachDocState=${serachDocState}&serachDocList=${serachDocList}&searchType=${searchType}&searchKey=${searchKey}&sendReceive=${sendReceive}&searchDatepicker1=${searchDatepicker1}&searchDatepicker2=${searchDatepicker2}">기안서</option>
+				<option value="${contextPath}/Approval/vacation.do?pageNum=${pageNum}&pageSession=${pageSessionNum}&sendReceive=${sendReceive}&serachDocState=${serachDocState}&serachDocList=${serachDocList}&searchType=${searchType}&searchKey=${searchKey}&sendReceive=${sendReceive}&searchDatepicker1=${searchDatepicker1}&searchDatepicker2=${searchDatepicker2}" selected>휴가신청서</option>
 			</select>
 
 			<div class="docName">
@@ -193,12 +193,12 @@
 
 					<br>
 					<div class="bottomBt">
-						<button type="button" onclick="vacationCheck()">등록</button>
+						<button type="button" onclick="vacationCheck('vacation','${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">등록</button>
 						<button type="button" onclick="docModify()" disabled>수정</button>
 						<button type="button" onclick="docDelete()" disabled>삭제</button>
 						<button type="button" onclick="docApprov()" disabled>승인</button>
 						<button type="button" onclick="docReturn()" disabled>반려</button>
-						<button type="button" onclick="docCancle()">취소</button>
+						<button type="button" onclick="docCancle('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')">취소</button>
 					</div>
 				</div>
 			</div>
