@@ -29,7 +29,7 @@ public class DailySchdulDAO {
 	public List<DailySchdulVO> listScadul(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from (select * from dailyscadul where eno=? order by schnum desc) where rownum<10";
+		String sql="select * from (select * from dailyscadul where eno=? order by startdate asc) where rownum<10";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -194,7 +194,7 @@ public class DailySchdulDAO {
 	}
 	public List<DailySchdulVO> listScadul(MemberVO memberVO, String getDate) {
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by schnum desc) where rownum<10";
+		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by startdate asc) where rownum<10";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -237,7 +237,7 @@ public class DailySchdulDAO {
 	public List<DailySchdulVO> listScadul(MemberVO memberVO, String newStartDate, String newEndDate) {
 		// TODO Auto-generated method stub
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by schnum desc) where rownum<10";
+		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by startdate asc) where rownum<10";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -280,7 +280,7 @@ public class DailySchdulDAO {
 	public List<DailySchdulVO> listAllScadul(MemberVO memberVO, String newStartDate, String newEndDate) {
 		// TODO Auto-generated method stub
 		List<DailySchdulVO> scadulList = new ArrayList<DailySchdulVO>();
-		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by schnum desc)";
+		String sql="select * from (select * from dailyscadul where eno=? and startdate between ? and ? order by startdate asc)";
 		System.out.println(sql);
 		Connection conn = null;
 		PreparedStatement pstmt = null;

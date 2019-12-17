@@ -82,13 +82,13 @@ function fn_modify(url){
 							<input type="text" name="txtname" value="${board.txtname}">
 						</div>
 					</div>
-					<div class="cjaqnvkdlf">
+					<!-- <div class="cjaqnvkdlf">
 						<div>
 							<h2>첨부파일</h2>
 						</div>
 						<input type="file" id="file" multiple>
 					</div>
-
+ -->
 					<div class="logo">
 						<a><img src="${contextPath}/Board01/img/logo3.gif"></a>
 					</div>
@@ -98,7 +98,7 @@ function fn_modify(url){
 					</div>
 					<div class="gkeks">
 						<div class="rksrur_bottom_left">
-							<button class="back">돌아가기</button>
+							<button type="button" class="back">돌아가기</button>
 						</div>
 						<div class="rksrur_bottom_right">
 							<button class="make" onclick="fn_modify('${contextPath}');">
