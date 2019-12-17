@@ -31,13 +31,13 @@
 		<h1>6기 1조 프로젝트 게시판</h1>
 		<div class="side">
 			<a href="${contextPath}/Board/noticeBoardMain.do">
-				<div>전체</div>
+				<div <c:if test="${noticeList==null}">style="color:white" </c:if>>전체</div>
 			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=1">
-				<div>부서</div>
+				<div <c:if test="${noticeList==1}">style="color:white" </c:if>>부서</div>
 			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=2">
-				<div>취미</div>
+				<div <c:if test="${noticeList==2}">style="color:white" </c:if>>취미</div>
 			</a> <a href="${contextPath}/Board/noticeBoardMain.do?noticeList=3">
-				<div>자유</div>
+				<div <c:if test="${noticeList==3}">style="color:white" </c:if>>자유</div>
 			</a>
 		</div>
 

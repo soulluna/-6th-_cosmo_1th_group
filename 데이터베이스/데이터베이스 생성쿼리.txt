@@ -85,7 +85,7 @@ rank varchar2(8) not null,
     comdate date default sysdate,
     constraint COM_PK primary key(comnum),
     constraint COM_FK1 foreign key(eno,ename,rank) references employee(eno,ename,rank),
-    constraint COM_FK2 foreign key(txtnum) references notice(txtnum)
+    constraint COM_FK2 foreign key(txtnum) references notice(txtnum) on delete cascade
 );
 
 --각종 시퀀스
