@@ -181,7 +181,7 @@ function docDelete(pageNum, pageSessionNum, searchKey, searchType, sendReceive, 
 						<button type="button" onclick="draftCheck()" disabled>등록</button>
 
 						<c:choose>
-							<c:when test="${approvalVO.eno==loginUser.eno && approvalVO.progress == '대기'}">
+							<c:when test="${approvalVO.eno==loginUser.eno && (approvalVO.progress == '대기' || approvalVO.progress == '반려1' || approvalVO.progress == '반려2')}">
 								<button type="button"
 									onclick="docModify('${pageNum}','${pageSessionNum}','${searchKey}','${searchType}','${sendReceive}','${serachDocState}','${serachDocList}','${searchDatepicker1}','${searchDatepicker2}')"
 								>수정</button>

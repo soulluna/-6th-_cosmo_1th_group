@@ -698,7 +698,7 @@ public class ApprovalDAO {
 	// 휴가신청서 수정
 	public void modifyvacation(ApprovalVO aVO, int txtnum) {
 		// TODO Auto-generated method stub
-		String query = "update Approval set txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
+		String query = "update Approval set PROGRESS = '대기', MIDDATE = null, FINDATE = null, txtname=?, txtcont=?, VACLIST=?, VACSTART=?, VACEND=?, entrydate=TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS') where txtnum=?";
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String currentTime = sdf.format(dt);
