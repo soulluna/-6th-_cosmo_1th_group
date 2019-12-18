@@ -179,7 +179,7 @@
 						</tr>
 						<tr>
 							<td>
-								<br> 2. 1번 보기를 선택한 사유를 쓰세요.${approvalVO.vaclist}<br>
+								<br> 2. 1번 보기를 선택한 사유를 쓰세요.<br>
 								<textarea class="inputContent" name="reason" placeholder="사유을 입력해주세요." required maxlength="1000">${approvalVO.txtcont}</textarea>
 							</td>
 						</tr>
