@@ -94,7 +94,7 @@
 										</c:choose>
 										<td class="co2">${board.txtnum}</td>
 										<td class="co3"><a
-											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}">${board.txtname}</a>
+											href="${contextPath}/Board/details.do?txtnum=${board.txtnum}&pageNum=${pagingMap.pageNum}&comcount=${board.comcount}">${board.txtname}</a>
 										 <c:if test="${board.comcount != 0}"><span>[${board.comcount}]</span></c:if>
 										 </td>
 										<td class="co4">${board.ename}</td>
