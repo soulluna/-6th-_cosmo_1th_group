@@ -46,10 +46,13 @@ function idok(eno){
 <title>중복확인</title>
 </head>
 <body>
-	<form action="enoCheck.do" method="get" name="frm" class="frm">
+	<form action="${contextPath}/Main/enoCheck.do" method="get" name="frm" class="frm">
 		사원번호 <input type="text" name="eno" value="${eno}" id="userID"> 
 		<input class="chkId" type="submit" value="중복확인" onclick="return enoCheck();">
 		<br>
+		<script>
+			document.frm.userID.value=opener.document.join.eno.value;
+		</script>
 		<c:if test="${result==1}">
 			<script>
 				opener.document.join.eno.value=""; 
@@ -58,6 +61,9 @@ function idok(eno){
 		</c:if>
 		<c:if test="${result==-1}">
 		${eno}는 사용한 가능한 사원번호입니다.
+		<script>
+			document.frm.userID.value=${eno};
+		</script>
 		<input type="button" value="사용" onclick="idok('${eno}');" class="chkId">
 		</c:if>
 	</form>

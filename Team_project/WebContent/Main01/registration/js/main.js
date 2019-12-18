@@ -15,7 +15,7 @@ function enoCheck(url){
 	if(!check(regexpId,userID,"사원번호는 10자리의 숫자만 입력해주세요")){
 		return false;
 	}
-	var nextPage = url+"/Main/enoCheckForm.do";
+	var nextPage = url+"/Main01/registration/enoCheck.jsp";
 	window.open(nextPage, "_blank_1","toolbar=no, scrollbars=yes, menubar=no, resizeable=no, width=450, height=200");
 
 	function check(regexpId, what, message) {
