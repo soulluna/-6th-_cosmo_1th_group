@@ -31,7 +31,7 @@
 			<div class="main_tkdtp">
 				<P>${board.ename}</P>
 				<p>댓글</p>
-				<p>${board.comtotal}</p>
+				<p>${comcount}</p>
 				<p>조회수</p>
 				<p>${board.viewtotal}</p>
 				<p>추천수</p>

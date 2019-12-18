@@ -206,6 +206,7 @@ public class BoardController extends HttpServlet {
 					ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
 					String txtnum = request.getParameter("txtnum");// article번호를 읽어와서 articleNo 에 따른 db의 데이터를 가져오기위함
 					String pageNum = request.getParameter("pageNum");
+					String comcount= request.getParameter("comcount");
 					int maxTxtnum = boardservice.docMaxCount();
 					int minTxtnum = boardservice.docMinCount();
 					System.out.println("txtnum : "+txtnum);
@@ -217,6 +218,7 @@ public class BoardController extends HttpServlet {
 					request.setAttribute("commentList", commentList);
 					request.setAttribute("maxTxtnum", maxTxtnum);
 					request.setAttribute("minTxtnum", minTxtnum);
+					request.setAttribute("comcount", comcount);
 					nextPage = "/Board01/details.jsp";// 결과페이지를 이동하기 위해 nextPage에 경로 지정
 
 				} else if(action.equals("/viewPrev.do")) {//이전글 보기
@@ -318,21 +320,7 @@ public class BoardController extends HttpServlet {
 					commentDAO.insertComment(commentVO);
 					request.setAttribute("pageNum", request.getParameter("pageNum"));
 					nextPage = "/Board/details.do?txtnum="+txtnum;
-				} else if(action.equals("/updateCommentForm.do")) {
-					System.out.println("updateCommentForm.do");
-					CommentDAO commentDAO = new CommentDAO();
-					String comnum="0";
-					String prevComcont="";
-					comnum=request.getParameter("comnum");
-					String txtnum = request.getParameter("txtnum");
-					if(!comnum.equals("0")) {
-						prevComcont = commentDAO.getComcont(comnum);
-					}
-					request.setAttribute("pageNum", request.getParameter("pageNum"));
-					request.setAttribute("updateComment", comnum);
-					request.setAttribute("prevComcont", prevComcont);
-					nextPage = "/Board/details.do?txtnum="+txtnum;
-
+					
 				} else if(action.equals("/delComment.do")) {
 					System.out.println("delComment.do");
 					String comnum = request.getParameter("comnum");
@@ -341,9 +329,8 @@ public class BoardController extends HttpServlet {
 					commentDAO.deleteComment(comnum);
 					request.setAttribute("pageNum", request.getParameter("pageNum"));
 					nextPage = "/Board/details.do?txtnum="+txtnum;
-				}
-
-				else {
+					
+				} else {
 					/* boardList = boardservice.listBoard(); */
 					request.setAttribute("boardsList", boardList);
 					nextPage = "/Board01/noticeBoardMain.jsp";
