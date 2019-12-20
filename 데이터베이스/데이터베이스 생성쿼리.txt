@@ -1,9 +1,9 @@
 ﻿--scott1 계정 생성하고 모든 권한 부여, 
 conn system/1234
 create user scott1 identified by scott1;
-grant connect, dba, resource to scott1;
-
-conn scott1/scott1
+grant connect, dba, resource to tiger1;
+commit;
+conn scott1/tiger1;
 
 --부서 테이블
 create table EMPLOYEE(
